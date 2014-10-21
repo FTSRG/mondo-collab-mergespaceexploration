@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wtc:WT xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wtc="http://WTSpec/2.01" ID="1" sysId="WTModel_1" model="WTModel" version="1.0">
+  <itsSubsystems ID="2" sysId="Subsystem_01" description="desc">
+    <itsWTCs xsi:type="wtc:CtrlUnit2" ID="6" sysId="CtrlUnit2_1" description="desc" cycle="3" priority="1" Input__iTwistAngle="7" Output__oNorthDirection="8" Parameter__pNorthOffset="4"/>
+  </itsSubsystems>
+  <itsSubsystems ID="3" sysId="Subsystem_02" description="desc">
+    <itsWTCs xsi:type="wtc:CtrlUnit2" ID="9" sysId="CtrlUnit2_2" description="desc" cycle="4" priority="2" Input__iTwistAngle="7" Output__oNorthDirection="8" Parameter__pNorthOffset="4"/>
+  </itsSubsystems>
+  <itsParams ID="4" sysId="PA_1" value="10"/>
+  <itsVariables ID="7" sysId="VA_1"/>
+  <itsVariables ID="8" sysId="VA_2"/>
+</wtc:WT>

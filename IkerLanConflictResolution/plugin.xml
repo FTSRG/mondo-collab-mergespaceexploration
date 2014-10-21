@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         id="patterns.WTinLocal"
+         point="org.eclipse.incquery.runtime.queryspecification">
+      <matcher
+            querySpecificationProvider="patterns.util.WTinLocalQuerySpecification$Provider"
+            id="patterns.WTinLocal">
+      </matcher>
+   </extension>
+   <extension
+         id="patterns.WTinRemote"
+         point="org.eclipse.incquery.runtime.queryspecification">
+      <matcher
+            querySpecificationProvider="patterns.util.WTinRemoteQuerySpecification$Provider"
+            id="patterns.WTinRemote">
+      </matcher>
+   </extension>
+   <extension
+         id="patterns.WTinOriginal"
+         point="org.eclipse.incquery.runtime.queryspecification">
+      <matcher
+            querySpecificationProvider="patterns.util.WTinOriginalQuerySpecification$Provider"
+            id="patterns.WTinOriginal">
+      </matcher>
+   </extension>
+   <extension
+         id="patterns.SubsystemInLocal"
+         point="org.eclipse.incquery.runtime.queryspecification">
+      <matcher
+            querySpecificationProvider="patterns.util.SubsystemInLocalQuerySpecification$Provider"
+            id="patterns.SubsystemInLocal">
+      </matcher>
+   </extension>
+   <extension
+         id="patterns.SubsystemInRemote"
+         point="org.eclipse.incquery.runtime.queryspecification">
+      <matcher
+            querySpecificationProvider="patterns.util.SubsystemInRemoteQuerySpecification$Provider"
+            id="patterns.SubsystemInRemote">
+      </matcher>
+   </extension>
+   <extension
+         id="patterns.SubsystemInOriginal"
+         point="org.eclipse.incquery.runtime.queryspecification">
+      <matcher
+            querySpecificationProvider="patterns.util.SubsystemInOriginalQuerySpecification$Provider"
+            id="patterns.SubsystemInOriginal">
+      </matcher>
+   </extension>
+
+</plugin>
