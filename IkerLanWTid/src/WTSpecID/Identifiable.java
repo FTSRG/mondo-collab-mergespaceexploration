@@ -30,12 +30,12 @@ public interface Identifiable extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>ID</em>' attribute.
-	 * @see #setID(int)
+	 * @see #setID(String)
 	 * @see WTSpecID.WTSpecIDPackage#getIdentifiable_ID()
 	 * @model id="true"
 	 * @generated
 	 */
-	int getID();
+	String getID();
 
 	/**
 	 * Sets the value of the '{@link WTSpecID.Identifiable#getID <em>ID</em>}' attribute.
@@ -45,6 +45,6 @@ public interface Identifiable extends EObject {
 	 * @see #getID()
 	 * @generated
 	 */
-	void setID(int value);
+	void setID(String value);
 
 } // Identifiable

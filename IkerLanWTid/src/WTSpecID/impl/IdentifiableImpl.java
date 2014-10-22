@@ -34,7 +34,7 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int ID_EDEFAULT = 0;
+	protected static final String ID_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getID() <em>ID</em>}' attribute.
@@ -44,7 +44,7 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	 * @generated
 	 * @ordered
 	 */
-	protected int id = ID_EDEFAULT;
+	protected String id = ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -70,7 +70,7 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getID() {
+	public String getID() {
 		return id;
 	}
 
@@ -79,8 +79,8 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setID(int newID) {
-		int oldID = id;
+	public void setID(String newID) {
+		String oldID = id;
 		id = newID;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, WTSpecIDPackage.IDENTIFIABLE__ID, oldID, id));
@@ -109,7 +109,7 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WTSpecIDPackage.IDENTIFIABLE__ID:
-				setID((Integer)newValue);
+				setID((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -139,7 +139,7 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WTSpecIDPackage.IDENTIFIABLE__ID:
-				return id != ID_EDEFAULT;
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
 		return super.eIsSet(featureID);
 	}

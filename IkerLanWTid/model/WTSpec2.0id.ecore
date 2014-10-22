@@ -3,7 +3,7 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmi:id="_sQsUEBaMEd-hGP05l0in9g" name="WTSpecID" nsURI="http://WTSpec/2.01"
     nsPrefix="wtc">
   <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" xmi:id="_sRSxABaMEd-hGP05l0in9g" name="WT"
