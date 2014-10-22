@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/MyDiffModel/src" modelPluginID="MyDiffModel" modelName="Diffmodel"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>diffmodel.ecore</foreignModel>
+  <genPackages prefix="DiffModel" disposableProviderFactory="true" ecorePackage="diffmodel.ecore#/">
+    <genClasses ecoreClass="diffmodel.ecore#//DiffContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/CreateDiffs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/DeleteDiffs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/SetAttrDiffs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/SetRefDiffs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/ResetAttrDiffs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/ResetRefDiffs"/>
+    </genClasses>
+    <genClasses ecoreClass="diffmodel.ecore#//Create">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//Create/type"/>
+    </genClasses>
+    <genClasses ecoreClass="diffmodel.ecore#//Delete"/>
+    <genClasses ecoreClass="diffmodel.ecore#//SetAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//SetAttribute/attribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//SetAttribute/value"/>
+    </genClasses>
+    <genClasses ecoreClass="diffmodel.ecore#//SetReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//SetReference/reference"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//SetReference/refID"/>
+    </genClasses>
+    <genClasses ecoreClass="diffmodel.ecore#//ResetAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//ResetAttribute/attribute"/>
+    </genClasses>
+    <genClasses ecoreClass="diffmodel.ecore#//ResetReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//ResetReference/reference"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="diffmodel.ecore#//Identifiable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//Identifiable/id"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
