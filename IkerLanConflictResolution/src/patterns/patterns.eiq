@@ -1,0 +1,43 @@
+package patterns
+
+import "http://WTSpec/2.01"
+import "http://diffmodel/1.0"
+import "http://modelcontainer/1.0"
+
+pattern create(createOp : Create) {
+	Create(createOp);
+}
+
+pattern delete(deleteOp : Delete) {
+	Delete(deleteOp);
+}
+
+pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, id);
+	SetAttribute.id(setAttrOp, id);
+}
+
+pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, id);
+	SetReference.id(setRefOp, id);
+}
+
+pattern resetAttribute(resetAttrOp : ResetAttribute, target : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, id);
+	ResetAttribute.id(resetAttrOp, id);
+}
+
+pattern resetReference(resetRefOp : ResetReference, target : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, id);
+	ResetReference.id(resetRefOp, id);
+}
+
+pattern addToList(addToListOp : AddToList, target : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, id);
+	AddToList.id(addToListOp, id);
+}
+
+pattern removeFromList(removeFromListOp : RemoveFromList, target : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, id);
+	RemoveFromList.id(removeFromListOp, id);
+}

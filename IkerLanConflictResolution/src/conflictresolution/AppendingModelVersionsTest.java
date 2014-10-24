@@ -18,38 +18,40 @@ import org.junit.Test;
 
 import WTSpecID.WTSpecIDFactory;
 import WTSpecID.WT;
-import versioncontainer.MainRoot;
+import DiffModel.DiffContainer;
+//import versioncontainer.MainRoot;
+import ModelContainer.MainRoot;
 
 public class AppendingModelVersionsTest {
 
 	@Test
 	public void appendingModelsTest() throws IncQueryException {
 		
-		System.out.println("Appending original, remote and local versions of a WTid intancemodel... ");
+		System.out.println("Appending original and deltas (deltaOA, deltaOB) of a WTid intancemodel... ");
 		
 		// Creating resources...
 		
-		ResourceSet originalRS = new ResourceSetImpl();
+		ResourceSet rS = new ResourceSetImpl();
 		
-		ResourceSet remoteRS = new ResourceSetImpl();
+//		ResourceSet remoteRS = new ResourceSetImpl();
+//		
+//		ResourceSet localRS = new ResourceSetImpl();
 		
-		ResourceSet localRS = new ResourceSetImpl();
-		
-		Resource original = originalRS.getResource(
+		Resource original = rS.getResource(
 				URI.createPlatformPluginURI("/IkerLanConflictResolution/instancemodels/original.wtspecid", true), true);
 		
-		Resource remote = remoteRS.getResource(
-				URI.createPlatformPluginURI("/IkerLanConflictResolution/instancemodels/remote.wtspecid", true), true);
+		Resource deltaOB = rS.getResource(
+				URI.createPlatformPluginURI("/IkerLanConflictResolution/instancemodels/deltaOB.diffmodel", true), true);
 		
-		Resource local = localRS.getResource(
-				URI.createPlatformPluginURI("/IkerLanConflictResolution/instancemodels/local.wtspecid", true), true);
+		Resource deltaOA = rS.getResource(
+				URI.createPlatformPluginURI("/IkerLanConflictResolution/instancemodels/deltaOA.diffmodel", true), true);
 		
-		System.out.println("Original, remote and local versions are loaded into resources... ");
+		System.out.println("Original and deltas are loaded into resources... ");
 		
-		ResourceSet appendedRS = new ResourceSetImpl();
+//		ResourceSet appendedRS = new ResourceSetImpl();
 		
-		Resource appended = appendedRS.getResource(
-				URI.createPlatformPluginURI("/IkerLanConflictResolution/instancemodels/empty.versioncontainer", true), true);
+		Resource appended = rS.getResource(
+				URI.createPlatformPluginURI("/IkerLanConflictResolution/instancemodels/empty.modelcontainer", true), true);
 		
 		// Getting root elements...
 		
@@ -57,9 +59,9 @@ public class AppendingModelVersionsTest {
 		
 		WT originalRoot = (WT) original.getContents().get(0);
 		
-		WT remoteRoot = (WT) remote.getContents().get(0);
+		DiffContainer deltaOBRoot = (DiffContainer) deltaOB.getContents().get(0);
 		
-		WT localRoot = (WT) local.getContents().get(0);
+		DiffContainer deltaOARoot = (DiffContainer) deltaOA.getContents().get(0);
 		
 		System.out.println("Root elements are loaded... ");
 		
@@ -67,18 +69,18 @@ public class AppendingModelVersionsTest {
 		
 		mainRoot.setOriginal(originalRoot);
 		System.out.println(mainRoot.getOriginal().toString());
-		mainRoot.setRemote(remoteRoot);
-		System.out.println(mainRoot.getRemote().toString());
-		mainRoot.setLocal(localRoot);
-		System.out.println(mainRoot.getLocal().toString());
+		mainRoot.setDeltaOB(deltaOBRoot);
+		System.out.println(mainRoot.getDeltaOB().toString());
+		mainRoot.setDeltaOA(deltaOARoot);
+		System.out.println(mainRoot.getDeltaOA().toString());
 		System.out.println("Root elements are appended to the MainRoot... ");
 		
-		// create engine on resource set to access match results
-		IncQueryEngine engine = IncQueryEngine.on(appendedRS);
+//		// create engine on resource set to access match results
+//		IncQueryEngine engine = IncQueryEngine.on(rS);
 		
 		OutputStream output;
 		try {
-			output = new FileOutputStream("C:\\Users\\Marci\\Desktop\\3versions.versioncontainer");
+			output = new FileOutputStream("C:\\Users\\Marci\\Desktop\\originalWithDeltas.modelcontainer");
 			
 			appended.save(output, null);
 

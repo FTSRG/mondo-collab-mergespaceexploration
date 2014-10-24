@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diffmodel:DiffContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diffmodel="http://diffmodel/1.0">
+  <CreateDiffs id="9" type="CtrlUnit2"/>
+  <DeleteDiffs id="5"/>
+  <SetAttrDiffs id="4" attribute="value" value="10"/>
+  <SetRefDiffs id="9" reference="Parameter__pNorthOffset" refID="4"/>
+  <AddToListDiffs id="3" list="itsWTCs" refID="9"/>
+  <RemoveFromListDiffs id="1" list="itsParams" refID="5"/>
+</diffmodel:DiffContainer>
