@@ -13,5 +13,5 @@ package WTSpecID;
  * @model abstract="true"
  * @generated
  */
-public interface WTCTimer extends Identifiable {
+public interface WTCTimer extends IdentifiableWTElement {
 } // WTCTimer

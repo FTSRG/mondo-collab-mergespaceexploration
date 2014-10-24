@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public abstract class WTCInputImpl extends IdentifiableImpl implements WTCInput {
+public abstract class WTCInputImpl extends IdentifiableWTElementImpl implements WTCInput {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

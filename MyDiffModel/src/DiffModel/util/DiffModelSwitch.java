@@ -120,6 +120,20 @@ public class DiffModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case DiffModelPackage.ADD_TO_LIST: {
+				AddToList addToList = (AddToList)theEObject;
+				T result = caseAddToList(addToList);
+				if (result == null) result = caseIdentifiable(addToList);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DiffModelPackage.REMOVE_FROM_LIST: {
+				RemoveFromList removeFromList = (RemoveFromList)theEObject;
+				T result = caseRemoveFromList(removeFromList);
+				if (result == null) result = caseIdentifiable(removeFromList);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -241,6 +255,36 @@ public class DiffModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIdentifiable(Identifiable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Add To List</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Add To List</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAddToList(AddToList object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Remove From List</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Remove From List</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRemoveFromList(RemoveFromList object) {
 		return null;
 	}
 

@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public abstract class WTCTimerImpl extends IdentifiableImpl implements WTCTimer {
+public abstract class WTCTimerImpl extends IdentifiableWTElementImpl implements WTCTimer {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

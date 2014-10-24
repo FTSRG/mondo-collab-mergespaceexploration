@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="WTSpecID" nsURI="http://WTSpec/2.01" nsPrefix="wtc">
-  <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="IdentifiableWTElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         iD="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WT" eSuperTypes="#//Identifiable">
+  <eClassifiers xsi:type="ecore:EClass" name="WT" eSuperTypes="#//IdentifiableWTElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sysId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="model" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -50,13 +50,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="SystemErrorReaction" eSuperTypes="#//WTCErrorReaction">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sysId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WTCInput" abstract="true" eSuperTypes="#//Identifiable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="WTCOutput" abstract="true" eSuperTypes="#//Identifiable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="WTCParam" abstract="true" eSuperTypes="#//Identifiable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="WTCTimer" abstract="true" eSuperTypes="#//Identifiable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="WTCFault" abstract="true" eSuperTypes="#//Identifiable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="WTCErrorReaction" abstract="true" eSuperTypes="#//Identifiable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Subsystem" eSuperTypes="#//Identifiable">
+  <eClassifiers xsi:type="ecore:EClass" name="WTCInput" abstract="true" eSuperTypes="#//IdentifiableWTElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WTCOutput" abstract="true" eSuperTypes="#//IdentifiableWTElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WTCParam" abstract="true" eSuperTypes="#//IdentifiableWTElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WTCTimer" abstract="true" eSuperTypes="#//IdentifiableWTElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WTCFault" abstract="true" eSuperTypes="#//IdentifiableWTElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WTCErrorReaction" abstract="true" eSuperTypes="#//IdentifiableWTElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Subsystem" eSuperTypes="#//IdentifiableWTElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sysId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="itsWTCs" upperBound="-1"
@@ -64,7 +64,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="itsSubsystems" upperBound="-1"
         eType="#//Subsystem" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="wtc" abstract="true" eSuperTypes="#//Identifiable">
+  <eClassifiers xsi:type="ecore:EClass" name="wtc" abstract="true" eSuperTypes="#//IdentifiableWTElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sysId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="cycle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EShort"/>

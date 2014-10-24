@@ -68,8 +68,8 @@ public class WTSpecIDAdapterFactory extends AdapterFactoryImpl {
 	protected WTSpecIDSwitch<Adapter> modelSwitch =
 		new WTSpecIDSwitch<Adapter>() {
 			@Override
-			public Adapter caseIdentifiable(Identifiable object) {
-				return createIdentifiableAdapter();
+			public Adapter caseIdentifiableWTElement(IdentifiableWTElement object) {
+				return createIdentifiableWTElementAdapter();
 			}
 			@Override
 			public Adapter caseWT(WT object) {
@@ -688,16 +688,16 @@ public class WTSpecIDAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link WTSpecID.Identifiable <em>Identifiable</em>}'.
+	 * Creates a new adapter for an object of class '{@link WTSpecID.IdentifiableWTElement <em>Identifiable WT Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see WTSpecID.Identifiable
+	 * @see WTSpecID.IdentifiableWTElement
 	 * @generated
 	 */
-	public Adapter createIdentifiableAdapter() {
+	public Adapter createIdentifiableWTElementAdapter() {
 		return null;
 	}
 

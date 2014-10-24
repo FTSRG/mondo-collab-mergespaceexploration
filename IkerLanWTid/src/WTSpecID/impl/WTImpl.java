@@ -51,7 +51,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class WTImpl extends IdentifiableImpl implements WT {
+public class WTImpl extends IdentifiableWTElementImpl implements WT {
 	/**
 	 * The default value of the '{@link #getSysId() <em>Sys Id</em>}' attribute.
 	 * <!-- begin-user-doc -->

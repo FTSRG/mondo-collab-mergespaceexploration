@@ -6,8 +6,8 @@
   <foreignModel>WTSpec2.0id.ecore</foreignModel>
   <genPackages prefix="WTSpecID" disposableProviderFactory="true" loadInitialization="true"
       literalsInterface="false" ecorePackage="WTSpec2.0id.ecore#_sQsUEBaMEd-hGP05l0in9g">
-    <genClasses image="false" ecoreClass="WTSpec2.0id.ecore#//Identifiable">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute WTSpec2.0id.ecore#//Identifiable/ID"/>
+    <genClasses image="false" ecoreClass="WTSpec2.0id.ecore#//IdentifiableWTElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute WTSpec2.0id.ecore#//IdentifiableWTElement/ID"/>
     </genClasses>
     <genClasses ecoreClass="WTSpec2.0id.ecore#_sRSxABaMEd-hGP05l0in9g">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute WTSpec2.0id.ecore#_sRSxARaMEd-hGP05l0in9g"/>

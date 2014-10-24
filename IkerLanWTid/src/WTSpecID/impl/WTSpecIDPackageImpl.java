@@ -43,7 +43,7 @@ public class WTSpecIDPackageImpl extends EPackageImpl implements WTSpecIDPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass identifiableEClass = null;
+	private EClass identifiableWTElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1152,11 +1152,11 @@ public class WTSpecIDPackageImpl extends EPackageImpl implements WTSpecIDPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIdentifiable() {
-		if (identifiableEClass == null) {
-			identifiableEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(WTSpecIDPackage.eNS_URI).getEClassifiers().get(0);
+	public EClass getIdentifiableWTElement() {
+		if (identifiableWTElementEClass == null) {
+			identifiableWTElementEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(WTSpecIDPackage.eNS_URI).getEClassifiers().get(0);
 		}
-		return identifiableEClass;
+		return identifiableWTElementEClass;
 	}
 
 	/**
@@ -1164,8 +1164,8 @@ public class WTSpecIDPackageImpl extends EPackageImpl implements WTSpecIDPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getIdentifiable_ID() {
-        return (EAttribute)getIdentifiable().getEStructuralFeatures().get(0);
+	public EAttribute getIdentifiableWTElement_ID() {
+        return (EAttribute)getIdentifiableWTElement().getEStructuralFeatures().get(0);
 	}
 
 	/**

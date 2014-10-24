@@ -57,14 +57,14 @@ public interface WTSpecIDPackage extends EPackage {
 	WTSpecIDPackage eINSTANCE = WTSpecID.impl.WTSpecIDPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link WTSpecID.impl.IdentifiableImpl <em>Identifiable</em>}' class.
+	 * The meta object id for the '{@link WTSpecID.impl.IdentifiableWTElementImpl <em>Identifiable WT Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see WTSpecID.impl.IdentifiableImpl
-	 * @see WTSpecID.impl.WTSpecIDPackageImpl#getIdentifiable()
+	 * @see WTSpecID.impl.IdentifiableWTElementImpl
+	 * @see WTSpecID.impl.WTSpecIDPackageImpl#getIdentifiableWTElement()
 	 * @generated
 	 */
-	int IDENTIFIABLE = 0;
+	int IDENTIFIABLE_WT_ELEMENT = 0;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -73,25 +73,25 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTIFIABLE__ID = 0;
+	int IDENTIFIABLE_WT_ELEMENT__ID = 0;
 
 	/**
-	 * The number of structural features of the '<em>Identifiable</em>' class.
+	 * The number of structural features of the '<em>Identifiable WT Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTIFIABLE_FEATURE_COUNT = 1;
+	int IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>Identifiable</em>' class.
+	 * The number of operations of the '<em>Identifiable WT Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTIFIABLE_OPERATION_COUNT = 0;
+	int IDENTIFIABLE_WT_ELEMENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link WTSpecID.impl.WTImpl <em>WT</em>}' class.
@@ -110,7 +110,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__ID = IDENTIFIABLE__ID;
+	int WT__ID = IDENTIFIABLE_WT_ELEMENT__ID;
 
 	/**
 	 * The feature id for the '<em><b>Sys Id</b></em>' attribute.
@@ -119,7 +119,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__SYS_ID = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int WT__SYS_ID = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Model</b></em>' attribute.
@@ -128,7 +128,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__MODEL = IDENTIFIABLE_FEATURE_COUNT + 1;
+	int WT__MODEL = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -137,7 +137,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__VERSION = IDENTIFIABLE_FEATURE_COUNT + 2;
+	int WT__VERSION = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Its Subsystems</b></em>' containment reference list.
@@ -146,7 +146,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__ITS_SUBSYSTEMS = IDENTIFIABLE_FEATURE_COUNT + 3;
+	int WT__ITS_SUBSYSTEMS = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Its Inputs</b></em>' containment reference list.
@@ -155,7 +155,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__ITS_INPUTS = IDENTIFIABLE_FEATURE_COUNT + 4;
+	int WT__ITS_INPUTS = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Its Outputs</b></em>' containment reference list.
@@ -164,7 +164,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__ITS_OUTPUTS = IDENTIFIABLE_FEATURE_COUNT + 5;
+	int WT__ITS_OUTPUTS = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Its Params</b></em>' containment reference list.
@@ -173,7 +173,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__ITS_PARAMS = IDENTIFIABLE_FEATURE_COUNT + 6;
+	int WT__ITS_PARAMS = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Its Timers</b></em>' containment reference list.
@@ -182,7 +182,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__ITS_TIMERS = IDENTIFIABLE_FEATURE_COUNT + 7;
+	int WT__ITS_TIMERS = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Its Faults</b></em>' containment reference list.
@@ -191,7 +191,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__ITS_FAULTS = IDENTIFIABLE_FEATURE_COUNT + 8;
+	int WT__ITS_FAULTS = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Its Variables</b></em>' containment reference list.
@@ -200,7 +200,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__ITS_VARIABLES = IDENTIFIABLE_FEATURE_COUNT + 9;
+	int WT__ITS_VARIABLES = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Its Error Reactions</b></em>' containment reference list.
@@ -209,7 +209,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT__ITS_ERROR_REACTIONS = IDENTIFIABLE_FEATURE_COUNT + 10;
+	int WT__ITS_ERROR_REACTIONS = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of structural features of the '<em>WT</em>' class.
@@ -218,7 +218,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 11;
+	int WT_FEATURE_COUNT = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 11;
 
 	/**
 	 * The number of operations of the '<em>WT</em>' class.
@@ -227,7 +227,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WT_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+	int WT_OPERATION_COUNT = IDENTIFIABLE_WT_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link WTSpecID.impl.WTCInputImpl <em>WTC Input</em>}' class.
@@ -246,7 +246,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_INPUT__ID = IDENTIFIABLE__ID;
+	int WTC_INPUT__ID = IDENTIFIABLE_WT_ELEMENT__ID;
 
 	/**
 	 * The number of structural features of the '<em>WTC Input</em>' class.
@@ -255,7 +255,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_INPUT_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int WTC_INPUT_FEATURE_COUNT = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>WTC Input</em>' class.
@@ -264,7 +264,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_INPUT_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+	int WTC_INPUT_OPERATION_COUNT = IDENTIFIABLE_WT_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link WTSpecID.impl.SystemInputImpl <em>System Input</em>}' class.
@@ -329,7 +329,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_OUTPUT__ID = IDENTIFIABLE__ID;
+	int WTC_OUTPUT__ID = IDENTIFIABLE_WT_ELEMENT__ID;
 
 	/**
 	 * The number of structural features of the '<em>WTC Output</em>' class.
@@ -338,7 +338,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_OUTPUT_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int WTC_OUTPUT_FEATURE_COUNT = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>WTC Output</em>' class.
@@ -347,7 +347,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_OUTPUT_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+	int WTC_OUTPUT_OPERATION_COUNT = IDENTIFIABLE_WT_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link WTSpecID.impl.SystemOutputImpl <em>System Output</em>}' class.
@@ -412,7 +412,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_FAULT__ID = IDENTIFIABLE__ID;
+	int WTC_FAULT__ID = IDENTIFIABLE_WT_ELEMENT__ID;
 
 	/**
 	 * The number of structural features of the '<em>WTC Fault</em>' class.
@@ -421,7 +421,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_FAULT_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int WTC_FAULT_FEATURE_COUNT = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>WTC Fault</em>' class.
@@ -430,7 +430,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_FAULT_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+	int WTC_FAULT_OPERATION_COUNT = IDENTIFIABLE_WT_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link WTSpecID.impl.SystemFaultImpl <em>System Fault</em>}' class.
@@ -504,7 +504,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_PARAM__ID = IDENTIFIABLE__ID;
+	int WTC_PARAM__ID = IDENTIFIABLE_WT_ELEMENT__ID;
 
 	/**
 	 * The number of structural features of the '<em>WTC Param</em>' class.
@@ -513,7 +513,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_PARAM_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int WTC_PARAM_FEATURE_COUNT = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>WTC Param</em>' class.
@@ -522,7 +522,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_PARAM_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+	int WTC_PARAM_OPERATION_COUNT = IDENTIFIABLE_WT_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link WTSpecID.impl.SystemParamImpl <em>System Param</em>}' class.
@@ -596,7 +596,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_TIMER__ID = IDENTIFIABLE__ID;
+	int WTC_TIMER__ID = IDENTIFIABLE_WT_ELEMENT__ID;
 
 	/**
 	 * The number of structural features of the '<em>WTC Timer</em>' class.
@@ -605,7 +605,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_TIMER_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int WTC_TIMER_FEATURE_COUNT = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>WTC Timer</em>' class.
@@ -614,7 +614,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_TIMER_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+	int WTC_TIMER_OPERATION_COUNT = IDENTIFIABLE_WT_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link WTSpecID.impl.SystemTimerImpl <em>System Timer</em>}' class.
@@ -734,7 +734,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_ERROR_REACTION__ID = IDENTIFIABLE__ID;
+	int WTC_ERROR_REACTION__ID = IDENTIFIABLE_WT_ELEMENT__ID;
 
 	/**
 	 * The number of structural features of the '<em>WTC Error Reaction</em>' class.
@@ -743,7 +743,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_ERROR_REACTION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int WTC_ERROR_REACTION_FEATURE_COUNT = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>WTC Error Reaction</em>' class.
@@ -752,7 +752,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_ERROR_REACTION_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+	int WTC_ERROR_REACTION_OPERATION_COUNT = IDENTIFIABLE_WT_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link WTSpecID.impl.SystemErrorReactionImpl <em>System Error Reaction</em>}' class.
@@ -817,7 +817,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SUBSYSTEM__ID = IDENTIFIABLE__ID;
+	int SUBSYSTEM__ID = IDENTIFIABLE_WT_ELEMENT__ID;
 
 	/**
 	 * The feature id for the '<em><b>Sys Id</b></em>' attribute.
@@ -826,7 +826,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SUBSYSTEM__SYS_ID = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int SUBSYSTEM__SYS_ID = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -835,7 +835,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SUBSYSTEM__DESCRIPTION = IDENTIFIABLE_FEATURE_COUNT + 1;
+	int SUBSYSTEM__DESCRIPTION = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Its WT Cs</b></em>' containment reference list.
@@ -844,7 +844,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SUBSYSTEM__ITS_WT_CS = IDENTIFIABLE_FEATURE_COUNT + 2;
+	int SUBSYSTEM__ITS_WT_CS = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Its Subsystems</b></em>' containment reference list.
@@ -853,7 +853,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SUBSYSTEM__ITS_SUBSYSTEMS = IDENTIFIABLE_FEATURE_COUNT + 3;
+	int SUBSYSTEM__ITS_SUBSYSTEMS = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Subsystem</em>' class.
@@ -862,7 +862,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SUBSYSTEM_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 4;
+	int SUBSYSTEM_FEATURE_COUNT = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Subsystem</em>' class.
@@ -871,7 +871,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SUBSYSTEM_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+	int SUBSYSTEM_OPERATION_COUNT = IDENTIFIABLE_WT_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link WTSpecID.impl.wtcImpl <em>wtc</em>}' class.
@@ -890,7 +890,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC__ID = IDENTIFIABLE__ID;
+	int WTC__ID = IDENTIFIABLE_WT_ELEMENT__ID;
 
 	/**
 	 * The feature id for the '<em><b>Sys Id</b></em>' attribute.
@@ -899,7 +899,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC__SYS_ID = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int WTC__SYS_ID = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -908,7 +908,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC__DESCRIPTION = IDENTIFIABLE_FEATURE_COUNT + 1;
+	int WTC__DESCRIPTION = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Cycle</b></em>' attribute.
@@ -917,7 +917,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC__CYCLE = IDENTIFIABLE_FEATURE_COUNT + 2;
+	int WTC__CYCLE = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Priority</b></em>' attribute.
@@ -926,7 +926,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC__PRIORITY = IDENTIFIABLE_FEATURE_COUNT + 3;
+	int WTC__PRIORITY = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>wtc</em>' class.
@@ -935,7 +935,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 4;
+	int WTC_FEATURE_COUNT = IDENTIFIABLE_WT_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>wtc</em>' class.
@@ -944,7 +944,7 @@ public interface WTSpecIDPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WTC_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+	int WTC_OPERATION_COUNT = IDENTIFIABLE_WT_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link WTSpecID.impl.CtrlUnit1Impl <em>Ctrl Unit1</em>}' class.
@@ -17947,25 +17947,25 @@ public interface WTSpecIDPackage extends EPackage {
 
 
 	/**
-	 * Returns the meta object for class '{@link WTSpecID.Identifiable <em>Identifiable</em>}'.
+	 * Returns the meta object for class '{@link WTSpecID.IdentifiableWTElement <em>Identifiable WT Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Identifiable</em>'.
-	 * @see WTSpecID.Identifiable
+	 * @return the meta object for class '<em>Identifiable WT Element</em>'.
+	 * @see WTSpecID.IdentifiableWTElement
 	 * @generated
 	 */
-	EClass getIdentifiable();
+	EClass getIdentifiableWTElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link WTSpecID.Identifiable#getID <em>ID</em>}'.
+	 * Returns the meta object for the attribute '{@link WTSpecID.IdentifiableWTElement#getID <em>ID</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>ID</em>'.
-	 * @see WTSpecID.Identifiable#getID()
-	 * @see #getIdentifiable()
+	 * @see WTSpecID.IdentifiableWTElement#getID()
+	 * @see #getIdentifiableWTElement()
 	 * @generated
 	 */
-	EAttribute getIdentifiable_ID();
+	EAttribute getIdentifiableWTElement_ID();
 
 	/**
 	 * Returns the meta object for class '{@link WTSpecID.WT <em>WT</em>}'.

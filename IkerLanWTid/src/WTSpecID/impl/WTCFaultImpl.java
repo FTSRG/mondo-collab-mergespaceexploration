@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public abstract class WTCFaultImpl extends IdentifiableImpl implements WTCFault {
+public abstract class WTCFaultImpl extends IdentifiableWTElementImpl implements WTCFault {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

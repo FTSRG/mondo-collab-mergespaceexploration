@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public abstract class wtcImpl extends IdentifiableImpl implements wtc {
+public abstract class wtcImpl extends IdentifiableWTElementImpl implements wtc {
 	/**
 	 * The default value of the '{@link #getSysId() <em>Sys Id</em>}' attribute.
 	 * <!-- begin-user-doc -->

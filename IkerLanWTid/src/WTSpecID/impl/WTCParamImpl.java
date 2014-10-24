@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public abstract class WTCParamImpl extends IdentifiableImpl implements WTCParam {
+public abstract class WTCParamImpl extends IdentifiableWTElementImpl implements WTCParam {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

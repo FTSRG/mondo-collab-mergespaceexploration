@@ -66,16 +66,16 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case WTSpecIDPackage.IDENTIFIABLE: {
-				Identifiable identifiable = (Identifiable)theEObject;
-				T result = caseIdentifiable(identifiable);
+			case WTSpecIDPackage.IDENTIFIABLE_WT_ELEMENT: {
+				IdentifiableWTElement identifiableWTElement = (IdentifiableWTElement)theEObject;
+				T result = caseIdentifiableWTElement(identifiableWTElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WTSpecIDPackage.WT: {
 				WT wt = (WT)theEObject;
 				T result = caseWT(wt);
-				if (result == null) result = caseIdentifiable(wt);
+				if (result == null) result = caseIdentifiableWTElement(wt);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -83,7 +83,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				SystemInput systemInput = (SystemInput)theEObject;
 				T result = caseSystemInput(systemInput);
 				if (result == null) result = caseWTCInput(systemInput);
-				if (result == null) result = caseIdentifiable(systemInput);
+				if (result == null) result = caseIdentifiableWTElement(systemInput);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -91,7 +91,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				SystemOutput systemOutput = (SystemOutput)theEObject;
 				T result = caseSystemOutput(systemOutput);
 				if (result == null) result = caseWTCOutput(systemOutput);
-				if (result == null) result = caseIdentifiable(systemOutput);
+				if (result == null) result = caseIdentifiableWTElement(systemOutput);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -99,7 +99,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				SystemFault systemFault = (SystemFault)theEObject;
 				T result = caseSystemFault(systemFault);
 				if (result == null) result = caseWTCFault(systemFault);
-				if (result == null) result = caseIdentifiable(systemFault);
+				if (result == null) result = caseIdentifiableWTElement(systemFault);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -107,7 +107,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				SystemParam systemParam = (SystemParam)theEObject;
 				T result = caseSystemParam(systemParam);
 				if (result == null) result = caseWTCParam(systemParam);
-				if (result == null) result = caseIdentifiable(systemParam);
+				if (result == null) result = caseIdentifiableWTElement(systemParam);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -115,7 +115,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				SystemTimer systemTimer = (SystemTimer)theEObject;
 				T result = caseSystemTimer(systemTimer);
 				if (result == null) result = caseWTCTimer(systemTimer);
-				if (result == null) result = caseIdentifiable(systemTimer);
+				if (result == null) result = caseIdentifiableWTElement(systemTimer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -124,7 +124,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				T result = caseSystemVariable(systemVariable);
 				if (result == null) result = caseWTCInput(systemVariable);
 				if (result == null) result = caseWTCOutput(systemVariable);
-				if (result == null) result = caseIdentifiable(systemVariable);
+				if (result == null) result = caseIdentifiableWTElement(systemVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -132,63 +132,63 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				SystemErrorReaction systemErrorReaction = (SystemErrorReaction)theEObject;
 				T result = caseSystemErrorReaction(systemErrorReaction);
 				if (result == null) result = caseWTCErrorReaction(systemErrorReaction);
-				if (result == null) result = caseIdentifiable(systemErrorReaction);
+				if (result == null) result = caseIdentifiableWTElement(systemErrorReaction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WTSpecIDPackage.WTC_INPUT: {
 				WTCInput wtcInput = (WTCInput)theEObject;
 				T result = caseWTCInput(wtcInput);
-				if (result == null) result = caseIdentifiable(wtcInput);
+				if (result == null) result = caseIdentifiableWTElement(wtcInput);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WTSpecIDPackage.WTC_OUTPUT: {
 				WTCOutput wtcOutput = (WTCOutput)theEObject;
 				T result = caseWTCOutput(wtcOutput);
-				if (result == null) result = caseIdentifiable(wtcOutput);
+				if (result == null) result = caseIdentifiableWTElement(wtcOutput);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WTSpecIDPackage.WTC_PARAM: {
 				WTCParam wtcParam = (WTCParam)theEObject;
 				T result = caseWTCParam(wtcParam);
-				if (result == null) result = caseIdentifiable(wtcParam);
+				if (result == null) result = caseIdentifiableWTElement(wtcParam);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WTSpecIDPackage.WTC_TIMER: {
 				WTCTimer wtcTimer = (WTCTimer)theEObject;
 				T result = caseWTCTimer(wtcTimer);
-				if (result == null) result = caseIdentifiable(wtcTimer);
+				if (result == null) result = caseIdentifiableWTElement(wtcTimer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WTSpecIDPackage.WTC_FAULT: {
 				WTCFault wtcFault = (WTCFault)theEObject;
 				T result = caseWTCFault(wtcFault);
-				if (result == null) result = caseIdentifiable(wtcFault);
+				if (result == null) result = caseIdentifiableWTElement(wtcFault);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WTSpecIDPackage.WTC_ERROR_REACTION: {
 				WTCErrorReaction wtcErrorReaction = (WTCErrorReaction)theEObject;
 				T result = caseWTCErrorReaction(wtcErrorReaction);
-				if (result == null) result = caseIdentifiable(wtcErrorReaction);
+				if (result == null) result = caseIdentifiableWTElement(wtcErrorReaction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WTSpecIDPackage.SUBSYSTEM: {
 				Subsystem subsystem = (Subsystem)theEObject;
 				T result = caseSubsystem(subsystem);
-				if (result == null) result = caseIdentifiable(subsystem);
+				if (result == null) result = caseIdentifiableWTElement(subsystem);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WTSpecIDPackage.WTC: {
 				wtc wtc = (wtc)theEObject;
 				T result = casewtc(wtc);
-				if (result == null) result = caseIdentifiable(wtc);
+				if (result == null) result = caseIdentifiableWTElement(wtc);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -196,7 +196,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit1 ctrlUnit1 = (CtrlUnit1)theEObject;
 				T result = caseCtrlUnit1(ctrlUnit1);
 				if (result == null) result = casewtc(ctrlUnit1);
-				if (result == null) result = caseIdentifiable(ctrlUnit1);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit1);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -204,7 +204,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit2 ctrlUnit2 = (CtrlUnit2)theEObject;
 				T result = caseCtrlUnit2(ctrlUnit2);
 				if (result == null) result = casewtc(ctrlUnit2);
-				if (result == null) result = caseIdentifiable(ctrlUnit2);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit2);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -212,7 +212,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit3 ctrlUnit3 = (CtrlUnit3)theEObject;
 				T result = caseCtrlUnit3(ctrlUnit3);
 				if (result == null) result = casewtc(ctrlUnit3);
-				if (result == null) result = caseIdentifiable(ctrlUnit3);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit3);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -220,7 +220,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit4 ctrlUnit4 = (CtrlUnit4)theEObject;
 				T result = caseCtrlUnit4(ctrlUnit4);
 				if (result == null) result = casewtc(ctrlUnit4);
-				if (result == null) result = caseIdentifiable(ctrlUnit4);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit4);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -228,7 +228,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit5 ctrlUnit5 = (CtrlUnit5)theEObject;
 				T result = caseCtrlUnit5(ctrlUnit5);
 				if (result == null) result = casewtc(ctrlUnit5);
-				if (result == null) result = caseIdentifiable(ctrlUnit5);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit5);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -236,7 +236,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit6 ctrlUnit6 = (CtrlUnit6)theEObject;
 				T result = caseCtrlUnit6(ctrlUnit6);
 				if (result == null) result = casewtc(ctrlUnit6);
-				if (result == null) result = caseIdentifiable(ctrlUnit6);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit6);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -244,7 +244,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit7 ctrlUnit7 = (CtrlUnit7)theEObject;
 				T result = caseCtrlUnit7(ctrlUnit7);
 				if (result == null) result = casewtc(ctrlUnit7);
-				if (result == null) result = caseIdentifiable(ctrlUnit7);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit7);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -252,7 +252,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit8 ctrlUnit8 = (CtrlUnit8)theEObject;
 				T result = caseCtrlUnit8(ctrlUnit8);
 				if (result == null) result = casewtc(ctrlUnit8);
-				if (result == null) result = caseIdentifiable(ctrlUnit8);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit8);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -260,7 +260,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit9 ctrlUnit9 = (CtrlUnit9)theEObject;
 				T result = caseCtrlUnit9(ctrlUnit9);
 				if (result == null) result = casewtc(ctrlUnit9);
-				if (result == null) result = caseIdentifiable(ctrlUnit9);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit9);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -268,7 +268,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit10 ctrlUnit10 = (CtrlUnit10)theEObject;
 				T result = caseCtrlUnit10(ctrlUnit10);
 				if (result == null) result = casewtc(ctrlUnit10);
-				if (result == null) result = caseIdentifiable(ctrlUnit10);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit10);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -276,7 +276,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit11 ctrlUnit11 = (CtrlUnit11)theEObject;
 				T result = caseCtrlUnit11(ctrlUnit11);
 				if (result == null) result = casewtc(ctrlUnit11);
-				if (result == null) result = caseIdentifiable(ctrlUnit11);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit11);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -284,7 +284,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit12 ctrlUnit12 = (CtrlUnit12)theEObject;
 				T result = caseCtrlUnit12(ctrlUnit12);
 				if (result == null) result = casewtc(ctrlUnit12);
-				if (result == null) result = caseIdentifiable(ctrlUnit12);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit12);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -292,7 +292,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit13 ctrlUnit13 = (CtrlUnit13)theEObject;
 				T result = caseCtrlUnit13(ctrlUnit13);
 				if (result == null) result = casewtc(ctrlUnit13);
-				if (result == null) result = caseIdentifiable(ctrlUnit13);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit13);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -300,7 +300,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit14 ctrlUnit14 = (CtrlUnit14)theEObject;
 				T result = caseCtrlUnit14(ctrlUnit14);
 				if (result == null) result = casewtc(ctrlUnit14);
-				if (result == null) result = caseIdentifiable(ctrlUnit14);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit14);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -308,7 +308,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit15 ctrlUnit15 = (CtrlUnit15)theEObject;
 				T result = caseCtrlUnit15(ctrlUnit15);
 				if (result == null) result = casewtc(ctrlUnit15);
-				if (result == null) result = caseIdentifiable(ctrlUnit15);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit15);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -316,7 +316,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit16 ctrlUnit16 = (CtrlUnit16)theEObject;
 				T result = caseCtrlUnit16(ctrlUnit16);
 				if (result == null) result = casewtc(ctrlUnit16);
-				if (result == null) result = caseIdentifiable(ctrlUnit16);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit16);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -324,7 +324,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit17 ctrlUnit17 = (CtrlUnit17)theEObject;
 				T result = caseCtrlUnit17(ctrlUnit17);
 				if (result == null) result = casewtc(ctrlUnit17);
-				if (result == null) result = caseIdentifiable(ctrlUnit17);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit17);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -332,7 +332,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit18 ctrlUnit18 = (CtrlUnit18)theEObject;
 				T result = caseCtrlUnit18(ctrlUnit18);
 				if (result == null) result = casewtc(ctrlUnit18);
-				if (result == null) result = caseIdentifiable(ctrlUnit18);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit18);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -340,7 +340,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit19 ctrlUnit19 = (CtrlUnit19)theEObject;
 				T result = caseCtrlUnit19(ctrlUnit19);
 				if (result == null) result = casewtc(ctrlUnit19);
-				if (result == null) result = caseIdentifiable(ctrlUnit19);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit19);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -348,7 +348,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit20 ctrlUnit20 = (CtrlUnit20)theEObject;
 				T result = caseCtrlUnit20(ctrlUnit20);
 				if (result == null) result = casewtc(ctrlUnit20);
-				if (result == null) result = caseIdentifiable(ctrlUnit20);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit20);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -356,7 +356,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit21 ctrlUnit21 = (CtrlUnit21)theEObject;
 				T result = caseCtrlUnit21(ctrlUnit21);
 				if (result == null) result = casewtc(ctrlUnit21);
-				if (result == null) result = caseIdentifiable(ctrlUnit21);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit21);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -364,7 +364,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit22 ctrlUnit22 = (CtrlUnit22)theEObject;
 				T result = caseCtrlUnit22(ctrlUnit22);
 				if (result == null) result = casewtc(ctrlUnit22);
-				if (result == null) result = caseIdentifiable(ctrlUnit22);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit22);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -372,7 +372,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit23 ctrlUnit23 = (CtrlUnit23)theEObject;
 				T result = caseCtrlUnit23(ctrlUnit23);
 				if (result == null) result = casewtc(ctrlUnit23);
-				if (result == null) result = caseIdentifiable(ctrlUnit23);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit23);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -380,7 +380,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit24 ctrlUnit24 = (CtrlUnit24)theEObject;
 				T result = caseCtrlUnit24(ctrlUnit24);
 				if (result == null) result = casewtc(ctrlUnit24);
-				if (result == null) result = caseIdentifiable(ctrlUnit24);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit24);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -388,7 +388,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit25 ctrlUnit25 = (CtrlUnit25)theEObject;
 				T result = caseCtrlUnit25(ctrlUnit25);
 				if (result == null) result = casewtc(ctrlUnit25);
-				if (result == null) result = caseIdentifiable(ctrlUnit25);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit25);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -396,7 +396,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit26 ctrlUnit26 = (CtrlUnit26)theEObject;
 				T result = caseCtrlUnit26(ctrlUnit26);
 				if (result == null) result = casewtc(ctrlUnit26);
-				if (result == null) result = caseIdentifiable(ctrlUnit26);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit26);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -404,7 +404,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit27 ctrlUnit27 = (CtrlUnit27)theEObject;
 				T result = caseCtrlUnit27(ctrlUnit27);
 				if (result == null) result = casewtc(ctrlUnit27);
-				if (result == null) result = caseIdentifiable(ctrlUnit27);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit27);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -412,7 +412,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit28 ctrlUnit28 = (CtrlUnit28)theEObject;
 				T result = caseCtrlUnit28(ctrlUnit28);
 				if (result == null) result = casewtc(ctrlUnit28);
-				if (result == null) result = caseIdentifiable(ctrlUnit28);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit28);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -420,7 +420,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit29 ctrlUnit29 = (CtrlUnit29)theEObject;
 				T result = caseCtrlUnit29(ctrlUnit29);
 				if (result == null) result = casewtc(ctrlUnit29);
-				if (result == null) result = caseIdentifiable(ctrlUnit29);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit29);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -428,7 +428,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit30 ctrlUnit30 = (CtrlUnit30)theEObject;
 				T result = caseCtrlUnit30(ctrlUnit30);
 				if (result == null) result = casewtc(ctrlUnit30);
-				if (result == null) result = caseIdentifiable(ctrlUnit30);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit30);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -436,7 +436,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit31 ctrlUnit31 = (CtrlUnit31)theEObject;
 				T result = caseCtrlUnit31(ctrlUnit31);
 				if (result == null) result = casewtc(ctrlUnit31);
-				if (result == null) result = caseIdentifiable(ctrlUnit31);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit31);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -444,7 +444,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit32 ctrlUnit32 = (CtrlUnit32)theEObject;
 				T result = caseCtrlUnit32(ctrlUnit32);
 				if (result == null) result = casewtc(ctrlUnit32);
-				if (result == null) result = caseIdentifiable(ctrlUnit32);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit32);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -452,7 +452,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit33 ctrlUnit33 = (CtrlUnit33)theEObject;
 				T result = caseCtrlUnit33(ctrlUnit33);
 				if (result == null) result = casewtc(ctrlUnit33);
-				if (result == null) result = caseIdentifiable(ctrlUnit33);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit33);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -460,7 +460,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit34 ctrlUnit34 = (CtrlUnit34)theEObject;
 				T result = caseCtrlUnit34(ctrlUnit34);
 				if (result == null) result = casewtc(ctrlUnit34);
-				if (result == null) result = caseIdentifiable(ctrlUnit34);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit34);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -468,7 +468,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit35 ctrlUnit35 = (CtrlUnit35)theEObject;
 				T result = caseCtrlUnit35(ctrlUnit35);
 				if (result == null) result = casewtc(ctrlUnit35);
-				if (result == null) result = caseIdentifiable(ctrlUnit35);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit35);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -476,7 +476,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit36 ctrlUnit36 = (CtrlUnit36)theEObject;
 				T result = caseCtrlUnit36(ctrlUnit36);
 				if (result == null) result = casewtc(ctrlUnit36);
-				if (result == null) result = caseIdentifiable(ctrlUnit36);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit36);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -484,7 +484,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit37 ctrlUnit37 = (CtrlUnit37)theEObject;
 				T result = caseCtrlUnit37(ctrlUnit37);
 				if (result == null) result = casewtc(ctrlUnit37);
-				if (result == null) result = caseIdentifiable(ctrlUnit37);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit37);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -492,7 +492,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit38 ctrlUnit38 = (CtrlUnit38)theEObject;
 				T result = caseCtrlUnit38(ctrlUnit38);
 				if (result == null) result = casewtc(ctrlUnit38);
-				if (result == null) result = caseIdentifiable(ctrlUnit38);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit38);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -500,7 +500,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit39 ctrlUnit39 = (CtrlUnit39)theEObject;
 				T result = caseCtrlUnit39(ctrlUnit39);
 				if (result == null) result = casewtc(ctrlUnit39);
-				if (result == null) result = caseIdentifiable(ctrlUnit39);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit39);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -508,7 +508,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit40 ctrlUnit40 = (CtrlUnit40)theEObject;
 				T result = caseCtrlUnit40(ctrlUnit40);
 				if (result == null) result = casewtc(ctrlUnit40);
-				if (result == null) result = caseIdentifiable(ctrlUnit40);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit40);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -516,7 +516,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit41 ctrlUnit41 = (CtrlUnit41)theEObject;
 				T result = caseCtrlUnit41(ctrlUnit41);
 				if (result == null) result = casewtc(ctrlUnit41);
-				if (result == null) result = caseIdentifiable(ctrlUnit41);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit41);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -524,7 +524,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit42 ctrlUnit42 = (CtrlUnit42)theEObject;
 				T result = caseCtrlUnit42(ctrlUnit42);
 				if (result == null) result = casewtc(ctrlUnit42);
-				if (result == null) result = caseIdentifiable(ctrlUnit42);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit42);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -532,7 +532,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit43 ctrlUnit43 = (CtrlUnit43)theEObject;
 				T result = caseCtrlUnit43(ctrlUnit43);
 				if (result == null) result = casewtc(ctrlUnit43);
-				if (result == null) result = caseIdentifiable(ctrlUnit43);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit43);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -540,7 +540,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit44 ctrlUnit44 = (CtrlUnit44)theEObject;
 				T result = caseCtrlUnit44(ctrlUnit44);
 				if (result == null) result = casewtc(ctrlUnit44);
-				if (result == null) result = caseIdentifiable(ctrlUnit44);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit44);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -548,7 +548,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit45 ctrlUnit45 = (CtrlUnit45)theEObject;
 				T result = caseCtrlUnit45(ctrlUnit45);
 				if (result == null) result = casewtc(ctrlUnit45);
-				if (result == null) result = caseIdentifiable(ctrlUnit45);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit45);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -556,7 +556,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit46 ctrlUnit46 = (CtrlUnit46)theEObject;
 				T result = caseCtrlUnit46(ctrlUnit46);
 				if (result == null) result = casewtc(ctrlUnit46);
-				if (result == null) result = caseIdentifiable(ctrlUnit46);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit46);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -564,7 +564,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit47 ctrlUnit47 = (CtrlUnit47)theEObject;
 				T result = caseCtrlUnit47(ctrlUnit47);
 				if (result == null) result = casewtc(ctrlUnit47);
-				if (result == null) result = caseIdentifiable(ctrlUnit47);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit47);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -572,7 +572,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit48 ctrlUnit48 = (CtrlUnit48)theEObject;
 				T result = caseCtrlUnit48(ctrlUnit48);
 				if (result == null) result = casewtc(ctrlUnit48);
-				if (result == null) result = caseIdentifiable(ctrlUnit48);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit48);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -580,7 +580,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit49 ctrlUnit49 = (CtrlUnit49)theEObject;
 				T result = caseCtrlUnit49(ctrlUnit49);
 				if (result == null) result = casewtc(ctrlUnit49);
-				if (result == null) result = caseIdentifiable(ctrlUnit49);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit49);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -588,7 +588,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit50 ctrlUnit50 = (CtrlUnit50)theEObject;
 				T result = caseCtrlUnit50(ctrlUnit50);
 				if (result == null) result = casewtc(ctrlUnit50);
-				if (result == null) result = caseIdentifiable(ctrlUnit50);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit50);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -596,7 +596,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit51 ctrlUnit51 = (CtrlUnit51)theEObject;
 				T result = caseCtrlUnit51(ctrlUnit51);
 				if (result == null) result = casewtc(ctrlUnit51);
-				if (result == null) result = caseIdentifiable(ctrlUnit51);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit51);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -604,7 +604,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit52 ctrlUnit52 = (CtrlUnit52)theEObject;
 				T result = caseCtrlUnit52(ctrlUnit52);
 				if (result == null) result = casewtc(ctrlUnit52);
-				if (result == null) result = caseIdentifiable(ctrlUnit52);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit52);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -612,7 +612,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit53 ctrlUnit53 = (CtrlUnit53)theEObject;
 				T result = caseCtrlUnit53(ctrlUnit53);
 				if (result == null) result = casewtc(ctrlUnit53);
-				if (result == null) result = caseIdentifiable(ctrlUnit53);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit53);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -620,7 +620,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit54 ctrlUnit54 = (CtrlUnit54)theEObject;
 				T result = caseCtrlUnit54(ctrlUnit54);
 				if (result == null) result = casewtc(ctrlUnit54);
-				if (result == null) result = caseIdentifiable(ctrlUnit54);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit54);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -628,7 +628,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit55 ctrlUnit55 = (CtrlUnit55)theEObject;
 				T result = caseCtrlUnit55(ctrlUnit55);
 				if (result == null) result = casewtc(ctrlUnit55);
-				if (result == null) result = caseIdentifiable(ctrlUnit55);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit55);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -636,7 +636,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit56 ctrlUnit56 = (CtrlUnit56)theEObject;
 				T result = caseCtrlUnit56(ctrlUnit56);
 				if (result == null) result = casewtc(ctrlUnit56);
-				if (result == null) result = caseIdentifiable(ctrlUnit56);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit56);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -644,7 +644,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit57 ctrlUnit57 = (CtrlUnit57)theEObject;
 				T result = caseCtrlUnit57(ctrlUnit57);
 				if (result == null) result = casewtc(ctrlUnit57);
-				if (result == null) result = caseIdentifiable(ctrlUnit57);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit57);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -652,7 +652,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit58 ctrlUnit58 = (CtrlUnit58)theEObject;
 				T result = caseCtrlUnit58(ctrlUnit58);
 				if (result == null) result = casewtc(ctrlUnit58);
-				if (result == null) result = caseIdentifiable(ctrlUnit58);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit58);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -660,7 +660,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit59 ctrlUnit59 = (CtrlUnit59)theEObject;
 				T result = caseCtrlUnit59(ctrlUnit59);
 				if (result == null) result = casewtc(ctrlUnit59);
-				if (result == null) result = caseIdentifiable(ctrlUnit59);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit59);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -668,7 +668,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit60 ctrlUnit60 = (CtrlUnit60)theEObject;
 				T result = caseCtrlUnit60(ctrlUnit60);
 				if (result == null) result = casewtc(ctrlUnit60);
-				if (result == null) result = caseIdentifiable(ctrlUnit60);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit60);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -676,7 +676,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit61 ctrlUnit61 = (CtrlUnit61)theEObject;
 				T result = caseCtrlUnit61(ctrlUnit61);
 				if (result == null) result = casewtc(ctrlUnit61);
-				if (result == null) result = caseIdentifiable(ctrlUnit61);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit61);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -684,7 +684,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit62 ctrlUnit62 = (CtrlUnit62)theEObject;
 				T result = caseCtrlUnit62(ctrlUnit62);
 				if (result == null) result = casewtc(ctrlUnit62);
-				if (result == null) result = caseIdentifiable(ctrlUnit62);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit62);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -692,7 +692,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit63 ctrlUnit63 = (CtrlUnit63)theEObject;
 				T result = caseCtrlUnit63(ctrlUnit63);
 				if (result == null) result = casewtc(ctrlUnit63);
-				if (result == null) result = caseIdentifiable(ctrlUnit63);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit63);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -700,7 +700,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit64 ctrlUnit64 = (CtrlUnit64)theEObject;
 				T result = caseCtrlUnit64(ctrlUnit64);
 				if (result == null) result = casewtc(ctrlUnit64);
-				if (result == null) result = caseIdentifiable(ctrlUnit64);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit64);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -708,7 +708,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit65 ctrlUnit65 = (CtrlUnit65)theEObject;
 				T result = caseCtrlUnit65(ctrlUnit65);
 				if (result == null) result = casewtc(ctrlUnit65);
-				if (result == null) result = caseIdentifiable(ctrlUnit65);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit65);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -716,7 +716,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit66 ctrlUnit66 = (CtrlUnit66)theEObject;
 				T result = caseCtrlUnit66(ctrlUnit66);
 				if (result == null) result = casewtc(ctrlUnit66);
-				if (result == null) result = caseIdentifiable(ctrlUnit66);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit66);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -724,7 +724,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit67 ctrlUnit67 = (CtrlUnit67)theEObject;
 				T result = caseCtrlUnit67(ctrlUnit67);
 				if (result == null) result = casewtc(ctrlUnit67);
-				if (result == null) result = caseIdentifiable(ctrlUnit67);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit67);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -732,7 +732,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit68 ctrlUnit68 = (CtrlUnit68)theEObject;
 				T result = caseCtrlUnit68(ctrlUnit68);
 				if (result == null) result = casewtc(ctrlUnit68);
-				if (result == null) result = caseIdentifiable(ctrlUnit68);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit68);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -740,7 +740,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit69 ctrlUnit69 = (CtrlUnit69)theEObject;
 				T result = caseCtrlUnit69(ctrlUnit69);
 				if (result == null) result = casewtc(ctrlUnit69);
-				if (result == null) result = caseIdentifiable(ctrlUnit69);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit69);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -748,7 +748,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit70 ctrlUnit70 = (CtrlUnit70)theEObject;
 				T result = caseCtrlUnit70(ctrlUnit70);
 				if (result == null) result = casewtc(ctrlUnit70);
-				if (result == null) result = caseIdentifiable(ctrlUnit70);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit70);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -756,7 +756,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit71 ctrlUnit71 = (CtrlUnit71)theEObject;
 				T result = caseCtrlUnit71(ctrlUnit71);
 				if (result == null) result = casewtc(ctrlUnit71);
-				if (result == null) result = caseIdentifiable(ctrlUnit71);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit71);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -764,7 +764,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit72 ctrlUnit72 = (CtrlUnit72)theEObject;
 				T result = caseCtrlUnit72(ctrlUnit72);
 				if (result == null) result = casewtc(ctrlUnit72);
-				if (result == null) result = caseIdentifiable(ctrlUnit72);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit72);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -772,7 +772,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit73 ctrlUnit73 = (CtrlUnit73)theEObject;
 				T result = caseCtrlUnit73(ctrlUnit73);
 				if (result == null) result = casewtc(ctrlUnit73);
-				if (result == null) result = caseIdentifiable(ctrlUnit73);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit73);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -780,7 +780,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit74 ctrlUnit74 = (CtrlUnit74)theEObject;
 				T result = caseCtrlUnit74(ctrlUnit74);
 				if (result == null) result = casewtc(ctrlUnit74);
-				if (result == null) result = caseIdentifiable(ctrlUnit74);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit74);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -788,7 +788,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit75 ctrlUnit75 = (CtrlUnit75)theEObject;
 				T result = caseCtrlUnit75(ctrlUnit75);
 				if (result == null) result = casewtc(ctrlUnit75);
-				if (result == null) result = caseIdentifiable(ctrlUnit75);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit75);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -796,7 +796,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit76 ctrlUnit76 = (CtrlUnit76)theEObject;
 				T result = caseCtrlUnit76(ctrlUnit76);
 				if (result == null) result = casewtc(ctrlUnit76);
-				if (result == null) result = caseIdentifiable(ctrlUnit76);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit76);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -804,7 +804,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit77 ctrlUnit77 = (CtrlUnit77)theEObject;
 				T result = caseCtrlUnit77(ctrlUnit77);
 				if (result == null) result = casewtc(ctrlUnit77);
-				if (result == null) result = caseIdentifiable(ctrlUnit77);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit77);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -812,7 +812,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit78 ctrlUnit78 = (CtrlUnit78)theEObject;
 				T result = caseCtrlUnit78(ctrlUnit78);
 				if (result == null) result = casewtc(ctrlUnit78);
-				if (result == null) result = caseIdentifiable(ctrlUnit78);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit78);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -820,7 +820,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit79 ctrlUnit79 = (CtrlUnit79)theEObject;
 				T result = caseCtrlUnit79(ctrlUnit79);
 				if (result == null) result = casewtc(ctrlUnit79);
-				if (result == null) result = caseIdentifiable(ctrlUnit79);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit79);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -828,7 +828,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit80 ctrlUnit80 = (CtrlUnit80)theEObject;
 				T result = caseCtrlUnit80(ctrlUnit80);
 				if (result == null) result = casewtc(ctrlUnit80);
-				if (result == null) result = caseIdentifiable(ctrlUnit80);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit80);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -836,7 +836,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit81 ctrlUnit81 = (CtrlUnit81)theEObject;
 				T result = caseCtrlUnit81(ctrlUnit81);
 				if (result == null) result = casewtc(ctrlUnit81);
-				if (result == null) result = caseIdentifiable(ctrlUnit81);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit81);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -844,7 +844,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit82 ctrlUnit82 = (CtrlUnit82)theEObject;
 				T result = caseCtrlUnit82(ctrlUnit82);
 				if (result == null) result = casewtc(ctrlUnit82);
-				if (result == null) result = caseIdentifiable(ctrlUnit82);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit82);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -852,7 +852,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit83 ctrlUnit83 = (CtrlUnit83)theEObject;
 				T result = caseCtrlUnit83(ctrlUnit83);
 				if (result == null) result = casewtc(ctrlUnit83);
-				if (result == null) result = caseIdentifiable(ctrlUnit83);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit83);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -860,7 +860,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit84 ctrlUnit84 = (CtrlUnit84)theEObject;
 				T result = caseCtrlUnit84(ctrlUnit84);
 				if (result == null) result = casewtc(ctrlUnit84);
-				if (result == null) result = caseIdentifiable(ctrlUnit84);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit84);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -868,7 +868,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit85 ctrlUnit85 = (CtrlUnit85)theEObject;
 				T result = caseCtrlUnit85(ctrlUnit85);
 				if (result == null) result = casewtc(ctrlUnit85);
-				if (result == null) result = caseIdentifiable(ctrlUnit85);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit85);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -876,7 +876,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit86 ctrlUnit86 = (CtrlUnit86)theEObject;
 				T result = caseCtrlUnit86(ctrlUnit86);
 				if (result == null) result = casewtc(ctrlUnit86);
-				if (result == null) result = caseIdentifiable(ctrlUnit86);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit86);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -884,7 +884,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit87 ctrlUnit87 = (CtrlUnit87)theEObject;
 				T result = caseCtrlUnit87(ctrlUnit87);
 				if (result == null) result = casewtc(ctrlUnit87);
-				if (result == null) result = caseIdentifiable(ctrlUnit87);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit87);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -892,7 +892,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit88 ctrlUnit88 = (CtrlUnit88)theEObject;
 				T result = caseCtrlUnit88(ctrlUnit88);
 				if (result == null) result = casewtc(ctrlUnit88);
-				if (result == null) result = caseIdentifiable(ctrlUnit88);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit88);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -900,7 +900,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit89 ctrlUnit89 = (CtrlUnit89)theEObject;
 				T result = caseCtrlUnit89(ctrlUnit89);
 				if (result == null) result = casewtc(ctrlUnit89);
-				if (result == null) result = caseIdentifiable(ctrlUnit89);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit89);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -908,7 +908,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit90 ctrlUnit90 = (CtrlUnit90)theEObject;
 				T result = caseCtrlUnit90(ctrlUnit90);
 				if (result == null) result = casewtc(ctrlUnit90);
-				if (result == null) result = caseIdentifiable(ctrlUnit90);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit90);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -916,7 +916,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit91 ctrlUnit91 = (CtrlUnit91)theEObject;
 				T result = caseCtrlUnit91(ctrlUnit91);
 				if (result == null) result = casewtc(ctrlUnit91);
-				if (result == null) result = caseIdentifiable(ctrlUnit91);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit91);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -924,7 +924,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit92 ctrlUnit92 = (CtrlUnit92)theEObject;
 				T result = caseCtrlUnit92(ctrlUnit92);
 				if (result == null) result = casewtc(ctrlUnit92);
-				if (result == null) result = caseIdentifiable(ctrlUnit92);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit92);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -932,7 +932,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit93 ctrlUnit93 = (CtrlUnit93)theEObject;
 				T result = caseCtrlUnit93(ctrlUnit93);
 				if (result == null) result = casewtc(ctrlUnit93);
-				if (result == null) result = caseIdentifiable(ctrlUnit93);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit93);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -940,7 +940,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit94 ctrlUnit94 = (CtrlUnit94)theEObject;
 				T result = caseCtrlUnit94(ctrlUnit94);
 				if (result == null) result = casewtc(ctrlUnit94);
-				if (result == null) result = caseIdentifiable(ctrlUnit94);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit94);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -948,7 +948,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit95 ctrlUnit95 = (CtrlUnit95)theEObject;
 				T result = caseCtrlUnit95(ctrlUnit95);
 				if (result == null) result = casewtc(ctrlUnit95);
-				if (result == null) result = caseIdentifiable(ctrlUnit95);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit95);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -956,7 +956,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit96 ctrlUnit96 = (CtrlUnit96)theEObject;
 				T result = caseCtrlUnit96(ctrlUnit96);
 				if (result == null) result = casewtc(ctrlUnit96);
-				if (result == null) result = caseIdentifiable(ctrlUnit96);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit96);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -964,7 +964,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit97 ctrlUnit97 = (CtrlUnit97)theEObject;
 				T result = caseCtrlUnit97(ctrlUnit97);
 				if (result == null) result = casewtc(ctrlUnit97);
-				if (result == null) result = caseIdentifiable(ctrlUnit97);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit97);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -972,7 +972,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit98 ctrlUnit98 = (CtrlUnit98)theEObject;
 				T result = caseCtrlUnit98(ctrlUnit98);
 				if (result == null) result = casewtc(ctrlUnit98);
-				if (result == null) result = caseIdentifiable(ctrlUnit98);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit98);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -980,7 +980,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit99 ctrlUnit99 = (CtrlUnit99)theEObject;
 				T result = caseCtrlUnit99(ctrlUnit99);
 				if (result == null) result = casewtc(ctrlUnit99);
-				if (result == null) result = caseIdentifiable(ctrlUnit99);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit99);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -988,7 +988,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit100 ctrlUnit100 = (CtrlUnit100)theEObject;
 				T result = caseCtrlUnit100(ctrlUnit100);
 				if (result == null) result = casewtc(ctrlUnit100);
-				if (result == null) result = caseIdentifiable(ctrlUnit100);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit100);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -996,7 +996,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit101 ctrlUnit101 = (CtrlUnit101)theEObject;
 				T result = caseCtrlUnit101(ctrlUnit101);
 				if (result == null) result = casewtc(ctrlUnit101);
-				if (result == null) result = caseIdentifiable(ctrlUnit101);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit101);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1004,7 +1004,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit102 ctrlUnit102 = (CtrlUnit102)theEObject;
 				T result = caseCtrlUnit102(ctrlUnit102);
 				if (result == null) result = casewtc(ctrlUnit102);
-				if (result == null) result = caseIdentifiable(ctrlUnit102);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit102);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1012,7 +1012,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit103 ctrlUnit103 = (CtrlUnit103)theEObject;
 				T result = caseCtrlUnit103(ctrlUnit103);
 				if (result == null) result = casewtc(ctrlUnit103);
-				if (result == null) result = caseIdentifiable(ctrlUnit103);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit103);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1020,7 +1020,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit104 ctrlUnit104 = (CtrlUnit104)theEObject;
 				T result = caseCtrlUnit104(ctrlUnit104);
 				if (result == null) result = casewtc(ctrlUnit104);
-				if (result == null) result = caseIdentifiable(ctrlUnit104);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit104);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1028,7 +1028,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit105 ctrlUnit105 = (CtrlUnit105)theEObject;
 				T result = caseCtrlUnit105(ctrlUnit105);
 				if (result == null) result = casewtc(ctrlUnit105);
-				if (result == null) result = caseIdentifiable(ctrlUnit105);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit105);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1036,7 +1036,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit106 ctrlUnit106 = (CtrlUnit106)theEObject;
 				T result = caseCtrlUnit106(ctrlUnit106);
 				if (result == null) result = casewtc(ctrlUnit106);
-				if (result == null) result = caseIdentifiable(ctrlUnit106);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit106);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1044,7 +1044,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit107 ctrlUnit107 = (CtrlUnit107)theEObject;
 				T result = caseCtrlUnit107(ctrlUnit107);
 				if (result == null) result = casewtc(ctrlUnit107);
-				if (result == null) result = caseIdentifiable(ctrlUnit107);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit107);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1052,7 +1052,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit108 ctrlUnit108 = (CtrlUnit108)theEObject;
 				T result = caseCtrlUnit108(ctrlUnit108);
 				if (result == null) result = casewtc(ctrlUnit108);
-				if (result == null) result = caseIdentifiable(ctrlUnit108);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit108);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1060,7 +1060,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit109 ctrlUnit109 = (CtrlUnit109)theEObject;
 				T result = caseCtrlUnit109(ctrlUnit109);
 				if (result == null) result = casewtc(ctrlUnit109);
-				if (result == null) result = caseIdentifiable(ctrlUnit109);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit109);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1068,7 +1068,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit110 ctrlUnit110 = (CtrlUnit110)theEObject;
 				T result = caseCtrlUnit110(ctrlUnit110);
 				if (result == null) result = casewtc(ctrlUnit110);
-				if (result == null) result = caseIdentifiable(ctrlUnit110);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit110);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1076,7 +1076,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit111 ctrlUnit111 = (CtrlUnit111)theEObject;
 				T result = caseCtrlUnit111(ctrlUnit111);
 				if (result == null) result = casewtc(ctrlUnit111);
-				if (result == null) result = caseIdentifiable(ctrlUnit111);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit111);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1084,7 +1084,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit112 ctrlUnit112 = (CtrlUnit112)theEObject;
 				T result = caseCtrlUnit112(ctrlUnit112);
 				if (result == null) result = casewtc(ctrlUnit112);
-				if (result == null) result = caseIdentifiable(ctrlUnit112);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit112);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1092,7 +1092,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit113 ctrlUnit113 = (CtrlUnit113)theEObject;
 				T result = caseCtrlUnit113(ctrlUnit113);
 				if (result == null) result = casewtc(ctrlUnit113);
-				if (result == null) result = caseIdentifiable(ctrlUnit113);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit113);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1100,7 +1100,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit114 ctrlUnit114 = (CtrlUnit114)theEObject;
 				T result = caseCtrlUnit114(ctrlUnit114);
 				if (result == null) result = casewtc(ctrlUnit114);
-				if (result == null) result = caseIdentifiable(ctrlUnit114);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit114);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1108,7 +1108,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit115 ctrlUnit115 = (CtrlUnit115)theEObject;
 				T result = caseCtrlUnit115(ctrlUnit115);
 				if (result == null) result = casewtc(ctrlUnit115);
-				if (result == null) result = caseIdentifiable(ctrlUnit115);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit115);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1116,7 +1116,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit116 ctrlUnit116 = (CtrlUnit116)theEObject;
 				T result = caseCtrlUnit116(ctrlUnit116);
 				if (result == null) result = casewtc(ctrlUnit116);
-				if (result == null) result = caseIdentifiable(ctrlUnit116);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit116);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1124,7 +1124,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit117 ctrlUnit117 = (CtrlUnit117)theEObject;
 				T result = caseCtrlUnit117(ctrlUnit117);
 				if (result == null) result = casewtc(ctrlUnit117);
-				if (result == null) result = caseIdentifiable(ctrlUnit117);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit117);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1132,7 +1132,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit118 ctrlUnit118 = (CtrlUnit118)theEObject;
 				T result = caseCtrlUnit118(ctrlUnit118);
 				if (result == null) result = casewtc(ctrlUnit118);
-				if (result == null) result = caseIdentifiable(ctrlUnit118);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit118);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1140,7 +1140,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit119 ctrlUnit119 = (CtrlUnit119)theEObject;
 				T result = caseCtrlUnit119(ctrlUnit119);
 				if (result == null) result = casewtc(ctrlUnit119);
-				if (result == null) result = caseIdentifiable(ctrlUnit119);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit119);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1148,7 +1148,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit120 ctrlUnit120 = (CtrlUnit120)theEObject;
 				T result = caseCtrlUnit120(ctrlUnit120);
 				if (result == null) result = casewtc(ctrlUnit120);
-				if (result == null) result = caseIdentifiable(ctrlUnit120);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit120);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1156,7 +1156,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit121 ctrlUnit121 = (CtrlUnit121)theEObject;
 				T result = caseCtrlUnit121(ctrlUnit121);
 				if (result == null) result = casewtc(ctrlUnit121);
-				if (result == null) result = caseIdentifiable(ctrlUnit121);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit121);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1164,7 +1164,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit122 ctrlUnit122 = (CtrlUnit122)theEObject;
 				T result = caseCtrlUnit122(ctrlUnit122);
 				if (result == null) result = casewtc(ctrlUnit122);
-				if (result == null) result = caseIdentifiable(ctrlUnit122);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit122);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1172,7 +1172,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit123 ctrlUnit123 = (CtrlUnit123)theEObject;
 				T result = caseCtrlUnit123(ctrlUnit123);
 				if (result == null) result = casewtc(ctrlUnit123);
-				if (result == null) result = caseIdentifiable(ctrlUnit123);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit123);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1180,7 +1180,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit124 ctrlUnit124 = (CtrlUnit124)theEObject;
 				T result = caseCtrlUnit124(ctrlUnit124);
 				if (result == null) result = casewtc(ctrlUnit124);
-				if (result == null) result = caseIdentifiable(ctrlUnit124);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit124);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1188,7 +1188,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit125 ctrlUnit125 = (CtrlUnit125)theEObject;
 				T result = caseCtrlUnit125(ctrlUnit125);
 				if (result == null) result = casewtc(ctrlUnit125);
-				if (result == null) result = caseIdentifiable(ctrlUnit125);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit125);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1196,7 +1196,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit126 ctrlUnit126 = (CtrlUnit126)theEObject;
 				T result = caseCtrlUnit126(ctrlUnit126);
 				if (result == null) result = casewtc(ctrlUnit126);
-				if (result == null) result = caseIdentifiable(ctrlUnit126);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit126);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1204,7 +1204,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit127 ctrlUnit127 = (CtrlUnit127)theEObject;
 				T result = caseCtrlUnit127(ctrlUnit127);
 				if (result == null) result = casewtc(ctrlUnit127);
-				if (result == null) result = caseIdentifiable(ctrlUnit127);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit127);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1212,7 +1212,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit128 ctrlUnit128 = (CtrlUnit128)theEObject;
 				T result = caseCtrlUnit128(ctrlUnit128);
 				if (result == null) result = casewtc(ctrlUnit128);
-				if (result == null) result = caseIdentifiable(ctrlUnit128);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit128);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1220,7 +1220,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit129 ctrlUnit129 = (CtrlUnit129)theEObject;
 				T result = caseCtrlUnit129(ctrlUnit129);
 				if (result == null) result = casewtc(ctrlUnit129);
-				if (result == null) result = caseIdentifiable(ctrlUnit129);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit129);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1228,7 +1228,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit130 ctrlUnit130 = (CtrlUnit130)theEObject;
 				T result = caseCtrlUnit130(ctrlUnit130);
 				if (result == null) result = casewtc(ctrlUnit130);
-				if (result == null) result = caseIdentifiable(ctrlUnit130);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit130);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1236,7 +1236,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit131 ctrlUnit131 = (CtrlUnit131)theEObject;
 				T result = caseCtrlUnit131(ctrlUnit131);
 				if (result == null) result = casewtc(ctrlUnit131);
-				if (result == null) result = caseIdentifiable(ctrlUnit131);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit131);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1244,7 +1244,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit132 ctrlUnit132 = (CtrlUnit132)theEObject;
 				T result = caseCtrlUnit132(ctrlUnit132);
 				if (result == null) result = casewtc(ctrlUnit132);
-				if (result == null) result = caseIdentifiable(ctrlUnit132);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit132);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1252,7 +1252,7 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 				CtrlUnit133 ctrlUnit133 = (CtrlUnit133)theEObject;
 				T result = caseCtrlUnit133(ctrlUnit133);
 				if (result == null) result = casewtc(ctrlUnit133);
-				if (result == null) result = caseIdentifiable(ctrlUnit133);
+				if (result == null) result = caseIdentifiableWTElement(ctrlUnit133);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1261,17 +1261,17 @@ public class WTSpecIDSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Identifiable</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Identifiable WT Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Identifiable</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Identifiable WT Element</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseIdentifiable(Identifiable object) {
+	public T caseIdentifiableWTElement(IdentifiableWTElement object) {
 		return null;
 	}
 

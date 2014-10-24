@@ -22,7 +22,7 @@ package WTSpecID;
  * @model abstract="true"
  * @generated
  */
-public interface wtc extends Identifiable {
+public interface wtc extends IdentifiableWTElement {
 	/**
 	 * Returns the value of the '<em><b>Sys Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->

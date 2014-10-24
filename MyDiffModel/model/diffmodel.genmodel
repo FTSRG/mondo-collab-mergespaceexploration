@@ -12,6 +12,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/SetRefDiffs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/ResetAttrDiffs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/ResetRefDiffs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/AddToListDiffs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diffmodel.ecore#//DiffContainer/RemoveFromListDiffs"/>
     </genClasses>
     <genClasses ecoreClass="diffmodel.ecore#//Create">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//Create/type"/>
@@ -33,6 +35,14 @@
     </genClasses>
     <genClasses image="false" ecoreClass="diffmodel.ecore#//Identifiable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//Identifiable/id"/>
+    </genClasses>
+    <genClasses ecoreClass="diffmodel.ecore#//AddToList">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//AddToList/list"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//AddToList/refID"/>
+    </genClasses>
+    <genClasses ecoreClass="diffmodel.ecore#//RemoveFromList">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//RemoveFromList/list"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diffmodel.ecore#//RemoveFromList/refID"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

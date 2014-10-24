@@ -13,5 +13,5 @@ package WTSpecID;
  * @model abstract="true"
  * @generated
  */
-public interface WTCInput extends Identifiable {
+public interface WTCInput extends IdentifiableWTElement {
 } // WTCInput

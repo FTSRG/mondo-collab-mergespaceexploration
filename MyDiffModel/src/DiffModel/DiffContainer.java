@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link DiffModel.DiffContainer#getSetRefDiffs <em>Set Ref Diffs</em>}</li>
  *   <li>{@link DiffModel.DiffContainer#getResetAttrDiffs <em>Reset Attr Diffs</em>}</li>
  *   <li>{@link DiffModel.DiffContainer#getResetRefDiffs <em>Reset Ref Diffs</em>}</li>
+ *   <li>{@link DiffModel.DiffContainer#getAddToListDiffs <em>Add To List Diffs</em>}</li>
+ *   <li>{@link DiffModel.DiffContainer#getRemoveFromListDiffs <em>Remove From List Diffs</em>}</li>
  * </ul>
  * </p>
  *
@@ -123,5 +125,37 @@ public interface DiffContainer extends EObject {
 	 * @generated
 	 */
 	EList<ResetReference> getResetRefDiffs();
+
+	/**
+	 * Returns the value of the '<em><b>Add To List Diffs</b></em>' containment reference list.
+	 * The list contents are of type {@link DiffModel.AddToList}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Add To List Diffs</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Add To List Diffs</em>' containment reference list.
+	 * @see DiffModel.DiffModelPackage#getDiffContainer_AddToListDiffs()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<AddToList> getAddToListDiffs();
+
+	/**
+	 * Returns the value of the '<em><b>Remove From List Diffs</b></em>' containment reference list.
+	 * The list contents are of type {@link DiffModel.RemoveFromList}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Remove From List Diffs</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Remove From List Diffs</em>' containment reference list.
+	 * @see DiffModel.DiffModelPackage#getDiffContainer_RemoveFromListDiffs()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<RemoveFromList> getRemoveFromListDiffs();
 
 } // DiffContainer

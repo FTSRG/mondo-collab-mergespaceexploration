@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public abstract class WTCErrorReactionImpl extends IdentifiableImpl implements WTCErrorReaction {
+public abstract class WTCErrorReactionImpl extends IdentifiableWTElementImpl implements WTCErrorReaction {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

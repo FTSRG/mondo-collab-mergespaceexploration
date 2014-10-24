@@ -13,5 +13,5 @@ package WTSpecID;
  * @model abstract="true"
  * @generated
  */
-public interface WTCErrorReaction extends Identifiable {
+public interface WTCErrorReaction extends IdentifiableWTElement {
 } // WTCErrorReaction

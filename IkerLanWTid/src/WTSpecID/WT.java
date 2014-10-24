@@ -30,7 +30,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface WT extends Identifiable {
+public interface WT extends IdentifiableWTElement {
 	/**
 	 * Returns the value of the '<em><b>Sys Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
