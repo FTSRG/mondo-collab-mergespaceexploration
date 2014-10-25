@@ -77,9 +77,9 @@ public final class SetReferenceQuerySpecification extends BaseGeneratedQuerySpec
         new ExportedParameter(body, var_target, "target")
       ));
       
-      new TypeUnary(body, var_setRefOp, getClassifierLiteral("http://diffmodel/1.0", "SetReference"), "http://diffmodel/1.0/SetReference");
       
       new TypeBinary(body, context, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
+      new TypeUnary(body, var_setRefOp, getClassifierLiteral("http://diffmodel/1.0", "SetReference"), "http://diffmodel/1.0/SetReference");
       new TypeBinary(body, context, var_setRefOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "id"), "http://diffmodel/1.0/Identifiable.id");
       bodies.add(body);
     }setStatus(PQueryStatus.OK);

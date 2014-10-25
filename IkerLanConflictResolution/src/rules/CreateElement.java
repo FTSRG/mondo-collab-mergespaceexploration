@@ -17,7 +17,9 @@ public class CreateElement implements IMatchProcessor<CreateMatch> {
 
 	@Override
 	public void process(CreateMatch match) {
-		// TODO Auto-generated method stub
+		
+		// TODO get eResource and add the new element somehow...
+		
 		String classType = match.getCreateOp().getType();
 		String newID = match.getCreateOp().getId();
 		
@@ -26,6 +28,20 @@ public class CreateElement implements IMatchProcessor<CreateMatch> {
 		EClassifier classifier = WTSpecPackage.eINSTANCE.getEClassifier(classType);
 		
 		EObject newObject = WTSpecPackage.eINSTANCE.getWTSpecFactory().create((EClass) classifier);
+		
+		// TODO this should work without parsing (wrong metamodel?)
+		newObject.eSet(newObject.eClass().getEStructuralFeature("ID"), Integer.parseInt(newID));
+		
+		// TODO add new Object to the model
+		
+		// TODO remove this crateOp from DiffModels
+		// originalRoot.eResource().getResourceSet();
+		// --> finding roots of DiffModels
+		// "diffModelsRoot.eResource().getContents().remove(index);"
+		// find the element with newID from the right DiffModel (there could be an element in both DiffModels with the same ID!)
+		// remove it!
+		
+		
 		
 		//dse List<EModelElement> classesAndReferences = EMFHelper.getClassesAndReferences(metaModelPackages);
 		
