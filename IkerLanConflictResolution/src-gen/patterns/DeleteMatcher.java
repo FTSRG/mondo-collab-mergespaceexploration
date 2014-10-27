@@ -1,6 +1,7 @@
 package patterns;
 
 import DiffModel.Delete;
+import WTSpecID.WT;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +29,8 @@ import patterns.util.DeleteQuerySpecification;
  * 
  * <p>Original source:
  * <code><pre>
- * pattern delete(deleteOp : Delete) {
+ * pattern delete(deleteOp : Delete, wt : WT) {
+ * 	WT(wt);
  * 	Delete(deleteOp);
  * }
  * </pre></code>
@@ -69,6 +71,8 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
   
   private final static int POSITION_DELETEOP = 0;
   
+  private final static int POSITION_WT = 1;
+  
   private final static Logger LOGGER = IncQueryLoggingUtil.getLogger(DeleteMatcher.class);
   
   /**
@@ -105,65 +109,71 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
   /**
    * Returns the set of all matches of the pattern that conform to the given fixed values of some parameters.
    * @param pDeleteOp the fixed value of pattern parameter deleteOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return matches represented as a DeleteMatch object.
    * 
    */
-  public Collection<DeleteMatch> getAllMatches(final Delete pDeleteOp) {
-    return rawGetAllMatches(new Object[]{pDeleteOp});
+  public Collection<DeleteMatch> getAllMatches(final Delete pDeleteOp, final WT pWt) {
+    return rawGetAllMatches(new Object[]{pDeleteOp, pWt});
   }
   
   /**
    * Returns an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
    * Neither determinism nor randomness of selection is guaranteed.
    * @param pDeleteOp the fixed value of pattern parameter deleteOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return a match represented as a DeleteMatch object, or null if no match is found.
    * 
    */
-  public DeleteMatch getOneArbitraryMatch(final Delete pDeleteOp) {
-    return rawGetOneArbitraryMatch(new Object[]{pDeleteOp});
+  public DeleteMatch getOneArbitraryMatch(final Delete pDeleteOp, final WT pWt) {
+    return rawGetOneArbitraryMatch(new Object[]{pDeleteOp, pWt});
   }
   
   /**
    * Indicates whether the given combination of specified pattern parameters constitute a valid pattern match,
    * under any possible substitution of the unspecified parameters (if any).
    * @param pDeleteOp the fixed value of pattern parameter deleteOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return true if the input is a valid (partial) match of the pattern.
    * 
    */
-  public boolean hasMatch(final Delete pDeleteOp) {
-    return rawHasMatch(new Object[]{pDeleteOp});
+  public boolean hasMatch(final Delete pDeleteOp, final WT pWt) {
+    return rawHasMatch(new Object[]{pDeleteOp, pWt});
   }
   
   /**
    * Returns the number of all matches of the pattern that conform to the given fixed values of some parameters.
    * @param pDeleteOp the fixed value of pattern parameter deleteOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return the number of pattern matches found.
    * 
    */
-  public int countMatches(final Delete pDeleteOp) {
-    return rawCountMatches(new Object[]{pDeleteOp});
+  public int countMatches(final Delete pDeleteOp, final WT pWt) {
+    return rawCountMatches(new Object[]{pDeleteOp, pWt});
   }
   
   /**
    * Executes the given processor on each match of the pattern that conforms to the given fixed values of some parameters.
    * @param pDeleteOp the fixed value of pattern parameter deleteOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @param processor the action that will process each pattern match.
    * 
    */
-  public void forEachMatch(final Delete pDeleteOp, final IMatchProcessor<? super DeleteMatch> processor) {
-    rawForEachMatch(new Object[]{pDeleteOp}, processor);
+  public void forEachMatch(final Delete pDeleteOp, final WT pWt, final IMatchProcessor<? super DeleteMatch> processor) {
+    rawForEachMatch(new Object[]{pDeleteOp, pWt}, processor);
   }
   
   /**
    * Executes the given processor on an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
    * Neither determinism nor randomness of selection is guaranteed.
    * @param pDeleteOp the fixed value of pattern parameter deleteOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @param processor the action that will process the selected match.
    * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
    * 
    */
-  public boolean forOneArbitraryMatch(final Delete pDeleteOp, final IMatchProcessor<? super DeleteMatch> processor) {
-    return rawForOneArbitraryMatch(new Object[]{pDeleteOp}, processor);
+  public boolean forOneArbitraryMatch(final Delete pDeleteOp, final WT pWt, final IMatchProcessor<? super DeleteMatch> processor) {
+    return rawForOneArbitraryMatch(new Object[]{pDeleteOp, pWt}, processor);
   }
   
   /**
@@ -174,13 +184,14 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
    * See {@link DeltaMonitor} for details.
    * @param fillAtStart if true, all current matches are reported as new match events; if false, the delta monitor starts empty.
    * @param pDeleteOp the fixed value of pattern parameter deleteOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return the delta monitor.
    * @deprecated use the IncQuery Databinding API (IncQueryObservables) instead.
    * 
    */
   @Deprecated
-  public DeltaMonitor<DeleteMatch> newFilteredDeltaMonitor(final boolean fillAtStart, final Delete pDeleteOp) {
-    return rawNewFilteredDeltaMonitor(fillAtStart, new Object[]{pDeleteOp});
+  public DeltaMonitor<DeleteMatch> newFilteredDeltaMonitor(final boolean fillAtStart, final Delete pDeleteOp, final WT pWt) {
+    return rawNewFilteredDeltaMonitor(fillAtStart, new Object[]{pDeleteOp, pWt});
   }
   
   /**
@@ -188,11 +199,12 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pDeleteOp the fixed value of pattern parameter deleteOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return the (partial) match object.
    * 
    */
-  public DeleteMatch newMatch(final Delete pDeleteOp) {
-    return new DeleteMatch.Immutable(pDeleteOp);
+  public DeleteMatch newMatch(final Delete pDeleteOp, final WT pWt) {
+    return new DeleteMatch.Immutable(pDeleteOp, pWt);
     
   }
   
@@ -216,10 +228,66 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
     return rawAccumulateAllValuesOfdeleteOp(emptyArray());
   }
   
+  /**
+   * Retrieve the set of values that occur in matches for deleteOp.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<Delete> getAllValuesOfdeleteOp(final DeleteMatch partialMatch) {
+    return rawAccumulateAllValuesOfdeleteOp(partialMatch.toArray());
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for deleteOp.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<Delete> getAllValuesOfdeleteOp(final WT pWt) {
+    return rawAccumulateAllValuesOfdeleteOp(new Object[]{null, pWt});
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  protected Set<WT> rawAccumulateAllValuesOfwt(final Object[] parameters) {
+    Set<WT> results = new HashSet<WT>();
+    rawAccumulateAllValues(POSITION_WT, parameters, results);
+    return results;
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<WT> getAllValuesOfwt() {
+    return rawAccumulateAllValuesOfwt(emptyArray());
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<WT> getAllValuesOfwt(final DeleteMatch partialMatch) {
+    return rawAccumulateAllValuesOfwt(partialMatch.toArray());
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<WT> getAllValuesOfwt(final Delete pDeleteOp) {
+    return rawAccumulateAllValuesOfwt(new Object[]{pDeleteOp, null});
+  }
+  
   @Override
   protected DeleteMatch tupleToMatch(final Tuple t) {
     try {
-      return new DeleteMatch.Immutable((DiffModel.Delete) t.get(POSITION_DELETEOP));
+      return new DeleteMatch.Immutable((DiffModel.Delete) t.get(POSITION_DELETEOP), (WTSpecID.WT) t.get(POSITION_WT));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -230,7 +298,7 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
   @Override
   protected DeleteMatch arrayToMatch(final Object[] match) {
     try {
-      return new DeleteMatch.Immutable((DiffModel.Delete) match[POSITION_DELETEOP]);
+      return new DeleteMatch.Immutable((DiffModel.Delete) match[POSITION_DELETEOP], (WTSpecID.WT) match[POSITION_WT]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -241,7 +309,7 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
   @Override
   protected DeleteMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new DeleteMatch.Mutable((DiffModel.Delete) match[POSITION_DELETEOP]);
+      return new DeleteMatch.Mutable((DiffModel.Delete) match[POSITION_DELETEOP], (WTSpecID.WT) match[POSITION_WT]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

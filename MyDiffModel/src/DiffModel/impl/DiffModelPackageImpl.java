@@ -381,6 +381,15 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getIdentifiable_TargetId() {
+		return (EAttribute)identifiableEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAddToList() {
 		return addToListEClass;
 	}
@@ -489,6 +498,7 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 
 		identifiableEClass = createEClass(IDENTIFIABLE);
 		createEAttribute(identifiableEClass, IDENTIFIABLE__ID);
+		createEAttribute(identifiableEClass, IDENTIFIABLE__TARGET_ID);
 
 		addToListEClass = createEClass(ADD_TO_LIST);
 		createEAttribute(addToListEClass, ADD_TO_LIST__LIST);
@@ -567,7 +577,8 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 		initEAttribute(getResetReference_Reference(), ecorePackage.getEString(), "reference", null, 0, 1, ResetReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIdentifiable_Id(), ecorePackage.getEString(), "id", null, 0, 1, Identifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIdentifiable_Id(), ecorePackage.getEString(), "id", null, 0, 1, Identifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIdentifiable_TargetId(), ecorePackage.getEString(), "targetId", null, 0, 1, Identifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(addToListEClass, AddToList.class, "AddToList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAddToList_List(), ecorePackage.getEString(), "list", null, 0, 1, AddToList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

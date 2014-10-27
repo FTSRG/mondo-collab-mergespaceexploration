@@ -2,6 +2,7 @@ package patterns;
 
 import DiffModel.ResetAttribute;
 import WTSpecID.IdentifiableWTElement;
+import WTSpecID.WT;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,9 +30,10 @@ import patterns.util.ResetAttributeQuerySpecification;
  * 
  * <p>Original source:
  * <code><pre>
- * pattern resetAttribute(resetAttrOp : ResetAttribute, target : IdentifiableWTElement) {
+ * pattern resetAttribute(resetAttrOp : ResetAttribute, target : IdentifiableWTElement, wt : WT) {
+ * 	WT(wt);
  * 	IdentifiableWTElement.ID(target, id);
- * 	ResetAttribute.id(resetAttrOp, id);
+ * 	ResetAttribute.targetId(resetAttrOp, id);
  * }
  * </pre></code>
  * 
@@ -73,6 +75,8 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
   
   private final static int POSITION_TARGET = 1;
   
+  private final static int POSITION_WT = 2;
+  
   private final static Logger LOGGER = IncQueryLoggingUtil.getLogger(ResetAttributeMatcher.class);
   
   /**
@@ -110,11 +114,12 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
    * Returns the set of all matches of the pattern that conform to the given fixed values of some parameters.
    * @param pResetAttrOp the fixed value of pattern parameter resetAttrOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return matches represented as a ResetAttributeMatch object.
    * 
    */
-  public Collection<ResetAttributeMatch> getAllMatches(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget) {
-    return rawGetAllMatches(new Object[]{pResetAttrOp, pTarget});
+  public Collection<ResetAttributeMatch> getAllMatches(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final WT pWt) {
+    return rawGetAllMatches(new Object[]{pResetAttrOp, pTarget, pWt});
   }
   
   /**
@@ -122,11 +127,12 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
    * Neither determinism nor randomness of selection is guaranteed.
    * @param pResetAttrOp the fixed value of pattern parameter resetAttrOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return a match represented as a ResetAttributeMatch object, or null if no match is found.
    * 
    */
-  public ResetAttributeMatch getOneArbitraryMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget) {
-    return rawGetOneArbitraryMatch(new Object[]{pResetAttrOp, pTarget});
+  public ResetAttributeMatch getOneArbitraryMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final WT pWt) {
+    return rawGetOneArbitraryMatch(new Object[]{pResetAttrOp, pTarget, pWt});
   }
   
   /**
@@ -134,33 +140,36 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
    * under any possible substitution of the unspecified parameters (if any).
    * @param pResetAttrOp the fixed value of pattern parameter resetAttrOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return true if the input is a valid (partial) match of the pattern.
    * 
    */
-  public boolean hasMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget) {
-    return rawHasMatch(new Object[]{pResetAttrOp, pTarget});
+  public boolean hasMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final WT pWt) {
+    return rawHasMatch(new Object[]{pResetAttrOp, pTarget, pWt});
   }
   
   /**
    * Returns the number of all matches of the pattern that conform to the given fixed values of some parameters.
    * @param pResetAttrOp the fixed value of pattern parameter resetAttrOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return the number of pattern matches found.
    * 
    */
-  public int countMatches(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget) {
-    return rawCountMatches(new Object[]{pResetAttrOp, pTarget});
+  public int countMatches(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final WT pWt) {
+    return rawCountMatches(new Object[]{pResetAttrOp, pTarget, pWt});
   }
   
   /**
    * Executes the given processor on each match of the pattern that conforms to the given fixed values of some parameters.
    * @param pResetAttrOp the fixed value of pattern parameter resetAttrOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @param processor the action that will process each pattern match.
    * 
    */
-  public void forEachMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final IMatchProcessor<? super ResetAttributeMatch> processor) {
-    rawForEachMatch(new Object[]{pResetAttrOp, pTarget}, processor);
+  public void forEachMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final WT pWt, final IMatchProcessor<? super ResetAttributeMatch> processor) {
+    rawForEachMatch(new Object[]{pResetAttrOp, pTarget, pWt}, processor);
   }
   
   /**
@@ -168,12 +177,13 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
    * Neither determinism nor randomness of selection is guaranteed.
    * @param pResetAttrOp the fixed value of pattern parameter resetAttrOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @param processor the action that will process the selected match.
    * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
    * 
    */
-  public boolean forOneArbitraryMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final IMatchProcessor<? super ResetAttributeMatch> processor) {
-    return rawForOneArbitraryMatch(new Object[]{pResetAttrOp, pTarget}, processor);
+  public boolean forOneArbitraryMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final WT pWt, final IMatchProcessor<? super ResetAttributeMatch> processor) {
+    return rawForOneArbitraryMatch(new Object[]{pResetAttrOp, pTarget, pWt}, processor);
   }
   
   /**
@@ -185,13 +195,14 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
    * @param fillAtStart if true, all current matches are reported as new match events; if false, the delta monitor starts empty.
    * @param pResetAttrOp the fixed value of pattern parameter resetAttrOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return the delta monitor.
    * @deprecated use the IncQuery Databinding API (IncQueryObservables) instead.
    * 
    */
   @Deprecated
-  public DeltaMonitor<ResetAttributeMatch> newFilteredDeltaMonitor(final boolean fillAtStart, final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget) {
-    return rawNewFilteredDeltaMonitor(fillAtStart, new Object[]{pResetAttrOp, pTarget});
+  public DeltaMonitor<ResetAttributeMatch> newFilteredDeltaMonitor(final boolean fillAtStart, final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final WT pWt) {
+    return rawNewFilteredDeltaMonitor(fillAtStart, new Object[]{pResetAttrOp, pTarget, pWt});
   }
   
   /**
@@ -200,11 +211,12 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pResetAttrOp the fixed value of pattern parameter resetAttrOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return the (partial) match object.
    * 
    */
-  public ResetAttributeMatch newMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget) {
-    return new ResetAttributeMatch.Immutable(pResetAttrOp, pTarget);
+  public ResetAttributeMatch newMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final WT pWt) {
+    return new ResetAttributeMatch.Immutable(pResetAttrOp, pTarget, pWt);
     
   }
   
@@ -242,8 +254,8 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<ResetAttribute> getAllValuesOfresetAttrOp(final IdentifiableWTElement pTarget) {
-    return rawAccumulateAllValuesOfresetAttrOp(new Object[]{null, pTarget});
+  public Set<ResetAttribute> getAllValuesOfresetAttrOp(final IdentifiableWTElement pTarget, final WT pWt) {
+    return rawAccumulateAllValuesOfresetAttrOp(new Object[]{null, pTarget, pWt});
   }
   
   /**
@@ -280,14 +292,52 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<IdentifiableWTElement> getAllValuesOftarget(final ResetAttribute pResetAttrOp) {
-    return rawAccumulateAllValuesOftarget(new Object[]{pResetAttrOp, null});
+  public Set<IdentifiableWTElement> getAllValuesOftarget(final ResetAttribute pResetAttrOp, final WT pWt) {
+    return rawAccumulateAllValuesOftarget(new Object[]{pResetAttrOp, null, pWt});
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  protected Set<WT> rawAccumulateAllValuesOfwt(final Object[] parameters) {
+    Set<WT> results = new HashSet<WT>();
+    rawAccumulateAllValues(POSITION_WT, parameters, results);
+    return results;
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<WT> getAllValuesOfwt() {
+    return rawAccumulateAllValuesOfwt(emptyArray());
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<WT> getAllValuesOfwt(final ResetAttributeMatch partialMatch) {
+    return rawAccumulateAllValuesOfwt(partialMatch.toArray());
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<WT> getAllValuesOfwt(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget) {
+    return rawAccumulateAllValuesOfwt(new Object[]{pResetAttrOp, pTarget, null});
   }
   
   @Override
   protected ResetAttributeMatch tupleToMatch(final Tuple t) {
     try {
-      return new ResetAttributeMatch.Immutable((DiffModel.ResetAttribute) t.get(POSITION_RESETATTROP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET));
+      return new ResetAttributeMatch.Immutable((DiffModel.ResetAttribute) t.get(POSITION_RESETATTROP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET), (WTSpecID.WT) t.get(POSITION_WT));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -298,7 +348,7 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
   @Override
   protected ResetAttributeMatch arrayToMatch(final Object[] match) {
     try {
-      return new ResetAttributeMatch.Immutable((DiffModel.ResetAttribute) match[POSITION_RESETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
+      return new ResetAttributeMatch.Immutable((DiffModel.ResetAttribute) match[POSITION_RESETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.WT) match[POSITION_WT]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -309,7 +359,7 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
   @Override
   protected ResetAttributeMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new ResetAttributeMatch.Mutable((DiffModel.ResetAttribute) match[POSITION_RESETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
+      return new ResetAttributeMatch.Mutable((DiffModel.ResetAttribute) match[POSITION_RESETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.WT) match[POSITION_WT]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

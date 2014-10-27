@@ -2,6 +2,7 @@ package patterns;
 
 import DiffModel.AddToList;
 import WTSpecID.IdentifiableWTElement;
+import WTSpecID.WT;
 import java.util.Arrays;
 import java.util.List;
 import org.eclipse.incquery.runtime.api.IPatternMatch;
@@ -28,11 +29,14 @@ public abstract class AddToListMatch extends BasePatternMatch {
   
   private IdentifiableWTElement fTarget;
   
-  private static List<String> parameterNames = makeImmutableList("addToListOp", "target");
+  private WT fWt;
   
-  private AddToListMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget) {
+  private static List<String> parameterNames = makeImmutableList("addToListOp", "target", "wt");
+  
+  private AddToListMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt) {
     this.fAddToListOp = pAddToListOp;
     this.fTarget = pTarget;
+    this.fWt = pWt;
     
   }
   
@@ -40,6 +44,7 @@ public abstract class AddToListMatch extends BasePatternMatch {
   public Object get(final String parameterName) {
     if ("addToListOp".equals(parameterName)) return this.fAddToListOp;
     if ("target".equals(parameterName)) return this.fTarget;
+    if ("wt".equals(parameterName)) return this.fWt;
     return null;
     
   }
@@ -54,6 +59,11 @@ public abstract class AddToListMatch extends BasePatternMatch {
     
   }
   
+  public WT getWt() {
+    return this.fWt;
+    
+  }
+  
   @Override
   public boolean set(final String parameterName, final Object newValue) {
     if (!isMutable()) throw new java.lang.UnsupportedOperationException();
@@ -63,6 +73,10 @@ public abstract class AddToListMatch extends BasePatternMatch {
     }
     if ("target".equals(parameterName) ) {
     	this.fTarget = (WTSpecID.IdentifiableWTElement) newValue;
+    	return true;
+    }
+    if ("wt".equals(parameterName) ) {
+    	this.fWt = (WTSpecID.WT) newValue;
     	return true;
     }
     return false;
@@ -81,6 +95,12 @@ public abstract class AddToListMatch extends BasePatternMatch {
     
   }
   
+  public void setWt(final WT pWt) {
+    if (!isMutable()) throw new java.lang.UnsupportedOperationException();
+    this.fWt = pWt;
+    
+  }
+  
   @Override
   public String patternName() {
     return "patterns.addToList";
@@ -95,7 +115,7 @@ public abstract class AddToListMatch extends BasePatternMatch {
   
   @Override
   public Object[] toArray() {
-    return new Object[]{fAddToListOp, fTarget};
+    return new Object[]{fAddToListOp, fTarget, fWt};
     
   }
   
@@ -103,7 +123,8 @@ public abstract class AddToListMatch extends BasePatternMatch {
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
     result.append("\"addToListOp\"=" + prettyPrintValue(fAddToListOp) + ", ");
-    result.append("\"target\"=" + prettyPrintValue(fTarget));
+    result.append("\"target\"=" + prettyPrintValue(fTarget) + ", ");
+    result.append("\"wt\"=" + prettyPrintValue(fWt));
     return result.toString();
     
   }
@@ -114,6 +135,7 @@ public abstract class AddToListMatch extends BasePatternMatch {
     int result = 1;
     result = prime * result + ((fAddToListOp == null) ? 0 : fAddToListOp.hashCode());
     result = prime * result + ((fTarget == null) ? 0 : fTarget.hashCode());
+    result = prime * result + ((fWt == null) ? 0 : fWt.hashCode());
     return result;
     
   }
@@ -137,6 +159,8 @@ public abstract class AddToListMatch extends BasePatternMatch {
     else if (!fAddToListOp.equals(other.fAddToListOp)) return false;
     if (fTarget == null) {if (other.fTarget != null) return false;}
     else if (!fTarget.equals(other.fTarget)) return false;
+    if (fWt == null) {if (other.fWt != null) return false;}
+    else if (!fWt.equals(other.fWt)) return false;
     return true;
   }
   
@@ -153,8 +177,8 @@ public abstract class AddToListMatch extends BasePatternMatch {
   
   @SuppressWarnings("all")
   static final class Mutable extends AddToListMatch {
-    Mutable(final AddToList pAddToListOp, final IdentifiableWTElement pTarget) {
-      super(pAddToListOp, pTarget);
+    Mutable(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt) {
+      super(pAddToListOp, pTarget, pWt);
       
     }
     
@@ -167,8 +191,8 @@ public abstract class AddToListMatch extends BasePatternMatch {
   
   @SuppressWarnings("all")
   static final class Immutable extends AddToListMatch {
-    Immutable(final AddToList pAddToListOp, final IdentifiableWTElement pTarget) {
-      super(pAddToListOp, pTarget);
+    Immutable(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt) {
+      super(pAddToListOp, pTarget, pWt);
       
     }
     

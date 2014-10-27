@@ -54,12 +54,12 @@ public final class DeleteQuerySpecification extends BaseGeneratedQuerySpecificat
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("deleteOp");
+    return Arrays.asList("deleteOp","wt");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("deleteOp", "DiffModel.Delete"));
+    return Arrays.asList(new PParameter("deleteOp", "DiffModel.Delete"),new PParameter("wt", "WTSpecID.WT"));
   }
   
   @Override
@@ -69,10 +69,14 @@ public final class DeleteQuerySpecification extends BaseGeneratedQuerySpecificat
     {
       PBody body = new PBody(this);
       PVariable var_deleteOp = body.getOrCreateVariableByName("deleteOp");
+      PVariable var_wt = body.getOrCreateVariableByName("wt");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
-        new ExportedParameter(body, var_deleteOp, "deleteOp")
+        new ExportedParameter(body, var_deleteOp, "deleteOp"), 
+        new ExportedParameter(body, var_wt, "wt")
       ));
       
+      
+      new TypeUnary(body, var_wt, getClassifierLiteral("http://WTSpec/2.01", "WT"), "http://WTSpec/2.01/WT");
       new TypeUnary(body, var_deleteOp, getClassifierLiteral("http://diffmodel/1.0", "Delete"), "http://diffmodel/1.0/Delete");
       bodies.add(body);
     }setStatus(PQueryStatus.OK);

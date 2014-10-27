@@ -54,12 +54,12 @@ public final class CreateQuerySpecification extends BaseGeneratedQuerySpecificat
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("createOp");
+    return Arrays.asList("createOp","wt");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("createOp", "DiffModel.Create"));
+    return Arrays.asList(new PParameter("createOp", "DiffModel.Create"),new PParameter("wt", "WTSpecID.WT"));
   }
   
   @Override
@@ -69,11 +69,15 @@ public final class CreateQuerySpecification extends BaseGeneratedQuerySpecificat
     {
       PBody body = new PBody(this);
       PVariable var_createOp = body.getOrCreateVariableByName("createOp");
+      PVariable var_wt = body.getOrCreateVariableByName("wt");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
-        new ExportedParameter(body, var_createOp, "createOp")
+        new ExportedParameter(body, var_createOp, "createOp"), 
+        new ExportedParameter(body, var_wt, "wt")
       ));
       
       new TypeUnary(body, var_createOp, getClassifierLiteral("http://diffmodel/1.0", "Create"), "http://diffmodel/1.0/Create");
+      
+      new TypeUnary(body, var_wt, getClassifierLiteral("http://WTSpec/2.01", "WT"), "http://WTSpec/2.01/WT");
       bodies.add(body);
     }setStatus(PQueryStatus.OK);
     return bodies;

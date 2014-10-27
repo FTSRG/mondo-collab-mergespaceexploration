@@ -2,6 +2,7 @@ package patterns.util;
 
 import DiffModel.ResetAttribute;
 import WTSpecID.IdentifiableWTElement;
+import WTSpecID.WT;
 import org.eclipse.incquery.runtime.api.IMatchProcessor;
 import patterns.ResetAttributeMatch;
 
@@ -17,13 +18,14 @@ public abstract class ResetAttributeProcessor implements IMatchProcessor<ResetAt
    * Defines the action that is to be executed on each match.
    * @param pResetAttrOp the value of pattern parameter resetAttrOp in the currently processed match
    * @param pTarget the value of pattern parameter target in the currently processed match
+   * @param pWt the value of pattern parameter wt in the currently processed match
    * 
    */
-  public abstract void process(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget);
+  public abstract void process(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget, final WT pWt);
   
   @Override
   public void process(final ResetAttributeMatch match) {
-    process(match.getResetAttrOp(), match.getTarget());
+    process(match.getResetAttrOp(), match.getTarget(), match.getWt());
     
   }
 }

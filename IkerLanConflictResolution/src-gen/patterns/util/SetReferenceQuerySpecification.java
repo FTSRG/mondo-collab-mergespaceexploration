@@ -55,12 +55,12 @@ public final class SetReferenceQuerySpecification extends BaseGeneratedQuerySpec
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("setRefOp","target");
+    return Arrays.asList("setRefOp","target","wt");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("setRefOp", "DiffModel.SetReference"),new PParameter("target", "WTSpecID.IdentifiableWTElement"));
+    return Arrays.asList(new PParameter("setRefOp", "DiffModel.SetReference"),new PParameter("target", "WTSpecID.IdentifiableWTElement"),new PParameter("wt", "WTSpecID.WT"));
   }
   
   @Override
@@ -71,16 +71,20 @@ public final class SetReferenceQuerySpecification extends BaseGeneratedQuerySpec
       PBody body = new PBody(this);
       PVariable var_setRefOp = body.getOrCreateVariableByName("setRefOp");
       PVariable var_target = body.getOrCreateVariableByName("target");
+      PVariable var_wt = body.getOrCreateVariableByName("wt");
       PVariable var_id = body.getOrCreateVariableByName("id");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
         new ExportedParameter(body, var_setRefOp, "setRefOp"), 
-        new ExportedParameter(body, var_target, "target")
+        new ExportedParameter(body, var_target, "target"), 
+        new ExportedParameter(body, var_wt, "wt")
       ));
       
-      
-      new TypeBinary(body, context, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
       new TypeUnary(body, var_setRefOp, getClassifierLiteral("http://diffmodel/1.0", "SetReference"), "http://diffmodel/1.0/SetReference");
-      new TypeBinary(body, context, var_setRefOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "id"), "http://diffmodel/1.0/Identifiable.id");
+      
+      
+      new TypeUnary(body, var_wt, getClassifierLiteral("http://WTSpec/2.01", "WT"), "http://WTSpec/2.01/WT");
+      new TypeBinary(body, context, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
+      new TypeBinary(body, context, var_setRefOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
       bodies.add(body);
     }setStatus(PQueryStatus.OK);
     return bodies;

@@ -4,40 +4,48 @@ import "http://WTSpec/2.01"
 import "http://diffmodel/1.0"
 import "http://modelcontainer/1.0"
 
-pattern create(createOp : Create) {
+pattern create(createOp : Create, wt : WT) {
+	WT(wt);
 	Create(createOp);
 }
 
-pattern delete(deleteOp : Delete) {
+pattern delete(deleteOp : Delete, wt : WT) {
+	WT(wt);
 	Delete(deleteOp);
 }
 
-pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement) {
+pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement, wt : WT) {
+	WT(wt);
 	IdentifiableWTElement.ID(target, id);
-	SetAttribute.id(setAttrOp, id);
+	SetAttribute.targetId(setAttrOp, id);
 }
 
-pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement) {
+pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement, wt : WT) {
+	WT(wt);
 	IdentifiableWTElement.ID(target, id);
-	SetReference.id(setRefOp, id);
+	SetReference.targetId(setRefOp, id);
 }
 
-pattern resetAttribute(resetAttrOp : ResetAttribute, target : IdentifiableWTElement) {
+pattern resetAttribute(resetAttrOp : ResetAttribute, target : IdentifiableWTElement, wt : WT) {
+	WT(wt);
 	IdentifiableWTElement.ID(target, id);
-	ResetAttribute.id(resetAttrOp, id);
+	ResetAttribute.targetId(resetAttrOp, id);
 }
 
-pattern resetReference(resetRefOp : ResetReference, target : IdentifiableWTElement) {
+pattern resetReference(resetRefOp : ResetReference, target : IdentifiableWTElement, wt : WT) {
+	WT(wt);
 	IdentifiableWTElement.ID(target, id);
-	ResetReference.id(resetRefOp, id);
+	ResetReference.targetId(resetRefOp, id);
 }
 
-pattern addToList(addToListOp : AddToList, target : IdentifiableWTElement) {
+pattern addToList(addToListOp : AddToList, target : IdentifiableWTElement, wt : WT) {
+	WT(wt);
 	IdentifiableWTElement.ID(target, id);
-	AddToList.id(addToListOp, id);
+	AddToList.targetId(addToListOp, id);
 }
 
-pattern removeFromList(removeFromListOp : RemoveFromList, target : IdentifiableWTElement) {
+pattern removeFromList(removeFromListOp : RemoveFromList, target : IdentifiableWTElement, wt : WT) {
+	WT(wt);
 	IdentifiableWTElement.ID(target, id);
-	RemoveFromList.id(removeFromListOp, id);
+	RemoveFromList.targetId(removeFromListOp, id);
 }

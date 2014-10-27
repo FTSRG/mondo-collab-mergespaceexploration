@@ -176,13 +176,22 @@ public interface DiffModelPackage extends EPackage {
 	int IDENTIFIABLE__ID = 0;
 
 	/**
+	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IDENTIFIABLE__TARGET_ID = 1;
+
+	/**
 	 * The number of structural features of the '<em>Identifiable</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTIFIABLE_FEATURE_COUNT = 1;
+	int IDENTIFIABLE_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Identifiable</em>' class.
@@ -211,6 +220,15 @@ public interface DiffModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int CREATE__ID = IDENTIFIABLE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE__TARGET_ID = IDENTIFIABLE__TARGET_ID;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -259,6 +277,15 @@ public interface DiffModelPackage extends EPackage {
 	int DELETE__ID = IDENTIFIABLE__ID;
 
 	/**
+	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DELETE__TARGET_ID = IDENTIFIABLE__TARGET_ID;
+
+	/**
 	 * The number of structural features of the '<em>Delete</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -294,6 +321,15 @@ public interface DiffModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int SET_ATTRIBUTE__ID = IDENTIFIABLE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SET_ATTRIBUTE__TARGET_ID = IDENTIFIABLE__TARGET_ID;
 
 	/**
 	 * The feature id for the '<em><b>Attribute</b></em>' attribute.
@@ -351,6 +387,15 @@ public interface DiffModelPackage extends EPackage {
 	int SET_REFERENCE__ID = IDENTIFIABLE__ID;
 
 	/**
+	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SET_REFERENCE__TARGET_ID = IDENTIFIABLE__TARGET_ID;
+
+	/**
 	 * The feature id for the '<em><b>Reference</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -406,6 +451,15 @@ public interface DiffModelPackage extends EPackage {
 	int RESET_ATTRIBUTE__ID = IDENTIFIABLE__ID;
 
 	/**
+	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_ATTRIBUTE__TARGET_ID = IDENTIFIABLE__TARGET_ID;
+
+	/**
 	 * The feature id for the '<em><b>Attribute</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -450,6 +504,15 @@ public interface DiffModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int RESET_REFERENCE__ID = IDENTIFIABLE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_REFERENCE__TARGET_ID = IDENTIFIABLE__TARGET_ID;
 
 	/**
 	 * The feature id for the '<em><b>Reference</b></em>' attribute.
@@ -497,6 +560,15 @@ public interface DiffModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int ADD_TO_LIST__ID = IDENTIFIABLE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADD_TO_LIST__TARGET_ID = IDENTIFIABLE__TARGET_ID;
 
 	/**
 	 * The feature id for the '<em><b>List</b></em>' attribute.
@@ -552,6 +624,15 @@ public interface DiffModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int REMOVE_FROM_LIST__ID = IDENTIFIABLE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REMOVE_FROM_LIST__TARGET_ID = IDENTIFIABLE__TARGET_ID;
 
 	/**
 	 * The feature id for the '<em><b>List</b></em>' attribute.
@@ -847,6 +928,17 @@ public interface DiffModelPackage extends EPackage {
 	EAttribute getIdentifiable_Id();
 
 	/**
+	 * Returns the meta object for the attribute '{@link DiffModel.Identifiable#getTargetId <em>Target Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Target Id</em>'.
+	 * @see DiffModel.Identifiable#getTargetId()
+	 * @see #getIdentifiable()
+	 * @generated
+	 */
+	EAttribute getIdentifiable_TargetId();
+
+	/**
 	 * Returns the meta object for class '{@link DiffModel.AddToList <em>Add To List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1140,6 +1232,14 @@ public interface DiffModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute IDENTIFIABLE__ID = eINSTANCE.getIdentifiable_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Target Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IDENTIFIABLE__TARGET_ID = eINSTANCE.getIdentifiable_TargetId();
 
 		/**
 		 * The meta object literal for the '{@link DiffModel.impl.AddToListImpl <em>Add To List</em>}' class.

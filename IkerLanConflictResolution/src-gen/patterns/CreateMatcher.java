@@ -1,6 +1,7 @@
 package patterns;
 
 import DiffModel.Create;
+import WTSpecID.WT;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +29,8 @@ import patterns.util.CreateQuerySpecification;
  * 
  * <p>Original source:
  * <code><pre>
- * pattern create(createOp : Create) {
+ * pattern create(createOp : Create, wt : WT) {
+ * 	WT(wt);
  * 	Create(createOp);
  * }
  * </pre></code>
@@ -69,6 +71,8 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
   
   private final static int POSITION_CREATEOP = 0;
   
+  private final static int POSITION_WT = 1;
+  
   private final static Logger LOGGER = IncQueryLoggingUtil.getLogger(CreateMatcher.class);
   
   /**
@@ -105,65 +109,71 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
   /**
    * Returns the set of all matches of the pattern that conform to the given fixed values of some parameters.
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return matches represented as a CreateMatch object.
    * 
    */
-  public Collection<CreateMatch> getAllMatches(final Create pCreateOp) {
-    return rawGetAllMatches(new Object[]{pCreateOp});
+  public Collection<CreateMatch> getAllMatches(final Create pCreateOp, final WT pWt) {
+    return rawGetAllMatches(new Object[]{pCreateOp, pWt});
   }
   
   /**
    * Returns an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
    * Neither determinism nor randomness of selection is guaranteed.
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return a match represented as a CreateMatch object, or null if no match is found.
    * 
    */
-  public CreateMatch getOneArbitraryMatch(final Create pCreateOp) {
-    return rawGetOneArbitraryMatch(new Object[]{pCreateOp});
+  public CreateMatch getOneArbitraryMatch(final Create pCreateOp, final WT pWt) {
+    return rawGetOneArbitraryMatch(new Object[]{pCreateOp, pWt});
   }
   
   /**
    * Indicates whether the given combination of specified pattern parameters constitute a valid pattern match,
    * under any possible substitution of the unspecified parameters (if any).
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return true if the input is a valid (partial) match of the pattern.
    * 
    */
-  public boolean hasMatch(final Create pCreateOp) {
-    return rawHasMatch(new Object[]{pCreateOp});
+  public boolean hasMatch(final Create pCreateOp, final WT pWt) {
+    return rawHasMatch(new Object[]{pCreateOp, pWt});
   }
   
   /**
    * Returns the number of all matches of the pattern that conform to the given fixed values of some parameters.
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return the number of pattern matches found.
    * 
    */
-  public int countMatches(final Create pCreateOp) {
-    return rawCountMatches(new Object[]{pCreateOp});
+  public int countMatches(final Create pCreateOp, final WT pWt) {
+    return rawCountMatches(new Object[]{pCreateOp, pWt});
   }
   
   /**
    * Executes the given processor on each match of the pattern that conforms to the given fixed values of some parameters.
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @param processor the action that will process each pattern match.
    * 
    */
-  public void forEachMatch(final Create pCreateOp, final IMatchProcessor<? super CreateMatch> processor) {
-    rawForEachMatch(new Object[]{pCreateOp}, processor);
+  public void forEachMatch(final Create pCreateOp, final WT pWt, final IMatchProcessor<? super CreateMatch> processor) {
+    rawForEachMatch(new Object[]{pCreateOp, pWt}, processor);
   }
   
   /**
    * Executes the given processor on an arbitrarily chosen match of the pattern that conforms to the given fixed values of some parameters.
    * Neither determinism nor randomness of selection is guaranteed.
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @param processor the action that will process the selected match.
    * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
    * 
    */
-  public boolean forOneArbitraryMatch(final Create pCreateOp, final IMatchProcessor<? super CreateMatch> processor) {
-    return rawForOneArbitraryMatch(new Object[]{pCreateOp}, processor);
+  public boolean forOneArbitraryMatch(final Create pCreateOp, final WT pWt, final IMatchProcessor<? super CreateMatch> processor) {
+    return rawForOneArbitraryMatch(new Object[]{pCreateOp, pWt}, processor);
   }
   
   /**
@@ -174,13 +184,14 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
    * See {@link DeltaMonitor} for details.
    * @param fillAtStart if true, all current matches are reported as new match events; if false, the delta monitor starts empty.
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return the delta monitor.
    * @deprecated use the IncQuery Databinding API (IncQueryObservables) instead.
    * 
    */
   @Deprecated
-  public DeltaMonitor<CreateMatch> newFilteredDeltaMonitor(final boolean fillAtStart, final Create pCreateOp) {
-    return rawNewFilteredDeltaMonitor(fillAtStart, new Object[]{pCreateOp});
+  public DeltaMonitor<CreateMatch> newFilteredDeltaMonitor(final boolean fillAtStart, final Create pCreateOp, final WT pWt) {
+    return rawNewFilteredDeltaMonitor(fillAtStart, new Object[]{pCreateOp, pWt});
   }
   
   /**
@@ -188,11 +199,12 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
    * @return the (partial) match object.
    * 
    */
-  public CreateMatch newMatch(final Create pCreateOp) {
-    return new CreateMatch.Immutable(pCreateOp);
+  public CreateMatch newMatch(final Create pCreateOp, final WT pWt) {
+    return new CreateMatch.Immutable(pCreateOp, pWt);
     
   }
   
@@ -216,10 +228,66 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
     return rawAccumulateAllValuesOfcreateOp(emptyArray());
   }
   
+  /**
+   * Retrieve the set of values that occur in matches for createOp.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<Create> getAllValuesOfcreateOp(final CreateMatch partialMatch) {
+    return rawAccumulateAllValuesOfcreateOp(partialMatch.toArray());
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for createOp.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<Create> getAllValuesOfcreateOp(final WT pWt) {
+    return rawAccumulateAllValuesOfcreateOp(new Object[]{null, pWt});
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  protected Set<WT> rawAccumulateAllValuesOfwt(final Object[] parameters) {
+    Set<WT> results = new HashSet<WT>();
+    rawAccumulateAllValues(POSITION_WT, parameters, results);
+    return results;
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<WT> getAllValuesOfwt() {
+    return rawAccumulateAllValuesOfwt(emptyArray());
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<WT> getAllValuesOfwt(final CreateMatch partialMatch) {
+    return rawAccumulateAllValuesOfwt(partialMatch.toArray());
+  }
+  
+  /**
+   * Retrieve the set of values that occur in matches for wt.
+   * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
+   * 
+   */
+  public Set<WT> getAllValuesOfwt(final Create pCreateOp) {
+    return rawAccumulateAllValuesOfwt(new Object[]{pCreateOp, null});
+  }
+  
   @Override
   protected CreateMatch tupleToMatch(final Tuple t) {
     try {
-      return new CreateMatch.Immutable((DiffModel.Create) t.get(POSITION_CREATEOP));
+      return new CreateMatch.Immutable((DiffModel.Create) t.get(POSITION_CREATEOP), (WTSpecID.WT) t.get(POSITION_WT));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -230,7 +298,7 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
   @Override
   protected CreateMatch arrayToMatch(final Object[] match) {
     try {
-      return new CreateMatch.Immutable((DiffModel.Create) match[POSITION_CREATEOP]);
+      return new CreateMatch.Immutable((DiffModel.Create) match[POSITION_CREATEOP], (WTSpecID.WT) match[POSITION_WT]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -241,7 +309,7 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
   @Override
   protected CreateMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new CreateMatch.Mutable((DiffModel.Create) match[POSITION_CREATEOP]);
+      return new CreateMatch.Mutable((DiffModel.Create) match[POSITION_CREATEOP], (WTSpecID.WT) match[POSITION_WT]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

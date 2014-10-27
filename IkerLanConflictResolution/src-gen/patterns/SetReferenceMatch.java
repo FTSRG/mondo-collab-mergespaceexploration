@@ -2,6 +2,7 @@ package patterns;
 
 import DiffModel.SetReference;
 import WTSpecID.IdentifiableWTElement;
+import WTSpecID.WT;
 import java.util.Arrays;
 import java.util.List;
 import org.eclipse.incquery.runtime.api.IPatternMatch;
@@ -28,11 +29,14 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
   
   private IdentifiableWTElement fTarget;
   
-  private static List<String> parameterNames = makeImmutableList("setRefOp", "target");
+  private WT fWt;
   
-  private SetReferenceMatch(final SetReference pSetRefOp, final IdentifiableWTElement pTarget) {
+  private static List<String> parameterNames = makeImmutableList("setRefOp", "target", "wt");
+  
+  private SetReferenceMatch(final SetReference pSetRefOp, final IdentifiableWTElement pTarget, final WT pWt) {
     this.fSetRefOp = pSetRefOp;
     this.fTarget = pTarget;
+    this.fWt = pWt;
     
   }
   
@@ -40,6 +44,7 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
   public Object get(final String parameterName) {
     if ("setRefOp".equals(parameterName)) return this.fSetRefOp;
     if ("target".equals(parameterName)) return this.fTarget;
+    if ("wt".equals(parameterName)) return this.fWt;
     return null;
     
   }
@@ -54,6 +59,11 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
     
   }
   
+  public WT getWt() {
+    return this.fWt;
+    
+  }
+  
   @Override
   public boolean set(final String parameterName, final Object newValue) {
     if (!isMutable()) throw new java.lang.UnsupportedOperationException();
@@ -63,6 +73,10 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
     }
     if ("target".equals(parameterName) ) {
     	this.fTarget = (WTSpecID.IdentifiableWTElement) newValue;
+    	return true;
+    }
+    if ("wt".equals(parameterName) ) {
+    	this.fWt = (WTSpecID.WT) newValue;
     	return true;
     }
     return false;
@@ -81,6 +95,12 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
     
   }
   
+  public void setWt(final WT pWt) {
+    if (!isMutable()) throw new java.lang.UnsupportedOperationException();
+    this.fWt = pWt;
+    
+  }
+  
   @Override
   public String patternName() {
     return "patterns.setReference";
@@ -95,7 +115,7 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
   
   @Override
   public Object[] toArray() {
-    return new Object[]{fSetRefOp, fTarget};
+    return new Object[]{fSetRefOp, fTarget, fWt};
     
   }
   
@@ -103,7 +123,8 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
     result.append("\"setRefOp\"=" + prettyPrintValue(fSetRefOp) + ", ");
-    result.append("\"target\"=" + prettyPrintValue(fTarget));
+    result.append("\"target\"=" + prettyPrintValue(fTarget) + ", ");
+    result.append("\"wt\"=" + prettyPrintValue(fWt));
     return result.toString();
     
   }
@@ -114,6 +135,7 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
     int result = 1;
     result = prime * result + ((fSetRefOp == null) ? 0 : fSetRefOp.hashCode());
     result = prime * result + ((fTarget == null) ? 0 : fTarget.hashCode());
+    result = prime * result + ((fWt == null) ? 0 : fWt.hashCode());
     return result;
     
   }
@@ -137,6 +159,8 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
     else if (!fSetRefOp.equals(other.fSetRefOp)) return false;
     if (fTarget == null) {if (other.fTarget != null) return false;}
     else if (!fTarget.equals(other.fTarget)) return false;
+    if (fWt == null) {if (other.fWt != null) return false;}
+    else if (!fWt.equals(other.fWt)) return false;
     return true;
   }
   
@@ -153,8 +177,8 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
   
   @SuppressWarnings("all")
   static final class Mutable extends SetReferenceMatch {
-    Mutable(final SetReference pSetRefOp, final IdentifiableWTElement pTarget) {
-      super(pSetRefOp, pTarget);
+    Mutable(final SetReference pSetRefOp, final IdentifiableWTElement pTarget, final WT pWt) {
+      super(pSetRefOp, pTarget, pWt);
       
     }
     
@@ -167,8 +191,8 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
   
   @SuppressWarnings("all")
   static final class Immutable extends SetReferenceMatch {
-    Immutable(final SetReference pSetRefOp, final IdentifiableWTElement pTarget) {
-      super(pSetRefOp, pTarget);
+    Immutable(final SetReference pSetRefOp, final IdentifiableWTElement pTarget, final WT pWt) {
+      super(pSetRefOp, pTarget, pWt);
       
     }
     

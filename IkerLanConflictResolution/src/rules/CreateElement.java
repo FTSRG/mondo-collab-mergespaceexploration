@@ -1,59 +1,49 @@
 package rules;
 
-import java.util.List;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.incquery.runtime.api.IMatchProcessor;
-import org.eclipse.viatra.dse.util.EMFHelper;
+import org.eclipse.incquery.runtime.exception.IncQueryException;
+import org.eclipse.viatra.dse.api.TransformationRule;
 
-import WTSpec.WTSpecPackage;
+import WTSpecID.WTSpecIDPackage;
 import patterns.CreateMatch;
+import patterns.CreateMatcher;
 
 public class CreateElement implements IMatchProcessor<CreateMatch> {
 
 	@Override
 	public void process(CreateMatch match) {
 		
-		// TODO get eResource and add the new element somehow...
+		System.out.println("CreateMatch");
 		
 		String classType = match.getCreateOp().getType();
-		String newID = match.getCreateOp().getId();
+		String newID = match.getCreateOp().getTargetId();
 		
-		WTSpecPackage.eINSTANCE.eClass();
+		WTSpecIDPackage.eINSTANCE.eClass();
 		
-		EClassifier classifier = WTSpecPackage.eINSTANCE.getEClassifier(classType);
+		// getting EClassifier
+		EClassifier classifier = WTSpecIDPackage.eINSTANCE.getEClassifier(classType);
+		// creating new EObject based on EClassifier
+		EObject newObject = WTSpecIDPackage.eINSTANCE.getWTSpecIDFactory().create((EClass) classifier);
+		// setting ID of the new EObject - there should be an "ID" attribute
+		newObject.eSet(newObject.eClass().getEStructuralFeature("ID"), newID);
+		// adding new EObject to the Resource
+		match.getWt().eResource().getContents().add(newObject);
+		// deleting this CreateOp from DiffModel
+		EcoreUtil.delete(match.getCreateOp());
 		
-		EObject newObject = WTSpecPackage.eINSTANCE.getWTSpecFactory().create((EClass) classifier);
+		System.out.println("CreateMatch End");
 		
-		// TODO this should work without parsing (wrong metamodel?)
-		newObject.eSet(newObject.eClass().getEStructuralFeature("ID"), Integer.parseInt(newID));
-		
-		// TODO add new Object to the model
-		
-		// TODO remove this crateOp from DiffModels
-		// originalRoot.eResource().getResourceSet();
-		// --> finding roots of DiffModels
-		// "diffModelsRoot.eResource().getContents().remove(index);"
-		// find the element with newID from the right DiffModel (there could be an element in both DiffModels with the same ID!)
-		// remove it!
-		
-		
-		
-		//dse List<EModelElement> classesAndReferences = EMFHelper.getClassesAndReferences(metaModelPackages);
-		
-		//EPackage.Registry.INSTANCE...
-		
-//		EPackage.getEClassifier(java.lang.String name) 
-//        Returns the classifier with the given name.
-		
-//		EFactory	getEFactory(java.lang.String nsURI) 
-//        Looks up the value in the map, converting EPackage.Descriptor objects to EFactory objects on demand.
-//EPackage	getEPackage(java.lang.String nsURI) 
-//        Looks up the value in the map, converting EPackage.Descriptor objects to EPackage objects on demand.
+	}
+
+	public static TransformationRule<CreateMatch> createRule() throws IncQueryException {
+
+		TransformationRule<CreateMatch> createElement = new TransformationRule<CreateMatch>(CreateMatcher.querySpecification(), new CreateElement());
+
+		return createElement;
 	}
 
 }

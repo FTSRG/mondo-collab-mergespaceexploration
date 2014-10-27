@@ -1,6 +1,7 @@
 package patterns;
 
 import DiffModel.Create;
+import WTSpecID.WT;
 import java.util.Arrays;
 import java.util.List;
 import org.eclipse.incquery.runtime.api.IPatternMatch;
@@ -25,22 +26,31 @@ import patterns.util.CreateQuerySpecification;
 public abstract class CreateMatch extends BasePatternMatch {
   private Create fCreateOp;
   
-  private static List<String> parameterNames = makeImmutableList("createOp");
+  private WT fWt;
   
-  private CreateMatch(final Create pCreateOp) {
+  private static List<String> parameterNames = makeImmutableList("createOp", "wt");
+  
+  private CreateMatch(final Create pCreateOp, final WT pWt) {
     this.fCreateOp = pCreateOp;
+    this.fWt = pWt;
     
   }
   
   @Override
   public Object get(final String parameterName) {
     if ("createOp".equals(parameterName)) return this.fCreateOp;
+    if ("wt".equals(parameterName)) return this.fWt;
     return null;
     
   }
   
   public Create getCreateOp() {
     return this.fCreateOp;
+    
+  }
+  
+  public WT getWt() {
+    return this.fWt;
     
   }
   
@@ -51,6 +61,10 @@ public abstract class CreateMatch extends BasePatternMatch {
     	this.fCreateOp = (DiffModel.Create) newValue;
     	return true;
     }
+    if ("wt".equals(parameterName) ) {
+    	this.fWt = (WTSpecID.WT) newValue;
+    	return true;
+    }
     return false;
     
   }
@@ -58,6 +72,12 @@ public abstract class CreateMatch extends BasePatternMatch {
   public void setCreateOp(final Create pCreateOp) {
     if (!isMutable()) throw new java.lang.UnsupportedOperationException();
     this.fCreateOp = pCreateOp;
+    
+  }
+  
+  public void setWt(final WT pWt) {
+    if (!isMutable()) throw new java.lang.UnsupportedOperationException();
+    this.fWt = pWt;
     
   }
   
@@ -75,14 +95,15 @@ public abstract class CreateMatch extends BasePatternMatch {
   
   @Override
   public Object[] toArray() {
-    return new Object[]{fCreateOp};
+    return new Object[]{fCreateOp, fWt};
     
   }
   
   @Override
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
-    result.append("\"createOp\"=" + prettyPrintValue(fCreateOp));
+    result.append("\"createOp\"=" + prettyPrintValue(fCreateOp) + ", ");
+    result.append("\"wt\"=" + prettyPrintValue(fWt));
     return result.toString();
     
   }
@@ -92,6 +113,7 @@ public abstract class CreateMatch extends BasePatternMatch {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((fCreateOp == null) ? 0 : fCreateOp.hashCode());
+    result = prime * result + ((fWt == null) ? 0 : fWt.hashCode());
     return result;
     
   }
@@ -113,6 +135,8 @@ public abstract class CreateMatch extends BasePatternMatch {
     CreateMatch other = (CreateMatch) obj;
     if (fCreateOp == null) {if (other.fCreateOp != null) return false;}
     else if (!fCreateOp.equals(other.fCreateOp)) return false;
+    if (fWt == null) {if (other.fWt != null) return false;}
+    else if (!fWt.equals(other.fWt)) return false;
     return true;
   }
   
@@ -129,8 +153,8 @@ public abstract class CreateMatch extends BasePatternMatch {
   
   @SuppressWarnings("all")
   static final class Mutable extends CreateMatch {
-    Mutable(final Create pCreateOp) {
-      super(pCreateOp);
+    Mutable(final Create pCreateOp, final WT pWt) {
+      super(pCreateOp, pWt);
       
     }
     
@@ -143,8 +167,8 @@ public abstract class CreateMatch extends BasePatternMatch {
   
   @SuppressWarnings("all")
   static final class Immutable extends CreateMatch {
-    Immutable(final Create pCreateOp) {
-      super(pCreateOp);
+    Immutable(final Create pCreateOp, final WT pWt) {
+      super(pCreateOp, pWt);
       
     }
     

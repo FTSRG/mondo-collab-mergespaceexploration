@@ -55,12 +55,12 @@ public final class SetAttributeQuerySpecification extends BaseGeneratedQuerySpec
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("setAttrOp","target");
+    return Arrays.asList("setAttrOp","target","wt");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("setAttrOp", "DiffModel.SetAttribute"),new PParameter("target", "WTSpecID.IdentifiableWTElement"));
+    return Arrays.asList(new PParameter("setAttrOp", "DiffModel.SetAttribute"),new PParameter("target", "WTSpecID.IdentifiableWTElement"),new PParameter("wt", "WTSpecID.WT"));
   }
   
   @Override
@@ -71,16 +71,20 @@ public final class SetAttributeQuerySpecification extends BaseGeneratedQuerySpec
       PBody body = new PBody(this);
       PVariable var_setAttrOp = body.getOrCreateVariableByName("setAttrOp");
       PVariable var_target = body.getOrCreateVariableByName("target");
+      PVariable var_wt = body.getOrCreateVariableByName("wt");
       PVariable var_id = body.getOrCreateVariableByName("id");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
         new ExportedParameter(body, var_setAttrOp, "setAttrOp"), 
-        new ExportedParameter(body, var_target, "target")
+        new ExportedParameter(body, var_target, "target"), 
+        new ExportedParameter(body, var_wt, "wt")
       ));
       
-      new TypeUnary(body, var_setAttrOp, getClassifierLiteral("http://diffmodel/1.0", "SetAttribute"), "http://diffmodel/1.0/SetAttribute");
       
+      
+      new TypeUnary(body, var_wt, getClassifierLiteral("http://WTSpec/2.01", "WT"), "http://WTSpec/2.01/WT");
       new TypeBinary(body, context, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
-      new TypeBinary(body, context, var_setAttrOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "id"), "http://diffmodel/1.0/Identifiable.id");
+      new TypeUnary(body, var_setAttrOp, getClassifierLiteral("http://diffmodel/1.0", "SetAttribute"), "http://diffmodel/1.0/SetAttribute");
+      new TypeBinary(body, context, var_setAttrOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
       bodies.add(body);
     }setStatus(PQueryStatus.OK);
     return bodies;

@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link DiffModel.impl.IdentifiableImpl#getId <em>Id</em>}</li>
+ *   <li>{@link DiffModel.impl.IdentifiableImpl#getTargetId <em>Target Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,6 +46,26 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	 * @ordered
 	 */
 	protected String id = ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTargetId() <em>Target Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TARGET_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTargetId() <em>Target Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetId()
+	 * @generated
+	 * @ordered
+	 */
+	protected String targetId = TARGET_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -91,11 +112,34 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getTargetId() {
+		return targetId;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTargetId(String newTargetId) {
+		String oldTargetId = targetId;
+		targetId = newTargetId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiffModelPackage.IDENTIFIABLE__TARGET_ID, oldTargetId, targetId));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case DiffModelPackage.IDENTIFIABLE__ID:
 				return getId();
+			case DiffModelPackage.IDENTIFIABLE__TARGET_ID:
+				return getTargetId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -110,6 +154,9 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 		switch (featureID) {
 			case DiffModelPackage.IDENTIFIABLE__ID:
 				setId((String)newValue);
+				return;
+			case DiffModelPackage.IDENTIFIABLE__TARGET_ID:
+				setTargetId((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -126,6 +173,9 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 			case DiffModelPackage.IDENTIFIABLE__ID:
 				setId(ID_EDEFAULT);
 				return;
+			case DiffModelPackage.IDENTIFIABLE__TARGET_ID:
+				setTargetId(TARGET_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -140,6 +190,8 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 		switch (featureID) {
 			case DiffModelPackage.IDENTIFIABLE__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case DiffModelPackage.IDENTIFIABLE__TARGET_ID:
+				return TARGET_ID_EDEFAULT == null ? targetId != null : !TARGET_ID_EDEFAULT.equals(targetId);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -156,6 +208,8 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (id: ");
 		result.append(id);
+		result.append(", targetId: ");
+		result.append(targetId);
 		result.append(')');
 		return result.toString();
 	}
