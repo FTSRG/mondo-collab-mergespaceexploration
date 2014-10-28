@@ -55,12 +55,12 @@ public final class ResetReferenceQuerySpecification extends BaseGeneratedQuerySp
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("resetRefOp","target","wt");
+    return Arrays.asList("resetRefOp","target");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("resetRefOp", "DiffModel.ResetReference"),new PParameter("target", "WTSpecID.IdentifiableWTElement"),new PParameter("wt", "WTSpecID.WT"));
+    return Arrays.asList(new PParameter("resetRefOp", "DiffModel.ResetReference"),new PParameter("target", "WTSpecID.IdentifiableWTElement"));
   }
   
   @Override
@@ -71,18 +71,14 @@ public final class ResetReferenceQuerySpecification extends BaseGeneratedQuerySp
       PBody body = new PBody(this);
       PVariable var_resetRefOp = body.getOrCreateVariableByName("resetRefOp");
       PVariable var_target = body.getOrCreateVariableByName("target");
-      PVariable var_wt = body.getOrCreateVariableByName("wt");
       PVariable var_id = body.getOrCreateVariableByName("id");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
         new ExportedParameter(body, var_resetRefOp, "resetRefOp"), 
-        new ExportedParameter(body, var_target, "target"), 
-        new ExportedParameter(body, var_wt, "wt")
+        new ExportedParameter(body, var_target, "target")
       ));
       
       new TypeUnary(body, var_resetRefOp, getClassifierLiteral("http://diffmodel/1.0", "ResetReference"), "http://diffmodel/1.0/ResetReference");
       
-      
-      new TypeUnary(body, var_wt, getClassifierLiteral("http://WTSpec/2.01", "WT"), "http://WTSpec/2.01/WT");
       new TypeBinary(body, context, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
       new TypeBinary(body, context, var_resetRefOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
       bodies.add(body);

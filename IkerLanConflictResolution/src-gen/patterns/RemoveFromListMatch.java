@@ -2,7 +2,6 @@ package patterns;
 
 import DiffModel.RemoveFromList;
 import WTSpecID.IdentifiableWTElement;
-import WTSpecID.WT;
 import java.util.Arrays;
 import java.util.List;
 import org.eclipse.incquery.runtime.api.IPatternMatch;
@@ -29,14 +28,14 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
   
   private IdentifiableWTElement fTarget;
   
-  private WT fWt;
+  private IdentifiableWTElement fRef;
   
-  private static List<String> parameterNames = makeImmutableList("removeFromListOp", "target", "wt");
+  private static List<String> parameterNames = makeImmutableList("removeFromListOp", "target", "ref");
   
-  private RemoveFromListMatch(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final WT pWt) {
+  private RemoveFromListMatch(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
     this.fRemoveFromListOp = pRemoveFromListOp;
     this.fTarget = pTarget;
-    this.fWt = pWt;
+    this.fRef = pRef;
     
   }
   
@@ -44,7 +43,7 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
   public Object get(final String parameterName) {
     if ("removeFromListOp".equals(parameterName)) return this.fRemoveFromListOp;
     if ("target".equals(parameterName)) return this.fTarget;
-    if ("wt".equals(parameterName)) return this.fWt;
+    if ("ref".equals(parameterName)) return this.fRef;
     return null;
     
   }
@@ -59,8 +58,8 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
     
   }
   
-  public WT getWt() {
-    return this.fWt;
+  public IdentifiableWTElement getRef() {
+    return this.fRef;
     
   }
   
@@ -75,8 +74,8 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
     	this.fTarget = (WTSpecID.IdentifiableWTElement) newValue;
     	return true;
     }
-    if ("wt".equals(parameterName) ) {
-    	this.fWt = (WTSpecID.WT) newValue;
+    if ("ref".equals(parameterName) ) {
+    	this.fRef = (WTSpecID.IdentifiableWTElement) newValue;
     	return true;
     }
     return false;
@@ -95,9 +94,9 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
     
   }
   
-  public void setWt(final WT pWt) {
+  public void setRef(final IdentifiableWTElement pRef) {
     if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-    this.fWt = pWt;
+    this.fRef = pRef;
     
   }
   
@@ -115,7 +114,7 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
   
   @Override
   public Object[] toArray() {
-    return new Object[]{fRemoveFromListOp, fTarget, fWt};
+    return new Object[]{fRemoveFromListOp, fTarget, fRef};
     
   }
   
@@ -124,7 +123,7 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
     StringBuilder result = new StringBuilder();
     result.append("\"removeFromListOp\"=" + prettyPrintValue(fRemoveFromListOp) + ", ");
     result.append("\"target\"=" + prettyPrintValue(fTarget) + ", ");
-    result.append("\"wt\"=" + prettyPrintValue(fWt));
+    result.append("\"ref\"=" + prettyPrintValue(fRef));
     return result.toString();
     
   }
@@ -135,7 +134,7 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
     int result = 1;
     result = prime * result + ((fRemoveFromListOp == null) ? 0 : fRemoveFromListOp.hashCode());
     result = prime * result + ((fTarget == null) ? 0 : fTarget.hashCode());
-    result = prime * result + ((fWt == null) ? 0 : fWt.hashCode());
+    result = prime * result + ((fRef == null) ? 0 : fRef.hashCode());
     return result;
     
   }
@@ -159,8 +158,8 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
     else if (!fRemoveFromListOp.equals(other.fRemoveFromListOp)) return false;
     if (fTarget == null) {if (other.fTarget != null) return false;}
     else if (!fTarget.equals(other.fTarget)) return false;
-    if (fWt == null) {if (other.fWt != null) return false;}
-    else if (!fWt.equals(other.fWt)) return false;
+    if (fRef == null) {if (other.fRef != null) return false;}
+    else if (!fRef.equals(other.fRef)) return false;
     return true;
   }
   
@@ -177,8 +176,8 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
   
   @SuppressWarnings("all")
   static final class Mutable extends RemoveFromListMatch {
-    Mutable(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final WT pWt) {
-      super(pRemoveFromListOp, pTarget, pWt);
+    Mutable(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+      super(pRemoveFromListOp, pTarget, pRef);
       
     }
     
@@ -191,8 +190,8 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
   
   @SuppressWarnings("all")
   static final class Immutable extends RemoveFromListMatch {
-    Immutable(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final WT pWt) {
-      super(pRemoveFromListOp, pTarget, pWt);
+    Immutable(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+      super(pRemoveFromListOp, pTarget, pRef);
       
     }
     

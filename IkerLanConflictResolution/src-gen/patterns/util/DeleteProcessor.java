@@ -1,7 +1,7 @@
 package patterns.util;
 
 import DiffModel.Delete;
-import WTSpecID.WT;
+import WTSpecID.IdentifiableWTElement;
 import org.eclipse.incquery.runtime.api.IMatchProcessor;
 import patterns.DeleteMatch;
 
@@ -16,14 +16,14 @@ public abstract class DeleteProcessor implements IMatchProcessor<DeleteMatch> {
   /**
    * Defines the action that is to be executed on each match.
    * @param pDeleteOp the value of pattern parameter deleteOp in the currently processed match
-   * @param pWt the value of pattern parameter wt in the currently processed match
+   * @param pTarget the value of pattern parameter target in the currently processed match
    * 
    */
-  public abstract void process(final Delete pDeleteOp, final WT pWt);
+  public abstract void process(final Delete pDeleteOp, final IdentifiableWTElement pTarget);
   
   @Override
   public void process(final DeleteMatch match) {
-    process(match.getDeleteOp(), match.getWt());
+    process(match.getDeleteOp(), match.getTarget());
     
   }
 }

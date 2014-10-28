@@ -1,6 +1,6 @@
 package conflictresolution;
 
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 import goals.CheckDifferences;
 import goals.DifferencesSolutionStore;
 
@@ -11,6 +11,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -22,6 +25,7 @@ import org.eclipse.viatra.dse.api.DesignSpaceExplorer;
 import org.eclipse.viatra.dse.api.Solution;
 import org.eclipse.viatra.dse.api.SolutionTrajectory;
 import org.eclipse.viatra.dse.api.Strategies;
+import org.eclipse.viatra.dse.base.DesignSpaceManager;
 import org.eclipse.viatra.dse.statecode.incrementalgraph.IncrementalGraphHasherFactory;
 import org.junit.Test;
 
@@ -36,6 +40,7 @@ import rules.SetReference;
 import DiffModel.DiffContainer;
 import DiffModel.DiffModelPackage;
 import ModelContainer.MainRoot;
+import ModelContainer.ModelContainerFactory;
 import ModelContainer.ModelContainerPackage;
 import WTSpecID.WT;
 import WTSpecID.WTSpecIDPackage;
@@ -44,6 +49,10 @@ public class ConflictResolutionTest {
 
 	@Test
 	public void test() throws IncQueryException {
+		
+		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.ERROR);
+		Logger.getLogger(DesignSpaceManager.class).setLevel(Level.DEBUG);
 
 		DesignSpaceExplorer dse = new DesignSpaceExplorer();
 
@@ -72,15 +81,16 @@ public class ConflictResolutionTest {
 				"/IkerLanConflictResolution/instancemodels/deltaOB.diffmodel",
 				true), true);
 
-		Resource originalWithDeltas = rS
-				.getResource(
-						URI.createPlatformPluginURI(
-								"/IkerLanConflictResolution/instancemodels/empty.modelcontainer",
-								true), true);
+//		Resource originalWithDeltas = rS
+//				.getResource(
+//						URI.createPlatformPluginURI(
+//								"/IkerLanConflictResolution/instancemodels/empty.modelcontainer",
+//								true), true);
 
 		
 		// appending models for IncQuery
-		MainRoot mainRoot = (MainRoot) originalWithDeltas.getContents().get(0);
+		//MainRoot mainRoot = (MainRoot) originalWithDeltas.getContents().get(0);
+		MainRoot mainRoot = ModelContainerFactory.eINSTANCE.createMainRoot();
 		
 		WT originalRoot = (WT) original.getContents().get(0);
 		DiffContainer deltaOBRoot = (DiffContainer) deltaOB.getContents().get(0);
@@ -150,7 +160,7 @@ public class ConflictResolutionTest {
 						"C:\\Users\\Marci\\Desktop\\solutions\\solution" + s++
 								+ ".wtspecid");
 
-				originalWithDeltas.save(output, null);
+				original.save(output, null);
 
 			} catch (FileNotFoundException e) {
 

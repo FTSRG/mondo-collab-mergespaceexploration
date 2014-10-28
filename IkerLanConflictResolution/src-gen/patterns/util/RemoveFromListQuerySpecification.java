@@ -15,7 +15,6 @@ import org.eclipse.incquery.runtime.matchers.psystem.PQuery.PQueryStatus;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
-import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import patterns.RemoveFromListMatcher;
 
 /**
@@ -55,12 +54,12 @@ public final class RemoveFromListQuerySpecification extends BaseGeneratedQuerySp
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("removeFromListOp","target","wt");
+    return Arrays.asList("removeFromListOp","target","ref");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("removeFromListOp", "DiffModel.RemoveFromList"),new PParameter("target", "WTSpecID.IdentifiableWTElement"),new PParameter("wt", "WTSpecID.WT"));
+    return Arrays.asList(new PParameter("removeFromListOp", "DiffModel.RemoveFromList"),new PParameter("target", "WTSpecID.IdentifiableWTElement"),new PParameter("ref", "WTSpecID.IdentifiableWTElement"));
   }
   
   @Override
@@ -71,20 +70,21 @@ public final class RemoveFromListQuerySpecification extends BaseGeneratedQuerySp
       PBody body = new PBody(this);
       PVariable var_removeFromListOp = body.getOrCreateVariableByName("removeFromListOp");
       PVariable var_target = body.getOrCreateVariableByName("target");
-      PVariable var_wt = body.getOrCreateVariableByName("wt");
+      PVariable var_ref = body.getOrCreateVariableByName("ref");
       PVariable var_id = body.getOrCreateVariableByName("id");
+      PVariable var_id2 = body.getOrCreateVariableByName("id2");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
         new ExportedParameter(body, var_removeFromListOp, "removeFromListOp"), 
         new ExportedParameter(body, var_target, "target"), 
-        new ExportedParameter(body, var_wt, "wt")
+        new ExportedParameter(body, var_ref, "ref")
       ));
       
-      new TypeUnary(body, var_removeFromListOp, getClassifierLiteral("http://diffmodel/1.0", "RemoveFromList"), "http://diffmodel/1.0/RemoveFromList");
       
       
-      new TypeUnary(body, var_wt, getClassifierLiteral("http://WTSpec/2.01", "WT"), "http://WTSpec/2.01/WT");
       new TypeBinary(body, context, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
       new TypeBinary(body, context, var_removeFromListOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
+      new TypeBinary(body, context, var_ref, var_id2, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
+      new TypeBinary(body, context, var_removeFromListOp, var_id2, getFeatureLiteral("http://diffmodel/1.0", "RemoveFromList", "refID"), "http://diffmodel/1.0/RemoveFromList.refID");
       bodies.add(body);
     }setStatus(PQueryStatus.OK);
     return bodies;

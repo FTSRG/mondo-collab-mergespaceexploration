@@ -14,6 +14,7 @@ import org.eclipse.incquery.runtime.matchers.psystem.PParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.PQuery.PQueryStatus;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
+import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import patterns.DeleteMatcher;
 
@@ -54,12 +55,12 @@ public final class DeleteQuerySpecification extends BaseGeneratedQuerySpecificat
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("deleteOp","wt");
+    return Arrays.asList("deleteOp","target");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("deleteOp", "DiffModel.Delete"),new PParameter("wt", "WTSpecID.WT"));
+    return Arrays.asList(new PParameter("deleteOp", "DiffModel.Delete"),new PParameter("target", "WTSpecID.IdentifiableWTElement"));
   }
   
   @Override
@@ -69,15 +70,17 @@ public final class DeleteQuerySpecification extends BaseGeneratedQuerySpecificat
     {
       PBody body = new PBody(this);
       PVariable var_deleteOp = body.getOrCreateVariableByName("deleteOp");
-      PVariable var_wt = body.getOrCreateVariableByName("wt");
+      PVariable var_target = body.getOrCreateVariableByName("target");
+      PVariable var_id = body.getOrCreateVariableByName("id");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
         new ExportedParameter(body, var_deleteOp, "deleteOp"), 
-        new ExportedParameter(body, var_wt, "wt")
+        new ExportedParameter(body, var_target, "target")
       ));
       
-      
-      new TypeUnary(body, var_wt, getClassifierLiteral("http://WTSpec/2.01", "WT"), "http://WTSpec/2.01/WT");
       new TypeUnary(body, var_deleteOp, getClassifierLiteral("http://diffmodel/1.0", "Delete"), "http://diffmodel/1.0/Delete");
+      
+      new TypeBinary(body, context, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
+      new TypeBinary(body, context, var_deleteOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
       bodies.add(body);
     }setStatus(PQueryStatus.OK);
     return bodies;

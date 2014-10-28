@@ -9,43 +9,43 @@ pattern create(createOp : Create, wt : WT) {
 	Create(createOp);
 }
 
-pattern delete(deleteOp : Delete, wt : WT) {
-	WT(wt);
-	Delete(deleteOp);
+pattern delete(deleteOp : Delete, target : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, id);
+	Delete.targetId(deleteOp, id);
 }
 
-pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement, wt : WT) {
-	WT(wt);
+pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
 	SetAttribute.targetId(setAttrOp, id);
 }
 
-pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement, wt : WT) {
-	WT(wt);
+pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
 	SetReference.targetId(setRefOp, id);
+	IdentifiableWTElement.ID(ref, id2);
+	SetReference.refID(setRefOp, id2);
 }
 
-pattern resetAttribute(resetAttrOp : ResetAttribute, target : IdentifiableWTElement, wt : WT) {
-	WT(wt);
+pattern resetAttribute(resetAttrOp : ResetAttribute, target : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
 	ResetAttribute.targetId(resetAttrOp, id);
 }
 
-pattern resetReference(resetRefOp : ResetReference, target : IdentifiableWTElement, wt : WT) {
-	WT(wt);
+pattern resetReference(resetRefOp : ResetReference, target : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
 	ResetReference.targetId(resetRefOp, id);
 }
 
-pattern addToList(addToListOp : AddToList, target : IdentifiableWTElement, wt : WT) {
-	WT(wt);
+pattern addToList(addToListOp : AddToList, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
 	AddToList.targetId(addToListOp, id);
+	IdentifiableWTElement.ID(ref, id2);
+	AddToList.refID(addToListOp, id2);
 }
 
-pattern removeFromList(removeFromListOp : RemoveFromList, target : IdentifiableWTElement, wt : WT) {
-	WT(wt);
+pattern removeFromList(removeFromListOp : RemoveFromList, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
 	RemoveFromList.targetId(removeFromListOp, id);
+	IdentifiableWTElement.ID(ref, id2);
+	RemoveFromList.refID(removeFromListOp, id2);
 }

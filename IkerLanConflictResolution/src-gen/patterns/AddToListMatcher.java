@@ -2,7 +2,6 @@ package patterns;
 
 import DiffModel.AddToList;
 import WTSpecID.IdentifiableWTElement;
-import WTSpecID.WT;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,10 +29,11 @@ import patterns.util.AddToListQuerySpecification;
  * 
  * <p>Original source:
  * <code><pre>
- * pattern addToList(addToListOp : AddToList, target : IdentifiableWTElement, wt : WT) {
- * 	WT(wt);
+ * pattern addToList(addToListOp : AddToList, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
  * 	IdentifiableWTElement.ID(target, id);
  * 	AddToList.targetId(addToListOp, id);
+ * 	IdentifiableWTElement.ID(ref, id2);
+ * 	AddToList.refID(addToListOp, id2);
  * }
  * </pre></code>
  * 
@@ -75,7 +75,7 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
   
   private final static int POSITION_TARGET = 1;
   
-  private final static int POSITION_WT = 2;
+  private final static int POSITION_REF = 2;
   
   private final static Logger LOGGER = IncQueryLoggingUtil.getLogger(AddToListMatcher.class);
   
@@ -114,12 +114,12 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
    * Returns the set of all matches of the pattern that conform to the given fixed values of some parameters.
    * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
-   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
    * @return matches represented as a AddToListMatch object.
    * 
    */
-  public Collection<AddToListMatch> getAllMatches(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt) {
-    return rawGetAllMatches(new Object[]{pAddToListOp, pTarget, pWt});
+  public Collection<AddToListMatch> getAllMatches(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return rawGetAllMatches(new Object[]{pAddToListOp, pTarget, pRef});
   }
   
   /**
@@ -127,12 +127,12 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
    * Neither determinism nor randomness of selection is guaranteed.
    * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
-   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
    * @return a match represented as a AddToListMatch object, or null if no match is found.
    * 
    */
-  public AddToListMatch getOneArbitraryMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt) {
-    return rawGetOneArbitraryMatch(new Object[]{pAddToListOp, pTarget, pWt});
+  public AddToListMatch getOneArbitraryMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return rawGetOneArbitraryMatch(new Object[]{pAddToListOp, pTarget, pRef});
   }
   
   /**
@@ -140,36 +140,36 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
    * under any possible substitution of the unspecified parameters (if any).
    * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
-   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
    * @return true if the input is a valid (partial) match of the pattern.
    * 
    */
-  public boolean hasMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt) {
-    return rawHasMatch(new Object[]{pAddToListOp, pTarget, pWt});
+  public boolean hasMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return rawHasMatch(new Object[]{pAddToListOp, pTarget, pRef});
   }
   
   /**
    * Returns the number of all matches of the pattern that conform to the given fixed values of some parameters.
    * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
-   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
    * @return the number of pattern matches found.
    * 
    */
-  public int countMatches(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt) {
-    return rawCountMatches(new Object[]{pAddToListOp, pTarget, pWt});
+  public int countMatches(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return rawCountMatches(new Object[]{pAddToListOp, pTarget, pRef});
   }
   
   /**
    * Executes the given processor on each match of the pattern that conforms to the given fixed values of some parameters.
    * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
-   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
    * @param processor the action that will process each pattern match.
    * 
    */
-  public void forEachMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt, final IMatchProcessor<? super AddToListMatch> processor) {
-    rawForEachMatch(new Object[]{pAddToListOp, pTarget, pWt}, processor);
+  public void forEachMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef, final IMatchProcessor<? super AddToListMatch> processor) {
+    rawForEachMatch(new Object[]{pAddToListOp, pTarget, pRef}, processor);
   }
   
   /**
@@ -177,13 +177,13 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
    * Neither determinism nor randomness of selection is guaranteed.
    * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
-   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
    * @param processor the action that will process the selected match.
    * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
    * 
    */
-  public boolean forOneArbitraryMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt, final IMatchProcessor<? super AddToListMatch> processor) {
-    return rawForOneArbitraryMatch(new Object[]{pAddToListOp, pTarget, pWt}, processor);
+  public boolean forOneArbitraryMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef, final IMatchProcessor<? super AddToListMatch> processor) {
+    return rawForOneArbitraryMatch(new Object[]{pAddToListOp, pTarget, pRef}, processor);
   }
   
   /**
@@ -195,14 +195,14 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
    * @param fillAtStart if true, all current matches are reported as new match events; if false, the delta monitor starts empty.
    * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
-   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
    * @return the delta monitor.
    * @deprecated use the IncQuery Databinding API (IncQueryObservables) instead.
    * 
    */
   @Deprecated
-  public DeltaMonitor<AddToListMatch> newFilteredDeltaMonitor(final boolean fillAtStart, final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt) {
-    return rawNewFilteredDeltaMonitor(fillAtStart, new Object[]{pAddToListOp, pTarget, pWt});
+  public DeltaMonitor<AddToListMatch> newFilteredDeltaMonitor(final boolean fillAtStart, final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return rawNewFilteredDeltaMonitor(fillAtStart, new Object[]{pAddToListOp, pTarget, pRef});
   }
   
   /**
@@ -211,12 +211,12 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
-   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
    * @return the (partial) match object.
    * 
    */
-  public AddToListMatch newMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final WT pWt) {
-    return new AddToListMatch.Immutable(pAddToListOp, pTarget, pWt);
+  public AddToListMatch newMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return new AddToListMatch.Immutable(pAddToListOp, pTarget, pRef);
     
   }
   
@@ -254,8 +254,8 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<AddToList> getAllValuesOfaddToListOp(final IdentifiableWTElement pTarget, final WT pWt) {
-    return rawAccumulateAllValuesOfaddToListOp(new Object[]{null, pTarget, pWt});
+  public Set<AddToList> getAllValuesOfaddToListOp(final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return rawAccumulateAllValuesOfaddToListOp(new Object[]{null, pTarget, pRef});
   }
   
   /**
@@ -292,52 +292,52 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<IdentifiableWTElement> getAllValuesOftarget(final AddToList pAddToListOp, final WT pWt) {
-    return rawAccumulateAllValuesOftarget(new Object[]{pAddToListOp, null, pWt});
+  public Set<IdentifiableWTElement> getAllValuesOftarget(final AddToList pAddToListOp, final IdentifiableWTElement pRef) {
+    return rawAccumulateAllValuesOftarget(new Object[]{pAddToListOp, null, pRef});
   }
   
   /**
-   * Retrieve the set of values that occur in matches for wt.
+   * Retrieve the set of values that occur in matches for ref.
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  protected Set<WT> rawAccumulateAllValuesOfwt(final Object[] parameters) {
-    Set<WT> results = new HashSet<WT>();
-    rawAccumulateAllValues(POSITION_WT, parameters, results);
+  protected Set<IdentifiableWTElement> rawAccumulateAllValuesOfref(final Object[] parameters) {
+    Set<IdentifiableWTElement> results = new HashSet<IdentifiableWTElement>();
+    rawAccumulateAllValues(POSITION_REF, parameters, results);
     return results;
   }
   
   /**
-   * Retrieve the set of values that occur in matches for wt.
+   * Retrieve the set of values that occur in matches for ref.
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<WT> getAllValuesOfwt() {
-    return rawAccumulateAllValuesOfwt(emptyArray());
+  public Set<IdentifiableWTElement> getAllValuesOfref() {
+    return rawAccumulateAllValuesOfref(emptyArray());
   }
   
   /**
-   * Retrieve the set of values that occur in matches for wt.
+   * Retrieve the set of values that occur in matches for ref.
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<WT> getAllValuesOfwt(final AddToListMatch partialMatch) {
-    return rawAccumulateAllValuesOfwt(partialMatch.toArray());
+  public Set<IdentifiableWTElement> getAllValuesOfref(final AddToListMatch partialMatch) {
+    return rawAccumulateAllValuesOfref(partialMatch.toArray());
   }
   
   /**
-   * Retrieve the set of values that occur in matches for wt.
+   * Retrieve the set of values that occur in matches for ref.
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<WT> getAllValuesOfwt(final AddToList pAddToListOp, final IdentifiableWTElement pTarget) {
-    return rawAccumulateAllValuesOfwt(new Object[]{pAddToListOp, pTarget, null});
+  public Set<IdentifiableWTElement> getAllValuesOfref(final AddToList pAddToListOp, final IdentifiableWTElement pTarget) {
+    return rawAccumulateAllValuesOfref(new Object[]{pAddToListOp, pTarget, null});
   }
   
   @Override
   protected AddToListMatch tupleToMatch(final Tuple t) {
     try {
-      return new AddToListMatch.Immutable((DiffModel.AddToList) t.get(POSITION_ADDTOLISTOP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET), (WTSpecID.WT) t.get(POSITION_WT));
+      return new AddToListMatch.Immutable((DiffModel.AddToList) t.get(POSITION_ADDTOLISTOP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET), (WTSpecID.IdentifiableWTElement) t.get(POSITION_REF));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -348,7 +348,7 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
   @Override
   protected AddToListMatch arrayToMatch(final Object[] match) {
     try {
-      return new AddToListMatch.Immutable((DiffModel.AddToList) match[POSITION_ADDTOLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.WT) match[POSITION_WT]);
+      return new AddToListMatch.Immutable((DiffModel.AddToList) match[POSITION_ADDTOLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -359,7 +359,7 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
   @Override
   protected AddToListMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new AddToListMatch.Mutable((DiffModel.AddToList) match[POSITION_ADDTOLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.WT) match[POSITION_WT]);
+      return new AddToListMatch.Mutable((DiffModel.AddToList) match[POSITION_ADDTOLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

@@ -1,7 +1,7 @@
 package patterns;
 
 import DiffModel.Delete;
-import WTSpecID.WT;
+import WTSpecID.IdentifiableWTElement;
 import java.util.Arrays;
 import java.util.List;
 import org.eclipse.incquery.runtime.api.IPatternMatch;
@@ -26,20 +26,20 @@ import patterns.util.DeleteQuerySpecification;
 public abstract class DeleteMatch extends BasePatternMatch {
   private Delete fDeleteOp;
   
-  private WT fWt;
+  private IdentifiableWTElement fTarget;
   
-  private static List<String> parameterNames = makeImmutableList("deleteOp", "wt");
+  private static List<String> parameterNames = makeImmutableList("deleteOp", "target");
   
-  private DeleteMatch(final Delete pDeleteOp, final WT pWt) {
+  private DeleteMatch(final Delete pDeleteOp, final IdentifiableWTElement pTarget) {
     this.fDeleteOp = pDeleteOp;
-    this.fWt = pWt;
+    this.fTarget = pTarget;
     
   }
   
   @Override
   public Object get(final String parameterName) {
     if ("deleteOp".equals(parameterName)) return this.fDeleteOp;
-    if ("wt".equals(parameterName)) return this.fWt;
+    if ("target".equals(parameterName)) return this.fTarget;
     return null;
     
   }
@@ -49,8 +49,8 @@ public abstract class DeleteMatch extends BasePatternMatch {
     
   }
   
-  public WT getWt() {
-    return this.fWt;
+  public IdentifiableWTElement getTarget() {
+    return this.fTarget;
     
   }
   
@@ -61,8 +61,8 @@ public abstract class DeleteMatch extends BasePatternMatch {
     	this.fDeleteOp = (DiffModel.Delete) newValue;
     	return true;
     }
-    if ("wt".equals(parameterName) ) {
-    	this.fWt = (WTSpecID.WT) newValue;
+    if ("target".equals(parameterName) ) {
+    	this.fTarget = (WTSpecID.IdentifiableWTElement) newValue;
     	return true;
     }
     return false;
@@ -75,9 +75,9 @@ public abstract class DeleteMatch extends BasePatternMatch {
     
   }
   
-  public void setWt(final WT pWt) {
+  public void setTarget(final IdentifiableWTElement pTarget) {
     if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-    this.fWt = pWt;
+    this.fTarget = pTarget;
     
   }
   
@@ -95,7 +95,7 @@ public abstract class DeleteMatch extends BasePatternMatch {
   
   @Override
   public Object[] toArray() {
-    return new Object[]{fDeleteOp, fWt};
+    return new Object[]{fDeleteOp, fTarget};
     
   }
   
@@ -103,7 +103,7 @@ public abstract class DeleteMatch extends BasePatternMatch {
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
     result.append("\"deleteOp\"=" + prettyPrintValue(fDeleteOp) + ", ");
-    result.append("\"wt\"=" + prettyPrintValue(fWt));
+    result.append("\"target\"=" + prettyPrintValue(fTarget));
     return result.toString();
     
   }
@@ -113,7 +113,7 @@ public abstract class DeleteMatch extends BasePatternMatch {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((fDeleteOp == null) ? 0 : fDeleteOp.hashCode());
-    result = prime * result + ((fWt == null) ? 0 : fWt.hashCode());
+    result = prime * result + ((fTarget == null) ? 0 : fTarget.hashCode());
     return result;
     
   }
@@ -135,8 +135,8 @@ public abstract class DeleteMatch extends BasePatternMatch {
     DeleteMatch other = (DeleteMatch) obj;
     if (fDeleteOp == null) {if (other.fDeleteOp != null) return false;}
     else if (!fDeleteOp.equals(other.fDeleteOp)) return false;
-    if (fWt == null) {if (other.fWt != null) return false;}
-    else if (!fWt.equals(other.fWt)) return false;
+    if (fTarget == null) {if (other.fTarget != null) return false;}
+    else if (!fTarget.equals(other.fTarget)) return false;
     return true;
   }
   
@@ -153,8 +153,8 @@ public abstract class DeleteMatch extends BasePatternMatch {
   
   @SuppressWarnings("all")
   static final class Mutable extends DeleteMatch {
-    Mutable(final Delete pDeleteOp, final WT pWt) {
-      super(pDeleteOp, pWt);
+    Mutable(final Delete pDeleteOp, final IdentifiableWTElement pTarget) {
+      super(pDeleteOp, pTarget);
       
     }
     
@@ -167,8 +167,8 @@ public abstract class DeleteMatch extends BasePatternMatch {
   
   @SuppressWarnings("all")
   static final class Immutable extends DeleteMatch {
-    Immutable(final Delete pDeleteOp, final WT pWt) {
-      super(pDeleteOp, pWt);
+    Immutable(final Delete pDeleteOp, final IdentifiableWTElement pTarget) {
+      super(pDeleteOp, pTarget);
       
     }
     
