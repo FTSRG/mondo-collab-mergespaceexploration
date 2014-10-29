@@ -66,7 +66,7 @@ public interface ModelContainerPackage extends EPackage {
 	int MAIN_ROOT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Original</b></em>' reference.
+	 * The feature id for the '<em><b>Original</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -75,7 +75,7 @@ public interface ModelContainerPackage extends EPackage {
 	int MAIN_ROOT__ORIGINAL = 0;
 
 	/**
-	 * The feature id for the '<em><b>Delta OB</b></em>' reference.
+	 * The feature id for the '<em><b>Delta OB</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -84,7 +84,7 @@ public interface ModelContainerPackage extends EPackage {
 	int MAIN_ROOT__DELTA_OB = 1;
 
 	/**
-	 * The feature id for the '<em><b>Delta OA</b></em>' reference.
+	 * The feature id for the '<em><b>Delta OA</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -122,10 +122,10 @@ public interface ModelContainerPackage extends EPackage {
 	EClass getMainRoot();
 
 	/**
-	 * Returns the meta object for the reference '{@link ModelContainer.MainRoot#getOriginal <em>Original</em>}'.
+	 * Returns the meta object for the containment reference '{@link ModelContainer.MainRoot#getOriginal <em>Original</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Original</em>'.
+	 * @return the meta object for the containment reference '<em>Original</em>'.
 	 * @see ModelContainer.MainRoot#getOriginal()
 	 * @see #getMainRoot()
 	 * @generated
@@ -133,10 +133,10 @@ public interface ModelContainerPackage extends EPackage {
 	EReference getMainRoot_Original();
 
 	/**
-	 * Returns the meta object for the reference '{@link ModelContainer.MainRoot#getDeltaOB <em>Delta OB</em>}'.
+	 * Returns the meta object for the containment reference '{@link ModelContainer.MainRoot#getDeltaOB <em>Delta OB</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Delta OB</em>'.
+	 * @return the meta object for the containment reference '<em>Delta OB</em>'.
 	 * @see ModelContainer.MainRoot#getDeltaOB()
 	 * @see #getMainRoot()
 	 * @generated
@@ -144,10 +144,10 @@ public interface ModelContainerPackage extends EPackage {
 	EReference getMainRoot_DeltaOB();
 
 	/**
-	 * Returns the meta object for the reference '{@link ModelContainer.MainRoot#getDeltaOA <em>Delta OA</em>}'.
+	 * Returns the meta object for the containment reference '{@link ModelContainer.MainRoot#getDeltaOA <em>Delta OA</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Delta OA</em>'.
+	 * @return the meta object for the containment reference '<em>Delta OA</em>'.
 	 * @see ModelContainer.MainRoot#getDeltaOA()
 	 * @see #getMainRoot()
 	 * @generated
@@ -188,7 +188,7 @@ public interface ModelContainerPackage extends EPackage {
 		EClass MAIN_ROOT = eINSTANCE.getMainRoot();
 
 		/**
-		 * The meta object literal for the '<em><b>Original</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Original</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -196,7 +196,7 @@ public interface ModelContainerPackage extends EPackage {
 		EReference MAIN_ROOT__ORIGINAL = eINSTANCE.getMainRoot_Original();
 
 		/**
-		 * The meta object literal for the '<em><b>Delta OB</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Delta OB</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -204,7 +204,7 @@ public interface ModelContainerPackage extends EPackage {
 		EReference MAIN_ROOT__DELTA_OB = eINSTANCE.getMainRoot_DeltaOB();
 
 		/**
-		 * The meta object literal for the '<em><b>Delta OA</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Delta OA</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

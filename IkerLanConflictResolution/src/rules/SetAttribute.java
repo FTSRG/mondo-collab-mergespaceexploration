@@ -16,7 +16,7 @@ public class SetAttribute extends SetAttributeProcessor {
 			IdentifiableWTElement pTarget) {
 
 		String attr = pSetAttrOp.getAttribute();
-		String value = pSetAttrOp.getValue();
+		Object value = pSetAttrOp.getValue();
 
 		// TODO cast value to the right type?
 		pTarget.eSet(pTarget.eClass().getEStructuralFeature(attr), value);

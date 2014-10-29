@@ -4,6 +4,10 @@ import "http://WTSpec/2.01"
 import "http://diffmodel/1.0"
 import "http://modelcontainer/1.0"
 
+pattern allIdentifiable(target : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, _id);
+}
+
 pattern create(createOp : Create, wt : WT) {
 	WT(wt);
 	Create(createOp);

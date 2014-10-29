@@ -188,9 +188,9 @@ public class ModelContainerPackageImpl extends EPackageImpl implements ModelCont
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(mainRootEClass, MainRoot.class, "MainRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getMainRoot_Original(), ecorePackage.getEObject(), null, "original", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMainRoot_DeltaOB(), ecorePackage.getEObject(), null, "deltaOB", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMainRoot_DeltaOA(), ecorePackage.getEObject(), null, "deltaOA", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMainRoot_Original(), ecorePackage.getEObject(), null, "original", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMainRoot_DeltaOB(), ecorePackage.getEObject(), null, "deltaOB", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMainRoot_DeltaOA(), ecorePackage.getEObject(), null, "deltaOA", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

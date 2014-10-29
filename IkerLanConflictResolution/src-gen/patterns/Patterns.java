@@ -4,6 +4,7 @@ import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.incquery.runtime.api.impl.BaseGeneratedPatternGroup;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import patterns.AddToListMatcher;
+import patterns.AllIdentifiableMatcher;
 import patterns.CreateMatcher;
 import patterns.DeleteMatcher;
 import patterns.RemoveFromListMatcher;
@@ -12,6 +13,7 @@ import patterns.ResetReferenceMatcher;
 import patterns.SetAttributeMatcher;
 import patterns.SetReferenceMatcher;
 import patterns.util.AddToListQuerySpecification;
+import patterns.util.AllIdentifiableQuerySpecification;
 import patterns.util.CreateQuerySpecification;
 import patterns.util.DeleteQuerySpecification;
 import patterns.util.RemoveFromListQuerySpecification;
@@ -28,6 +30,7 @@ import patterns.util.SetReferenceQuerySpecification;
  * in order to achieve better performance than one-by-one on-demand matcher initialization.
  * 
  * <p> From package patterns, the group contains the definition of the following patterns: <ul>
+ * <li>allIdentifiable</li>
  * <li>create</li>
  * <li>delete</li>
  * <li>setAttribute</li>
@@ -61,6 +64,7 @@ public final class Patterns extends BaseGeneratedPatternGroup {
   private static Patterns INSTANCE;
   
   private Patterns() throws IncQueryException {
+    querySpecifications.add(AllIdentifiableQuerySpecification.instance());
     querySpecifications.add(CreateQuerySpecification.instance());
     querySpecifications.add(DeleteQuerySpecification.instance());
     querySpecifications.add(SetAttributeQuerySpecification.instance());
@@ -70,6 +74,14 @@ public final class Patterns extends BaseGeneratedPatternGroup {
     querySpecifications.add(AddToListQuerySpecification.instance());
     querySpecifications.add(RemoveFromListQuerySpecification.instance());
     
+  }
+  
+  public AllIdentifiableQuerySpecification getAllIdentifiable() throws IncQueryException {
+    return AllIdentifiableQuerySpecification.instance();
+  }
+  
+  public AllIdentifiableMatcher getAllIdentifiable(final IncQueryEngine engine) throws IncQueryException {
+    return AllIdentifiableMatcher.on(engine);
   }
   
   public CreateQuerySpecification getCreate() throws IncQueryException {

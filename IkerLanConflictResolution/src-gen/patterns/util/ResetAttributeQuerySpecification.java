@@ -79,9 +79,9 @@ public final class ResetAttributeQuerySpecification extends BaseGeneratedQuerySp
         new ExportedParameter(body, var_target, "target")
       ));
       
-      new TypeUnary(body, var_resetAttrOp, getClassifierLiteral("http://diffmodel/1.0", "ResetAttribute"), "http://diffmodel/1.0/ResetAttribute");
       
       new TypeBinary(body, CONTEXT, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
+      new TypeUnary(body, var_resetAttrOp, getClassifierLiteral("http://diffmodel/1.0", "ResetAttribute"), "http://diffmodel/1.0/ResetAttribute");
       new TypeBinary(body, CONTEXT, var_resetAttrOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
       bodies.add(body);
     }

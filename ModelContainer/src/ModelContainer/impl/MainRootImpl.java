@@ -4,13 +4,11 @@ package ModelContainer.impl;
 
 import ModelContainer.MainRoot;
 import ModelContainer.ModelContainerPackage;
-
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -31,7 +29,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRoot {
 	/**
-	 * The cached value of the '{@link #getOriginal() <em>Original</em>}' reference.
+	 * The cached value of the '{@link #getOriginal() <em>Original</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOriginal()
@@ -41,7 +39,7 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	protected EObject original;
 
 	/**
-	 * The cached value of the '{@link #getDeltaOB() <em>Delta OB</em>}' reference.
+	 * The cached value of the '{@link #getDeltaOB() <em>Delta OB</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getDeltaOB()
@@ -51,7 +49,7 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	protected EObject deltaOB;
 
 	/**
-	 * The cached value of the '{@link #getDeltaOA() <em>Delta OA</em>}' reference.
+	 * The cached value of the '{@link #getDeltaOA() <em>Delta OA</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getDeltaOA()
@@ -85,14 +83,6 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * @generated
 	 */
 	public EObject getOriginal() {
-		if (original != null && original.eIsProxy()) {
-			InternalEObject oldOriginal = (InternalEObject)original;
-			original = eResolveProxy(oldOriginal);
-			if (original != oldOriginal) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelContainerPackage.MAIN_ROOT__ORIGINAL, oldOriginal, original));
-			}
-		}
 		return original;
 	}
 
@@ -101,8 +91,14 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject basicGetOriginal() {
-		return original;
+	public NotificationChain basicSetOriginal(EObject newOriginal, NotificationChain msgs) {
+		EObject oldOriginal = original;
+		original = newOriginal;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__ORIGINAL, oldOriginal, newOriginal);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -111,10 +107,17 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * @generated
 	 */
 	public void setOriginal(EObject newOriginal) {
-		EObject oldOriginal = original;
-		original = newOriginal;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__ORIGINAL, oldOriginal, original));
+		if (newOriginal != original) {
+			NotificationChain msgs = null;
+			if (original != null)
+				msgs = ((InternalEObject)original).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelContainerPackage.MAIN_ROOT__ORIGINAL, null, msgs);
+			if (newOriginal != null)
+				msgs = ((InternalEObject)newOriginal).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelContainerPackage.MAIN_ROOT__ORIGINAL, null, msgs);
+			msgs = basicSetOriginal(newOriginal, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__ORIGINAL, newOriginal, newOriginal));
 	}
 
 	/**
@@ -123,14 +126,6 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * @generated
 	 */
 	public EObject getDeltaOB() {
-		if (deltaOB != null && deltaOB.eIsProxy()) {
-			InternalEObject oldDeltaOB = (InternalEObject)deltaOB;
-			deltaOB = eResolveProxy(oldDeltaOB);
-			if (deltaOB != oldDeltaOB) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelContainerPackage.MAIN_ROOT__DELTA_OB, oldDeltaOB, deltaOB));
-			}
-		}
 		return deltaOB;
 	}
 
@@ -139,8 +134,14 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject basicGetDeltaOB() {
-		return deltaOB;
+	public NotificationChain basicSetDeltaOB(EObject newDeltaOB, NotificationChain msgs) {
+		EObject oldDeltaOB = deltaOB;
+		deltaOB = newDeltaOB;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__DELTA_OB, oldDeltaOB, newDeltaOB);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -149,10 +150,17 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * @generated
 	 */
 	public void setDeltaOB(EObject newDeltaOB) {
-		EObject oldDeltaOB = deltaOB;
-		deltaOB = newDeltaOB;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__DELTA_OB, oldDeltaOB, deltaOB));
+		if (newDeltaOB != deltaOB) {
+			NotificationChain msgs = null;
+			if (deltaOB != null)
+				msgs = ((InternalEObject)deltaOB).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelContainerPackage.MAIN_ROOT__DELTA_OB, null, msgs);
+			if (newDeltaOB != null)
+				msgs = ((InternalEObject)newDeltaOB).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelContainerPackage.MAIN_ROOT__DELTA_OB, null, msgs);
+			msgs = basicSetDeltaOB(newDeltaOB, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__DELTA_OB, newDeltaOB, newDeltaOB));
 	}
 
 	/**
@@ -161,14 +169,6 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * @generated
 	 */
 	public EObject getDeltaOA() {
-		if (deltaOA != null && deltaOA.eIsProxy()) {
-			InternalEObject oldDeltaOA = (InternalEObject)deltaOA;
-			deltaOA = eResolveProxy(oldDeltaOA);
-			if (deltaOA != oldDeltaOA) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelContainerPackage.MAIN_ROOT__DELTA_OA, oldDeltaOA, deltaOA));
-			}
-		}
 		return deltaOA;
 	}
 
@@ -177,8 +177,14 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject basicGetDeltaOA() {
-		return deltaOA;
+	public NotificationChain basicSetDeltaOA(EObject newDeltaOA, NotificationChain msgs) {
+		EObject oldDeltaOA = deltaOA;
+		deltaOA = newDeltaOA;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__DELTA_OA, oldDeltaOA, newDeltaOA);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -187,10 +193,35 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * @generated
 	 */
 	public void setDeltaOA(EObject newDeltaOA) {
-		EObject oldDeltaOA = deltaOA;
-		deltaOA = newDeltaOA;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__DELTA_OA, oldDeltaOA, deltaOA));
+		if (newDeltaOA != deltaOA) {
+			NotificationChain msgs = null;
+			if (deltaOA != null)
+				msgs = ((InternalEObject)deltaOA).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelContainerPackage.MAIN_ROOT__DELTA_OA, null, msgs);
+			if (newDeltaOA != null)
+				msgs = ((InternalEObject)newDeltaOA).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelContainerPackage.MAIN_ROOT__DELTA_OA, null, msgs);
+			msgs = basicSetDeltaOA(newDeltaOA, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__DELTA_OA, newDeltaOA, newDeltaOA));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelContainerPackage.MAIN_ROOT__ORIGINAL:
+				return basicSetOriginal(null, msgs);
+			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
+				return basicSetDeltaOB(null, msgs);
+			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
+				return basicSetDeltaOA(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -202,14 +233,11 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelContainerPackage.MAIN_ROOT__ORIGINAL:
-				if (resolve) return getOriginal();
-				return basicGetOriginal();
+				return getOriginal();
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
-				if (resolve) return getDeltaOB();
-				return basicGetDeltaOB();
+				return getDeltaOB();
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
-				if (resolve) return getDeltaOA();
-				return basicGetDeltaOA();
+				return getDeltaOA();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

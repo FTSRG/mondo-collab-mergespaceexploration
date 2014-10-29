@@ -77,9 +77,9 @@ public final class CreateQuerySpecification extends BaseGeneratedQuerySpecificat
         new ExportedParameter(body, var_wt, "wt")
       ));
       
+      new TypeUnary(body, var_createOp, getClassifierLiteral("http://diffmodel/1.0", "Create"), "http://diffmodel/1.0/Create");
       
       new TypeUnary(body, var_wt, getClassifierLiteral("http://WTSpec/2.01", "WT"), "http://WTSpec/2.01/WT");
-      new TypeUnary(body, var_createOp, getClassifierLiteral("http://diffmodel/1.0", "Create"), "http://diffmodel/1.0/Create");
       bodies.add(body);
     }
     return bodies;
