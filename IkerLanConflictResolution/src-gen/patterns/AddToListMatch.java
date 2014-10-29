@@ -119,6 +119,12 @@ public abstract class AddToListMatch extends BasePatternMatch {
   }
   
   @Override
+  public AddToListMatch toImmutable() {
+    return isMutable() ? newMatch(fAddToListOp, fTarget, fRef) : this;
+    
+  }
+  
+  @Override
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
     result.append("\"addToListOp\"=" + prettyPrintValue(fAddToListOp) + ", ");
@@ -174,8 +180,49 @@ public abstract class AddToListMatch extends BasePatternMatch {
     
   }
   
-  @SuppressWarnings("all")
-  static final class Mutable extends AddToListMatch {
+  /**
+   * Returns an empty, mutable match.
+   * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
+   * 
+   * @return the empty match.
+   * 
+   */
+  public static AddToListMatch newEmptyMatch() {
+    return new Mutable(null, null, null);
+    
+  }
+  
+  /**
+   * Returns a mutable (partial) match.
+   * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
+   * 
+   * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
+   * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
+   * @return the new, mutable (partial) match object.
+   * 
+   */
+  public static AddToListMatch newMutableMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return new Mutable(pAddToListOp, pTarget, pRef);
+    
+  }
+  
+  /**
+   * Returns a new (partial) match.
+   * This can be used e.g. to call the matcher with a partial match.
+   * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
+   * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
+   * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
+   * @return the (partial) match object.
+   * 
+   */
+  public static AddToListMatch newMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return new Immutable(pAddToListOp, pTarget, pRef);
+    
+  }
+  
+  private static final class Mutable extends AddToListMatch {
     Mutable(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
       super(pAddToListOp, pTarget, pRef);
       
@@ -187,9 +234,7 @@ public abstract class AddToListMatch extends BasePatternMatch {
     }
   }
   
-  
-  @SuppressWarnings("all")
-  static final class Immutable extends AddToListMatch {
+  private static final class Immutable extends AddToListMatch {
     Immutable(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
       super(pAddToListOp, pTarget, pRef);
       
@@ -200,5 +245,4 @@ public abstract class AddToListMatch extends BasePatternMatch {
       return false;
     }
   }
-  
 }

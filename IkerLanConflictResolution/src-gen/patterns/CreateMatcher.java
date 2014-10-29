@@ -195,7 +195,7 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
   }
   
   /**
-   * Returns a new (partial) Match object for the matcher.
+   * Returns a new (partial) match.
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
@@ -204,7 +204,7 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
    * 
    */
   public CreateMatch newMatch(final Create pCreateOp, final WT pWt) {
-    return new CreateMatch.Immutable(pCreateOp, pWt);
+    return CreateMatch.newMatch(pCreateOp, pWt);
     
   }
   
@@ -287,7 +287,7 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
   @Override
   protected CreateMatch tupleToMatch(final Tuple t) {
     try {
-      return new CreateMatch.Immutable((DiffModel.Create) t.get(POSITION_CREATEOP), (WTSpecID.WT) t.get(POSITION_WT));
+      return CreateMatch.newMatch((DiffModel.Create) t.get(POSITION_CREATEOP), (WTSpecID.WT) t.get(POSITION_WT));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -298,7 +298,7 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
   @Override
   protected CreateMatch arrayToMatch(final Object[] match) {
     try {
-      return new CreateMatch.Immutable((DiffModel.Create) match[POSITION_CREATEOP], (WTSpecID.WT) match[POSITION_WT]);
+      return CreateMatch.newMatch((DiffModel.Create) match[POSITION_CREATEOP], (WTSpecID.WT) match[POSITION_WT]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -309,7 +309,7 @@ public class CreateMatcher extends BaseMatcher<CreateMatch> {
   @Override
   protected CreateMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new CreateMatch.Mutable((DiffModel.Create) match[POSITION_CREATEOP], (WTSpecID.WT) match[POSITION_WT]);
+      return CreateMatch.newMutableMatch((DiffModel.Create) match[POSITION_CREATEOP], (WTSpecID.WT) match[POSITION_WT]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

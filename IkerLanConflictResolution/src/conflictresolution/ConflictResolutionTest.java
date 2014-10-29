@@ -8,14 +8,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -25,6 +23,7 @@ import org.eclipse.viatra.dse.api.DesignSpaceExplorer;
 import org.eclipse.viatra.dse.api.Solution;
 import org.eclipse.viatra.dse.api.SolutionTrajectory;
 import org.eclipse.viatra.dse.api.Strategies;
+import org.eclipse.viatra.dse.api.strategy.Strategy;
 import org.eclipse.viatra.dse.base.DesignSpaceManager;
 import org.eclipse.viatra.dse.statecode.incrementalgraph.IncrementalGraphHasherFactory;
 import org.junit.Test;
@@ -110,14 +109,8 @@ public class ConflictResolutionTest {
 		dse.addMetaModelPackage(WTSpecIDPackage.eINSTANCE);
 		dse.addMetaModelPackage(DiffModelPackage.eINSTANCE);
 
-		// setting default state coder
-		ArrayList<EPackage> metaModelPackages = new ArrayList<EPackage>();
-		metaModelPackages.add(ModelContainerPackage.eINSTANCE);
-		metaModelPackages.add(WTSpecIDPackage.eINSTANCE);
-		metaModelPackages.add(DiffModelPackage.eINSTANCE);
-
 		dse.setSerializerFactory(new IncrementalGraphHasherFactory(
-				metaModelPackages));
+				dse.getMetaModelPackages()));
 
 		// adding rules
 		dse.addTransformationRule(CreateElement.createRule());
@@ -132,13 +125,15 @@ public class ConflictResolutionTest {
 		dse.setSolutionStore(new DifferencesSolutionStore());
 		
 		boolean waitForTermination = true;
-		Strategies.createDFSStrategy().setGoalStateChecker(
+		Strategy strategy = Strategies.createDFSStrategy();
+		
+		strategy.setGoalStateChecker(
 				new CheckDifferences(original, modA, modB,
 						WTSpecIDPackage.eINSTANCE, modelExtension));
 		
 		System.out.println("BEFORE startExploration");
 		
-		dse.startExploration(Strategies.createDFSStrategy(), waitForTermination);
+		dse.startExploration(strategy, waitForTermination);
 
 		System.out.println("AFTER startExploration");
 		

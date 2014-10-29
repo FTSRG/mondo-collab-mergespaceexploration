@@ -119,6 +119,12 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
   }
   
   @Override
+  public RemoveFromListMatch toImmutable() {
+    return isMutable() ? newMatch(fRemoveFromListOp, fTarget, fRef) : this;
+    
+  }
+  
+  @Override
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
     result.append("\"removeFromListOp\"=" + prettyPrintValue(fRemoveFromListOp) + ", ");
@@ -174,8 +180,49 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
     
   }
   
-  @SuppressWarnings("all")
-  static final class Mutable extends RemoveFromListMatch {
+  /**
+   * Returns an empty, mutable match.
+   * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
+   * 
+   * @return the empty match.
+   * 
+   */
+  public static RemoveFromListMatch newEmptyMatch() {
+    return new Mutable(null, null, null);
+    
+  }
+  
+  /**
+   * Returns a mutable (partial) match.
+   * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
+   * 
+   * @param pRemoveFromListOp the fixed value of pattern parameter removeFromListOp, or null if not bound.
+   * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
+   * @return the new, mutable (partial) match object.
+   * 
+   */
+  public static RemoveFromListMatch newMutableMatch(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return new Mutable(pRemoveFromListOp, pTarget, pRef);
+    
+  }
+  
+  /**
+   * Returns a new (partial) match.
+   * This can be used e.g. to call the matcher with a partial match.
+   * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
+   * @param pRemoveFromListOp the fixed value of pattern parameter removeFromListOp, or null if not bound.
+   * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
+   * @return the (partial) match object.
+   * 
+   */
+  public static RemoveFromListMatch newMatch(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return new Immutable(pRemoveFromListOp, pTarget, pRef);
+    
+  }
+  
+  private static final class Mutable extends RemoveFromListMatch {
     Mutable(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
       super(pRemoveFromListOp, pTarget, pRef);
       
@@ -187,9 +234,7 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
     }
   }
   
-  
-  @SuppressWarnings("all")
-  static final class Immutable extends RemoveFromListMatch {
+  private static final class Immutable extends RemoveFromListMatch {
     Immutable(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
       super(pRemoveFromListOp, pTarget, pRef);
       
@@ -200,5 +245,4 @@ public abstract class RemoveFromListMatch extends BasePatternMatch {
       return false;
     }
   }
-  
 }

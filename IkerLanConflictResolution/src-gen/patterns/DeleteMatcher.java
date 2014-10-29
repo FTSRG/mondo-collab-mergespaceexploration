@@ -195,7 +195,7 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
   }
   
   /**
-   * Returns a new (partial) Match object for the matcher.
+   * Returns a new (partial) match.
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pDeleteOp the fixed value of pattern parameter deleteOp, or null if not bound.
@@ -204,7 +204,7 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
    * 
    */
   public DeleteMatch newMatch(final Delete pDeleteOp, final IdentifiableWTElement pTarget) {
-    return new DeleteMatch.Immutable(pDeleteOp, pTarget);
+    return DeleteMatch.newMatch(pDeleteOp, pTarget);
     
   }
   
@@ -287,7 +287,7 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
   @Override
   protected DeleteMatch tupleToMatch(final Tuple t) {
     try {
-      return new DeleteMatch.Immutable((DiffModel.Delete) t.get(POSITION_DELETEOP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET));
+      return DeleteMatch.newMatch((DiffModel.Delete) t.get(POSITION_DELETEOP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -298,7 +298,7 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
   @Override
   protected DeleteMatch arrayToMatch(final Object[] match) {
     try {
-      return new DeleteMatch.Immutable((DiffModel.Delete) match[POSITION_DELETEOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
+      return DeleteMatch.newMatch((DiffModel.Delete) match[POSITION_DELETEOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -309,7 +309,7 @@ public class DeleteMatcher extends BaseMatcher<DeleteMatch> {
   @Override
   protected DeleteMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new DeleteMatch.Mutable((DiffModel.Delete) match[POSITION_DELETEOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
+      return DeleteMatch.newMutableMatch((DiffModel.Delete) match[POSITION_DELETEOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

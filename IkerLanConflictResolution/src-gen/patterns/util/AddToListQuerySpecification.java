@@ -6,15 +6,13 @@ import java.util.List;
 import java.util.Set;
 import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.incquery.runtime.api.impl.BaseGeneratedQuerySpecification;
-import org.eclipse.incquery.runtime.context.EMFPatternMatcherContext;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
-import org.eclipse.incquery.runtime.extensibility.IQuerySpecificationProvider;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
-import org.eclipse.incquery.runtime.matchers.psystem.PParameter;
-import org.eclipse.incquery.runtime.matchers.psystem.PQuery.PQueryStatus;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
+import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
+import patterns.AddToListMatch;
 import patterns.AddToListMatcher;
 
 /**
@@ -32,12 +30,7 @@ public final class AddToListQuerySpecification extends BaseGeneratedQuerySpecifi
    * 
    */
   public static AddToListQuerySpecification instance() throws IncQueryException {
-    try {
-    	return LazyHolder.INSTANCE;
-    } catch (ExceptionInInitializerError err) {
-    	processInitializerError(err);
-    	throw err;
-    }
+    return LazyHolder.INSTANCE;
     
   }
   
@@ -63,8 +56,17 @@ public final class AddToListQuerySpecification extends BaseGeneratedQuerySpecifi
   }
   
   @Override
+  public AddToListMatch newEmptyMatch() {
+    return AddToListMatch.newEmptyMatch();
+  }
+  
+  @Override
+  public AddToListMatch newMatch(final Object... parameters) {
+    return AddToListMatch.newMatch((DiffModel.AddToList) parameters[0], (WTSpecID.IdentifiableWTElement) parameters[1], (WTSpecID.IdentifiableWTElement) parameters[2]);
+  }
+  
+  @Override
   public Set<PBody> doGetContainedBodies() throws IncQueryException {
-    EMFPatternMatcherContext context = new EMFPatternMatcherContext();
     Set<PBody> bodies = Sets.newLinkedHashSet();
     {
       PBody body = new PBody(this);
@@ -81,41 +83,21 @@ public final class AddToListQuerySpecification extends BaseGeneratedQuerySpecifi
       
       
       
-      new TypeBinary(body, context, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
-      new TypeBinary(body, context, var_addToListOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
-      new TypeBinary(body, context, var_ref, var_id2, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
-      new TypeBinary(body, context, var_addToListOp, var_id2, getFeatureLiteral("http://diffmodel/1.0", "AddToList", "refID"), "http://diffmodel/1.0/AddToList.refID");
+      new TypeBinary(body, CONTEXT, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
+      new TypeBinary(body, CONTEXT, var_addToListOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
+      new TypeBinary(body, CONTEXT, var_ref, var_id2, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
+      new TypeBinary(body, CONTEXT, var_addToListOp, var_id2, getFeatureLiteral("http://diffmodel/1.0", "AddToList", "refID"), "http://diffmodel/1.0/AddToList.refID");
       bodies.add(body);
-    }setStatus(PQueryStatus.OK);
+    }
     return bodies;
   }
   
-  private AddToListQuerySpecification() throws IncQueryException {
-    super();
-    setStatus(PQueryStatus.UNINITIALIZED);
-  }
-  
-  @SuppressWarnings("all")
-  public static class Provider implements IQuerySpecificationProvider<AddToListQuerySpecification> {
-    @Override
-    public AddToListQuerySpecification get() throws IncQueryException {
-      return instance();
-    }
-  }
-  
-  
-  @SuppressWarnings("all")
   private static class LazyHolder {
     private final static AddToListQuerySpecification INSTANCE = make();
     
     public static AddToListQuerySpecification make() {
-      try {
-      	return new AddToListQuerySpecification();
-      } catch (IncQueryException ex) {
-      	throw new RuntimeException	(ex);
-      }
+      return new AddToListQuerySpecification();					
       
     }
   }
-  
 }

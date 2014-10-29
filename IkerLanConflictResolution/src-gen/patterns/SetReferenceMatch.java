@@ -119,6 +119,12 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
   }
   
   @Override
+  public SetReferenceMatch toImmutable() {
+    return isMutable() ? newMatch(fSetRefOp, fTarget, fRef) : this;
+    
+  }
+  
+  @Override
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
     result.append("\"setRefOp\"=" + prettyPrintValue(fSetRefOp) + ", ");
@@ -174,8 +180,49 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
     
   }
   
-  @SuppressWarnings("all")
-  static final class Mutable extends SetReferenceMatch {
+  /**
+   * Returns an empty, mutable match.
+   * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
+   * 
+   * @return the empty match.
+   * 
+   */
+  public static SetReferenceMatch newEmptyMatch() {
+    return new Mutable(null, null, null);
+    
+  }
+  
+  /**
+   * Returns a mutable (partial) match.
+   * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
+   * 
+   * @param pSetRefOp the fixed value of pattern parameter setRefOp, or null if not bound.
+   * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
+   * @return the new, mutable (partial) match object.
+   * 
+   */
+  public static SetReferenceMatch newMutableMatch(final SetReference pSetRefOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return new Mutable(pSetRefOp, pTarget, pRef);
+    
+  }
+  
+  /**
+   * Returns a new (partial) match.
+   * This can be used e.g. to call the matcher with a partial match.
+   * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
+   * @param pSetRefOp the fixed value of pattern parameter setRefOp, or null if not bound.
+   * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
+   * @return the (partial) match object.
+   * 
+   */
+  public static SetReferenceMatch newMatch(final SetReference pSetRefOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return new Immutable(pSetRefOp, pTarget, pRef);
+    
+  }
+  
+  private static final class Mutable extends SetReferenceMatch {
     Mutable(final SetReference pSetRefOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
       super(pSetRefOp, pTarget, pRef);
       
@@ -187,9 +234,7 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
     }
   }
   
-  
-  @SuppressWarnings("all")
-  static final class Immutable extends SetReferenceMatch {
+  private static final class Immutable extends SetReferenceMatch {
     Immutable(final SetReference pSetRefOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
       super(pSetRefOp, pTarget, pRef);
       
@@ -200,5 +245,4 @@ public abstract class SetReferenceMatch extends BasePatternMatch {
       return false;
     }
   }
-  
 }

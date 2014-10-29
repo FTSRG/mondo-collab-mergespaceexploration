@@ -206,7 +206,7 @@ public class SetReferenceMatcher extends BaseMatcher<SetReferenceMatch> {
   }
   
   /**
-   * Returns a new (partial) Match object for the matcher.
+   * Returns a new (partial) match.
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pSetRefOp the fixed value of pattern parameter setRefOp, or null if not bound.
@@ -216,7 +216,7 @@ public class SetReferenceMatcher extends BaseMatcher<SetReferenceMatch> {
    * 
    */
   public SetReferenceMatch newMatch(final SetReference pSetRefOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
-    return new SetReferenceMatch.Immutable(pSetRefOp, pTarget, pRef);
+    return SetReferenceMatch.newMatch(pSetRefOp, pTarget, pRef);
     
   }
   
@@ -337,7 +337,7 @@ public class SetReferenceMatcher extends BaseMatcher<SetReferenceMatch> {
   @Override
   protected SetReferenceMatch tupleToMatch(final Tuple t) {
     try {
-      return new SetReferenceMatch.Immutable((DiffModel.SetReference) t.get(POSITION_SETREFOP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET), (WTSpecID.IdentifiableWTElement) t.get(POSITION_REF));
+      return SetReferenceMatch.newMatch((DiffModel.SetReference) t.get(POSITION_SETREFOP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET), (WTSpecID.IdentifiableWTElement) t.get(POSITION_REF));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -348,7 +348,7 @@ public class SetReferenceMatcher extends BaseMatcher<SetReferenceMatch> {
   @Override
   protected SetReferenceMatch arrayToMatch(final Object[] match) {
     try {
-      return new SetReferenceMatch.Immutable((DiffModel.SetReference) match[POSITION_SETREFOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
+      return SetReferenceMatch.newMatch((DiffModel.SetReference) match[POSITION_SETREFOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -359,7 +359,7 @@ public class SetReferenceMatcher extends BaseMatcher<SetReferenceMatch> {
   @Override
   protected SetReferenceMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new SetReferenceMatch.Mutable((DiffModel.SetReference) match[POSITION_SETREFOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
+      return SetReferenceMatch.newMutableMatch((DiffModel.SetReference) match[POSITION_SETREFOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

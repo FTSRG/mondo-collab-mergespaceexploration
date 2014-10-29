@@ -100,6 +100,12 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
   }
   
   @Override
+  public ResetReferenceMatch toImmutable() {
+    return isMutable() ? newMatch(fResetRefOp, fTarget) : this;
+    
+  }
+  
+  @Override
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
     result.append("\"resetRefOp\"=" + prettyPrintValue(fResetRefOp) + ", ");
@@ -151,8 +157,47 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
     
   }
   
-  @SuppressWarnings("all")
-  static final class Mutable extends ResetReferenceMatch {
+  /**
+   * Returns an empty, mutable match.
+   * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
+   * 
+   * @return the empty match.
+   * 
+   */
+  public static ResetReferenceMatch newEmptyMatch() {
+    return new Mutable(null, null);
+    
+  }
+  
+  /**
+   * Returns a mutable (partial) match.
+   * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
+   * 
+   * @param pResetRefOp the fixed value of pattern parameter resetRefOp, or null if not bound.
+   * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @return the new, mutable (partial) match object.
+   * 
+   */
+  public static ResetReferenceMatch newMutableMatch(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget) {
+    return new Mutable(pResetRefOp, pTarget);
+    
+  }
+  
+  /**
+   * Returns a new (partial) match.
+   * This can be used e.g. to call the matcher with a partial match.
+   * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
+   * @param pResetRefOp the fixed value of pattern parameter resetRefOp, or null if not bound.
+   * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @return the (partial) match object.
+   * 
+   */
+  public static ResetReferenceMatch newMatch(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget) {
+    return new Immutable(pResetRefOp, pTarget);
+    
+  }
+  
+  private static final class Mutable extends ResetReferenceMatch {
     Mutable(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget) {
       super(pResetRefOp, pTarget);
       
@@ -164,9 +209,7 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
     }
   }
   
-  
-  @SuppressWarnings("all")
-  static final class Immutable extends ResetReferenceMatch {
+  private static final class Immutable extends ResetReferenceMatch {
     Immutable(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget) {
       super(pResetRefOp, pTarget);
       
@@ -177,5 +220,4 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
       return false;
     }
   }
-  
 }

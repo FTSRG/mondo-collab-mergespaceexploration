@@ -206,7 +206,7 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
   }
   
   /**
-   * Returns a new (partial) Match object for the matcher.
+   * Returns a new (partial) match.
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pAddToListOp the fixed value of pattern parameter addToListOp, or null if not bound.
@@ -216,7 +216,7 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
    * 
    */
   public AddToListMatch newMatch(final AddToList pAddToListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
-    return new AddToListMatch.Immutable(pAddToListOp, pTarget, pRef);
+    return AddToListMatch.newMatch(pAddToListOp, pTarget, pRef);
     
   }
   
@@ -337,7 +337,7 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
   @Override
   protected AddToListMatch tupleToMatch(final Tuple t) {
     try {
-      return new AddToListMatch.Immutable((DiffModel.AddToList) t.get(POSITION_ADDTOLISTOP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET), (WTSpecID.IdentifiableWTElement) t.get(POSITION_REF));
+      return AddToListMatch.newMatch((DiffModel.AddToList) t.get(POSITION_ADDTOLISTOP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET), (WTSpecID.IdentifiableWTElement) t.get(POSITION_REF));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -348,7 +348,7 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
   @Override
   protected AddToListMatch arrayToMatch(final Object[] match) {
     try {
-      return new AddToListMatch.Immutable((DiffModel.AddToList) match[POSITION_ADDTOLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
+      return AddToListMatch.newMatch((DiffModel.AddToList) match[POSITION_ADDTOLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -359,7 +359,7 @@ public class AddToListMatcher extends BaseMatcher<AddToListMatch> {
   @Override
   protected AddToListMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new AddToListMatch.Mutable((DiffModel.AddToList) match[POSITION_ADDTOLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
+      return AddToListMatch.newMutableMatch((DiffModel.AddToList) match[POSITION_ADDTOLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

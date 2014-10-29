@@ -206,7 +206,7 @@ public class RemoveFromListMatcher extends BaseMatcher<RemoveFromListMatch> {
   }
   
   /**
-   * Returns a new (partial) Match object for the matcher.
+   * Returns a new (partial) match.
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pRemoveFromListOp the fixed value of pattern parameter removeFromListOp, or null if not bound.
@@ -216,7 +216,7 @@ public class RemoveFromListMatcher extends BaseMatcher<RemoveFromListMatch> {
    * 
    */
   public RemoveFromListMatch newMatch(final RemoveFromList pRemoveFromListOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
-    return new RemoveFromListMatch.Immutable(pRemoveFromListOp, pTarget, pRef);
+    return RemoveFromListMatch.newMatch(pRemoveFromListOp, pTarget, pRef);
     
   }
   
@@ -337,7 +337,7 @@ public class RemoveFromListMatcher extends BaseMatcher<RemoveFromListMatch> {
   @Override
   protected RemoveFromListMatch tupleToMatch(final Tuple t) {
     try {
-      return new RemoveFromListMatch.Immutable((DiffModel.RemoveFromList) t.get(POSITION_REMOVEFROMLISTOP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET), (WTSpecID.IdentifiableWTElement) t.get(POSITION_REF));
+      return RemoveFromListMatch.newMatch((DiffModel.RemoveFromList) t.get(POSITION_REMOVEFROMLISTOP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET), (WTSpecID.IdentifiableWTElement) t.get(POSITION_REF));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -348,7 +348,7 @@ public class RemoveFromListMatcher extends BaseMatcher<RemoveFromListMatch> {
   @Override
   protected RemoveFromListMatch arrayToMatch(final Object[] match) {
     try {
-      return new RemoveFromListMatch.Immutable((DiffModel.RemoveFromList) match[POSITION_REMOVEFROMLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
+      return RemoveFromListMatch.newMatch((DiffModel.RemoveFromList) match[POSITION_REMOVEFROMLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -359,7 +359,7 @@ public class RemoveFromListMatcher extends BaseMatcher<RemoveFromListMatch> {
   @Override
   protected RemoveFromListMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new RemoveFromListMatch.Mutable((DiffModel.RemoveFromList) match[POSITION_REMOVEFROMLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
+      return RemoveFromListMatch.newMutableMatch((DiffModel.RemoveFromList) match[POSITION_REMOVEFROMLISTOP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET], (WTSpecID.IdentifiableWTElement) match[POSITION_REF]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

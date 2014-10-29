@@ -195,7 +195,7 @@ public class SetAttributeMatcher extends BaseMatcher<SetAttributeMatch> {
   }
   
   /**
-   * Returns a new (partial) Match object for the matcher.
+   * Returns a new (partial) match.
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pSetAttrOp the fixed value of pattern parameter setAttrOp, or null if not bound.
@@ -204,7 +204,7 @@ public class SetAttributeMatcher extends BaseMatcher<SetAttributeMatch> {
    * 
    */
   public SetAttributeMatch newMatch(final SetAttribute pSetAttrOp, final IdentifiableWTElement pTarget) {
-    return new SetAttributeMatch.Immutable(pSetAttrOp, pTarget);
+    return SetAttributeMatch.newMatch(pSetAttrOp, pTarget);
     
   }
   
@@ -287,7 +287,7 @@ public class SetAttributeMatcher extends BaseMatcher<SetAttributeMatch> {
   @Override
   protected SetAttributeMatch tupleToMatch(final Tuple t) {
     try {
-      return new SetAttributeMatch.Immutable((DiffModel.SetAttribute) t.get(POSITION_SETATTROP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET));
+      return SetAttributeMatch.newMatch((DiffModel.SetAttribute) t.get(POSITION_SETATTROP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -298,7 +298,7 @@ public class SetAttributeMatcher extends BaseMatcher<SetAttributeMatch> {
   @Override
   protected SetAttributeMatch arrayToMatch(final Object[] match) {
     try {
-      return new SetAttributeMatch.Immutable((DiffModel.SetAttribute) match[POSITION_SETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
+      return SetAttributeMatch.newMatch((DiffModel.SetAttribute) match[POSITION_SETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -309,7 +309,7 @@ public class SetAttributeMatcher extends BaseMatcher<SetAttributeMatch> {
   @Override
   protected SetAttributeMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new SetAttributeMatch.Mutable((DiffModel.SetAttribute) match[POSITION_SETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
+      return SetAttributeMatch.newMutableMatch((DiffModel.SetAttribute) match[POSITION_SETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

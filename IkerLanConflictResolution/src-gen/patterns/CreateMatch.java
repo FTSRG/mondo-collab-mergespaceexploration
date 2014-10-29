@@ -100,6 +100,12 @@ public abstract class CreateMatch extends BasePatternMatch {
   }
   
   @Override
+  public CreateMatch toImmutable() {
+    return isMutable() ? newMatch(fCreateOp, fWt) : this;
+    
+  }
+  
+  @Override
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
     result.append("\"createOp\"=" + prettyPrintValue(fCreateOp) + ", ");
@@ -151,8 +157,47 @@ public abstract class CreateMatch extends BasePatternMatch {
     
   }
   
-  @SuppressWarnings("all")
-  static final class Mutable extends CreateMatch {
+  /**
+   * Returns an empty, mutable match.
+   * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
+   * 
+   * @return the empty match.
+   * 
+   */
+  public static CreateMatch newEmptyMatch() {
+    return new Mutable(null, null);
+    
+  }
+  
+  /**
+   * Returns a mutable (partial) match.
+   * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
+   * 
+   * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @return the new, mutable (partial) match object.
+   * 
+   */
+  public static CreateMatch newMutableMatch(final Create pCreateOp, final WT pWt) {
+    return new Mutable(pCreateOp, pWt);
+    
+  }
+  
+  /**
+   * Returns a new (partial) match.
+   * This can be used e.g. to call the matcher with a partial match.
+   * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
+   * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
+   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @return the (partial) match object.
+   * 
+   */
+  public static CreateMatch newMatch(final Create pCreateOp, final WT pWt) {
+    return new Immutable(pCreateOp, pWt);
+    
+  }
+  
+  private static final class Mutable extends CreateMatch {
     Mutable(final Create pCreateOp, final WT pWt) {
       super(pCreateOp, pWt);
       
@@ -164,9 +209,7 @@ public abstract class CreateMatch extends BasePatternMatch {
     }
   }
   
-  
-  @SuppressWarnings("all")
-  static final class Immutable extends CreateMatch {
+  private static final class Immutable extends CreateMatch {
     Immutable(final Create pCreateOp, final WT pWt) {
       super(pCreateOp, pWt);
       
@@ -177,5 +220,4 @@ public abstract class CreateMatch extends BasePatternMatch {
       return false;
     }
   }
-  
 }

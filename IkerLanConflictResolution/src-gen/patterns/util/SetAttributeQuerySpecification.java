@@ -6,16 +6,14 @@ import java.util.List;
 import java.util.Set;
 import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.incquery.runtime.api.impl.BaseGeneratedQuerySpecification;
-import org.eclipse.incquery.runtime.context.EMFPatternMatcherContext;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
-import org.eclipse.incquery.runtime.extensibility.IQuerySpecificationProvider;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
-import org.eclipse.incquery.runtime.matchers.psystem.PParameter;
-import org.eclipse.incquery.runtime.matchers.psystem.PQuery.PQueryStatus;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
+import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
+import patterns.SetAttributeMatch;
 import patterns.SetAttributeMatcher;
 
 /**
@@ -33,12 +31,7 @@ public final class SetAttributeQuerySpecification extends BaseGeneratedQuerySpec
    * 
    */
   public static SetAttributeQuerySpecification instance() throws IncQueryException {
-    try {
-    	return LazyHolder.INSTANCE;
-    } catch (ExceptionInInitializerError err) {
-    	processInitializerError(err);
-    	throw err;
-    }
+    return LazyHolder.INSTANCE;
     
   }
   
@@ -64,8 +57,17 @@ public final class SetAttributeQuerySpecification extends BaseGeneratedQuerySpec
   }
   
   @Override
+  public SetAttributeMatch newEmptyMatch() {
+    return SetAttributeMatch.newEmptyMatch();
+  }
+  
+  @Override
+  public SetAttributeMatch newMatch(final Object... parameters) {
+    return SetAttributeMatch.newMatch((DiffModel.SetAttribute) parameters[0], (WTSpecID.IdentifiableWTElement) parameters[1]);
+  }
+  
+  @Override
   public Set<PBody> doGetContainedBodies() throws IncQueryException {
-    EMFPatternMatcherContext context = new EMFPatternMatcherContext();
     Set<PBody> bodies = Sets.newLinkedHashSet();
     {
       PBody body = new PBody(this);
@@ -79,39 +81,19 @@ public final class SetAttributeQuerySpecification extends BaseGeneratedQuerySpec
       
       new TypeUnary(body, var_setAttrOp, getClassifierLiteral("http://diffmodel/1.0", "SetAttribute"), "http://diffmodel/1.0/SetAttribute");
       
-      new TypeBinary(body, context, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
-      new TypeBinary(body, context, var_setAttrOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
+      new TypeBinary(body, CONTEXT, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
+      new TypeBinary(body, CONTEXT, var_setAttrOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
       bodies.add(body);
-    }setStatus(PQueryStatus.OK);
+    }
     return bodies;
   }
   
-  private SetAttributeQuerySpecification() throws IncQueryException {
-    super();
-    setStatus(PQueryStatus.UNINITIALIZED);
-  }
-  
-  @SuppressWarnings("all")
-  public static class Provider implements IQuerySpecificationProvider<SetAttributeQuerySpecification> {
-    @Override
-    public SetAttributeQuerySpecification get() throws IncQueryException {
-      return instance();
-    }
-  }
-  
-  
-  @SuppressWarnings("all")
   private static class LazyHolder {
     private final static SetAttributeQuerySpecification INSTANCE = make();
     
     public static SetAttributeQuerySpecification make() {
-      try {
-      	return new SetAttributeQuerySpecification();
-      } catch (IncQueryException ex) {
-      	throw new RuntimeException	(ex);
-      }
+      return new SetAttributeQuerySpecification();					
       
     }
   }
-  
 }

@@ -195,7 +195,7 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
   }
   
   /**
-   * Returns a new (partial) Match object for the matcher.
+   * Returns a new (partial) match.
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pResetAttrOp the fixed value of pattern parameter resetAttrOp, or null if not bound.
@@ -204,7 +204,7 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
    * 
    */
   public ResetAttributeMatch newMatch(final ResetAttribute pResetAttrOp, final IdentifiableWTElement pTarget) {
-    return new ResetAttributeMatch.Immutable(pResetAttrOp, pTarget);
+    return ResetAttributeMatch.newMatch(pResetAttrOp, pTarget);
     
   }
   
@@ -287,7 +287,7 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
   @Override
   protected ResetAttributeMatch tupleToMatch(final Tuple t) {
     try {
-      return new ResetAttributeMatch.Immutable((DiffModel.ResetAttribute) t.get(POSITION_RESETATTROP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET));
+      return ResetAttributeMatch.newMatch((DiffModel.ResetAttribute) t.get(POSITION_RESETATTROP), (WTSpecID.IdentifiableWTElement) t.get(POSITION_TARGET));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -298,7 +298,7 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
   @Override
   protected ResetAttributeMatch arrayToMatch(final Object[] match) {
     try {
-      return new ResetAttributeMatch.Immutable((DiffModel.ResetAttribute) match[POSITION_RESETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
+      return ResetAttributeMatch.newMatch((DiffModel.ResetAttribute) match[POSITION_RESETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -309,7 +309,7 @@ public class ResetAttributeMatcher extends BaseMatcher<ResetAttributeMatch> {
   @Override
   protected ResetAttributeMatch arrayToMatchMutable(final Object[] match) {
     try {
-      return new ResetAttributeMatch.Mutable((DiffModel.ResetAttribute) match[POSITION_RESETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
+      return ResetAttributeMatch.newMutableMatch((DiffModel.ResetAttribute) match[POSITION_RESETATTROP], (WTSpecID.IdentifiableWTElement) match[POSITION_TARGET]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
