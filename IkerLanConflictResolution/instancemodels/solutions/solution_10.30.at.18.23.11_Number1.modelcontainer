@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ASCII"?>
+<mc:MainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:diffmodel="http://diffmodel/1.0" xmlns:mc="http://modelcontainer/1.0" xmlns:wtc="http://WTSpec/2.01">
+  <original xsi:type="wtc:WT" ID="WTModel_1" sysId="WTModel_1" model="WTModel" version="1.0">
+    <itsSubsystems ID="Subsystem_01" sysId="Subsystem_01" description="desc">
+      <itsWTCs xsi:type="wtc:CtrlUnit2" ID="CtrlUnit2_1" sysId="CtrlUnit2_1" description="desc" cycle="3" priority="1" Input__iTwistAngle="VA_1" Output__oNorthDirection="VA_2" Parameter__pNorthOffset="PA_1"/>
+    </itsSubsystems>
+    <itsParams ID="PA_1" sysId="PA_1" value="10"/>
+    <itsVariables ID="VA_1" sysId="VA_1"/>
+    <itsVariables ID="VA_2" sysId="VA_2"/>
+  </original>
+  <deltaOB xsi:type="diffmodel:DiffContainer">
+    <SetRefDiffs id="SetRef_02" targetId="CtrlUnit2_2" reference="Parameter__pNorthOffset" refID="PA_1"/>
+    <SetRefDiffs id="SetRef_04" targetId="CtrlUnit2_2" reference="Output__oNorthDirection" refID="VA_2"/>
+    <SetRefDiffs id="SetRef_06" targetId="CtrlUnit2_2" reference="Input__iTwistAngle" refID="VA_1"/>
+    <AddToListDiffs id="AddToList_02" targetId="Subsystem_02" list="itsWTCs" refID="CtrlUnit2_2"/>
+    <RemoveFromListDiffs id="RemoveFromList_02" targetId="WTModel_1" list="itsParams" refID="PA_2"/>
+  </deltaOB>
+  <deltaOA xsi:type="diffmodel:DiffContainer">
+    <SetRefDiffs id="SetRef_01" targetId="CtrlUnit2_3" reference="Parameter__pNorthOffset" refID="PA_2"/>
+    <SetRefDiffs id="SetRef_03" targetId="CtrlUnit2_3" reference="Input__iTwistAngle" refID="VA_1"/>
+    <SetRefDiffs id="SetRef_05" targetId="CtrlUnit2_3" reference="Output__oNorthDirection" refID="VA_2"/>
+    <AddToListDiffs id="AddToList_01" targetId="Subsystem_01" list="itsWTCs" refID="CtrlUnit2_3"/>
+    <RemoveFromListDiffs id="RemoveFromList_01" targetId="WTModel_1" list="itsSubsystems" refID="Subsystem_02"/>
+  </deltaOA>
+  <reversed xsi:type="wtc:CtrlUnit2" ID="CtrlUnit2_2" sysId="CtrlUnit2_2" description="desc" cycle="4" priority="2"/>
+  <reversed xsi:type="wtc:CtrlUnit2" ID="CtrlUnit2_3" sysId="CtrlUnit2_3" description="desc" cycle="5" priority="3"/>
+</mc:MainRoot>

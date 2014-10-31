@@ -17,7 +17,6 @@ public class SetReference extends SetReferenceProcessor {
 
 		String ref = pSetRefOp.getReference();
 
-		// TODO cast new reference to the right type?
 		pTarget.eSet(pTarget.eClass().getEStructuralFeature(ref), pRef);
 
 		EcoreUtil.delete(pSetRefOp);

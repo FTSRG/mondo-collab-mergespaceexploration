@@ -93,13 +93,22 @@ public interface ModelContainerPackage extends EPackage {
 	int MAIN_ROOT__DELTA_OA = 2;
 
 	/**
+	 * The feature id for the '<em><b>Reversed</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIN_ROOT__REVERSED = 3;
+
+	/**
 	 * The number of structural features of the '<em>Main Root</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAIN_ROOT_FEATURE_COUNT = 3;
+	int MAIN_ROOT_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Main Root</em>' class.
@@ -153,6 +162,17 @@ public interface ModelContainerPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMainRoot_DeltaOA();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link ModelContainer.MainRoot#getReversed <em>Reversed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Reversed</em>'.
+	 * @see ModelContainer.MainRoot#getReversed()
+	 * @see #getMainRoot()
+	 * @generated
+	 */
+	EReference getMainRoot_Reversed();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -210,6 +230,14 @@ public interface ModelContainerPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MAIN_ROOT__DELTA_OA = eINSTANCE.getMainRoot_DeltaOA();
+
+		/**
+		 * The meta object literal for the '<em><b>Reversed</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MAIN_ROOT__REVERSED = eINSTANCE.getMainRoot_Reversed();
 
 	}
 

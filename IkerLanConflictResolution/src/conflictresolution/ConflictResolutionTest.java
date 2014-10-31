@@ -8,7 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -20,6 +22,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.dse.api.DesignSpaceExplorer;
+import org.eclipse.viatra.dse.api.PatternWithCardinality;
 import org.eclipse.viatra.dse.api.Solution;
 import org.eclipse.viatra.dse.api.SolutionTrajectory;
 import org.eclipse.viatra.dse.api.Strategies;
@@ -31,6 +34,7 @@ import org.eclipse.viatra.dse.statecode.incrementalgraph.IncrementalGraphHasherF
 import org.eclipse.viatra.dse.util.EMFHelper;
 import org.junit.Test;
 
+//import patterns.CountOperationsMatcher;
 import patterns.CreateMatch;
 import patterns.CreateMatcher;
 import rules.AddToList;
@@ -111,32 +115,35 @@ public class ConflictResolutionTest {
 		dse.setStartingModel(mainRoot);
 
 		// TODO setting MaxNumberOfThreads
-		 dse.setMaxNumberOfThreads(1);
+		dse.setMaxNumberOfThreads(1);
 
 		// adding metamodel packages
 		dse.addMetaModelPackage(ModelContainerPackage.eINSTANCE);
 		dse.addMetaModelPackage(WTSpecIDPackage.eINSTANCE);
 		dse.addMetaModelPackage(DiffModelPackage.eINSTANCE);
 
-//		dse.setSerializerFactory(new IncrementalGraphHasherFactory(dse
-//				.getMetaModelPackages()));
-//		dse.setSerializerFactory(new GraphHasherFactory());
+		// dse.setSerializerFactory(new IncrementalGraphHasherFactory(dse
+		// .getMetaModelPackages()));
+		// dse.setSerializerFactory(new GraphHasherFactory());
 		dse.setSerializerFactory(new IkerLanStateCoderFactory());
 
 		// adding rules
 		dse.addTransformationRule(CreateElement.createRule());
-		dse.addTransformationRule(DeleteElement.createRule());
+		//dse.addTransformationRule(DeleteElement.createRule());
 		//dse.addTransformationRule(SetAttribute.createRule());
-		dse.addTransformationRule(SetReference.createRule());
-//		dse.addTransformationRule(ResetAttribute.createRule());
-//		dse.addTransformationRule(ResetReference.createRule());
-		//dse.addTransformationRule(AddToList.createRule());
-		//dse.addTransformationRule(RemoveFromList.createRule());
+		//dse.addTransformationRule(SetReference.createRule());
+		// dse.addTransformationRule(ResetAttribute.createRule());
+		// dse.addTransformationRule(ResetReference.createRule());
+		dse.addTransformationRule(AddToList.createRule());
+		// dse.addTransformationRule(RemoveFromList.createRule());
+
+		// dse.addGoalPattern(new
+		// PatternWithCardinality(CountOperationsMatcher.querySpecification()));
 
 		dse.setSolutionStore(new DifferencesSolutionStore());
 
 		boolean waitForTermination = true;
-		Strategy strategy = Strategies.createDFSStrategy();
+		Strategy strategy = Strategies.createBFSStrategy(2, 100);
 
 		strategy.setGoalStateChecker(new CheckDifferences(original, modA, modB));
 
@@ -147,39 +154,44 @@ public class ConflictResolutionTest {
 		System.out.println("AFTER startExploration");
 
 		Collection<Solution> solutions = dse.getAllSolutions();
+		System.out.println(solutions.size());
 		OutputStream output;
-		int s = 0;
+		int s = 1;
 
 		if (!solutions.isEmpty()) {
 			System.out.println("there is at least 1 solution");
 			Solution solution = dse.getAllSolutions().iterator().next();
 			SolutionTrajectory solutionTrajectory = solution
 					.getArbitraryTrajectory();
-			
+
 			System.out.println("BEFORE transformation");
-			
+
 			// Transform the model
 			// TODO maybe this should be the mainRoot instead of originalRoot
 			solutionTrajectory.setModel(IncQueryEngine.on(mainRoot));
 			solutionTrajectory.doTransformation();
 			System.out.println("AFTER transformation");
-//			try {
-				
-				EMFHelper.serializeModel(mainRoot, "solution"+s++,".modelcontainer");
-				System.out.println("AFTER serialization");
-//				output = new FileOutputStream(
-//						"C:\\Users\\Marci\\Desktop\\solutions\\solution" + s++
-//								+ ".wtspecid");
-//
-//				original.save(output, null);
+			// try {
+			Date d = new Date();
+			SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
+					"MM.dd.'at'.HH.mm.ss");
+			String date = DATE_FORMAT.format(d);
+			EMFHelper.serializeModel(mainRoot, "solution_" + date + "_Number"
+					+ s++, "modelcontainer");
+			System.out.println("AFTER serialization");
+			// output = new FileOutputStream(
+			// "C:\\Users\\Marci\\Desktop\\solutions\\solution" + s++
+			// + ".wtspecid");
+			//
+			// original.save(output, null);
 
-//			} catch (FileNotFoundException e) {
-//
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//
-//				e.printStackTrace();
-//			}
+			// } catch (FileNotFoundException e) {
+			//
+			// e.printStackTrace();
+			// } catch (IOException e) {
+			//
+			// e.printStackTrace();
+			// }
 
 		}
 
@@ -225,15 +237,16 @@ public class ConflictResolutionTest {
 		mainRoot.setOriginal(originalRoot);
 		mainRoot.setDeltaOA(deltaOARoot);
 		mainRoot.setDeltaOB(deltaOBRoot);
-		
+
 		CheckDifferences cd = new CheckDifferences(original, modA, modB);
 		cd.isGoalState(null);
-		
+
 		IncQueryEngine engine = IncQueryEngine.on(mainRoot);
 		CreateMatcher matcher = CreateMatcher.on(engine);
 		assertTrue(matcher.countMatches() > 0);
 		for (CreateMatch match : matcher.getAllMatches()) {
-			System.out.println(match.getCreateOp().getId() + ": " + match.getCreateOp().getTargetId());
+			System.out.println(match.getCreateOp().getId() + ": "
+					+ match.getCreateOp().getTargetId());
 		}
 	}
 }

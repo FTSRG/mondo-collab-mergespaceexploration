@@ -1,7 +1,7 @@
 package patterns;
 
 import DiffModel.Create;
-import WTSpecID.WT;
+import ModelContainer.MainRoot;
 import java.util.Arrays;
 import java.util.List;
 import org.eclipse.incquery.runtime.api.IPatternMatch;
@@ -26,20 +26,20 @@ import patterns.util.CreateQuerySpecification;
 public abstract class CreateMatch extends BasePatternMatch {
   private Create fCreateOp;
   
-  private WT fWt;
+  private MainRoot fMainRoot;
   
-  private static List<String> parameterNames = makeImmutableList("createOp", "wt");
+  private static List<String> parameterNames = makeImmutableList("createOp", "mainRoot");
   
-  private CreateMatch(final Create pCreateOp, final WT pWt) {
+  private CreateMatch(final Create pCreateOp, final MainRoot pMainRoot) {
     this.fCreateOp = pCreateOp;
-    this.fWt = pWt;
+    this.fMainRoot = pMainRoot;
     
   }
   
   @Override
   public Object get(final String parameterName) {
     if ("createOp".equals(parameterName)) return this.fCreateOp;
-    if ("wt".equals(parameterName)) return this.fWt;
+    if ("mainRoot".equals(parameterName)) return this.fMainRoot;
     return null;
     
   }
@@ -49,8 +49,8 @@ public abstract class CreateMatch extends BasePatternMatch {
     
   }
   
-  public WT getWt() {
-    return this.fWt;
+  public MainRoot getMainRoot() {
+    return this.fMainRoot;
     
   }
   
@@ -61,8 +61,8 @@ public abstract class CreateMatch extends BasePatternMatch {
     	this.fCreateOp = (DiffModel.Create) newValue;
     	return true;
     }
-    if ("wt".equals(parameterName) ) {
-    	this.fWt = (WTSpecID.WT) newValue;
+    if ("mainRoot".equals(parameterName) ) {
+    	this.fMainRoot = (ModelContainer.MainRoot) newValue;
     	return true;
     }
     return false;
@@ -75,9 +75,9 @@ public abstract class CreateMatch extends BasePatternMatch {
     
   }
   
-  public void setWt(final WT pWt) {
+  public void setMainRoot(final MainRoot pMainRoot) {
     if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-    this.fWt = pWt;
+    this.fMainRoot = pMainRoot;
     
   }
   
@@ -95,13 +95,13 @@ public abstract class CreateMatch extends BasePatternMatch {
   
   @Override
   public Object[] toArray() {
-    return new Object[]{fCreateOp, fWt};
+    return new Object[]{fCreateOp, fMainRoot};
     
   }
   
   @Override
   public CreateMatch toImmutable() {
-    return isMutable() ? newMatch(fCreateOp, fWt) : this;
+    return isMutable() ? newMatch(fCreateOp, fMainRoot) : this;
     
   }
   
@@ -109,7 +109,7 @@ public abstract class CreateMatch extends BasePatternMatch {
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
     result.append("\"createOp\"=" + prettyPrintValue(fCreateOp) + ", ");
-    result.append("\"wt\"=" + prettyPrintValue(fWt));
+    result.append("\"mainRoot\"=" + prettyPrintValue(fMainRoot));
     return result.toString();
     
   }
@@ -119,7 +119,7 @@ public abstract class CreateMatch extends BasePatternMatch {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((fCreateOp == null) ? 0 : fCreateOp.hashCode());
-    result = prime * result + ((fWt == null) ? 0 : fWt.hashCode());
+    result = prime * result + ((fMainRoot == null) ? 0 : fMainRoot.hashCode());
     return result;
     
   }
@@ -141,8 +141,8 @@ public abstract class CreateMatch extends BasePatternMatch {
     CreateMatch other = (CreateMatch) obj;
     if (fCreateOp == null) {if (other.fCreateOp != null) return false;}
     else if (!fCreateOp.equals(other.fCreateOp)) return false;
-    if (fWt == null) {if (other.fWt != null) return false;}
-    else if (!fWt.equals(other.fWt)) return false;
+    if (fMainRoot == null) {if (other.fMainRoot != null) return false;}
+    else if (!fMainRoot.equals(other.fMainRoot)) return false;
     return true;
   }
   
@@ -174,12 +174,12 @@ public abstract class CreateMatch extends BasePatternMatch {
    * Fields of the mutable match can be filled to create a partial match, usable as matcher input.
    * 
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
-   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @param pMainRoot the fixed value of pattern parameter mainRoot, or null if not bound.
    * @return the new, mutable (partial) match object.
    * 
    */
-  public static CreateMatch newMutableMatch(final Create pCreateOp, final WT pWt) {
-    return new Mutable(pCreateOp, pWt);
+  public static CreateMatch newMutableMatch(final Create pCreateOp, final MainRoot pMainRoot) {
+    return new Mutable(pCreateOp, pMainRoot);
     
   }
   
@@ -188,18 +188,18 @@ public abstract class CreateMatch extends BasePatternMatch {
    * This can be used e.g. to call the matcher with a partial match.
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pCreateOp the fixed value of pattern parameter createOp, or null if not bound.
-   * @param pWt the fixed value of pattern parameter wt, or null if not bound.
+   * @param pMainRoot the fixed value of pattern parameter mainRoot, or null if not bound.
    * @return the (partial) match object.
    * 
    */
-  public static CreateMatch newMatch(final Create pCreateOp, final WT pWt) {
-    return new Immutable(pCreateOp, pWt);
+  public static CreateMatch newMatch(final Create pCreateOp, final MainRoot pMainRoot) {
+    return new Immutable(pCreateOp, pMainRoot);
     
   }
   
   private static final class Mutable extends CreateMatch {
-    Mutable(final Create pCreateOp, final WT pWt) {
-      super(pCreateOp, pWt);
+    Mutable(final Create pCreateOp, final MainRoot pMainRoot) {
+      super(pCreateOp, pMainRoot);
       
     }
     
@@ -210,8 +210,8 @@ public abstract class CreateMatch extends BasePatternMatch {
   }
   
   private static final class Immutable extends CreateMatch {
-    Immutable(final Create pCreateOp, final WT pWt) {
-      super(pCreateOp, pWt);
+    Immutable(final Create pCreateOp, final MainRoot pMainRoot) {
+      super(pCreateOp, pMainRoot);
       
     }
     

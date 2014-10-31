@@ -4,12 +4,21 @@ import "http://WTSpec/2.01"
 import "http://diffmodel/1.0"
 import "http://modelcontainer/1.0"
 
-pattern allIdentifiable(target : IdentifiableWTElement) {
-	IdentifiableWTElement.ID(target, _id);
-}
+//pattern allIdentifiable(target : IdentifiableWTElement) {
+//	IdentifiableWTElement.ID(target, _id);
+//}
 
-pattern create(createOp : Create, wt : WT) {
-	WT(wt);
+//pattern operations(op : Identifiable) {
+//	Identifiable(op);
+//}
+//
+//pattern countOperations() {
+//	N == count find operations(_op);
+//	check (N == 0);
+//}
+
+pattern create(createOp : Create, mainRoot : MainRoot) {
+	MainRoot(mainRoot);
 	Create(createOp);
 }
 

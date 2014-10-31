@@ -15,9 +15,13 @@ public class DeleteElement extends DeleteProcessor {
 	@Override
 	public void process(Delete pDeleteOp, IdentifiableWTElement pTarget) {
 		
+		System.out.println("DeleteMatch");
+		
 		EcoreUtil.delete(pTarget);
 		
 		EcoreUtil.delete(pDeleteOp);
+		
+		System.out.println("DeleteMatch End");
 		
 	}
 

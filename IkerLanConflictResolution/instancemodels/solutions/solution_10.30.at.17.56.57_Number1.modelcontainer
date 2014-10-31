@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ASCII"?>
+<mc:MainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:diffmodel="http://diffmodel/1.0" xmlns:mc="http://modelcontainer/1.0" xmlns:wtc="http://WTSpec/2.01">
+  <original xsi:type="wtc:WT" ID="WTModel_1" sysId="WTModel_1" model="WTModel" version="1.0">
+    <itsSubsystems ID="Subsystem_01" sysId="Subsystem_01" description="desc">
+      <itsWTCs xsi:type="wtc:CtrlUnit2" ID="CtrlUnit2_1" sysId="CtrlUnit2_1" description="desc" cycle="3" priority="1" Input__iTwistAngle="VA_1" Output__oNorthDirection="VA_2" Parameter__pNorthOffset="PA_1"/>
+    </itsSubsystems>
+    <itsParams ID="PA_1" sysId="PA_1" value="5"/>
+    <itsVariables ID="VA_1" sysId="VA_1"/>
+    <itsVariables ID="VA_2" sysId="VA_2"/>
+  </original>
+  <deltaOB xsi:type="diffmodel:DiffContainer">
+    <SetAttrDiffs id="SetAttr_02" targetId="PA_1" attribute="value" value="10"/>
+    <SetAttrDiffs id="SetAttr_04" targetId="CtrlUnit2_2" attribute="cycle" value="4"/>
+    <SetAttrDiffs id="SetAttr_06" targetId="CtrlUnit2_2" attribute="description" value="desc"/>
+    <SetAttrDiffs id="SetAttr_08" targetId="CtrlUnit2_2" attribute="priority" value="2"/>
+    <SetAttrDiffs id="SetAttr_10" targetId="CtrlUnit2_2" attribute="sysId" value="CtrlUnit2_2"/>
+    <SetRefDiffs id="SetRef_02" targetId="CtrlUnit2_2" reference="Parameter__pNorthOffset" refID="PA_1"/>
+    <SetRefDiffs id="SetRef_04" targetId="CtrlUnit2_2" reference="Output__oNorthDirection" refID="VA_2"/>
+    <SetRefDiffs id="SetRef_06" targetId="CtrlUnit2_2" reference="Input__iTwistAngle" refID="VA_1"/>
+    <AddToListDiffs id="AddToList_02" targetId="Subsystem_02" list="itsWTCs" refID="CtrlUnit2_2"/>
+    <RemoveFromListDiffs id="RemoveFromList_02" targetId="WTModel_1" list="itsParams" refID="PA_2"/>
+  </deltaOB>
+  <deltaOA xsi:type="diffmodel:DiffContainer">
+    <SetAttrDiffs id="SetAttr_01" targetId="CtrlUnit2_3" attribute="cycle" value="5"/>
+    <SetAttrDiffs id="SetAttr_03" targetId="CtrlUnit2_3" attribute="description" value="desc"/>
+    <SetAttrDiffs id="SetAttr_05" targetId="CtrlUnit2_3" attribute="priority" value="3"/>
+    <SetAttrDiffs id="SetAttr_07" targetId="CtrlUnit2_3" attribute="sysId" value="CtrlUnit2_3"/>
+    <SetRefDiffs id="SetRef_01" targetId="CtrlUnit2_3" reference="Parameter__pNorthOffset" refID="PA_2"/>
+    <SetRefDiffs id="SetRef_03" targetId="CtrlUnit2_3" reference="Input__iTwistAngle" refID="VA_1"/>
+    <SetRefDiffs id="SetRef_05" targetId="CtrlUnit2_3" reference="Output__oNorthDirection" refID="VA_2"/>
+    <AddToListDiffs id="AddToList_01" targetId="Subsystem_01" list="itsWTCs" refID="CtrlUnit2_3"/>
+    <RemoveFromListDiffs id="RemoveFromList_01" targetId="WTModel_1" list="itsSubsystems" refID="Subsystem_02"/>
+  </deltaOA>
+  <reversed xsi:type="wtc:CtrlUnit2" ID="CtrlUnit2_2"/>
+  <reversed xsi:type="wtc:CtrlUnit2" ID="CtrlUnit2_3"/>
+</mc:MainRoot>

@@ -4,13 +4,17 @@ package ModelContainer.impl;
 
 import ModelContainer.MainRoot;
 import ModelContainer.ModelContainerPackage;
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,6 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link ModelContainer.impl.MainRootImpl#getOriginal <em>Original</em>}</li>
  *   <li>{@link ModelContainer.impl.MainRootImpl#getDeltaOB <em>Delta OB</em>}</li>
  *   <li>{@link ModelContainer.impl.MainRootImpl#getDeltaOA <em>Delta OA</em>}</li>
+ *   <li>{@link ModelContainer.impl.MainRootImpl#getReversed <em>Reversed</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,6 +62,16 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * @ordered
 	 */
 	protected EObject deltaOA;
+
+	/**
+	 * The cached value of the '{@link #getReversed() <em>Reversed</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReversed()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EObject> reversed;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -211,6 +226,18 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<EObject> getReversed() {
+		if (reversed == null) {
+			reversed = new EObjectContainmentEList<EObject>(EObject.class, this, ModelContainerPackage.MAIN_ROOT__REVERSED);
+		}
+		return reversed;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -220,6 +247,8 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 				return basicSetDeltaOB(null, msgs);
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				return basicSetDeltaOA(null, msgs);
+			case ModelContainerPackage.MAIN_ROOT__REVERSED:
+				return ((InternalEList<?>)getReversed()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -238,6 +267,8 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 				return getDeltaOB();
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				return getDeltaOA();
+			case ModelContainerPackage.MAIN_ROOT__REVERSED:
+				return getReversed();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -247,6 +278,7 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -258,6 +290,10 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 				return;
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				setDeltaOA((EObject)newValue);
+				return;
+			case ModelContainerPackage.MAIN_ROOT__REVERSED:
+				getReversed().clear();
+				getReversed().addAll((Collection<? extends EObject>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -280,6 +316,9 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				setDeltaOA((EObject)null);
 				return;
+			case ModelContainerPackage.MAIN_ROOT__REVERSED:
+				getReversed().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -298,6 +337,8 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 				return deltaOB != null;
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				return deltaOA != null;
+			case ModelContainerPackage.MAIN_ROOT__REVERSED:
+				return reversed != null && !reversed.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

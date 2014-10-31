@@ -1,5 +1,6 @@
 package rules;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.dse.api.TransformationRule;
@@ -16,10 +17,17 @@ public class SetAttribute extends SetAttributeProcessor {
 			IdentifiableWTElement pTarget) {
 
 		String attr = pSetAttrOp.getAttribute();
-		Object value = pSetAttrOp.getValue();
+		String value = pSetAttrOp.getValue();
 
-		// TODO cast value to the right type?
-		pTarget.eSet(pTarget.eClass().getEStructuralFeature(attr), value);
+		EStructuralFeature esf = pTarget.eClass().getEStructuralFeature(attr);
+		Object oldValue = esf.getDefaultValue();
+		if(oldValue instanceof Integer) {
+			pTarget.eSet(pTarget.eClass().getEStructuralFeature(attr), Integer.parseInt(value));
+		}
+		else if(oldValue instanceof Short) {
+			pTarget.eSet(pTarget.eClass().getEStructuralFeature(attr), Short.parseShort(value));
+		} 
+		else pTarget.eSet(pTarget.eClass().getEStructuralFeature(attr), value);
 
 		EcoreUtil.delete(pSetAttrOp);
 

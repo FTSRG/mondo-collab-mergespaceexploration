@@ -47,12 +47,12 @@ public final class CreateQuerySpecification extends BaseGeneratedQuerySpecificat
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("createOp","wt");
+    return Arrays.asList("createOp","mainRoot");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("createOp", "DiffModel.Create"),new PParameter("wt", "WTSpecID.WT"));
+    return Arrays.asList(new PParameter("createOp", "DiffModel.Create"),new PParameter("mainRoot", "ModelContainer.MainRoot"));
   }
   
   @Override
@@ -62,7 +62,7 @@ public final class CreateQuerySpecification extends BaseGeneratedQuerySpecificat
   
   @Override
   public CreateMatch newMatch(final Object... parameters) {
-    return CreateMatch.newMatch((DiffModel.Create) parameters[0], (WTSpecID.WT) parameters[1]);
+    return CreateMatch.newMatch((DiffModel.Create) parameters[0], (ModelContainer.MainRoot) parameters[1]);
   }
   
   @Override
@@ -71,15 +71,15 @@ public final class CreateQuerySpecification extends BaseGeneratedQuerySpecificat
     {
       PBody body = new PBody(this);
       PVariable var_createOp = body.getOrCreateVariableByName("createOp");
-      PVariable var_wt = body.getOrCreateVariableByName("wt");
+      PVariable var_mainRoot = body.getOrCreateVariableByName("mainRoot");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
         new ExportedParameter(body, var_createOp, "createOp"), 
-        new ExportedParameter(body, var_wt, "wt")
+        new ExportedParameter(body, var_mainRoot, "mainRoot")
       ));
       
-      new TypeUnary(body, var_createOp, getClassifierLiteral("http://diffmodel/1.0", "Create"), "http://diffmodel/1.0/Create");
       
-      new TypeUnary(body, var_wt, getClassifierLiteral("http://WTSpec/2.01", "WT"), "http://WTSpec/2.01/WT");
+      new TypeUnary(body, var_mainRoot, getClassifierLiteral("http://modelcontainer/1.0", "MainRoot"), "http://modelcontainer/1.0/MainRoot");
+      new TypeUnary(body, var_createOp, getClassifierLiteral("http://diffmodel/1.0", "Create"), "http://diffmodel/1.0/Create");
       bodies.add(body);
     }
     return bodies;
