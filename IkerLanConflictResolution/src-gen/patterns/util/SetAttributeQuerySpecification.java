@@ -82,7 +82,7 @@ public final class SetAttributeQuerySpecification extends BaseGeneratedQuerySpec
       new TypeUnary(body, var_setAttrOp, getClassifierLiteral("http://diffmodel/1.0", "SetAttribute"), "http://diffmodel/1.0/SetAttribute");
       
       new TypeBinary(body, CONTEXT, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
-      new TypeBinary(body, CONTEXT, var_setAttrOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
+      new TypeBinary(body, CONTEXT, var_setAttrOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetID"), "http://diffmodel/1.0/Identifiable.targetID");
       bodies.add(body);
     }
     return bodies;

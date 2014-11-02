@@ -128,7 +128,7 @@ public class ModelContainerPackageImpl extends EPackageImpl implements ModelCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMainRoot_Reversed() {
+	public EReference getMainRoot_Reserved() {
 		return (EReference)mainRootEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -164,7 +164,7 @@ public class ModelContainerPackageImpl extends EPackageImpl implements ModelCont
 		createEReference(mainRootEClass, MAIN_ROOT__ORIGINAL);
 		createEReference(mainRootEClass, MAIN_ROOT__DELTA_OB);
 		createEReference(mainRootEClass, MAIN_ROOT__DELTA_OA);
-		createEReference(mainRootEClass, MAIN_ROOT__REVERSED);
+		createEReference(mainRootEClass, MAIN_ROOT__RESERVED);
 	}
 
 	/**
@@ -201,7 +201,7 @@ public class ModelContainerPackageImpl extends EPackageImpl implements ModelCont
 		initEReference(getMainRoot_Original(), ecorePackage.getEObject(), null, "original", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMainRoot_DeltaOB(), ecorePackage.getEObject(), null, "deltaOB", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMainRoot_DeltaOA(), ecorePackage.getEObject(), null, "deltaOA", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMainRoot_Reversed(), ecorePackage.getEObject(), null, "reversed", null, 0, -1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMainRoot_Reserved(), ecorePackage.getEObject(), null, "reserved", null, 0, -1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

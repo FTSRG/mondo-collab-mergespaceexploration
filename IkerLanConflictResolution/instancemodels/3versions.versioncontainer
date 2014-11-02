@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<vc:MainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:vc="http://versioncontainer/1.0">
-  <original href="original.wtspecid#1"/>
-  <local href="local.wtspecid#1"/>
-  <remote href="remote.wtspecid#1"/>
-</vc:MainRoot>

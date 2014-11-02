@@ -29,19 +29,6 @@ import patterns.util.CreateQuerySpecification;
  * 
  * <p>Original source:
  * <code><pre>
- * //pattern allIdentifiable(target : IdentifiableWTElement) {
- * //	IdentifiableWTElement.ID(target, _id);
- * //}
- * 
- * //pattern operations(op : Identifiable) {
- * //	Identifiable(op);
- * //}
- * //
- * //pattern countOperations() {
- * //	N == count find operations(_op);
- * //	check (N == 0);
- * //}
- * 
  * pattern create(createOp : Create, mainRoot : MainRoot) {
  * 	MainRoot(mainRoot);
  * 	Create(createOp);

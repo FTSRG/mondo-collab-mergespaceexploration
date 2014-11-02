@@ -31,7 +31,7 @@ import patterns.util.DeleteQuerySpecification;
  * <code><pre>
  * pattern delete(deleteOp : Delete, target : IdentifiableWTElement) {
  * 	IdentifiableWTElement.ID(target, id);
- * 	Delete.targetId(deleteOp, id);
+ * 	Delete.targetID(deleteOp, id);
  * }
  * </pre></code>
  * 

@@ -2,24 +2,20 @@
  */
 package DiffModel.impl;
 
-import DiffModel.AddToList;
 import DiffModel.Create;
 import DiffModel.Delete;
 import DiffModel.DiffContainer;
 import DiffModel.DiffModelFactory;
 import DiffModel.DiffModelPackage;
 import DiffModel.Identifiable;
-import DiffModel.RemoveFromList;
 import DiffModel.ResetAttribute;
 import DiffModel.ResetReference;
 import DiffModel.SetAttribute;
 import DiffModel.SetReference;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -84,20 +80,6 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 	 * @generated
 	 */
 	private EClass identifiableEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass addToListEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass removeFromListEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -228,24 +210,6 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDiffContainer_AddToListDiffs() {
-		return (EReference)diffContainerEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDiffContainer_RemoveFromListDiffs() {
-		return (EReference)diffContainerEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getCreate() {
 		return createEClass;
 	}
@@ -363,6 +327,15 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getResetReference_RefID() {
+		return (EAttribute)resetReferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getIdentifiable() {
 		return identifiableEClass;
 	}
@@ -372,7 +345,7 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getIdentifiable_Id() {
+	public EAttribute getIdentifiable_ID() {
 		return (EAttribute)identifiableEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -381,62 +354,8 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getIdentifiable_TargetId() {
+	public EAttribute getIdentifiable_TargetID() {
 		return (EAttribute)identifiableEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getAddToList() {
-		return addToListEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAddToList_List() {
-		return (EAttribute)addToListEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAddToList_RefID() {
-		return (EAttribute)addToListEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getRemoveFromList() {
-		return removeFromListEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getRemoveFromList_List() {
-		return (EAttribute)removeFromListEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getRemoveFromList_RefID() {
-		return (EAttribute)removeFromListEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -474,8 +393,6 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 		createEReference(diffContainerEClass, DIFF_CONTAINER__SET_REF_DIFFS);
 		createEReference(diffContainerEClass, DIFF_CONTAINER__RESET_ATTR_DIFFS);
 		createEReference(diffContainerEClass, DIFF_CONTAINER__RESET_REF_DIFFS);
-		createEReference(diffContainerEClass, DIFF_CONTAINER__ADD_TO_LIST_DIFFS);
-		createEReference(diffContainerEClass, DIFF_CONTAINER__REMOVE_FROM_LIST_DIFFS);
 
 		createEClass = createEClass(CREATE);
 		createEAttribute(createEClass, CREATE__TYPE);
@@ -495,18 +412,11 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 
 		resetReferenceEClass = createEClass(RESET_REFERENCE);
 		createEAttribute(resetReferenceEClass, RESET_REFERENCE__REFERENCE);
+		createEAttribute(resetReferenceEClass, RESET_REFERENCE__REF_ID);
 
 		identifiableEClass = createEClass(IDENTIFIABLE);
 		createEAttribute(identifiableEClass, IDENTIFIABLE__ID);
 		createEAttribute(identifiableEClass, IDENTIFIABLE__TARGET_ID);
-
-		addToListEClass = createEClass(ADD_TO_LIST);
-		createEAttribute(addToListEClass, ADD_TO_LIST__LIST);
-		createEAttribute(addToListEClass, ADD_TO_LIST__REF_ID);
-
-		removeFromListEClass = createEClass(REMOVE_FROM_LIST);
-		createEAttribute(removeFromListEClass, REMOVE_FROM_LIST__LIST);
-		createEAttribute(removeFromListEClass, REMOVE_FROM_LIST__REF_ID);
 	}
 
 	/**
@@ -543,8 +453,6 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 		setReferenceEClass.getESuperTypes().add(this.getIdentifiable());
 		resetAttributeEClass.getESuperTypes().add(this.getIdentifiable());
 		resetReferenceEClass.getESuperTypes().add(this.getIdentifiable());
-		addToListEClass.getESuperTypes().add(this.getIdentifiable());
-		removeFromListEClass.getESuperTypes().add(this.getIdentifiable());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(diffContainerEClass, DiffContainer.class, "DiffContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -554,8 +462,6 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 		initEReference(getDiffContainer_SetRefDiffs(), this.getSetReference(), null, "SetRefDiffs", null, 0, -1, DiffContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiffContainer_ResetAttrDiffs(), this.getResetAttribute(), null, "ResetAttrDiffs", null, 0, -1, DiffContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiffContainer_ResetRefDiffs(), this.getResetReference(), null, "ResetRefDiffs", null, 0, -1, DiffContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDiffContainer_AddToListDiffs(), this.getAddToList(), null, "AddToListDiffs", null, 0, -1, DiffContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDiffContainer_RemoveFromListDiffs(), this.getRemoveFromList(), null, "RemoveFromListDiffs", null, 0, -1, DiffContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(createEClass, Create.class, "Create", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCreate_Type(), ecorePackage.getEString(), "type", null, 0, 1, Create.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -575,18 +481,11 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 
 		initEClass(resetReferenceEClass, ResetReference.class, "ResetReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getResetReference_Reference(), ecorePackage.getEString(), "reference", null, 0, 1, ResetReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResetReference_RefID(), ecorePackage.getEString(), "refID", null, 0, 1, ResetReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIdentifiable_Id(), ecorePackage.getEString(), "id", null, 0, 1, Identifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIdentifiable_TargetId(), ecorePackage.getEString(), "targetId", null, 0, 1, Identifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(addToListEClass, AddToList.class, "AddToList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAddToList_List(), ecorePackage.getEString(), "list", null, 0, 1, AddToList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAddToList_RefID(), ecorePackage.getEString(), "refID", null, 0, 1, AddToList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(removeFromListEClass, RemoveFromList.class, "RemoveFromList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRemoveFromList_List(), ecorePackage.getEString(), "list", null, 0, 1, RemoveFromList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRemoveFromList_RefID(), ecorePackage.getEString(), "refID", null, 0, 1, RemoveFromList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIdentifiable_ID(), ecorePackage.getEString(), "ID", null, 0, 1, Identifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIdentifiable_TargetID(), ecorePackage.getEString(), "targetID", null, 0, 1, Identifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

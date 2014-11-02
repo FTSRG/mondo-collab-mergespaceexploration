@@ -31,7 +31,7 @@ import patterns.util.SetAttributeQuerySpecification;
  * <code><pre>
  * pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement) {
  * 	IdentifiableWTElement.ID(target, id);
- * 	SetAttribute.targetId(setAttrOp, id);
+ * 	SetAttribute.targetID(setAttrOp, id);
  * }
  * </pre></code>
  * 

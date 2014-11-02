@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link DiffModel.impl.IdentifiableImpl#getId <em>Id</em>}</li>
- *   <li>{@link DiffModel.impl.IdentifiableImpl#getTargetId <em>Target Id</em>}</li>
+ *   <li>{@link DiffModel.impl.IdentifiableImpl#getID <em>ID</em>}</li>
+ *   <li>{@link DiffModel.impl.IdentifiableImpl#getTargetID <em>Target ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,44 +28,44 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container implements Identifiable {
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * The default value of the '{@link #getID() <em>ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getId()
+	 * @see #getID()
 	 * @generated
 	 * @ordered
 	 */
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * The cached value of the '{@link #getID() <em>ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getId()
+	 * @see #getID()
 	 * @generated
 	 * @ordered
 	 */
 	protected String id = ID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTargetId() <em>Target Id</em>}' attribute.
+	 * The default value of the '{@link #getTargetID() <em>Target ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTargetId()
+	 * @see #getTargetID()
 	 * @generated
 	 * @ordered
 	 */
 	protected static final String TARGET_ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTargetId() <em>Target Id</em>}' attribute.
+	 * The cached value of the '{@link #getTargetID() <em>Target ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTargetId()
+	 * @see #getTargetID()
 	 * @generated
 	 * @ordered
 	 */
-	protected String targetId = TARGET_ID_EDEFAULT;
+	protected String targetID = TARGET_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -91,7 +91,7 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getId() {
+	public String getID() {
 		return id;
 	}
 
@@ -100,11 +100,11 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setId(String newId) {
-		String oldId = id;
-		id = newId;
+	public void setID(String newID) {
+		String oldID = id;
+		id = newID;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DiffModelPackage.IDENTIFIABLE__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, DiffModelPackage.IDENTIFIABLE__ID, oldID, id));
 	}
 
 	/**
@@ -112,8 +112,8 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getTargetId() {
-		return targetId;
+	public String getTargetID() {
+		return targetID;
 	}
 
 	/**
@@ -121,11 +121,11 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTargetId(String newTargetId) {
-		String oldTargetId = targetId;
-		targetId = newTargetId;
+	public void setTargetID(String newTargetID) {
+		String oldTargetID = targetID;
+		targetID = newTargetID;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DiffModelPackage.IDENTIFIABLE__TARGET_ID, oldTargetId, targetId));
+			eNotify(new ENotificationImpl(this, Notification.SET, DiffModelPackage.IDENTIFIABLE__TARGET_ID, oldTargetID, targetID));
 	}
 
 	/**
@@ -137,9 +137,9 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case DiffModelPackage.IDENTIFIABLE__ID:
-				return getId();
+				return getID();
 			case DiffModelPackage.IDENTIFIABLE__TARGET_ID:
-				return getTargetId();
+				return getTargetID();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -153,10 +153,10 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case DiffModelPackage.IDENTIFIABLE__ID:
-				setId((String)newValue);
+				setID((String)newValue);
 				return;
 			case DiffModelPackage.IDENTIFIABLE__TARGET_ID:
-				setTargetId((String)newValue);
+				setTargetID((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -171,10 +171,10 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case DiffModelPackage.IDENTIFIABLE__ID:
-				setId(ID_EDEFAULT);
+				setID(ID_EDEFAULT);
 				return;
 			case DiffModelPackage.IDENTIFIABLE__TARGET_ID:
-				setTargetId(TARGET_ID_EDEFAULT);
+				setTargetID(TARGET_ID_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -191,7 +191,7 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 			case DiffModelPackage.IDENTIFIABLE__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case DiffModelPackage.IDENTIFIABLE__TARGET_ID:
-				return TARGET_ID_EDEFAULT == null ? targetId != null : !TARGET_ID_EDEFAULT.equals(targetId);
+				return TARGET_ID_EDEFAULT == null ? targetID != null : !TARGET_ID_EDEFAULT.equals(targetID);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -206,10 +206,10 @@ public abstract class IdentifiableImpl extends MinimalEObjectImpl.Container impl
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
+		result.append(" (ID: ");
 		result.append(id);
-		result.append(", targetId: ");
-		result.append(targetId);
+		result.append(", targetID: ");
+		result.append(targetID);
 		result.append(')');
 		return result.toString();
 	}

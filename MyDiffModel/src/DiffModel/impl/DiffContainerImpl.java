@@ -2,28 +2,20 @@
  */
 package DiffModel.impl;
 
-import DiffModel.AddToList;
 import DiffModel.Create;
 import DiffModel.Delete;
 import DiffModel.DiffContainer;
 import DiffModel.DiffModelPackage;
-import DiffModel.RemoveFromList;
 import DiffModel.ResetAttribute;
 import DiffModel.ResetReference;
 import DiffModel.SetAttribute;
 import DiffModel.SetReference;
-
 import java.util.Collection;
-
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -40,8 +32,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link DiffModel.impl.DiffContainerImpl#getSetRefDiffs <em>Set Ref Diffs</em>}</li>
  *   <li>{@link DiffModel.impl.DiffContainerImpl#getResetAttrDiffs <em>Reset Attr Diffs</em>}</li>
  *   <li>{@link DiffModel.impl.DiffContainerImpl#getResetRefDiffs <em>Reset Ref Diffs</em>}</li>
- *   <li>{@link DiffModel.impl.DiffContainerImpl#getAddToListDiffs <em>Add To List Diffs</em>}</li>
- *   <li>{@link DiffModel.impl.DiffContainerImpl#getRemoveFromListDiffs <em>Remove From List Diffs</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,26 +97,6 @@ public class DiffContainerImpl extends MinimalEObjectImpl.Container implements D
 	 * @ordered
 	 */
 	protected EList<ResetReference> resetRefDiffs;
-
-	/**
-	 * The cached value of the '{@link #getAddToListDiffs() <em>Add To List Diffs</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAddToListDiffs()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<AddToList> addToListDiffs;
-
-	/**
-	 * The cached value of the '{@link #getRemoveFromListDiffs() <em>Remove From List Diffs</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRemoveFromListDiffs()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<RemoveFromList> removeFromListDiffs;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -224,30 +194,6 @@ public class DiffContainerImpl extends MinimalEObjectImpl.Container implements D
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AddToList> getAddToListDiffs() {
-		if (addToListDiffs == null) {
-			addToListDiffs = new EObjectContainmentEList<AddToList>(AddToList.class, this, DiffModelPackage.DIFF_CONTAINER__ADD_TO_LIST_DIFFS);
-		}
-		return addToListDiffs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<RemoveFromList> getRemoveFromListDiffs() {
-		if (removeFromListDiffs == null) {
-			removeFromListDiffs = new EObjectContainmentEList<RemoveFromList>(RemoveFromList.class, this, DiffModelPackage.DIFF_CONTAINER__REMOVE_FROM_LIST_DIFFS);
-		}
-		return removeFromListDiffs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -263,10 +209,6 @@ public class DiffContainerImpl extends MinimalEObjectImpl.Container implements D
 				return ((InternalEList<?>)getResetAttrDiffs()).basicRemove(otherEnd, msgs);
 			case DiffModelPackage.DIFF_CONTAINER__RESET_REF_DIFFS:
 				return ((InternalEList<?>)getResetRefDiffs()).basicRemove(otherEnd, msgs);
-			case DiffModelPackage.DIFF_CONTAINER__ADD_TO_LIST_DIFFS:
-				return ((InternalEList<?>)getAddToListDiffs()).basicRemove(otherEnd, msgs);
-			case DiffModelPackage.DIFF_CONTAINER__REMOVE_FROM_LIST_DIFFS:
-				return ((InternalEList<?>)getRemoveFromListDiffs()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -291,10 +233,6 @@ public class DiffContainerImpl extends MinimalEObjectImpl.Container implements D
 				return getResetAttrDiffs();
 			case DiffModelPackage.DIFF_CONTAINER__RESET_REF_DIFFS:
 				return getResetRefDiffs();
-			case DiffModelPackage.DIFF_CONTAINER__ADD_TO_LIST_DIFFS:
-				return getAddToListDiffs();
-			case DiffModelPackage.DIFF_CONTAINER__REMOVE_FROM_LIST_DIFFS:
-				return getRemoveFromListDiffs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -332,14 +270,6 @@ public class DiffContainerImpl extends MinimalEObjectImpl.Container implements D
 				getResetRefDiffs().clear();
 				getResetRefDiffs().addAll((Collection<? extends ResetReference>)newValue);
 				return;
-			case DiffModelPackage.DIFF_CONTAINER__ADD_TO_LIST_DIFFS:
-				getAddToListDiffs().clear();
-				getAddToListDiffs().addAll((Collection<? extends AddToList>)newValue);
-				return;
-			case DiffModelPackage.DIFF_CONTAINER__REMOVE_FROM_LIST_DIFFS:
-				getRemoveFromListDiffs().clear();
-				getRemoveFromListDiffs().addAll((Collection<? extends RemoveFromList>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -370,12 +300,6 @@ public class DiffContainerImpl extends MinimalEObjectImpl.Container implements D
 			case DiffModelPackage.DIFF_CONTAINER__RESET_REF_DIFFS:
 				getResetRefDiffs().clear();
 				return;
-			case DiffModelPackage.DIFF_CONTAINER__ADD_TO_LIST_DIFFS:
-				getAddToListDiffs().clear();
-				return;
-			case DiffModelPackage.DIFF_CONTAINER__REMOVE_FROM_LIST_DIFFS:
-				getRemoveFromListDiffs().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -400,10 +324,6 @@ public class DiffContainerImpl extends MinimalEObjectImpl.Container implements D
 				return resetAttrDiffs != null && !resetAttrDiffs.isEmpty();
 			case DiffModelPackage.DIFF_CONTAINER__RESET_REF_DIFFS:
 				return resetRefDiffs != null && !resetRefDiffs.isEmpty();
-			case DiffModelPackage.DIFF_CONTAINER__ADD_TO_LIST_DIFFS:
-				return addToListDiffs != null && !addToListDiffs.isEmpty();
-			case DiffModelPackage.DIFF_CONTAINER__REMOVE_FROM_LIST_DIFFS:
-				return removeFromListDiffs != null && !removeFromListDiffs.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -85,24 +85,6 @@ public interface DiffModelFactory extends EFactory {
 	ResetReference createResetReference();
 
 	/**
-	 * Returns a new object of class '<em>Add To List</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Add To List</em>'.
-	 * @generated
-	 */
-	AddToList createAddToList();
-
-	/**
-	 * Returns a new object of class '<em>Remove From List</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Remove From List</em>'.
-	 * @generated
-	 */
-	RemoveFromList createRemoveFromList();
-
-	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -8,7 +8,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="deltaOA" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="reversed" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reserved" upperBound="-1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

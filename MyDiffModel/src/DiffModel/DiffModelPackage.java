@@ -121,31 +121,13 @@ public interface DiffModelPackage extends EPackage {
 	int DIFF_CONTAINER__RESET_REF_DIFFS = 5;
 
 	/**
-	 * The feature id for the '<em><b>Add To List Diffs</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIFF_CONTAINER__ADD_TO_LIST_DIFFS = 6;
-
-	/**
-	 * The feature id for the '<em><b>Remove From List Diffs</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIFF_CONTAINER__REMOVE_FROM_LIST_DIFFS = 7;
-
-	/**
 	 * The number of structural features of the '<em>Diff Container</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIFF_CONTAINER_FEATURE_COUNT = 8;
+	int DIFF_CONTAINER_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Diff Container</em>' class.
@@ -167,7 +149,7 @@ public interface DiffModelPackage extends EPackage {
 	int IDENTIFIABLE = 7;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -176,7 +158,7 @@ public interface DiffModelPackage extends EPackage {
 	int IDENTIFIABLE__ID = 0;
 
 	/**
-	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Target ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -213,7 +195,7 @@ public interface DiffModelPackage extends EPackage {
 	int CREATE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -222,7 +204,7 @@ public interface DiffModelPackage extends EPackage {
 	int CREATE__ID = IDENTIFIABLE__ID;
 
 	/**
-	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Target ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -268,7 +250,7 @@ public interface DiffModelPackage extends EPackage {
 	int DELETE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -277,7 +259,7 @@ public interface DiffModelPackage extends EPackage {
 	int DELETE__ID = IDENTIFIABLE__ID;
 
 	/**
-	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Target ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -314,7 +296,7 @@ public interface DiffModelPackage extends EPackage {
 	int SET_ATTRIBUTE = 3;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -323,7 +305,7 @@ public interface DiffModelPackage extends EPackage {
 	int SET_ATTRIBUTE__ID = IDENTIFIABLE__ID;
 
 	/**
-	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Target ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -378,7 +360,7 @@ public interface DiffModelPackage extends EPackage {
 	int SET_REFERENCE = 4;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -387,7 +369,7 @@ public interface DiffModelPackage extends EPackage {
 	int SET_REFERENCE__ID = IDENTIFIABLE__ID;
 
 	/**
-	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Target ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -442,7 +424,7 @@ public interface DiffModelPackage extends EPackage {
 	int RESET_ATTRIBUTE = 5;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -451,7 +433,7 @@ public interface DiffModelPackage extends EPackage {
 	int RESET_ATTRIBUTE__ID = IDENTIFIABLE__ID;
 
 	/**
-	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Target ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -497,7 +479,7 @@ public interface DiffModelPackage extends EPackage {
 	int RESET_REFERENCE = 6;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -506,7 +488,7 @@ public interface DiffModelPackage extends EPackage {
 	int RESET_REFERENCE__ID = IDENTIFIABLE__ID;
 
 	/**
-	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Target ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -524,13 +506,22 @@ public interface DiffModelPackage extends EPackage {
 	int RESET_REFERENCE__REFERENCE = IDENTIFIABLE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Ref ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_REFERENCE__REF_ID = IDENTIFIABLE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Reset Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESET_REFERENCE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 1;
+	int RESET_REFERENCE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Reset Reference</em>' class.
@@ -540,135 +531,6 @@ public interface DiffModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int RESET_REFERENCE_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
-
-
-	/**
-	 * The meta object id for the '{@link DiffModel.impl.AddToListImpl <em>Add To List</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see DiffModel.impl.AddToListImpl
-	 * @see DiffModel.impl.DiffModelPackageImpl#getAddToList()
-	 * @generated
-	 */
-	int ADD_TO_LIST = 8;
-
-	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_TO_LIST__ID = IDENTIFIABLE__ID;
-
-	/**
-	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_TO_LIST__TARGET_ID = IDENTIFIABLE__TARGET_ID;
-
-	/**
-	 * The feature id for the '<em><b>List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_TO_LIST__LIST = IDENTIFIABLE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Ref ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_TO_LIST__REF_ID = IDENTIFIABLE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Add To List</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_TO_LIST_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>Add To List</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_TO_LIST_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link DiffModel.impl.RemoveFromListImpl <em>Remove From List</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see DiffModel.impl.RemoveFromListImpl
-	 * @see DiffModel.impl.DiffModelPackageImpl#getRemoveFromList()
-	 * @generated
-	 */
-	int REMOVE_FROM_LIST = 9;
-
-	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_FROM_LIST__ID = IDENTIFIABLE__ID;
-
-	/**
-	 * The feature id for the '<em><b>Target Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_FROM_LIST__TARGET_ID = IDENTIFIABLE__TARGET_ID;
-
-	/**
-	 * The feature id for the '<em><b>List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_FROM_LIST__LIST = IDENTIFIABLE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Ref ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_FROM_LIST__REF_ID = IDENTIFIABLE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Remove From List</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_FROM_LIST_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>Remove From List</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_FROM_LIST_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
 
 
 	/**
@@ -746,28 +608,6 @@ public interface DiffModelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getDiffContainer_ResetRefDiffs();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link DiffModel.DiffContainer#getAddToListDiffs <em>Add To List Diffs</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Add To List Diffs</em>'.
-	 * @see DiffModel.DiffContainer#getAddToListDiffs()
-	 * @see #getDiffContainer()
-	 * @generated
-	 */
-	EReference getDiffContainer_AddToListDiffs();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link DiffModel.DiffContainer#getRemoveFromListDiffs <em>Remove From List Diffs</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Remove From List Diffs</em>'.
-	 * @see DiffModel.DiffContainer#getRemoveFromListDiffs()
-	 * @see #getDiffContainer()
-	 * @generated
-	 */
-	EReference getDiffContainer_RemoveFromListDiffs();
 
 	/**
 	 * Returns the meta object for class '{@link DiffModel.Create <em>Create</em>}'.
@@ -907,6 +747,17 @@ public interface DiffModelPackage extends EPackage {
 	EAttribute getResetReference_Reference();
 
 	/**
+	 * Returns the meta object for the attribute '{@link DiffModel.ResetReference#getRefID <em>Ref ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ref ID</em>'.
+	 * @see DiffModel.ResetReference#getRefID()
+	 * @see #getResetReference()
+	 * @generated
+	 */
+	EAttribute getResetReference_RefID();
+
+	/**
 	 * Returns the meta object for class '{@link DiffModel.Identifiable <em>Identifiable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -917,90 +768,26 @@ public interface DiffModelPackage extends EPackage {
 	EClass getIdentifiable();
 
 	/**
-	 * Returns the meta object for the attribute '{@link DiffModel.Identifiable#getId <em>Id</em>}'.
+	 * Returns the meta object for the attribute '{@link DiffModel.Identifiable#getID <em>ID</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see DiffModel.Identifiable#getId()
+	 * @return the meta object for the attribute '<em>ID</em>'.
+	 * @see DiffModel.Identifiable#getID()
 	 * @see #getIdentifiable()
 	 * @generated
 	 */
-	EAttribute getIdentifiable_Id();
+	EAttribute getIdentifiable_ID();
 
 	/**
-	 * Returns the meta object for the attribute '{@link DiffModel.Identifiable#getTargetId <em>Target Id</em>}'.
+	 * Returns the meta object for the attribute '{@link DiffModel.Identifiable#getTargetID <em>Target ID</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Target Id</em>'.
-	 * @see DiffModel.Identifiable#getTargetId()
+	 * @return the meta object for the attribute '<em>Target ID</em>'.
+	 * @see DiffModel.Identifiable#getTargetID()
 	 * @see #getIdentifiable()
 	 * @generated
 	 */
-	EAttribute getIdentifiable_TargetId();
-
-	/**
-	 * Returns the meta object for class '{@link DiffModel.AddToList <em>Add To List</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Add To List</em>'.
-	 * @see DiffModel.AddToList
-	 * @generated
-	 */
-	EClass getAddToList();
-
-	/**
-	 * Returns the meta object for the attribute '{@link DiffModel.AddToList#getList <em>List</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>List</em>'.
-	 * @see DiffModel.AddToList#getList()
-	 * @see #getAddToList()
-	 * @generated
-	 */
-	EAttribute getAddToList_List();
-
-	/**
-	 * Returns the meta object for the attribute '{@link DiffModel.AddToList#getRefID <em>Ref ID</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Ref ID</em>'.
-	 * @see DiffModel.AddToList#getRefID()
-	 * @see #getAddToList()
-	 * @generated
-	 */
-	EAttribute getAddToList_RefID();
-
-	/**
-	 * Returns the meta object for class '{@link DiffModel.RemoveFromList <em>Remove From List</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Remove From List</em>'.
-	 * @see DiffModel.RemoveFromList
-	 * @generated
-	 */
-	EClass getRemoveFromList();
-
-	/**
-	 * Returns the meta object for the attribute '{@link DiffModel.RemoveFromList#getList <em>List</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>List</em>'.
-	 * @see DiffModel.RemoveFromList#getList()
-	 * @see #getRemoveFromList()
-	 * @generated
-	 */
-	EAttribute getRemoveFromList_List();
-
-	/**
-	 * Returns the meta object for the attribute '{@link DiffModel.RemoveFromList#getRefID <em>Ref ID</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Ref ID</em>'.
-	 * @see DiffModel.RemoveFromList#getRefID()
-	 * @see #getRemoveFromList()
-	 * @generated
-	 */
-	EAttribute getRemoveFromList_RefID();
+	EAttribute getIdentifiable_TargetID();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1082,22 +869,6 @@ public interface DiffModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DIFF_CONTAINER__RESET_REF_DIFFS = eINSTANCE.getDiffContainer_ResetRefDiffs();
-
-		/**
-		 * The meta object literal for the '<em><b>Add To List Diffs</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DIFF_CONTAINER__ADD_TO_LIST_DIFFS = eINSTANCE.getDiffContainer_AddToListDiffs();
-
-		/**
-		 * The meta object literal for the '<em><b>Remove From List Diffs</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DIFF_CONTAINER__REMOVE_FROM_LIST_DIFFS = eINSTANCE.getDiffContainer_RemoveFromListDiffs();
 
 		/**
 		 * The meta object literal for the '{@link DiffModel.impl.CreateImpl <em>Create</em>}' class.
@@ -1216,6 +987,14 @@ public interface DiffModelPackage extends EPackage {
 		EAttribute RESET_REFERENCE__REFERENCE = eINSTANCE.getResetReference_Reference();
 
 		/**
+		 * The meta object literal for the '<em><b>Ref ID</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESET_REFERENCE__REF_ID = eINSTANCE.getResetReference_RefID();
+
+		/**
 		 * The meta object literal for the '{@link DiffModel.impl.IdentifiableImpl <em>Identifiable</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1226,72 +1005,20 @@ public interface DiffModelPackage extends EPackage {
 		EClass IDENTIFIABLE = eINSTANCE.getIdentifiable();
 
 		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>ID</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute IDENTIFIABLE__ID = eINSTANCE.getIdentifiable_Id();
+		EAttribute IDENTIFIABLE__ID = eINSTANCE.getIdentifiable_ID();
 
 		/**
-		 * The meta object literal for the '<em><b>Target Id</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Target ID</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute IDENTIFIABLE__TARGET_ID = eINSTANCE.getIdentifiable_TargetId();
-
-		/**
-		 * The meta object literal for the '{@link DiffModel.impl.AddToListImpl <em>Add To List</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see DiffModel.impl.AddToListImpl
-		 * @see DiffModel.impl.DiffModelPackageImpl#getAddToList()
-		 * @generated
-		 */
-		EClass ADD_TO_LIST = eINSTANCE.getAddToList();
-
-		/**
-		 * The meta object literal for the '<em><b>List</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ADD_TO_LIST__LIST = eINSTANCE.getAddToList_List();
-
-		/**
-		 * The meta object literal for the '<em><b>Ref ID</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ADD_TO_LIST__REF_ID = eINSTANCE.getAddToList_RefID();
-
-		/**
-		 * The meta object literal for the '{@link DiffModel.impl.RemoveFromListImpl <em>Remove From List</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see DiffModel.impl.RemoveFromListImpl
-		 * @see DiffModel.impl.DiffModelPackageImpl#getRemoveFromList()
-		 * @generated
-		 */
-		EClass REMOVE_FROM_LIST = eINSTANCE.getRemoveFromList();
-
-		/**
-		 * The meta object literal for the '<em><b>List</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REMOVE_FROM_LIST__LIST = eINSTANCE.getRemoveFromList_List();
-
-		/**
-		 * The meta object literal for the '<em><b>Ref ID</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REMOVE_FROM_LIST__REF_ID = eINSTANCE.getRemoveFromList_RefID();
+		EAttribute IDENTIFIABLE__TARGET_ID = eINSTANCE.getIdentifiable_TargetID();
 
 	}
 

@@ -59,7 +59,7 @@ public class CreateElement extends CreateProcessor {
 		System.out.println("CreateMatch");
 
 		String classType = pCreateOp.getType();
-		String newID = pCreateOp.getTargetId();
+		String newID = pCreateOp.getTargetID();
 
 		WTSpecIDPackage.eINSTANCE.eClass();
 
@@ -72,7 +72,7 @@ public class CreateElement extends CreateProcessor {
 		// setting ID of the new EObject - there should be an "ID" attribute
 		newObject.eSet(newObject.eClass().getEStructuralFeature("ID"), newID);
 		// adding new EObject to the Resource
-		pMainRoot.getReversed().add(newObject);
+		pMainRoot.getReserved().add(newObject);
 //		EList<EObject> elist = pMainRoot.eResource().getContents();
 //		pMainRoot.eResource().getContents().add(newObject);
 		// deleting this CreateOp from DiffModel

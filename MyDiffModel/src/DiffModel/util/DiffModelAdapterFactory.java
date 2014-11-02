@@ -100,14 +100,6 @@ public class DiffModelAdapterFactory extends AdapterFactoryImpl {
 				return createIdentifiableAdapter();
 			}
 			@Override
-			public Adapter caseAddToList(AddToList object) {
-				return createAddToListAdapter();
-			}
-			@Override
-			public Adapter caseRemoveFromList(RemoveFromList object) {
-				return createRemoveFromListAdapter();
-			}
-			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -236,34 +228,6 @@ public class DiffModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIdentifiableAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link DiffModel.AddToList <em>Add To List</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see DiffModel.AddToList
-	 * @generated
-	 */
-	public Adapter createAddToListAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link DiffModel.RemoveFromList <em>Remove From List</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see DiffModel.RemoveFromList
-	 * @generated
-	 */
-	public Adapter createRemoveFromListAdapter() {
 		return null;
 	}
 

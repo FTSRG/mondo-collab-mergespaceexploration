@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <diffmodel:DiffContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diffmodel="http://diffmodel/1.0">
-  <CreateDiffs id="Create_01" targetId="CtrlUnit2_3" type="CtrlUnit2"/>
-  <DeleteDiffs id="Delete_01" targetId="Subsystem_02"/>
-  <SetAttrDiffs id="SetAttr_01" targetId="CtrlUnit2_3" attribute="cycle" value="5"/>
-  <SetAttrDiffs id="SetAttr_03" targetId="CtrlUnit2_3" attribute="description" value="desc"/>
-  <SetAttrDiffs id="SetAttr_05" targetId="CtrlUnit2_3" attribute="priority" value="3"/>
-  <SetAttrDiffs id="SetAttr_07" targetId="CtrlUnit2_3" attribute="sysId" value="CtrlUnit2_3"/>
-  <SetRefDiffs id="SetRef_01" targetId="CtrlUnit2_3" reference="Parameter__pNorthOffset" refID="PA_2"/>
-  <SetRefDiffs id="SetRef_03" targetId="CtrlUnit2_3" reference="Input__iTwistAngle" refID="VA_1"/>
-  <SetRefDiffs id="SetRef_05" targetId="CtrlUnit2_3" reference="Output__oNorthDirection" refID="VA_2"/>
-  <AddToListDiffs id="AddToList_01" targetId="Subsystem_01" list="itsWTCs" refID="CtrlUnit2_3"/>
-  <RemoveFromListDiffs id="RemoveFromList_01" targetId="WTModel_1" list="itsSubsystems" refID="Subsystem_02"/>
+  <CreateDiffs ID="Create_01" targetID="CtrlUnit2_3" type="CtrlUnit2"/>
+  <DeleteDiffs ID="Delete_01" targetID="Subsystem_02"/>
+  <SetAttrDiffs ID="SetAttribute_01" targetID="CtrlUnit2_3" attribute="cycle" value="5"/>
+  <SetAttrDiffs ID="SetAttribute_03" targetID="CtrlUnit2_3" attribute="description" value="desc"/>
+  <SetAttrDiffs ID="SetAttribute_05" targetID="CtrlUnit2_3" attribute="priority" value="3"/>
+  <SetAttrDiffs ID="SetAttribute_07" targetID="CtrlUnit2_3" attribute="sysId" value="CtrlUnit2_3"/>
+  <SetRefDiffs ID="SetReference_01" targetID="Subsystem_01" reference="itsWTCs" refID="CtrlUnit2_3"/>
+  <SetRefDiffs ID="SetReference_03" targetID="CtrlUnit2_3" reference="Input__iTwistAngle" refID="VA_1"/>
+  <SetRefDiffs ID="SetReference_05" targetID="CtrlUnit2_3" reference="Output__oNorthDirection" refID="VA_2"/>
+  <SetRefDiffs ID="SetReference_07" targetID="CtrlUnit2_3" reference="Parameter__pNorthOffset" refID="PA_2"/>
 </diffmodel:DiffContainer>

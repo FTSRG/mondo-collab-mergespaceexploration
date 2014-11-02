@@ -11,7 +11,6 @@ import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
-import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import patterns.ResetReferenceMatch;
 import patterns.ResetReferenceMatcher;
@@ -48,12 +47,12 @@ public final class ResetReferenceQuerySpecification extends BaseGeneratedQuerySp
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("resetRefOp","target");
+    return Arrays.asList("resetRefOp","target","ref");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("resetRefOp", "DiffModel.ResetReference"),new PParameter("target", "WTSpecID.IdentifiableWTElement"));
+    return Arrays.asList(new PParameter("resetRefOp", "DiffModel.ResetReference"),new PParameter("target", "WTSpecID.IdentifiableWTElement"),new PParameter("ref", "WTSpecID.IdentifiableWTElement"));
   }
   
   @Override
@@ -63,7 +62,7 @@ public final class ResetReferenceQuerySpecification extends BaseGeneratedQuerySp
   
   @Override
   public ResetReferenceMatch newMatch(final Object... parameters) {
-    return ResetReferenceMatch.newMatch((DiffModel.ResetReference) parameters[0], (WTSpecID.IdentifiableWTElement) parameters[1]);
+    return ResetReferenceMatch.newMatch((DiffModel.ResetReference) parameters[0], (WTSpecID.IdentifiableWTElement) parameters[1], (WTSpecID.IdentifiableWTElement) parameters[2]);
   }
   
   @Override
@@ -73,16 +72,21 @@ public final class ResetReferenceQuerySpecification extends BaseGeneratedQuerySp
       PBody body = new PBody(this);
       PVariable var_resetRefOp = body.getOrCreateVariableByName("resetRefOp");
       PVariable var_target = body.getOrCreateVariableByName("target");
+      PVariable var_ref = body.getOrCreateVariableByName("ref");
       PVariable var_id = body.getOrCreateVariableByName("id");
+      PVariable var_id2 = body.getOrCreateVariableByName("id2");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
         new ExportedParameter(body, var_resetRefOp, "resetRefOp"), 
-        new ExportedParameter(body, var_target, "target")
+        new ExportedParameter(body, var_target, "target"), 
+        new ExportedParameter(body, var_ref, "ref")
       ));
       
-      new TypeUnary(body, var_resetRefOp, getClassifierLiteral("http://diffmodel/1.0", "ResetReference"), "http://diffmodel/1.0/ResetReference");
+      
       
       new TypeBinary(body, CONTEXT, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
-      new TypeBinary(body, CONTEXT, var_resetRefOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
+      new TypeBinary(body, CONTEXT, var_resetRefOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetID"), "http://diffmodel/1.0/Identifiable.targetID");
+      new TypeBinary(body, CONTEXT, var_ref, var_id2, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
+      new TypeBinary(body, CONTEXT, var_resetRefOp, var_id2, getFeatureLiteral("http://diffmodel/1.0", "ResetReference", "refID"), "http://diffmodel/1.0/ResetReference.refID");
       bodies.add(body);
     }
     return bodies;

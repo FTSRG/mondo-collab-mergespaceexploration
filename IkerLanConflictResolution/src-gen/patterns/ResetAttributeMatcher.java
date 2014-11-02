@@ -31,7 +31,7 @@ import patterns.util.ResetAttributeQuerySpecification;
  * <code><pre>
  * pattern resetAttribute(resetAttrOp : ResetAttribute, target : IdentifiableWTElement) {
  * 	IdentifiableWTElement.ID(target, id);
- * 	ResetAttribute.targetId(resetAttrOp, id);
+ * 	ResetAttribute.targetID(resetAttrOp, id);
  * }
  * </pre></code>
  * 

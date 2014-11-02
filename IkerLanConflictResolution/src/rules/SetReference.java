@@ -1,5 +1,11 @@
 package rules;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.dse.api.TransformationRule;
@@ -16,8 +22,28 @@ public class SetReference extends SetReferenceProcessor {
 			IdentifiableWTElement pTarget, IdentifiableWTElement pRef) {
 
 		String ref = pSetRefOp.getReference();
+		
+		EStructuralFeature esf = pTarget.eClass().getEStructuralFeature(ref);
+		
+		if (esf.getUpperBound() == 1) {
+			pTarget.eSet(esf, pRef);
+		}
+		else {
+			List<EObject> newList = new ArrayList<EObject>();
+			
+			Object obj = pTarget.eGet(esf);
+			if (obj instanceof Collection<?>) {
+				for (Object element : (Collection<?>) obj) {
+					if (element instanceof EObject) {
+						newList.add((EObject) element);
+					}
+				}
+			}
+			
+			newList.add(pRef);
 
-		pTarget.eSet(pTarget.eClass().getEStructuralFeature(ref), pRef);
+			pTarget.eSet(esf, newList);
+		}
 
 		EcoreUtil.delete(pSetRefOp);
 

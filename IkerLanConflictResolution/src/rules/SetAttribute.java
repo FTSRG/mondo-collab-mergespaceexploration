@@ -1,5 +1,10 @@
 package rules;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
@@ -18,8 +23,9 @@ public class SetAttribute extends SetAttributeProcessor {
 
 		String attr = pSetAttrOp.getAttribute();
 		String value = pSetAttrOp.getValue();
-
+		
 		EStructuralFeature esf = pTarget.eClass().getEStructuralFeature(attr);
+		
 		Object oldValue = esf.getDefaultValue();
 		if(oldValue instanceof Integer) {
 			pTarget.eSet(pTarget.eClass().getEStructuralFeature(attr), Integer.parseInt(value));

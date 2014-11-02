@@ -12,8 +12,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link DiffModel.Identifiable#getId <em>Id</em>}</li>
- *   <li>{@link DiffModel.Identifiable#getTargetId <em>Target Id</em>}</li>
+ *   <li>{@link DiffModel.Identifiable#getID <em>ID</em>}</li>
+ *   <li>{@link DiffModel.Identifiable#getTargetID <em>Target ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,55 +23,55 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Identifiable extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Id</b></em>' attribute.
+	 * Returns the value of the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Id</em>' attribute isn't clear,
+	 * If the meaning of the '<em>ID</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Id</em>' attribute.
-	 * @see #setId(String)
-	 * @see DiffModel.DiffModelPackage#getIdentifiable_Id()
+	 * @return the value of the '<em>ID</em>' attribute.
+	 * @see #setID(String)
+	 * @see DiffModel.DiffModelPackage#getIdentifiable_ID()
 	 * @model id="true"
 	 * @generated
 	 */
-	String getId();
+	String getID();
 
 	/**
-	 * Sets the value of the '{@link DiffModel.Identifiable#getId <em>Id</em>}' attribute.
+	 * Sets the value of the '{@link DiffModel.Identifiable#getID <em>ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Id</em>' attribute.
-	 * @see #getId()
+	 * @param value the new value of the '<em>ID</em>' attribute.
+	 * @see #getID()
 	 * @generated
 	 */
-	void setId(String value);
+	void setID(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Target Id</b></em>' attribute.
+	 * Returns the value of the '<em><b>Target ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Target Id</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Target ID</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target Id</em>' attribute.
-	 * @see #setTargetId(String)
-	 * @see DiffModel.DiffModelPackage#getIdentifiable_TargetId()
+	 * @return the value of the '<em>Target ID</em>' attribute.
+	 * @see #setTargetID(String)
+	 * @see DiffModel.DiffModelPackage#getIdentifiable_TargetID()
 	 * @model
 	 * @generated
 	 */
-	String getTargetId();
+	String getTargetID();
 
 	/**
-	 * Sets the value of the '{@link DiffModel.Identifiable#getTargetId <em>Target Id</em>}' attribute.
+	 * Sets the value of the '{@link DiffModel.Identifiable#getTargetID <em>Target ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target Id</em>' attribute.
-	 * @see #getTargetId()
+	 * @param value the new value of the '<em>Target ID</em>' attribute.
+	 * @see #getTargetID()
 	 * @generated
 	 */
-	void setTargetId(String value);
+	void setTargetID(String value);
 
 } // Identifiable

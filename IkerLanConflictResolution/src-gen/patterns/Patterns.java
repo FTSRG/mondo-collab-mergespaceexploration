@@ -3,18 +3,14 @@ package patterns;
 import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.incquery.runtime.api.impl.BaseGeneratedPatternGroup;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
-import patterns.AddToListMatcher;
 import patterns.CreateMatcher;
 import patterns.DeleteMatcher;
-import patterns.RemoveFromListMatcher;
 import patterns.ResetAttributeMatcher;
 import patterns.ResetReferenceMatcher;
 import patterns.SetAttributeMatcher;
 import patterns.SetReferenceMatcher;
-import patterns.util.AddToListQuerySpecification;
 import patterns.util.CreateQuerySpecification;
 import patterns.util.DeleteQuerySpecification;
-import patterns.util.RemoveFromListQuerySpecification;
 import patterns.util.ResetAttributeQuerySpecification;
 import patterns.util.ResetReferenceQuerySpecification;
 import patterns.util.SetAttributeQuerySpecification;
@@ -34,8 +30,6 @@ import patterns.util.SetReferenceQuerySpecification;
  * <li>setReference</li>
  * <li>resetAttribute</li>
  * <li>resetReference</li>
- * <li>addToList</li>
- * <li>removeFromList</li>
  * </ul>
  * 
  * @see IPatternGroup
@@ -67,8 +61,6 @@ public final class Patterns extends BaseGeneratedPatternGroup {
     querySpecifications.add(SetReferenceQuerySpecification.instance());
     querySpecifications.add(ResetAttributeQuerySpecification.instance());
     querySpecifications.add(ResetReferenceQuerySpecification.instance());
-    querySpecifications.add(AddToListQuerySpecification.instance());
-    querySpecifications.add(RemoveFromListQuerySpecification.instance());
     
   }
   
@@ -118,21 +110,5 @@ public final class Patterns extends BaseGeneratedPatternGroup {
   
   public ResetReferenceMatcher getResetReference(final IncQueryEngine engine) throws IncQueryException {
     return ResetReferenceMatcher.on(engine);
-  }
-  
-  public AddToListQuerySpecification getAddToList() throws IncQueryException {
-    return AddToListQuerySpecification.instance();
-  }
-  
-  public AddToListMatcher getAddToList(final IncQueryEngine engine) throws IncQueryException {
-    return AddToListMatcher.on(engine);
-  }
-  
-  public RemoveFromListQuerySpecification getRemoveFromList() throws IncQueryException {
-    return RemoveFromListQuerySpecification.instance();
-  }
-  
-  public RemoveFromListMatcher getRemoveFromList(final IncQueryEngine engine) throws IncQueryException {
-    return RemoveFromListMatcher.on(engine);
   }
 }

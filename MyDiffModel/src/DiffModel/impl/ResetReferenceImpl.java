@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link DiffModel.impl.ResetReferenceImpl#getReference <em>Reference</em>}</li>
+ *   <li>{@link DiffModel.impl.ResetReferenceImpl#getRefID <em>Ref ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,6 +45,26 @@ public class ResetReferenceImpl extends IdentifiableImpl implements ResetReferen
 	 * @ordered
 	 */
 	protected String reference = REFERENCE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getRefID() <em>Ref ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRefID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String REF_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getRefID() <em>Ref ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRefID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String refID = REF_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -90,11 +111,34 @@ public class ResetReferenceImpl extends IdentifiableImpl implements ResetReferen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getRefID() {
+		return refID;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRefID(String newRefID) {
+		String oldRefID = refID;
+		refID = newRefID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiffModelPackage.RESET_REFERENCE__REF_ID, oldRefID, refID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case DiffModelPackage.RESET_REFERENCE__REFERENCE:
 				return getReference();
+			case DiffModelPackage.RESET_REFERENCE__REF_ID:
+				return getRefID();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -109,6 +153,9 @@ public class ResetReferenceImpl extends IdentifiableImpl implements ResetReferen
 		switch (featureID) {
 			case DiffModelPackage.RESET_REFERENCE__REFERENCE:
 				setReference((String)newValue);
+				return;
+			case DiffModelPackage.RESET_REFERENCE__REF_ID:
+				setRefID((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -125,6 +172,9 @@ public class ResetReferenceImpl extends IdentifiableImpl implements ResetReferen
 			case DiffModelPackage.RESET_REFERENCE__REFERENCE:
 				setReference(REFERENCE_EDEFAULT);
 				return;
+			case DiffModelPackage.RESET_REFERENCE__REF_ID:
+				setRefID(REF_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -139,6 +189,8 @@ public class ResetReferenceImpl extends IdentifiableImpl implements ResetReferen
 		switch (featureID) {
 			case DiffModelPackage.RESET_REFERENCE__REFERENCE:
 				return REFERENCE_EDEFAULT == null ? reference != null : !REFERENCE_EDEFAULT.equals(reference);
+			case DiffModelPackage.RESET_REFERENCE__REF_ID:
+				return REF_ID_EDEFAULT == null ? refID != null : !REF_ID_EDEFAULT.equals(refID);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -155,6 +207,8 @@ public class ResetReferenceImpl extends IdentifiableImpl implements ResetReferen
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (reference: ");
 		result.append(reference);
+		result.append(", refID: ");
+		result.append(refID);
 		result.append(')');
 		return result.toString();
 	}

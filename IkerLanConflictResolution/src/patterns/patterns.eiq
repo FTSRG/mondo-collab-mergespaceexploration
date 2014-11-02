@@ -4,19 +4,6 @@ import "http://WTSpec/2.01"
 import "http://diffmodel/1.0"
 import "http://modelcontainer/1.0"
 
-//pattern allIdentifiable(target : IdentifiableWTElement) {
-//	IdentifiableWTElement.ID(target, _id);
-//}
-
-//pattern operations(op : Identifiable) {
-//	Identifiable(op);
-//}
-//
-//pattern countOperations() {
-//	N == count find operations(_op);
-//	check (N == 0);
-//}
-
 pattern create(createOp : Create, mainRoot : MainRoot) {
 	MainRoot(mainRoot);
 	Create(createOp);
@@ -24,41 +11,43 @@ pattern create(createOp : Create, mainRoot : MainRoot) {
 
 pattern delete(deleteOp : Delete, target : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
-	Delete.targetId(deleteOp, id);
+	Delete.targetID(deleteOp, id);
 }
 
 pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
-	SetAttribute.targetId(setAttrOp, id);
+	SetAttribute.targetID(setAttrOp, id);
 }
 
 pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
-	SetReference.targetId(setRefOp, id);
+	SetReference.targetID(setRefOp, id);
 	IdentifiableWTElement.ID(ref, id2);
 	SetReference.refID(setRefOp, id2);
 }
 
 pattern resetAttribute(resetAttrOp : ResetAttribute, target : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
-	ResetAttribute.targetId(resetAttrOp, id);
+	ResetAttribute.targetID(resetAttrOp, id);
 }
 
-pattern resetReference(resetRefOp : ResetReference, target : IdentifiableWTElement) {
+pattern resetReference(resetRefOp : ResetReference, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
-	ResetReference.targetId(resetRefOp, id);
-}
-
-pattern addToList(addToListOp : AddToList, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
-	IdentifiableWTElement.ID(target, id);
-	AddToList.targetId(addToListOp, id);
+	ResetReference.targetID(resetRefOp, id);
 	IdentifiableWTElement.ID(ref, id2);
-	AddToList.refID(addToListOp, id2);
+	ResetReference.refID(resetRefOp, id2);
 }
 
-pattern removeFromList(removeFromListOp : RemoveFromList, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
-	IdentifiableWTElement.ID(target, id);
-	RemoveFromList.targetId(removeFromListOp, id);
-	IdentifiableWTElement.ID(ref, id2);
-	RemoveFromList.refID(removeFromListOp, id2);
-}
+//pattern addToList(addToListOp : AddToList, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
+//	IdentifiableWTElement.ID(target, id);
+//	AddToList.targetId(addToListOp, id);
+//	IdentifiableWTElement.ID(ref, id2);
+//	AddToList.refID(addToListOp, id2);
+//}
+//
+//pattern removeFromList(removeFromListOp : RemoveFromList, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
+//	IdentifiableWTElement.ID(target, id);
+//	RemoveFromList.targetId(removeFromListOp, id);
+//	IdentifiableWTElement.ID(ref, id2);
+//	RemoveFromList.refID(removeFromListOp, id2);
+//}

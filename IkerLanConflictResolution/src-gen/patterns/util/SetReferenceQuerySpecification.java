@@ -84,7 +84,7 @@ public final class SetReferenceQuerySpecification extends BaseGeneratedQuerySpec
       
       
       new TypeBinary(body, CONTEXT, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
-      new TypeBinary(body, CONTEXT, var_setRefOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetId"), "http://diffmodel/1.0/Identifiable.targetId");
+      new TypeBinary(body, CONTEXT, var_setRefOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetID"), "http://diffmodel/1.0/Identifiable.targetID");
       new TypeBinary(body, CONTEXT, var_ref, var_id2, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
       new TypeBinary(body, CONTEXT, var_setRefOp, var_id2, getFeatureLiteral("http://diffmodel/1.0", "SetReference", "refID"), "http://diffmodel/1.0/SetReference.refID");
       bodies.add(body);

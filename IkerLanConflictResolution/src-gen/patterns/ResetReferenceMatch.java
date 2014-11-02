@@ -28,11 +28,14 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
   
   private IdentifiableWTElement fTarget;
   
-  private static List<String> parameterNames = makeImmutableList("resetRefOp", "target");
+  private IdentifiableWTElement fRef;
   
-  private ResetReferenceMatch(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget) {
+  private static List<String> parameterNames = makeImmutableList("resetRefOp", "target", "ref");
+  
+  private ResetReferenceMatch(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
     this.fResetRefOp = pResetRefOp;
     this.fTarget = pTarget;
+    this.fRef = pRef;
     
   }
   
@@ -40,6 +43,7 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
   public Object get(final String parameterName) {
     if ("resetRefOp".equals(parameterName)) return this.fResetRefOp;
     if ("target".equals(parameterName)) return this.fTarget;
+    if ("ref".equals(parameterName)) return this.fRef;
     return null;
     
   }
@@ -54,6 +58,11 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
     
   }
   
+  public IdentifiableWTElement getRef() {
+    return this.fRef;
+    
+  }
+  
   @Override
   public boolean set(final String parameterName, final Object newValue) {
     if (!isMutable()) throw new java.lang.UnsupportedOperationException();
@@ -63,6 +72,10 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
     }
     if ("target".equals(parameterName) ) {
     	this.fTarget = (WTSpecID.IdentifiableWTElement) newValue;
+    	return true;
+    }
+    if ("ref".equals(parameterName) ) {
+    	this.fRef = (WTSpecID.IdentifiableWTElement) newValue;
     	return true;
     }
     return false;
@@ -81,6 +94,12 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
     
   }
   
+  public void setRef(final IdentifiableWTElement pRef) {
+    if (!isMutable()) throw new java.lang.UnsupportedOperationException();
+    this.fRef = pRef;
+    
+  }
+  
   @Override
   public String patternName() {
     return "patterns.resetReference";
@@ -95,13 +114,13 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
   
   @Override
   public Object[] toArray() {
-    return new Object[]{fResetRefOp, fTarget};
+    return new Object[]{fResetRefOp, fTarget, fRef};
     
   }
   
   @Override
   public ResetReferenceMatch toImmutable() {
-    return isMutable() ? newMatch(fResetRefOp, fTarget) : this;
+    return isMutable() ? newMatch(fResetRefOp, fTarget, fRef) : this;
     
   }
   
@@ -109,7 +128,8 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
   public String prettyPrint() {
     StringBuilder result = new StringBuilder();
     result.append("\"resetRefOp\"=" + prettyPrintValue(fResetRefOp) + ", ");
-    result.append("\"target\"=" + prettyPrintValue(fTarget));
+    result.append("\"target\"=" + prettyPrintValue(fTarget) + ", ");
+    result.append("\"ref\"=" + prettyPrintValue(fRef));
     return result.toString();
     
   }
@@ -120,6 +140,7 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
     int result = 1;
     result = prime * result + ((fResetRefOp == null) ? 0 : fResetRefOp.hashCode());
     result = prime * result + ((fTarget == null) ? 0 : fTarget.hashCode());
+    result = prime * result + ((fRef == null) ? 0 : fRef.hashCode());
     return result;
     
   }
@@ -143,6 +164,8 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
     else if (!fResetRefOp.equals(other.fResetRefOp)) return false;
     if (fTarget == null) {if (other.fTarget != null) return false;}
     else if (!fTarget.equals(other.fTarget)) return false;
+    if (fRef == null) {if (other.fRef != null) return false;}
+    else if (!fRef.equals(other.fRef)) return false;
     return true;
   }
   
@@ -165,7 +188,7 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
    * 
    */
   public static ResetReferenceMatch newEmptyMatch() {
-    return new Mutable(null, null);
+    return new Mutable(null, null, null);
     
   }
   
@@ -175,11 +198,12 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
    * 
    * @param pResetRefOp the fixed value of pattern parameter resetRefOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
    * @return the new, mutable (partial) match object.
    * 
    */
-  public static ResetReferenceMatch newMutableMatch(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget) {
-    return new Mutable(pResetRefOp, pTarget);
+  public static ResetReferenceMatch newMutableMatch(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return new Mutable(pResetRefOp, pTarget, pRef);
     
   }
   
@@ -189,17 +213,18 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
    * <p>The returned match will be immutable. Use {@link #newEmptyMatch()} to obtain a mutable match object.
    * @param pResetRefOp the fixed value of pattern parameter resetRefOp, or null if not bound.
    * @param pTarget the fixed value of pattern parameter target, or null if not bound.
+   * @param pRef the fixed value of pattern parameter ref, or null if not bound.
    * @return the (partial) match object.
    * 
    */
-  public static ResetReferenceMatch newMatch(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget) {
-    return new Immutable(pResetRefOp, pTarget);
+  public static ResetReferenceMatch newMatch(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+    return new Immutable(pResetRefOp, pTarget, pRef);
     
   }
   
   private static final class Mutable extends ResetReferenceMatch {
-    Mutable(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget) {
-      super(pResetRefOp, pTarget);
+    Mutable(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+      super(pResetRefOp, pTarget, pRef);
       
     }
     
@@ -210,8 +235,8 @@ public abstract class ResetReferenceMatch extends BasePatternMatch {
   }
   
   private static final class Immutable extends ResetReferenceMatch {
-    Immutable(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget) {
-      super(pResetRefOp, pTarget);
+    Immutable(final ResetReference pResetRefOp, final IdentifiableWTElement pTarget, final IdentifiableWTElement pRef) {
+      super(pResetRefOp, pTarget, pRef);
       
     }
     

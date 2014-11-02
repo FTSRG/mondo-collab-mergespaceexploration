@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link ModelContainer.MainRoot#getOriginal <em>Original</em>}</li>
  *   <li>{@link ModelContainer.MainRoot#getDeltaOB <em>Delta OB</em>}</li>
  *   <li>{@link ModelContainer.MainRoot#getDeltaOA <em>Delta OA</em>}</li>
- *   <li>{@link ModelContainer.MainRoot#getReversed <em>Reversed</em>}</li>
+ *   <li>{@link ModelContainer.MainRoot#getReserved <em>Reserved</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,19 +104,19 @@ public interface MainRoot extends EObject {
 	void setDeltaOA(EObject value);
 
 	/**
-	 * Returns the value of the '<em><b>Reversed</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Reserved</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Reversed</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Reserved</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Reversed</em>' containment reference list.
-	 * @see ModelContainer.ModelContainerPackage#getMainRoot_Reversed()
+	 * @return the value of the '<em>Reserved</em>' containment reference list.
+	 * @see ModelContainer.ModelContainerPackage#getMainRoot_Reserved()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<EObject> getReversed();
+	EList<EObject> getReserved();
 
 } // MainRoot

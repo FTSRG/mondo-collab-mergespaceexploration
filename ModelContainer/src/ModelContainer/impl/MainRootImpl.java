@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link ModelContainer.impl.MainRootImpl#getOriginal <em>Original</em>}</li>
  *   <li>{@link ModelContainer.impl.MainRootImpl#getDeltaOB <em>Delta OB</em>}</li>
  *   <li>{@link ModelContainer.impl.MainRootImpl#getDeltaOA <em>Delta OA</em>}</li>
- *   <li>{@link ModelContainer.impl.MainRootImpl#getReversed <em>Reversed</em>}</li>
+ *   <li>{@link ModelContainer.impl.MainRootImpl#getReserved <em>Reserved</em>}</li>
  * </ul>
  * </p>
  *
@@ -64,14 +64,14 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	protected EObject deltaOA;
 
 	/**
-	 * The cached value of the '{@link #getReversed() <em>Reversed</em>}' containment reference list.
+	 * The cached value of the '{@link #getReserved() <em>Reserved</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getReversed()
+	 * @see #getReserved()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<EObject> reversed;
+	protected EList<EObject> reserved;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -226,11 +226,11 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<EObject> getReversed() {
-		if (reversed == null) {
-			reversed = new EObjectContainmentEList<EObject>(EObject.class, this, ModelContainerPackage.MAIN_ROOT__REVERSED);
+	public EList<EObject> getReserved() {
+		if (reserved == null) {
+			reserved = new EObjectContainmentEList<EObject>(EObject.class, this, ModelContainerPackage.MAIN_ROOT__RESERVED);
 		}
-		return reversed;
+		return reserved;
 	}
 
 	/**
@@ -247,8 +247,8 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 				return basicSetDeltaOB(null, msgs);
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				return basicSetDeltaOA(null, msgs);
-			case ModelContainerPackage.MAIN_ROOT__REVERSED:
-				return ((InternalEList<?>)getReversed()).basicRemove(otherEnd, msgs);
+			case ModelContainerPackage.MAIN_ROOT__RESERVED:
+				return ((InternalEList<?>)getReserved()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -267,8 +267,8 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 				return getDeltaOB();
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				return getDeltaOA();
-			case ModelContainerPackage.MAIN_ROOT__REVERSED:
-				return getReversed();
+			case ModelContainerPackage.MAIN_ROOT__RESERVED:
+				return getReserved();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -291,9 +291,9 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				setDeltaOA((EObject)newValue);
 				return;
-			case ModelContainerPackage.MAIN_ROOT__REVERSED:
-				getReversed().clear();
-				getReversed().addAll((Collection<? extends EObject>)newValue);
+			case ModelContainerPackage.MAIN_ROOT__RESERVED:
+				getReserved().clear();
+				getReserved().addAll((Collection<? extends EObject>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -316,8 +316,8 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				setDeltaOA((EObject)null);
 				return;
-			case ModelContainerPackage.MAIN_ROOT__REVERSED:
-				getReversed().clear();
+			case ModelContainerPackage.MAIN_ROOT__RESERVED:
+				getReserved().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -337,8 +337,8 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 				return deltaOB != null;
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				return deltaOA != null;
-			case ModelContainerPackage.MAIN_ROOT__REVERSED:
-				return reversed != null && !reversed.isEmpty();
+			case ModelContainerPackage.MAIN_ROOT__RESERVED:
+				return reserved != null && !reserved.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

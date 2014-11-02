@@ -1,5 +1,6 @@
 package rules;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.dse.api.TransformationRule;
@@ -16,8 +17,10 @@ public class ResetAttribute extends ResetAttributeProcessor {
 			IdentifiableWTElement pTarget) {
 		
 		String attr = pResetAttrOp.getAttribute();
+		
+		EStructuralFeature esf = pTarget.eClass().getEStructuralFeature(attr);
 
-		pTarget.eUnset(pTarget.eClass().getEStructuralFeature(attr));
+		pTarget.eUnset(esf);
 
 		EcoreUtil.delete(pResetAttrOp);
 		

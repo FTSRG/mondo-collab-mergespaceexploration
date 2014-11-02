@@ -31,7 +31,7 @@ import patterns.util.SetReferenceQuerySpecification;
  * <code><pre>
  * pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement, ref : IdentifiableWTElement) {
  * 	IdentifiableWTElement.ID(target, id);
- * 	SetReference.targetId(setRefOp, id);
+ * 	SetReference.targetID(setRefOp, id);
  * 	IdentifiableWTElement.ID(ref, id2);
  * 	SetReference.refID(setRefOp, id2);
  * }

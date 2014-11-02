@@ -63,8 +63,6 @@ public class DiffModelFactoryImpl extends EFactoryImpl implements DiffModelFacto
 			case DiffModelPackage.SET_REFERENCE: return createSetReference();
 			case DiffModelPackage.RESET_ATTRIBUTE: return createResetAttribute();
 			case DiffModelPackage.RESET_REFERENCE: return createResetReference();
-			case DiffModelPackage.ADD_TO_LIST: return createAddToList();
-			case DiffModelPackage.REMOVE_FROM_LIST: return createRemoveFromList();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -138,26 +136,6 @@ public class DiffModelFactoryImpl extends EFactoryImpl implements DiffModelFacto
 	public ResetReference createResetReference() {
 		ResetReferenceImpl resetReference = new ResetReferenceImpl();
 		return resetReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AddToList createAddToList() {
-		AddToListImpl addToList = new AddToListImpl();
-		return addToList;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RemoveFromList createRemoveFromList() {
-		RemoveFromListImpl removeFromList = new RemoveFromListImpl();
-		return removeFromList;
 	}
 
 	/**
