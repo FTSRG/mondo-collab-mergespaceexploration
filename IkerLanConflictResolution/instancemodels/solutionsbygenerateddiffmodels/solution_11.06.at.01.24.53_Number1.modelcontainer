@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<mc:MainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:diffmodel="http://diffmodel/1.0" xmlns:mc="http://modelcontainer/1.0" xmlns:wtc="http://WTSpec/2.01">
+  <original xsi:type="wtc:WT" ID="WTModel_1" sysId="WTModel_1" model="WTModel" version="1.0">
+    <itsSubsystems ID="Subsystem_01" sysId="Subsystem_01" description="desc">
+      <itsWTCs xsi:type="wtc:CtrlUnit2" ID="CtrlUnit2_1" sysId="CtrlUnit2_1" description="desc" cycle="3" priority="1" Input__iTwistAngle="VA_1" Output__oNorthDirection="VA_2" Parameter__pNorthOffset="PA_1"/>
+    </itsSubsystems>
+    <itsSubsystems ID="Subsystem_02" sysId="Subsystem_02" description="desc"/>
+    <itsParams ID="PA_1" sysId="PA_1" value="10"/>
+    <itsParams ID="PA_2" sysId="PA_2" value="10"/>
+    <itsVariables ID="VA_1" sysId="VA_1"/>
+    <itsVariables ID="VA_2" sysId="VA_2"/>
+  </original>
+  <deltaOB xsi:type="diffmodel:DiffContainer">
+    <DeleteDiffs ID="Delete_1_PA_2" targetID="PA_2"/>
+    <SetRefDiffs ID="SetReference_4_VA_1" targetID="CtrlUnit2_2" reference="Input__iTwistAngle" refID="VA_1"/>
+    <SetRefDiffs ID="SetReference_5_VA_2" targetID="CtrlUnit2_2" reference="Output__oNorthDirection" refID="VA_2"/>
+    <SetRefDiffs ID="SetReference_6_PA_1" targetID="CtrlUnit2_2" reference="Parameter__pNorthOffset" refID="PA_1"/>
+    <SetRefDiffs ID="SetReference_7_CtrlUnit2_2" targetID="Subsystem_02" reference="itsWTCs" refID="CtrlUnit2_2"/>
+  </deltaOB>
+  <deltaOA xsi:type="diffmodel:DiffContainer">
+    <DeleteDiffs ID="Delete_0_Subsystem_02" targetID="Subsystem_02"/>
+    <SetRefDiffs ID="SetReference_0_VA_1" targetID="CtrlUnit2_3" reference="Input__iTwistAngle" refID="VA_1"/>
+    <SetRefDiffs ID="SetReference_1_VA_2" targetID="CtrlUnit2_3" reference="Output__oNorthDirection" refID="VA_2"/>
+    <SetRefDiffs ID="SetReference_2_PA_2" targetID="CtrlUnit2_3" reference="Parameter__pNorthOffset" refID="PA_2"/>
+    <SetRefDiffs ID="SetReference_3_CtrlUnit2_3" targetID="Subsystem_01" reference="itsWTCs" refID="CtrlUnit2_3"/>
+  </deltaOA>
+  <reserved xsi:type="wtc:CtrlUnit2" ID="CtrlUnit2_2" sysId="CtrlUnit2_2" description="desc" cycle="4" priority="2"/>
+  <reserved xsi:type="wtc:CtrlUnit2" ID="CtrlUnit2_3" sysId="CtrlUnit2_3" description="desc" cycle="5" priority="3"/>
+</mc:MainRoot>

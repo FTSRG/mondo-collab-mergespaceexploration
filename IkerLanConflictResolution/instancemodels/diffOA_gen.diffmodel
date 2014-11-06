@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diffmodel:DiffContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diffmodel="http://diffmodel/1.0">
+  <CreateDiffs ID="Create_0_CtrlUnit2_3" targetID="CtrlUnit2_3" type="CtrlUnit2"/>
+  <DeleteDiffs ID="Delete_0_Subsystem_02" targetID="Subsystem_02"/>
+  <SetAttrDiffs ID="SetAttribute_0_CtrlUnit2_3" targetID="CtrlUnit2_3" attribute="sysId" value="CtrlUnit2_3"/>
+  <SetAttrDiffs ID="SetAttribute_1_CtrlUnit2_3" targetID="CtrlUnit2_3" attribute="description" value="desc"/>
+  <SetAttrDiffs ID="SetAttribute_2_CtrlUnit2_3" targetID="CtrlUnit2_3" attribute="cycle" value="5"/>
+  <SetAttrDiffs ID="SetAttribute_3_CtrlUnit2_3" targetID="CtrlUnit2_3" attribute="priority" value="3"/>
+  <SetRefDiffs ID="SetReference_0_VA_1" targetID="CtrlUnit2_3" reference="Input__iTwistAngle" refID="VA_1"/>
+  <SetRefDiffs ID="SetReference_1_VA_2" targetID="CtrlUnit2_3" reference="Output__oNorthDirection" refID="VA_2"/>
+  <SetRefDiffs ID="SetReference_2_PA_2" targetID="CtrlUnit2_3" reference="Parameter__pNorthOffset" refID="PA_2"/>
+  <SetRefDiffs ID="SetReference_3_CtrlUnit2_3" targetID="Subsystem_01" reference="itsWTCs" refID="CtrlUnit2_3"/>
+</diffmodel:DiffContainer>

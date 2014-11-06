@@ -30,6 +30,8 @@ import org.eclipse.viatra.dse.statecode.incrementalgraph.IncrementalGraphHasherF
 import org.eclipse.viatra.dse.util.EMFHelper;
 import org.junit.Test;
 
+
+import diffmodelgenerator.DiffModelGenerator;
 //import patterns.CountOperationsMatcher;
 import patterns.CreateMatch;
 import patterns.CreateMatcher;
@@ -59,6 +61,7 @@ public class ConflictResolutionTest {
 		Logger.getLogger(ConcurrentDesignSpace.class).setLevel(Level.DEBUG);
 
 		DesignSpaceExplorer dse = new DesignSpaceExplorer();
+		DiffModelGenerator dmg = new DiffModelGenerator(); 
 
 		ResourceSet rS = new ResourceSetImpl();
 
@@ -75,25 +78,28 @@ public class ConflictResolutionTest {
 				"/IkerLanConflictResolution/instancemodels/B.wtspecid", true),
 				true);
 
-		Resource deltaOA = rS.getResource(URI.createPlatformPluginURI(
-				"/IkerLanConflictResolution/instancemodels/deltaOA.diffmodel",
-				true), true);
-
-		Resource deltaOB = rS.getResource(URI.createPlatformPluginURI(
-				"/IkerLanConflictResolution/instancemodels/deltaOB.diffmodel",
-				true), true);
+//		Resource deltaOA = rS.getResource(URI.createPlatformPluginURI(
+//				"/IkerLanConflictResolution/instancemodels/deltaOA.diffmodel",
+//				true), true);
+//
+//		Resource deltaOB = rS.getResource(URI.createPlatformPluginURI(
+//				"/IkerLanConflictResolution/instancemodels/deltaOB.diffmodel",
+//				true), true);
+		
+		DiffContainer diffOA_gen = dmg.generateDiffModel("instancemodels/original.wtspecid", "instancemodels/A.wtspecid");
+		DiffContainer diffOB_gen = dmg.generateDiffModel("instancemodels/original.wtspecid", "instancemodels/B.wtspecid");
 
 		MainRoot mainRoot = ModelContainerFactory.eINSTANCE.createMainRoot();
 
 		WT originalRoot = (WT) original.getContents().get(0);
-		DiffContainer deltaOBRoot = (DiffContainer) deltaOB.getContents()
-				.get(0);
-		DiffContainer deltaOARoot = (DiffContainer) deltaOA.getContents()
-				.get(0);
+//		DiffContainer deltaOBRoot = (DiffContainer) deltaOB.getContents()
+//				.get(0);
+//		DiffContainer deltaOARoot = (DiffContainer) deltaOA.getContents()
+//				.get(0);
 
 		mainRoot.setOriginal(originalRoot);
-		mainRoot.setDeltaOA(deltaOARoot);
-		mainRoot.setDeltaOB(deltaOBRoot);
+		mainRoot.setDeltaOA(diffOA_gen);
+		mainRoot.setDeltaOB(diffOB_gen);
 
 		dse.setStartingModel(mainRoot);
 
@@ -113,7 +119,7 @@ public class ConflictResolutionTest {
 		// adding rules
 		dse.addTransformationRule(CreateElement.createRule());
 		//dse.addTransformationRule(DeleteElement.createRule());
-		dse.addTransformationRule(SetAttribute.createRule());
+		//dse.addTransformationRule(SetAttribute.createRule());
 		dse.addTransformationRule(SetReference.createRule());
 		dse.addTransformationRule(ResetAttribute.createRule());
 		dse.addTransformationRule(ResetReference.createRule());
