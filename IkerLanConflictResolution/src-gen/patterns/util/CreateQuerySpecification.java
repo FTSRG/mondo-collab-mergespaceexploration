@@ -10,7 +10,7 @@ import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
-import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
+import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import patterns.CreateMatch;
 import patterns.CreateMatcher;
@@ -47,12 +47,12 @@ public final class CreateQuerySpecification extends BaseGeneratedQuerySpecificat
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("createOp","mainRoot");
+    return Arrays.asList("createOp","containerTarget");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("createOp", "DiffModel.Create"),new PParameter("mainRoot", "ModelContainer.MainRoot"));
+    return Arrays.asList(new PParameter("createOp", "DiffModel.Create"),new PParameter("containerTarget", "WTSpecID.IdentifiableWTElement"));
   }
   
   @Override
@@ -62,7 +62,7 @@ public final class CreateQuerySpecification extends BaseGeneratedQuerySpecificat
   
   @Override
   public CreateMatch newMatch(final Object... parameters) {
-    return CreateMatch.newMatch((DiffModel.Create) parameters[0], (ModelContainer.MainRoot) parameters[1]);
+    return CreateMatch.newMatch((DiffModel.Create) parameters[0], (WTSpecID.IdentifiableWTElement) parameters[1]);
   }
   
   @Override
@@ -71,15 +71,16 @@ public final class CreateQuerySpecification extends BaseGeneratedQuerySpecificat
     {
       PBody body = new PBody(this);
       PVariable var_createOp = body.getOrCreateVariableByName("createOp");
-      PVariable var_mainRoot = body.getOrCreateVariableByName("mainRoot");
+      PVariable var_containerTarget = body.getOrCreateVariableByName("containerTarget");
+      PVariable var_id = body.getOrCreateVariableByName("id");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
         new ExportedParameter(body, var_createOp, "createOp"), 
-        new ExportedParameter(body, var_mainRoot, "mainRoot")
+        new ExportedParameter(body, var_containerTarget, "containerTarget")
       ));
       
       
-      new TypeUnary(body, var_mainRoot, getClassifierLiteral("http://modelcontainer/1.0", "MainRoot"), "http://modelcontainer/1.0/MainRoot");
-      new TypeUnary(body, var_createOp, getClassifierLiteral("http://diffmodel/1.0", "Create"), "http://diffmodel/1.0/Create");
+      new TypeBinary(body, CONTEXT, var_containerTarget, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
+      new TypeBinary(body, CONTEXT, var_createOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Create", "containerTargetID"), "http://diffmodel/1.0/Create.containerTargetID");
       bodies.add(body);
     }
     return bodies;

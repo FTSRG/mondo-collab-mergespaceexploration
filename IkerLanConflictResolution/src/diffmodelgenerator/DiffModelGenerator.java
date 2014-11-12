@@ -1,6 +1,7 @@
 package diffmodelgenerator;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -104,7 +105,6 @@ public class DiffModelGenerator {
 					c.setID("Create_" + createNum++ + "_" + targetID);
 					c.setTargetID(targetID);
 					c.setType(r.getValue().eClass().getName());
-					dc.getCreateDiffs().add(c);
 					
 					// initial SetAttrOps
 					EList<EAttribute> attrList = r.getValue().eClass().getEAllAttributes();
@@ -114,13 +114,16 @@ public class DiffModelGenerator {
 						attrName = attr.getName();
 						if (!attrName.equals(idAttr.getName())) {
 							value = r.getValue().eGet(attr).toString();
-							
-							SetAttribute sa = DiffModelFactory.eINSTANCE.createSetAttribute();
-							sa.setID("SetAttribute_" + setAttrNum++ + "_" + targetID);
-							sa.setTargetID(targetID);
-							sa.setAttribute(attrName);
-							sa.setValue(value);
-							dc.getSetAttrDiffs().add(sa);
+							//System.out.println("attrname: " + attrName);
+							c.getAttributes().add(attrName);
+							c.getValues().add(value);
+							//System.out.println("value: " + value);
+//							SetAttribute sa = DiffModelFactory.eINSTANCE.createSetAttribute();
+//							sa.setID("SetAttribute_" + setAttrNum++ + "_" + targetID);
+//							sa.setTargetID(targetID);
+//							sa.setAttribute(attrName);
+//							sa.setValue(value);
+//							dc.getSetAttrDiffs().add(sa);
 						}
 					}
 					
@@ -132,12 +135,14 @@ public class DiffModelGenerator {
 						refID = ((IdentifiableWTElement) obj).getID();
 					}
 					// TODO targetID and refID should be swapped
-					SetReference sr = DiffModelFactory.eINSTANCE.createSetReference();
-					sr.setID("SetReference_" + setRefNum++ + "_" + targetID);
-					sr.setTargetID(refID);
-					sr.setReference(refName);
-					sr.setRefID(targetID);
-					dc.getSetRefDiffs().add(sr);
+//					SetReference sr = DiffModelFactory.eINSTANCE.createSetReference();
+//					sr.setID("SetReference_" + setRefNum++ + "_" + targetID);
+					c.setContainerTargetID(refID);
+					c.setReference(refName);
+//					c.setRefID(targetID);
+//					dc.getSetRefDiffs().add(sr);
+					
+					dc.getCreateDiffs().add(c);
 					
 				}
 				else if(kind.equals("DELETE")) {

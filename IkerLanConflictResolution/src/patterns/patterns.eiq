@@ -4,9 +4,14 @@ import "http://WTSpec/2.01"
 import "http://diffmodel/1.0"
 import "http://modelcontainer/1.0"
 
-pattern create(createOp : Create, mainRoot : MainRoot) {
-	MainRoot(mainRoot);
-	Create(createOp);
+//pattern create(createOp : Create, mainRoot : MainRoot) {
+//	MainRoot(mainRoot);
+//	Create(createOp);
+//}
+
+pattern create(createOp : Create, containerTarget : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(containerTarget, id);
+	Create.containerTargetID(createOp, id);
 }
 
 pattern delete(deleteOp : Delete, target : IdentifiableWTElement) {

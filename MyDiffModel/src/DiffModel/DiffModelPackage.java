@@ -222,13 +222,49 @@ public interface DiffModelPackage extends EPackage {
 	int CREATE__TYPE = IDENTIFIABLE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE__ATTRIBUTES = IDENTIFIABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Values</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE__VALUES = IDENTIFIABLE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Reference</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE__REFERENCE = IDENTIFIABLE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Container Target ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE__CONTAINER_TARGET_ID = IDENTIFIABLE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Create</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CREATE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 1;
+	int CREATE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Create</em>' class.
@@ -631,6 +667,50 @@ public interface DiffModelPackage extends EPackage {
 	EAttribute getCreate_Type();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link DiffModel.Create#getAttributes <em>Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Attributes</em>'.
+	 * @see DiffModel.Create#getAttributes()
+	 * @see #getCreate()
+	 * @generated
+	 */
+	EAttribute getCreate_Attributes();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link DiffModel.Create#getValues <em>Values</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Values</em>'.
+	 * @see DiffModel.Create#getValues()
+	 * @see #getCreate()
+	 * @generated
+	 */
+	EAttribute getCreate_Values();
+
+	/**
+	 * Returns the meta object for the attribute '{@link DiffModel.Create#getReference <em>Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Reference</em>'.
+	 * @see DiffModel.Create#getReference()
+	 * @see #getCreate()
+	 * @generated
+	 */
+	EAttribute getCreate_Reference();
+
+	/**
+	 * Returns the meta object for the attribute '{@link DiffModel.Create#getContainerTargetID <em>Container Target ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Container Target ID</em>'.
+	 * @see DiffModel.Create#getContainerTargetID()
+	 * @see #getCreate()
+	 * @generated
+	 */
+	EAttribute getCreate_ContainerTargetID();
+
+	/**
 	 * Returns the meta object for class '{@link DiffModel.Delete <em>Delete</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -887,6 +967,38 @@ public interface DiffModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CREATE__TYPE = eINSTANCE.getCreate_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Attributes</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CREATE__ATTRIBUTES = eINSTANCE.getCreate_Attributes();
+
+		/**
+		 * The meta object literal for the '<em><b>Values</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CREATE__VALUES = eINSTANCE.getCreate_Values();
+
+		/**
+		 * The meta object literal for the '<em><b>Reference</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CREATE__REFERENCE = eINSTANCE.getCreate_Reference();
+
+		/**
+		 * The meta object literal for the '<em><b>Container Target ID</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CREATE__CONTAINER_TARGET_ID = eINSTANCE.getCreate_ContainerTargetID();
 
 		/**
 		 * The meta object literal for the '{@link DiffModel.impl.DeleteImpl <em>Delete</em>}' class.

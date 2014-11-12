@@ -1,0 +1,17 @@
+package patterns
+
+import "http://diffmodel/1.0"
+
+pattern createInsteadOfDelete(deleteOp : Delete, createOp : Create) {
+	Delete.targetID(deleteOp, id);
+	Create.containerTargetID(createOp, id);
+}
+
+pattern setReferenceInsteadOfDelete(deleteOp : Delete, setRefOp : SetReference) {
+	Delete.targetID(deleteOp, id);
+	SetReference.targetID(setRefOp, id);
+}
+or {
+	Delete.targetID(deleteOp, id);
+	SetReference.refID(setRefOp, id);
+}

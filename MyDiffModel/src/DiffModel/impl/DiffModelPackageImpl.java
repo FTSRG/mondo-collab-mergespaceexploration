@@ -228,6 +228,42 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getCreate_Attributes() {
+		return (EAttribute)createEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCreate_Values() {
+		return (EAttribute)createEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCreate_Reference() {
+		return (EAttribute)createEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCreate_ContainerTargetID() {
+		return (EAttribute)createEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getDelete() {
 		return deleteEClass;
 	}
@@ -396,6 +432,10 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 
 		createEClass = createEClass(CREATE);
 		createEAttribute(createEClass, CREATE__TYPE);
+		createEAttribute(createEClass, CREATE__ATTRIBUTES);
+		createEAttribute(createEClass, CREATE__VALUES);
+		createEAttribute(createEClass, CREATE__REFERENCE);
+		createEAttribute(createEClass, CREATE__CONTAINER_TARGET_ID);
 
 		deleteEClass = createEClass(DELETE);
 
@@ -465,6 +505,10 @@ public class DiffModelPackageImpl extends EPackageImpl implements DiffModelPacka
 
 		initEClass(createEClass, Create.class, "Create", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCreate_Type(), ecorePackage.getEString(), "type", null, 0, 1, Create.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCreate_Attributes(), ecorePackage.getEString(), "attributes", null, 0, -1, Create.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCreate_Values(), ecorePackage.getEString(), "values", null, 0, -1, Create.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCreate_Reference(), ecorePackage.getEString(), "reference", null, 0, 1, Create.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCreate_ContainerTargetID(), ecorePackage.getEString(), "containerTargetID", null, 0, 1, Create.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(deleteEClass, Delete.class, "Delete", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

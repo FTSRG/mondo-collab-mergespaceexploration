@@ -31,16 +31,21 @@ import org.eclipse.viatra.dse.util.EMFHelper;
 import org.junit.Test;
 
 
+
+
+
 import diffmodelgenerator.DiffModelGenerator;
 //import patterns.CountOperationsMatcher;
 import patterns.CreateMatch;
 import patterns.CreateMatcher;
 import rules.CreateElement;
+import rules.CreateInsteadOfDelete;
 import rules.DeleteElement;
 import rules.ResetAttribute;
 import rules.ResetReference;
 import rules.SetAttribute;
 import rules.SetReference;
+import rules.SetReferenceInsteadOfDelete;
 import statecoder.IkerLanStateCoderFactory;
 import DiffModel.DiffContainer;
 import DiffModel.DiffModelPackage;
@@ -119,10 +124,14 @@ public class ConflictResolutionTest {
 		// adding rules
 		dse.addTransformationRule(CreateElement.createRule());
 		//dse.addTransformationRule(DeleteElement.createRule());
-		//dse.addTransformationRule(SetAttribute.createRule());
+		dse.addTransformationRule(SetAttribute.createRule());
 		dse.addTransformationRule(SetReference.createRule());
 		dse.addTransformationRule(ResetAttribute.createRule());
 		dse.addTransformationRule(ResetReference.createRule());
+		
+		// adding helper rules
+		//dse.addTransformationRule(CreateInsteadOfDelete.createRule());
+		//dse.addTransformationRule(SetReferenceInsteadOfDelete.createRule());
 
 		// dse.addGoalPattern(new
 		// PatternWithCardinality(CountOperationsMatcher.querySpecification()));

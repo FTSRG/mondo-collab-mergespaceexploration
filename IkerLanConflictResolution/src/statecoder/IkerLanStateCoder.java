@@ -11,11 +11,13 @@ import org.eclipse.incquery.runtime.api.IPatternMatch;
 import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.viatra.dse.statecode.IStateSerializer;
 
+import patterns.CreateInsteadOfDeleteMatch;
 import patterns.CreateMatch;
 import patterns.DeleteMatch;
 import patterns.ResetAttributeMatch;
 import patterns.ResetReferenceMatch;
 import patterns.SetAttributeMatch;
+import patterns.SetReferenceInsteadOfDeleteMatch;
 import patterns.SetReferenceMatch;
 import DiffModel.Create;
 import DiffModel.Delete;
@@ -107,6 +109,12 @@ public class IkerLanStateCoder implements IStateSerializer{
 			sb.append(op.getID() + ",");
 			sb.append(op.getTargetID() + ",");
 			sb.append(op.getType() + ",");
+			
+			sb.append(op.getAttributes() + ",");
+			sb.append(op.getValues() + ",");
+			sb.append(op.getContainerTargetID() + ",");
+			sb.append(op.getReference() + ",");
+			
 			return sb.toString();
 			
 		}
@@ -164,6 +172,39 @@ public class IkerLanStateCoder implements IStateSerializer{
 			sb.append(op.getTargetID() + ",");
 			sb.append(op.getRefID() + ",");
 			sb.append(op.getReference() + ",");
+			return sb.toString();
+			
+		}
+		else if(match instanceof CreateInsteadOfDeleteMatch){
+			CreateInsteadOfDeleteMatch m = (CreateInsteadOfDeleteMatch) match;
+			sb.append("CreateInsteadOfDelete:");
+			
+			Delete opD = m.getDeleteOp();
+			Create opC = m.getCreateOp();
+			sb.append(opD.getID() + ",");
+			sb.append(opD.getTargetID() + ",");
+			sb.append(opC.getID() + ",");
+			sb.append(opC.getTargetID() + ",");
+			sb.append(opC.getType() + ",");
+			sb.append(opC.getAttributes() + ",");
+			sb.append(opC.getValues() + ",");
+			sb.append(opC.getContainerTargetID() + ",");
+			sb.append(opC.getReference() + ",");
+			return sb.toString();
+			
+		}
+		else if(match instanceof SetReferenceInsteadOfDeleteMatch){
+			SetReferenceInsteadOfDeleteMatch m = (SetReferenceInsteadOfDeleteMatch) match;
+			sb.append("CreateInsteadOfDelete:");
+			
+			Delete opD = m.getDeleteOp();
+			SetReference opSR = m.getSetRefOp();
+			sb.append(opD.getID() + ",");
+			sb.append(opD.getTargetID() + ",");
+			sb.append(opSR.getID() + ",");
+			sb.append(opSR.getTargetID() + ",");
+			sb.append(opSR.getReference() + ",");
+			sb.append(opSR.getRefID() + ",");
 			return sb.toString();
 			
 		}

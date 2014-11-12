@@ -20,3 +20,11 @@
 /.SetAttributeQuerySpecification.java._trace
 /.SetReferenceProcessor.java._trace
 /.SetReferenceQuerySpecification.java._trace
+/.CreateInsteadOfDeleteProcessor.java._trace
+/.CreateInsteadOfDeleteQuerySpecification.java._trace
+/.SetRefInsteadOfDeleteProcessor.java._trace
+/.SetRefInsteadOfDeleteQuerySpecification.java._trace
+/.SetReferenceInsteadOfDeleteProcessor.java._trace
+/.SetReferenceInsteadOfDeleteQuerySpecification.java._trace
+/.SetReferenceInsteadOfDelete2Processor.java._trace
+/.SetReferenceInsteadOfDelete2QuerySpecification.java._trace

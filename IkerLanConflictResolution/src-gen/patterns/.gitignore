@@ -21,3 +21,12 @@
 /.SetAttributeMatcher.java._trace
 /.SetReferenceMatch.java._trace
 /.SetReferenceMatcher.java._trace
+/.HelperPatterns.java._trace
+/.CreateInsteadOfDeleteMatch.java._trace
+/.CreateInsteadOfDeleteMatcher.java._trace
+/.SetRefInsteadOfDeleteMatch.java._trace
+/.SetRefInsteadOfDeleteMatcher.java._trace
+/.SetReferenceInsteadOfDeleteMatch.java._trace
+/.SetReferenceInsteadOfDeleteMatcher.java._trace
+/.SetReferenceInsteadOfDelete2Match.java._trace
+/.SetReferenceInsteadOfDelete2Matcher.java._trace

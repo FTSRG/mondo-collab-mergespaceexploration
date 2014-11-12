@@ -1,7 +1,7 @@
 package patterns.util;
 
 import DiffModel.Create;
-import ModelContainer.MainRoot;
+import WTSpecID.IdentifiableWTElement;
 import org.eclipse.incquery.runtime.api.IMatchProcessor;
 import patterns.CreateMatch;
 
@@ -16,14 +16,14 @@ public abstract class CreateProcessor implements IMatchProcessor<CreateMatch> {
   /**
    * Defines the action that is to be executed on each match.
    * @param pCreateOp the value of pattern parameter createOp in the currently processed match
-   * @param pMainRoot the value of pattern parameter mainRoot in the currently processed match
+   * @param pContainerTarget the value of pattern parameter containerTarget in the currently processed match
    * 
    */
-  public abstract void process(final Create pCreateOp, final MainRoot pMainRoot);
+  public abstract void process(final Create pCreateOp, final IdentifiableWTElement pContainerTarget);
   
   @Override
   public void process(final CreateMatch match) {
-    process(match.getCreateOp(), match.getMainRoot());
+    process(match.getCreateOp(), match.getContainerTarget());
     
   }
 }

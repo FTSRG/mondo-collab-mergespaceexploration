@@ -13,57 +13,57 @@ import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParam
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
-import patterns.DeleteMatch;
-import patterns.DeleteMatcher;
+import patterns.CreateInsteadOfDeleteMatch;
+import patterns.CreateInsteadOfDeleteMatcher;
 
 /**
- * A pattern-specific query specification that can instantiate DeleteMatcher in a type-safe way.
+ * A pattern-specific query specification that can instantiate CreateInsteadOfDeleteMatcher in a type-safe way.
  * 
- * @see DeleteMatcher
- * @see DeleteMatch
+ * @see CreateInsteadOfDeleteMatcher
+ * @see CreateInsteadOfDeleteMatch
  * 
  */
 @SuppressWarnings("all")
-public final class DeleteQuerySpecification extends BaseGeneratedQuerySpecification<DeleteMatcher> {
+public final class CreateInsteadOfDeleteQuerySpecification extends BaseGeneratedQuerySpecification<CreateInsteadOfDeleteMatcher> {
   /**
    * @return the singleton instance of the query specification
    * @throws IncQueryException if the pattern definition could not be loaded
    * 
    */
-  public static DeleteQuerySpecification instance() throws IncQueryException {
+  public static CreateInsteadOfDeleteQuerySpecification instance() throws IncQueryException {
     return LazyHolder.INSTANCE;
     
   }
   
   @Override
-  protected DeleteMatcher instantiate(final IncQueryEngine engine) throws IncQueryException {
-    return DeleteMatcher.on(engine);
+  protected CreateInsteadOfDeleteMatcher instantiate(final IncQueryEngine engine) throws IncQueryException {
+    return CreateInsteadOfDeleteMatcher.on(engine);
   }
   
   @Override
   public String getFullyQualifiedName() {
-    return "patterns.delete";
+    return "patterns.createInsteadOfDelete";
     
   }
   
   @Override
   public List<String> getParameterNames() {
-    return Arrays.asList("deleteOp","target");
+    return Arrays.asList("deleteOp","createOp");
   }
   
   @Override
   public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("deleteOp", "DiffModel.Delete"),new PParameter("target", "WTSpecID.IdentifiableWTElement"));
+    return Arrays.asList(new PParameter("deleteOp", "DiffModel.Delete"),new PParameter("createOp", "DiffModel.Create"));
   }
   
   @Override
-  public DeleteMatch newEmptyMatch() {
-    return DeleteMatch.newEmptyMatch();
+  public CreateInsteadOfDeleteMatch newEmptyMatch() {
+    return CreateInsteadOfDeleteMatch.newEmptyMatch();
   }
   
   @Override
-  public DeleteMatch newMatch(final Object... parameters) {
-    return DeleteMatch.newMatch((DiffModel.Delete) parameters[0], (WTSpecID.IdentifiableWTElement) parameters[1]);
+  public CreateInsteadOfDeleteMatch newMatch(final Object... parameters) {
+    return CreateInsteadOfDeleteMatch.newMatch((DiffModel.Delete) parameters[0], (DiffModel.Create) parameters[1]);
   }
   
   @Override
@@ -72,27 +72,27 @@ public final class DeleteQuerySpecification extends BaseGeneratedQuerySpecificat
     {
       PBody body = new PBody(this);
       PVariable var_deleteOp = body.getOrCreateVariableByName("deleteOp");
-      PVariable var_target = body.getOrCreateVariableByName("target");
+      PVariable var_createOp = body.getOrCreateVariableByName("createOp");
       PVariable var_id = body.getOrCreateVariableByName("id");
       body.setExportedParameters(Arrays.<ExportedParameter>asList(
         new ExportedParameter(body, var_deleteOp, "deleteOp"), 
-        new ExportedParameter(body, var_target, "target")
+        new ExportedParameter(body, var_createOp, "createOp")
       ));
       
       new TypeUnary(body, var_deleteOp, getClassifierLiteral("http://diffmodel/1.0", "Delete"), "http://diffmodel/1.0/Delete");
       
-      new TypeBinary(body, CONTEXT, var_target, var_id, getFeatureLiteral("http://WTSpec/2.01", "IdentifiableWTElement", "ID"), "http://WTSpec/2.01/IdentifiableWTElement.ID");
       new TypeBinary(body, CONTEXT, var_deleteOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetID"), "http://diffmodel/1.0/Identifiable.targetID");
+      new TypeBinary(body, CONTEXT, var_createOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Create", "containerTargetID"), "http://diffmodel/1.0/Create.containerTargetID");
       bodies.add(body);
     }
     return bodies;
   }
   
   private static class LazyHolder {
-    private final static DeleteQuerySpecification INSTANCE = make();
+    private final static CreateInsteadOfDeleteQuerySpecification INSTANCE = make();
     
-    public static DeleteQuerySpecification make() {
-      return new DeleteQuerySpecification();					
+    public static CreateInsteadOfDeleteQuerySpecification make() {
+      return new CreateInsteadOfDeleteQuerySpecification();					
       
     }
   }
