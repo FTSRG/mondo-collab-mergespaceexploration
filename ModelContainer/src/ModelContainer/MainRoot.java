@@ -2,7 +2,7 @@
  */
 package ModelContainer;
 
-import org.eclipse.emf.common.util.EList;
+import DseMergeDiffModel.DiffContainer;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -14,9 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link ModelContainer.MainRoot#getOriginal <em>Original</em>}</li>
- *   <li>{@link ModelContainer.MainRoot#getDeltaOB <em>Delta OB</em>}</li>
  *   <li>{@link ModelContainer.MainRoot#getDeltaOA <em>Delta OA</em>}</li>
- *   <li>{@link ModelContainer.MainRoot#getReserved <em>Reserved</em>}</li>
+ *   <li>{@link ModelContainer.MainRoot#getDeltaOB <em>Delta OB</em>}</li>
  * </ul>
  * </p>
  *
@@ -60,12 +59,12 @@ public interface MainRoot extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Delta OB</em>' containment reference.
-	 * @see #setDeltaOB(EObject)
+	 * @see #setDeltaOB(DiffContainer)
 	 * @see ModelContainer.ModelContainerPackage#getMainRoot_DeltaOB()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EObject getDeltaOB();
+	DiffContainer getDeltaOB();
 
 	/**
 	 * Sets the value of the '{@link ModelContainer.MainRoot#getDeltaOB <em>Delta OB</em>}' containment reference.
@@ -75,7 +74,7 @@ public interface MainRoot extends EObject {
 	 * @see #getDeltaOB()
 	 * @generated
 	 */
-	void setDeltaOB(EObject value);
+	void setDeltaOB(DiffContainer value);
 
 	/**
 	 * Returns the value of the '<em><b>Delta OA</b></em>' containment reference.
@@ -86,12 +85,12 @@ public interface MainRoot extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Delta OA</em>' containment reference.
-	 * @see #setDeltaOA(EObject)
+	 * @see #setDeltaOA(DiffContainer)
 	 * @see ModelContainer.ModelContainerPackage#getMainRoot_DeltaOA()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EObject getDeltaOA();
+	DiffContainer getDeltaOA();
 
 	/**
 	 * Sets the value of the '{@link ModelContainer.MainRoot#getDeltaOA <em>Delta OA</em>}' containment reference.
@@ -101,22 +100,6 @@ public interface MainRoot extends EObject {
 	 * @see #getDeltaOA()
 	 * @generated
 	 */
-	void setDeltaOA(EObject value);
-
-	/**
-	 * Returns the value of the '<em><b>Reserved</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Reserved</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Reserved</em>' containment reference list.
-	 * @see ModelContainer.ModelContainerPackage#getMainRoot_Reserved()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<EObject> getReserved();
+	void setDeltaOA(DiffContainer value);
 
 } // MainRoot

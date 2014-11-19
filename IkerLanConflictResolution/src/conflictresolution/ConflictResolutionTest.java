@@ -22,9 +22,11 @@ import org.eclipse.viatra.dse.api.PatternWithCardinality;
 import org.eclipse.viatra.dse.api.Solution;
 import org.eclipse.viatra.dse.api.SolutionTrajectory;
 import org.eclipse.viatra.dse.api.Strategies;
+import org.eclipse.viatra.dse.api.TransformationRule;
 import org.eclipse.viatra.dse.api.strategy.Strategy;
 import org.eclipse.viatra.dse.base.DesignSpaceManager;
 import org.eclipse.viatra.dse.designspace.impl.pojo.ConcurrentDesignSpace;
+import org.eclipse.viatra.dse.guidance.Guidance;
 import org.eclipse.viatra.dse.statecode.graph.GraphHasherFactory;
 import org.eclipse.viatra.dse.statecode.incrementalgraph.IncrementalGraphHasherFactory;
 import org.eclipse.viatra.dse.util.EMFHelper;
@@ -34,10 +36,26 @@ import org.junit.Test;
 
 
 
+
+
+
+
+
+
+
+
+
 import diffmodelgenerator.DiffModelGenerator;
-//import patterns.CountOperationsMatcher;
-import patterns.CreateMatch;
-import patterns.CreateMatcher;
+//import patterns.CreateInsteadOfDeleteMatch;
+////import patterns.CountOperationsMatcher;
+//import patterns.CreateMatch;
+//import patterns.CreateMatcher;
+//import patterns.DeleteMatch;
+//import patterns.ResetAttributeMatch;
+//import patterns.ResetReferenceMatch;
+//import patterns.SetAttributeMatch;
+//import patterns.SetReferenceInsteadOfDeleteMatch;
+//import patterns.SetReferenceMatch;
 import rules.CreateElement;
 import rules.CreateInsteadOfDelete;
 import rules.DeleteElement;
@@ -121,17 +139,50 @@ public class ConflictResolutionTest {
 		// dse.setSerializerFactory(new GraphHasherFactory());
 		dse.setSerializerFactory(new IkerLanStateCoderFactory());
 
+		// creating rules
+		TransformationRule<CreateMatch> ce = CreateElement.createRule();
+		TransformationRule<DeleteMatch> de = DeleteElement.createRule();
+		TransformationRule<SetAttributeMatch> sa = SetAttribute.createRule();
+		TransformationRule<SetReferenceMatch> sr = SetReference.createRule();
+		TransformationRule<ResetAttributeMatch> ra = ResetAttribute.createRule();
+		TransformationRule<ResetReferenceMatch> rr = ResetReference.createRule();
+		
+		TransformationRule<CreateInsteadOfDeleteMatch> ciod = CreateInsteadOfDelete.createRule();
+		TransformationRule<SetReferenceInsteadOfDeleteMatch> sriod = SetReferenceInsteadOfDelete.createRule();
+		
+		Guidance guidance = new Guidance();
+//		guidance.addPriorityRuleInfo(ciod, 7);
+//		guidance.addPriorityRuleInfo(sriod, 8);
+//		guidance.addPriorityRuleInfo(ce, 3);
+//		guidance.addPriorityRuleInfo(de, 4);
+//		guidance.addPriorityRuleInfo(sa, 1);
+//		guidance.addPriorityRuleInfo(sr, 2);
+//		guidance.addPriorityRuleInfo(ra, 5);
+//		guidance.addPriorityRuleInfo(rr, 6);
+		guidance.addPriorityRuleInfo(ciod, 2);
+		guidance.addPriorityRuleInfo(sriod, 2);
+		guidance.addPriorityRuleInfo(ce, 1);
+		guidance.addPriorityRuleInfo(de, 1);
+		guidance.addPriorityRuleInfo(sa, 1);
+		guidance.addPriorityRuleInfo(sr, 1);
+		guidance.addPriorityRuleInfo(ra, 1);
+		guidance.addPriorityRuleInfo(rr, 1);
+		dse.setGuidance(guidance);
+		
 		// adding rules
-		dse.addTransformationRule(CreateElement.createRule());
-		//dse.addTransformationRule(DeleteElement.createRule());
-		dse.addTransformationRule(SetAttribute.createRule());
-		dse.addTransformationRule(SetReference.createRule());
-		dse.addTransformationRule(ResetAttribute.createRule());
-		dse.addTransformationRule(ResetReference.createRule());
+		
+		dse.addTransformationRule(ce);
+		dse.addTransformationRule(de);
+		dse.addTransformationRule(sa);
+		dse.addTransformationRule(sr);
+		dse.addTransformationRule(ra);
+		dse.addTransformationRule(rr);
 		
 		// adding helper rules
-		//dse.addTransformationRule(CreateInsteadOfDelete.createRule());
-		//dse.addTransformationRule(SetReferenceInsteadOfDelete.createRule());
+		
+		
+		dse.addTransformationRule(ciod);
+		dse.addTransformationRule(sriod);
 
 		// dse.addGoalPattern(new
 		// PatternWithCardinality(CountOperationsMatcher.querySpecification()));
@@ -139,7 +190,10 @@ public class ConflictResolutionTest {
 		dse.setSolutionStore(new DifferencesSolutionStore());
 
 		boolean waitForTermination = true;
-		Strategy strategy = Strategies.createBFSStrategy(1, 100);
+		//Strategy strategy = Strategies.createBFSStrategy(1, 100);
+		Strategy strategy = Strategies.createFixedPriorityStrategy();
+		
+		
 
 		strategy.setGoalStateChecker(new CheckDifferences(original, modA, modB));
 

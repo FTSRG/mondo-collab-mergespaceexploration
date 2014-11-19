@@ -11,14 +11,14 @@ import org.eclipse.incquery.runtime.api.IPatternMatch;
 import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.viatra.dse.statecode.IStateSerializer;
 
-import patterns.CreateInsteadOfDeleteMatch;
-import patterns.CreateMatch;
-import patterns.DeleteMatch;
-import patterns.ResetAttributeMatch;
-import patterns.ResetReferenceMatch;
-import patterns.SetAttributeMatch;
-import patterns.SetReferenceInsteadOfDeleteMatch;
-import patterns.SetReferenceMatch;
+//import patterns.CreateInsteadOfDeleteMatch;
+//import patterns.CreateMatch;
+//import patterns.DeleteMatch;
+//import patterns.ResetAttributeMatch;
+//import patterns.ResetReferenceMatch;
+//import patterns.SetAttributeMatch;
+//import patterns.SetReferenceInsteadOfDeleteMatch;
+//import patterns.SetReferenceMatch;
 import DiffModel.Create;
 import DiffModel.Delete;
 import DiffModel.DiffContainer;
@@ -57,7 +57,13 @@ public class IkerLanStateCoder implements IStateSerializer{
 		
 		{
 			TreeIterator<EObject> iterator = original.eAllContents();
-			for(EObject current = iterator.next(); iterator.hasNext(); current = iterator.next()) {
+//			for(EObject current = iterator.next(); iterator.hasNext(); current = iterator.next()) {
+//				IdentifiableWTElement id = (IdentifiableWTElement) current;
+//				ids.add(id.getID());
+//			}
+			EObject current;
+			while(iterator.hasNext()) {
+				current = iterator.next();
 				IdentifiableWTElement id = (IdentifiableWTElement) current;
 				ids.add(id.getID());
 			}
@@ -65,7 +71,13 @@ public class IkerLanStateCoder implements IStateSerializer{
 		
 		{
 			TreeIterator<EObject> iterator = diffOA.eAllContents();
-			for(EObject current = iterator.next(); iterator.hasNext(); current = iterator.next()) {
+//			for(EObject current = iterator.next(); iterator.hasNext(); current = iterator.next()) {
+//				Identifiable id = (Identifiable) current;
+//				ids.add(id.getID());
+//			}
+			EObject current;
+			while(iterator.hasNext()) {
+				current = iterator.next();
 				Identifiable id = (Identifiable) current;
 				ids.add(id.getID());
 			}
@@ -73,7 +85,13 @@ public class IkerLanStateCoder implements IStateSerializer{
 		
 		{
 			TreeIterator<EObject> iterator = diffOB.eAllContents();
-			for(EObject current = iterator.next(); iterator.hasNext(); current = iterator.next()) {
+//			for(EObject current = iterator.next(); iterator.hasNext(); current = iterator.next()) {
+//				Identifiable id = (Identifiable) current;
+//				ids.add(id.getID());
+//			}
+			EObject current;
+			while(iterator.hasNext()) {
+				current = iterator.next();
 				Identifiable id = (Identifiable) current;
 				ids.add(id.getID());
 			}

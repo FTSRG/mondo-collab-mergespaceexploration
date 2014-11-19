@@ -1,15 +1,22 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: ModelContainer;singleton:=true
+Bundle-SymbolicName: eu.mondo.collaboration.dsemerge.modelcontainer;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: ModelContainer,
+Export-Package: DiffModel,
+ DiffModel.impl,
+ DiffModel.util,
+ ModelContainer,
  ModelContainer.impl,
- ModelContainer.util
+ ModelContainer.util,
+ DseMergeModelContainer,
+ DseMergeModelContainer.impl,
+ DseMergeModelContainer.util
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport
+ org.eclipse.emf.ecore;visibility:=reexport,
+ eu.mondo.collaboration.dsemerge.diffmodel;visibility:=reexport
 Bundle-ActivationPolicy: lazy

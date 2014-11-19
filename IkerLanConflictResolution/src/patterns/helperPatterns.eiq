@@ -1,6 +1,7 @@
 package patterns
 
-import "http://diffmodel/1.0"
+//import "http://diffmodel/1.0"
+import "http://dsemerge.diffmodel/1.0"
 
 pattern createInsteadOfDelete(deleteOp : Delete, createOp : Create) {
 	Delete.targetID(deleteOp, id);

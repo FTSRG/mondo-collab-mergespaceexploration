@@ -15,7 +15,11 @@ public class SetReferenceInsteadOfDelete extends SetReferenceInsteadOfDeleteProc
 	@Override
 	public void process(Delete pDeleteOp, SetReference pSetRefOp) {
 
+		System.out.println("SetReferenceInsteadOfDeleteMatch");
+		
 		EcoreUtil.delete(pDeleteOp);
+		
+		System.out.println("SetReferenceInsteadOfDeleteMatch End");
 	}
 	
 	public static TransformationRule<SetReferenceInsteadOfDeleteMatch> createRule()

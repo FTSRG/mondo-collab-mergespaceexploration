@@ -1,8 +1,11 @@
 package patterns
 
-import "http://WTSpec/2.01"
-import "http://diffmodel/1.0"
-import "http://modelcontainer/1.0"
+//import "http://WTSpec/2.01"
+//import "http://diffmodel/1.0"
+//import "http://modelcontainer/1.0"
+import "http://dsemerge.diffmodel/1.0"
+import "http://dsemerge.modelcontainer/1.0"
+import "http://dsemergewtspecid/1.0"
 
 //pattern create(createOp : Create, mainRoot : MainRoot) {
 //	MainRoot(mainRoot);

@@ -1,18 +1,13 @@
 package patterns;
 
-import DiffModel.Delete;
-import DiffModel.SetReference;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import DseMergeDiffModel.Delete;
+import DseMergeDiffModel.SetReference;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.incquery.runtime.api.IMatchProcessor;
 import org.eclipse.incquery.runtime.api.IQuerySpecification;
 import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.incquery.runtime.api.impl.BaseMatcher;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
-import org.eclipse.incquery.runtime.matchers.tuple.Tuple;
 import org.eclipse.incquery.runtime.rete.misc.DeltaMonitor;
 import org.eclipse.incquery.runtime.util.IncQueryLoggingUtil;
 import patterns.SetReferenceInsteadOfDeleteMatch;
@@ -79,35 +74,10 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
   
   private final static Logger LOGGER = IncQueryLoggingUtil.getLogger(SetReferenceInsteadOfDeleteMatcher.class);
   
-  /**
-   * Initializes the pattern matcher over a given EMF model root (recommended: Resource or ResourceSet).
-   * If a pattern matcher is already constructed with the same root, only a light-weight reference is returned.
-   * The scope of pattern matching will be the given EMF model root and below (see FAQ for more precise definition).
-   * The match set will be incrementally refreshed upon updates from this scope.
-   * <p>The matcher will be created within the managed {@link IncQueryEngine} belonging to the EMF model root, so
-   * multiple matchers will reuse the same engine and benefit from increased performance and reduced memory footprint.
-   * @param emfRoot the root of the EMF containment hierarchy where the pattern matcher will operate. Recommended: Resource or ResourceSet.
-   * @throws IncQueryException if an error occurs during pattern matcher creation
-   * @deprecated use {@link #on(IncQueryEngine)} instead, e.g. in conjunction with {@link IncQueryEngine#on(Notifier)}
-   * 
-   */
-  @Deprecated
-  public SetReferenceInsteadOfDeleteMatcher(final Notifier emfRoot) throws IncQueryException {
-    this(IncQueryEngine.on(emfRoot));
+  public SetReferenceInsteadOfDeleteMatcher() {
   }
   
-  /**
-   * Initializes the pattern matcher within an existing EMF-IncQuery engine.
-   * If the pattern matcher is already constructed in the engine, only a light-weight reference is returned.
-   * The match set will be incrementally refreshed upon updates.
-   * @param engine the existing EMF-IncQuery engine in which this matcher will be created.
-   * @throws IncQueryException if an error occurs during pattern matcher creation
-   * @deprecated use {@link #on(IncQueryEngine)} instead
-   * 
-   */
-  @Deprecated
-  public SetReferenceInsteadOfDeleteMatcher(final IncQueryEngine engine) throws IncQueryException {
-    super(engine, querySpecification());
+  public SetReferenceInsteadOfDeleteMatcher() {
   }
   
   /**
@@ -117,7 +87,7 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @return matches represented as a SetReferenceInsteadOfDeleteMatch object.
    * 
    */
-  public Collection<SetReferenceInsteadOfDeleteMatch> getAllMatches(final Delete pDeleteOp, final SetReference pSetRefOp) {
+  public java.util.Collection getAllMatches(final Delete pDeleteOp, final SetReference pSetRefOp) {
     return rawGetAllMatches(new Object[]{pDeleteOp, pSetRefOp});
   }
   
@@ -163,7 +133,7 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @param processor the action that will process each pattern match.
    * 
    */
-  public void forEachMatch(final Delete pDeleteOp, final SetReference pSetRefOp, final IMatchProcessor<? super SetReferenceInsteadOfDeleteMatch> processor) {
+  public void forEachMatch(final Delete pDeleteOp, final SetReference pSetRefOp, final /* IMatchProcessor<? super SetReferenceInsteadOfDeleteMatch> */Object processor) {
     rawForEachMatch(new Object[]{pDeleteOp, pSetRefOp}, processor);
   }
   
@@ -176,7 +146,7 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @return true if the pattern has at least one match with the given parameter values, false if the processor was not invoked
    * 
    */
-  public boolean forOneArbitraryMatch(final Delete pDeleteOp, final SetReference pSetRefOp, final IMatchProcessor<? super SetReferenceInsteadOfDeleteMatch> processor) {
+  public boolean forOneArbitraryMatch(final Delete pDeleteOp, final SetReference pSetRefOp, final /* IMatchProcessor<? super SetReferenceInsteadOfDeleteMatch> */Object processor) {
     return rawForOneArbitraryMatch(new Object[]{pDeleteOp, pSetRefOp}, processor);
   }
   
@@ -193,10 +163,7 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @deprecated use the IncQuery Databinding API (IncQueryObservables) instead.
    * 
    */
-  @Deprecated
-  public DeltaMonitor<SetReferenceInsteadOfDeleteMatch> newFilteredDeltaMonitor(final boolean fillAtStart, final Delete pDeleteOp, final SetReference pSetRefOp) {
-    return rawNewFilteredDeltaMonitor(fillAtStart, new Object[]{pDeleteOp, pSetRefOp});
-  }
+  public DeltaMonitor<SetReferenceInsteadOfDeleteMatch> newFilteredDeltaMonitor(final boolean fillAtStart, final Delete pDeleteOp, final SetReference pSetRefOp);
   
   /**
    * Returns a new (partial) match.
@@ -217,8 +184,8 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  protected Set<Delete> rawAccumulateAllValuesOfdeleteOp(final Object[] parameters) {
-    Set<Delete> results = new HashSet<Delete>();
+  protected java.util.Set rawAccumulateAllValuesOfdeleteOp(final /* type is 'null' */ parameters) {
+    java.util.Set results = new java.util.HashSet();
     rawAccumulateAllValues(POSITION_DELETEOP, parameters, results);
     return results;
   }
@@ -228,7 +195,7 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<Delete> getAllValuesOfdeleteOp() {
+  public java.util.Set getAllValuesOfdeleteOp() {
     return rawAccumulateAllValuesOfdeleteOp(emptyArray());
   }
   
@@ -237,7 +204,7 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<Delete> getAllValuesOfdeleteOp(final SetReferenceInsteadOfDeleteMatch partialMatch) {
+  public java.util.Set getAllValuesOfdeleteOp(final SetReferenceInsteadOfDeleteMatch partialMatch) {
     return rawAccumulateAllValuesOfdeleteOp(partialMatch.toArray());
   }
   
@@ -246,7 +213,7 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<Delete> getAllValuesOfdeleteOp(final SetReference pSetRefOp) {
+  public java.util.Set getAllValuesOfdeleteOp(final SetReference pSetRefOp) {
     return rawAccumulateAllValuesOfdeleteOp(new Object[]{null, pSetRefOp});
   }
   
@@ -255,8 +222,8 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  protected Set<SetReference> rawAccumulateAllValuesOfsetRefOp(final Object[] parameters) {
-    Set<SetReference> results = new HashSet<SetReference>();
+  protected java.util.Set rawAccumulateAllValuesOfsetRefOp(final /* type is 'null' */ parameters) {
+    java.util.Set results = new java.util.HashSet();
     rawAccumulateAllValues(POSITION_SETREFOP, parameters, results);
     return results;
   }
@@ -266,7 +233,7 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<SetReference> getAllValuesOfsetRefOp() {
+  public java.util.Set getAllValuesOfsetRefOp() {
     return rawAccumulateAllValuesOfsetRefOp(emptyArray());
   }
   
@@ -275,7 +242,7 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<SetReference> getAllValuesOfsetRefOp(final SetReferenceInsteadOfDeleteMatch partialMatch) {
+  public java.util.Set getAllValuesOfsetRefOp(final SetReferenceInsteadOfDeleteMatch partialMatch) {
     return rawAccumulateAllValuesOfsetRefOp(partialMatch.toArray());
   }
   
@@ -284,14 +251,13 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
    * @return the Set of all values, null if no parameter with the given name exists, empty set if there are no matches
    * 
    */
-  public Set<SetReference> getAllValuesOfsetRefOp(final Delete pDeleteOp) {
+  public java.util.Set getAllValuesOfsetRefOp(final Delete pDeleteOp) {
     return rawAccumulateAllValuesOfsetRefOp(new Object[]{pDeleteOp, null});
   }
   
-  @Override
-  protected SetReferenceInsteadOfDeleteMatch tupleToMatch(final Tuple t) {
+  public SetReferenceInsteadOfDeleteMatch tupleToMatch() {
     try {
-      return SetReferenceInsteadOfDeleteMatch.newMatch((DiffModel.Delete) t.get(POSITION_DELETEOP), (DiffModel.SetReference) t.get(POSITION_SETREFOP));
+      return SetReferenceInsteadOfDeleteMatch.newMatch((DseMergeDiffModel.Delete) t.get(POSITION_DELETEOP), (DseMergeDiffModel.SetReference) t.get(POSITION_SETREFOP));
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in tuple not properly typed!",e);
       return null;
@@ -299,10 +265,9 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
     
   }
   
-  @Override
-  protected SetReferenceInsteadOfDeleteMatch arrayToMatch(final Object[] match) {
+  public SetReferenceInsteadOfDeleteMatch arrayToMatch() {
     try {
-      return SetReferenceInsteadOfDeleteMatch.newMatch((DiffModel.Delete) match[POSITION_DELETEOP], (DiffModel.SetReference) match[POSITION_SETREFOP]);
+      return SetReferenceInsteadOfDeleteMatch.newMatch((DseMergeDiffModel.Delete) match[POSITION_DELETEOP], (DseMergeDiffModel.SetReference) match[POSITION_SETREFOP]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;
@@ -310,10 +275,9 @@ public class SetReferenceInsteadOfDeleteMatcher extends BaseMatcher<SetReference
     
   }
   
-  @Override
-  protected SetReferenceInsteadOfDeleteMatch arrayToMatchMutable(final Object[] match) {
+  public SetReferenceInsteadOfDeleteMatch arrayToMatchMutable() {
     try {
-      return SetReferenceInsteadOfDeleteMatch.newMutableMatch((DiffModel.Delete) match[POSITION_DELETEOP], (DiffModel.SetReference) match[POSITION_SETREFOP]);
+      return SetReferenceInsteadOfDeleteMatch.newMutableMatch((DseMergeDiffModel.Delete) match[POSITION_DELETEOP], (DseMergeDiffModel.SetReference) match[POSITION_SETREFOP]);
     } catch(ClassCastException e) {
       LOGGER.error("Element(s) in array not properly typed!",e);
       return null;

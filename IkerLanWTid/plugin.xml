@@ -6,12 +6,16 @@
 
 <plugin>
 
+
+
+
+
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated WTSpec2.0id -->
+      <!-- @generated wtspecid -->
       <package
-            uri="http://WTSpec/2.01"
-            class="WTSpecID.WTSpecIDPackage"
-            genModel="model/WTSpec2.0id.genmodel"/>
+            uri="http://dsemergewtspecid/1.0"
+            class="wtspecid.WtspecidPackage"
+            genModel="model/wtspecid.genmodel"/>
    </extension>
 
 </plugin>

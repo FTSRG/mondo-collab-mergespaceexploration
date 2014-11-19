@@ -75,31 +75,22 @@ public interface ModelContainerPackage extends EPackage {
 	int MAIN_ROOT__ORIGINAL = 0;
 
 	/**
-	 * The feature id for the '<em><b>Delta OB</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ROOT__DELTA_OB = 1;
-
-	/**
 	 * The feature id for the '<em><b>Delta OA</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAIN_ROOT__DELTA_OA = 2;
+	int MAIN_ROOT__DELTA_OA = 1;
 
 	/**
-	 * The feature id for the '<em><b>Reserved</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Delta OB</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAIN_ROOT__RESERVED = 3;
+	int MAIN_ROOT__DELTA_OB = 2;
 
 	/**
 	 * The number of structural features of the '<em>Main Root</em>' class.
@@ -108,7 +99,7 @@ public interface ModelContainerPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MAIN_ROOT_FEATURE_COUNT = 4;
+	int MAIN_ROOT_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Main Root</em>' class.
@@ -162,17 +153,6 @@ public interface ModelContainerPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMainRoot_DeltaOA();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link ModelContainer.MainRoot#getReserved <em>Reserved</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Reserved</em>'.
-	 * @see ModelContainer.MainRoot#getReserved()
-	 * @see #getMainRoot()
-	 * @generated
-	 */
-	EReference getMainRoot_Reserved();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -230,14 +210,6 @@ public interface ModelContainerPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MAIN_ROOT__DELTA_OA = eINSTANCE.getMainRoot_DeltaOA();
-
-		/**
-		 * The meta object literal for the '<em><b>Reserved</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MAIN_ROOT__RESERVED = eINSTANCE.getMainRoot_Reserved();
 
 	}
 

@@ -14,4 +14,12 @@
             genModel="model/ModelContainer.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dsemerge.modelcontainer -->
+      <package
+            uri="http://dsemerge.modelcontainer/1.0"
+            class="DseMergeModelContainer.DseMergeModelContainerPackage"
+            genModel="model/dsemerge.modelcontainer.genmodel"/>
+   </extension>
+
 </plugin>

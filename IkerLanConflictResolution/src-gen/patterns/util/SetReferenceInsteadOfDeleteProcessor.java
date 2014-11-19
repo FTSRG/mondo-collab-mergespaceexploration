@@ -1,7 +1,7 @@
 package patterns.util;
 
-import DiffModel.Delete;
-import DiffModel.SetReference;
+import DseMergeDiffModel.Delete;
+import DseMergeDiffModel.SetReference;
 import org.eclipse.incquery.runtime.api.IMatchProcessor;
 import patterns.SetReferenceInsteadOfDeleteMatch;
 
@@ -21,9 +21,5 @@ public abstract class SetReferenceInsteadOfDeleteProcessor implements IMatchProc
    */
   public abstract void process(final Delete pDeleteOp, final SetReference pSetRefOp);
   
-  @Override
-  public void process(final SetReferenceInsteadOfDeleteMatch match) {
-    process(match.getDeleteOp(), match.getSetRefOp());
-    
-  }
+  public void process();
 }

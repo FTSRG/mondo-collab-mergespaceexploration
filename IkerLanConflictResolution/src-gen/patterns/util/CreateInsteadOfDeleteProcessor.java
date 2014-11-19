@@ -1,7 +1,7 @@
 package patterns.util;
 
-import DiffModel.Create;
-import DiffModel.Delete;
+import DseMergeDiffModel.Create;
+import DseMergeDiffModel.Delete;
 import org.eclipse.incquery.runtime.api.IMatchProcessor;
 import patterns.CreateInsteadOfDeleteMatch;
 
@@ -21,9 +21,5 @@ public abstract class CreateInsteadOfDeleteProcessor implements IMatchProcessor<
    */
   public abstract void process(final Delete pDeleteOp, final Create pCreateOp);
   
-  @Override
-  public void process(final CreateInsteadOfDeleteMatch match) {
-    process(match.getDeleteOp(), match.getCreateOp());
-    
-  }
+  public void process();
 }

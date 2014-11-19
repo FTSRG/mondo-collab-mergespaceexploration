@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: MyDiffModel;singleton:=true
+Bundle-SymbolicName: eu.mondo.collaboration.dsemerge.diffmodel;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
@@ -9,7 +9,10 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: DiffModel,
  DiffModel.impl,
- DiffModel.util
+ DiffModel.util,
+ DseMergeDiffModel,
+ DseMergeDiffModel.impl,
+ DseMergeDiffModel.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy

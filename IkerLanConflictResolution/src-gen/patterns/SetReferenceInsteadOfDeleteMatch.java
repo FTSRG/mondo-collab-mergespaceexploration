@@ -1,12 +1,8 @@
 package patterns;
 
-import DiffModel.Delete;
-import DiffModel.SetReference;
-import java.util.Arrays;
-import java.util.List;
-import org.eclipse.incquery.runtime.api.IPatternMatch;
+import DseMergeDiffModel.Delete;
+import DseMergeDiffModel.SetReference;
 import org.eclipse.incquery.runtime.api.impl.BasePatternMatch;
-import org.eclipse.incquery.runtime.exception.IncQueryException;
 import patterns.util.SetReferenceInsteadOfDeleteQuerySpecification;
 
 /**
@@ -28,7 +24,7 @@ public abstract class SetReferenceInsteadOfDeleteMatch extends BasePatternMatch 
   
   private SetReference fSetRefOp;
   
-  private static List<String> parameterNames = makeImmutableList("deleteOp", "setRefOp");
+  private static java.util.List parameterNames = makeImmutableList("deleteOp", "setRefOp");
   
   private SetReferenceInsteadOfDeleteMatch(final Delete pDeleteOp, final SetReference pSetRefOp) {
     this.fDeleteOp = pDeleteOp;
@@ -36,13 +32,7 @@ public abstract class SetReferenceInsteadOfDeleteMatch extends BasePatternMatch 
     
   }
   
-  @Override
-  public Object get(final String parameterName) {
-    if ("deleteOp".equals(parameterName)) return this.fDeleteOp;
-    if ("setRefOp".equals(parameterName)) return this.fSetRefOp;
-    return null;
-    
-  }
+  public java.lang.Object get();
   
   public Delete getDeleteOp() {
     return this.fDeleteOp;
@@ -54,20 +44,7 @@ public abstract class SetReferenceInsteadOfDeleteMatch extends BasePatternMatch 
     
   }
   
-  @Override
-  public boolean set(final String parameterName, final Object newValue) {
-    if (!isMutable()) throw new java.lang.UnsupportedOperationException();
-    if ("deleteOp".equals(parameterName) ) {
-    	this.fDeleteOp = (DiffModel.Delete) newValue;
-    	return true;
-    }
-    if ("setRefOp".equals(parameterName) ) {
-    	this.fSetRefOp = (DiffModel.SetReference) newValue;
-    	return true;
-    }
-    return false;
-    
-  }
+  public boolean set();
   
   public void setDeleteOp(final Delete pDeleteOp) {
     if (!isMutable()) throw new java.lang.UnsupportedOperationException();
@@ -81,81 +58,21 @@ public abstract class SetReferenceInsteadOfDeleteMatch extends BasePatternMatch 
     
   }
   
-  @Override
-  public String patternName() {
-    return "patterns.setReferenceInsteadOfDelete";
-    
-  }
+  public java.lang.String patternName();
   
-  @Override
-  public List<String> parameterNames() {
-    return SetReferenceInsteadOfDeleteMatch.parameterNames;
-    
-  }
+  public java.util.List parameterNames();
   
-  @Override
-  public Object[] toArray() {
-    return new Object[]{fDeleteOp, fSetRefOp};
-    
-  }
+  public /* type is 'null' */ toArray();
   
-  @Override
-  public SetReferenceInsteadOfDeleteMatch toImmutable() {
-    return isMutable() ? newMatch(fDeleteOp, fSetRefOp) : this;
-    
-  }
+  public SetReferenceInsteadOfDeleteMatch toImmutable();
   
-  @Override
-  public String prettyPrint() {
-    StringBuilder result = new StringBuilder();
-    result.append("\"deleteOp\"=" + prettyPrintValue(fDeleteOp) + ", ");
-    result.append("\"setRefOp\"=" + prettyPrintValue(fSetRefOp));
-    return result.toString();
-    
-  }
+  public java.lang.String prettyPrint();
   
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((fDeleteOp == null) ? 0 : fDeleteOp.hashCode());
-    result = prime * result + ((fSetRefOp == null) ? 0 : fSetRefOp.hashCode());
-    return result;
-    
-  }
+  public int hashCode();
   
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj)
-    	return true;
-    if (!(obj instanceof SetReferenceInsteadOfDeleteMatch)) { // this should be infrequent
-    	if (obj == null)
-    		return false;
-    	if (!(obj instanceof IPatternMatch))
-    		return false;
-    	IPatternMatch otherSig  = (IPatternMatch) obj;
-    	if (!specification().equals(otherSig.specification()))
-    		return false;
-    	return Arrays.deepEquals(toArray(), otherSig.toArray());
-    }
-    SetReferenceInsteadOfDeleteMatch other = (SetReferenceInsteadOfDeleteMatch) obj;
-    if (fDeleteOp == null) {if (other.fDeleteOp != null) return false;}
-    else if (!fDeleteOp.equals(other.fDeleteOp)) return false;
-    if (fSetRefOp == null) {if (other.fSetRefOp != null) return false;}
-    else if (!fSetRefOp.equals(other.fSetRefOp)) return false;
-    return true;
-  }
+  public boolean equals();
   
-  @Override
-  public SetReferenceInsteadOfDeleteQuerySpecification specification() {
-    try {
-    	return SetReferenceInsteadOfDeleteQuerySpecification.instance();
-    } catch (IncQueryException ex) {
-     	// This cannot happen, as the match object can only be instantiated if the query specification exists
-     	throw new IllegalStateException	(ex);
-    }
-    
-  }
+  public SetReferenceInsteadOfDeleteQuerySpecification specification();
   
   /**
    * Returns an empty, mutable match.
@@ -203,10 +120,7 @@ public abstract class SetReferenceInsteadOfDeleteMatch extends BasePatternMatch 
       
     }
     
-    @Override
-    public boolean isMutable() {
-      return true;
-    }
+    public boolean isMutable();
   }
   
   private static final class Immutable extends SetReferenceInsteadOfDeleteMatch {
@@ -215,9 +129,6 @@ public abstract class SetReferenceInsteadOfDeleteMatch extends BasePatternMatch 
       
     }
     
-    @Override
-    public boolean isMutable() {
-      return false;
-    }
+    public boolean isMutable();
   }
 }

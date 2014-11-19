@@ -2,14 +2,13 @@
  */
 package ModelContainer.impl;
 
+import DseMergeDiffModel.DseMergeDiffModelPackage;
 import ModelContainer.MainRoot;
 import ModelContainer.ModelContainerFactory;
 import ModelContainer.ModelContainerPackage;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -72,6 +71,9 @@ public class ModelContainerPackageImpl extends EPackageImpl implements ModelCont
 
 		isInited = true;
 
+		// Initialize simple dependencies
+		DseMergeDiffModelPackage.eINSTANCE.eClass();
+
 		// Create package meta-data objects
 		theModelContainerPackage.createPackageContents();
 
@@ -111,15 +113,6 @@ public class ModelContainerPackageImpl extends EPackageImpl implements ModelCont
 	 * @generated
 	 */
 	public EReference getMainRoot_DeltaOB() {
-		return (EReference)mainRootEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getMainRoot_DeltaOA() {
 		return (EReference)mainRootEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -128,8 +121,8 @@ public class ModelContainerPackageImpl extends EPackageImpl implements ModelCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMainRoot_Reserved() {
-		return (EReference)mainRootEClass.getEStructuralFeatures().get(3);
+	public EReference getMainRoot_DeltaOA() {
+		return (EReference)mainRootEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -162,9 +155,8 @@ public class ModelContainerPackageImpl extends EPackageImpl implements ModelCont
 		// Create classes and their features
 		mainRootEClass = createEClass(MAIN_ROOT);
 		createEReference(mainRootEClass, MAIN_ROOT__ORIGINAL);
-		createEReference(mainRootEClass, MAIN_ROOT__DELTA_OB);
 		createEReference(mainRootEClass, MAIN_ROOT__DELTA_OA);
-		createEReference(mainRootEClass, MAIN_ROOT__RESERVED);
+		createEReference(mainRootEClass, MAIN_ROOT__DELTA_OB);
 	}
 
 	/**
@@ -190,6 +182,9 @@ public class ModelContainerPackageImpl extends EPackageImpl implements ModelCont
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		DseMergeDiffModelPackage theDseMergeDiffModelPackage = (DseMergeDiffModelPackage)EPackage.Registry.INSTANCE.getEPackage(DseMergeDiffModelPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -199,9 +194,8 @@ public class ModelContainerPackageImpl extends EPackageImpl implements ModelCont
 		// Initialize classes, features, and operations; add parameters
 		initEClass(mainRootEClass, MainRoot.class, "MainRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMainRoot_Original(), ecorePackage.getEObject(), null, "original", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMainRoot_DeltaOB(), ecorePackage.getEObject(), null, "deltaOB", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMainRoot_DeltaOA(), ecorePackage.getEObject(), null, "deltaOA", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMainRoot_Reserved(), ecorePackage.getEObject(), null, "reserved", null, 0, -1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMainRoot_DeltaOA(), theDseMergeDiffModelPackage.getDiffContainer(), null, "deltaOA", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMainRoot_DeltaOB(), theDseMergeDiffModelPackage.getDiffContainer(), null, "deltaOB", null, 0, 1, MainRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

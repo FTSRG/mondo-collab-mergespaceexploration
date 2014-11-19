@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: IkerLanConflictResolution
-Bundle-SymbolicName: IkerLanConflictResolution;singleton:=true
+Bundle-Name: IkerLanConflictResolver
+Bundle-SymbolicName: eu.mondo.collaboration.dsemerge.conflictresolver;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Export-Package: patterns,
  patterns.util
@@ -20,12 +20,12 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.viatra.dse.base;bundle-version="0.7.0",
  org.eclipse.viatra.dse.designspace;bundle-version="0.7.0",
  org.eclipse.viatra.dse.genetic;bundle-version="0.7.0",
- ModelContainer;bundle-version="0.1.0",
- ModelContainer.edit;bundle-version="1.0.0",
- IkerLanWTid;bundle-version="0.1.0",
- IkerLanWTid.edit;bundle-version="1.0.0",
- MyDiffModel;bundle-version="0.1.0",
- MyDiffModel.edit;bundle-version="1.0.0",
- org.eclipse.emf.common
+ eu.mondo.collaboration.dsemerge.modelcontainer;bundle-version="0.1.0",
+ eu.mondo.collaboration.dsemerge.ikerlanwtid;bundle-version="0.1.0",
+ eu.mondo.collaboration.dsemerge.diffmodel;bundle-version="0.1.0",
+ org.eclipse.emf.common,
+ eu.mondo.collaboration.dsemerge.diffmodel.edit;bundle-version="1.0.0",
+ eu.mondo.collaboration.dsemerge.ikerlanwtid.edit;bundle-version="1.0.0",
+ eu.mondo.collaboration.dsemerge.modelcontainer.edit;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.log4j

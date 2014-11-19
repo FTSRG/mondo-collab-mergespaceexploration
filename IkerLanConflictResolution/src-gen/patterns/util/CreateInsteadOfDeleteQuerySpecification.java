@@ -1,18 +1,7 @@
 package patterns.util;
 
-import com.google.common.collect.Sets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.incquery.runtime.api.impl.BaseGeneratedQuerySpecification;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
-import org.eclipse.incquery.runtime.matchers.psystem.PBody;
-import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
-import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
-import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeBinary;
-import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeUnary;
-import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import patterns.CreateInsteadOfDeleteMatch;
 import patterns.CreateInsteadOfDeleteMatcher;
 
@@ -35,58 +24,19 @@ public final class CreateInsteadOfDeleteQuerySpecification extends BaseGenerated
     
   }
   
-  @Override
-  protected CreateInsteadOfDeleteMatcher instantiate(final IncQueryEngine engine) throws IncQueryException {
-    return CreateInsteadOfDeleteMatcher.on(engine);
-  }
+  protected CreateInsteadOfDeleteMatcher instantiate();
   
-  @Override
-  public String getFullyQualifiedName() {
-    return "patterns.createInsteadOfDelete";
-    
-  }
+  public java.lang.String getFullyQualifiedName();
   
-  @Override
-  public List<String> getParameterNames() {
-    return Arrays.asList("deleteOp","createOp");
-  }
+  public java.util.List getParameterNames();
   
-  @Override
-  public List<PParameter> getParameters() {
-    return Arrays.asList(new PParameter("deleteOp", "DiffModel.Delete"),new PParameter("createOp", "DiffModel.Create"));
-  }
+  public java.util.List getParameters();
   
-  @Override
-  public CreateInsteadOfDeleteMatch newEmptyMatch() {
-    return CreateInsteadOfDeleteMatch.newEmptyMatch();
-  }
+  public CreateInsteadOfDeleteMatch newEmptyMatch();
   
-  @Override
-  public CreateInsteadOfDeleteMatch newMatch(final Object... parameters) {
-    return CreateInsteadOfDeleteMatch.newMatch((DiffModel.Delete) parameters[0], (DiffModel.Create) parameters[1]);
-  }
+  public CreateInsteadOfDeleteMatch newMatch();
   
-  @Override
-  public Set<PBody> doGetContainedBodies() throws IncQueryException {
-    Set<PBody> bodies = Sets.newLinkedHashSet();
-    {
-      PBody body = new PBody(this);
-      PVariable var_deleteOp = body.getOrCreateVariableByName("deleteOp");
-      PVariable var_createOp = body.getOrCreateVariableByName("createOp");
-      PVariable var_id = body.getOrCreateVariableByName("id");
-      body.setExportedParameters(Arrays.<ExportedParameter>asList(
-        new ExportedParameter(body, var_deleteOp, "deleteOp"), 
-        new ExportedParameter(body, var_createOp, "createOp")
-      ));
-      
-      new TypeUnary(body, var_deleteOp, getClassifierLiteral("http://diffmodel/1.0", "Delete"), "http://diffmodel/1.0/Delete");
-      
-      new TypeBinary(body, CONTEXT, var_deleteOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Identifiable", "targetID"), "http://diffmodel/1.0/Identifiable.targetID");
-      new TypeBinary(body, CONTEXT, var_createOp, var_id, getFeatureLiteral("http://diffmodel/1.0", "Create", "containerTargetID"), "http://diffmodel/1.0/Create.containerTargetID");
-      bodies.add(body);
-    }
-    return bodies;
-  }
+  public java.util.Set doGetContainedBodies();
   
   private static class LazyHolder {
     private final static CreateInsteadOfDeleteQuerySpecification INSTANCE = make();

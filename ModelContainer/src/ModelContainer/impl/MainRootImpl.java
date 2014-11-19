@@ -2,19 +2,16 @@
  */
 package ModelContainer.impl;
 
+import DseMergeDiffModel.DiffContainer;
 import ModelContainer.MainRoot;
 import ModelContainer.ModelContainerPackage;
-import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,9 +21,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link ModelContainer.impl.MainRootImpl#getOriginal <em>Original</em>}</li>
- *   <li>{@link ModelContainer.impl.MainRootImpl#getDeltaOB <em>Delta OB</em>}</li>
  *   <li>{@link ModelContainer.impl.MainRootImpl#getDeltaOA <em>Delta OA</em>}</li>
- *   <li>{@link ModelContainer.impl.MainRootImpl#getReserved <em>Reserved</em>}</li>
+ *   <li>{@link ModelContainer.impl.MainRootImpl#getDeltaOB <em>Delta OB</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,16 +40,6 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	protected EObject original;
 
 	/**
-	 * The cached value of the '{@link #getDeltaOB() <em>Delta OB</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDeltaOB()
-	 * @generated
-	 * @ordered
-	 */
-	protected EObject deltaOB;
-
-	/**
 	 * The cached value of the '{@link #getDeltaOA() <em>Delta OA</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -61,17 +47,17 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * @generated
 	 * @ordered
 	 */
-	protected EObject deltaOA;
+	protected DiffContainer deltaOA;
 
 	/**
-	 * The cached value of the '{@link #getReserved() <em>Reserved</em>}' containment reference list.
+	 * The cached value of the '{@link #getDeltaOB() <em>Delta OB</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getReserved()
+	 * @see #getDeltaOB()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<EObject> reserved;
+	protected DiffContainer deltaOB;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -140,7 +126,7 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject getDeltaOB() {
+	public DiffContainer getDeltaOB() {
 		return deltaOB;
 	}
 
@@ -149,8 +135,8 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetDeltaOB(EObject newDeltaOB, NotificationChain msgs) {
-		EObject oldDeltaOB = deltaOB;
+	public NotificationChain basicSetDeltaOB(DiffContainer newDeltaOB, NotificationChain msgs) {
+		DiffContainer oldDeltaOB = deltaOB;
 		deltaOB = newDeltaOB;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__DELTA_OB, oldDeltaOB, newDeltaOB);
@@ -164,7 +150,7 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDeltaOB(EObject newDeltaOB) {
+	public void setDeltaOB(DiffContainer newDeltaOB) {
 		if (newDeltaOB != deltaOB) {
 			NotificationChain msgs = null;
 			if (deltaOB != null)
@@ -183,7 +169,7 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject getDeltaOA() {
+	public DiffContainer getDeltaOA() {
 		return deltaOA;
 	}
 
@@ -192,8 +178,8 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetDeltaOA(EObject newDeltaOA, NotificationChain msgs) {
-		EObject oldDeltaOA = deltaOA;
+	public NotificationChain basicSetDeltaOA(DiffContainer newDeltaOA, NotificationChain msgs) {
+		DiffContainer oldDeltaOA = deltaOA;
 		deltaOA = newDeltaOA;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelContainerPackage.MAIN_ROOT__DELTA_OA, oldDeltaOA, newDeltaOA);
@@ -207,7 +193,7 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDeltaOA(EObject newDeltaOA) {
+	public void setDeltaOA(DiffContainer newDeltaOA) {
 		if (newDeltaOA != deltaOA) {
 			NotificationChain msgs = null;
 			if (deltaOA != null)
@@ -226,29 +212,15 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<EObject> getReserved() {
-		if (reserved == null) {
-			reserved = new EObjectContainmentEList<EObject>(EObject.class, this, ModelContainerPackage.MAIN_ROOT__RESERVED);
-		}
-		return reserved;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ModelContainerPackage.MAIN_ROOT__ORIGINAL:
 				return basicSetOriginal(null, msgs);
-			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
-				return basicSetDeltaOB(null, msgs);
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				return basicSetDeltaOA(null, msgs);
-			case ModelContainerPackage.MAIN_ROOT__RESERVED:
-				return ((InternalEList<?>)getReserved()).basicRemove(otherEnd, msgs);
+			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
+				return basicSetDeltaOB(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -263,12 +235,10 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 		switch (featureID) {
 			case ModelContainerPackage.MAIN_ROOT__ORIGINAL:
 				return getOriginal();
-			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
-				return getDeltaOB();
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				return getDeltaOA();
-			case ModelContainerPackage.MAIN_ROOT__RESERVED:
-				return getReserved();
+			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
+				return getDeltaOB();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -285,15 +255,11 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 			case ModelContainerPackage.MAIN_ROOT__ORIGINAL:
 				setOriginal((EObject)newValue);
 				return;
-			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
-				setDeltaOB((EObject)newValue);
-				return;
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
-				setDeltaOA((EObject)newValue);
+				setDeltaOA((DiffContainer)newValue);
 				return;
-			case ModelContainerPackage.MAIN_ROOT__RESERVED:
-				getReserved().clear();
-				getReserved().addAll((Collection<? extends EObject>)newValue);
+			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
+				setDeltaOB((DiffContainer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -310,14 +276,11 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 			case ModelContainerPackage.MAIN_ROOT__ORIGINAL:
 				setOriginal((EObject)null);
 				return;
-			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
-				setDeltaOB((EObject)null);
-				return;
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
-				setDeltaOA((EObject)null);
+				setDeltaOA((DiffContainer)null);
 				return;
-			case ModelContainerPackage.MAIN_ROOT__RESERVED:
-				getReserved().clear();
+			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
+				setDeltaOB((DiffContainer)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -333,12 +296,10 @@ public class MainRootImpl extends MinimalEObjectImpl.Container implements MainRo
 		switch (featureID) {
 			case ModelContainerPackage.MAIN_ROOT__ORIGINAL:
 				return original != null;
-			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
-				return deltaOB != null;
 			case ModelContainerPackage.MAIN_ROOT__DELTA_OA:
 				return deltaOA != null;
-			case ModelContainerPackage.MAIN_ROOT__RESERVED:
-				return reserved != null && !reserved.isEmpty();
+			case ModelContainerPackage.MAIN_ROOT__DELTA_OB:
+				return deltaOB != null;
 		}
 		return super.eIsSet(featureID);
 	}
