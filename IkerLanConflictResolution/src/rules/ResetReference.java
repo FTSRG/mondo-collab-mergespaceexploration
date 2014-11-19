@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.dse.api.TransformationRule;
 
-import WTSpecID.IdentifiableWTElement;
+import wtspecid.IdentifiableWTElement;
 import patterns.ResetReferenceMatch;
 import patterns.ResetReferenceMatcher;
 import patterns.util.ResetReferenceProcessor;
@@ -18,7 +18,7 @@ import patterns.util.ResetReferenceProcessor;
 public class ResetReference extends ResetReferenceProcessor {
 
 	@Override
-	public void process(DiffModel.ResetReference pResetRefOp,
+	public void process(DseMergeDiffModel.ResetReference pResetRefOp,
 			IdentifiableWTElement pTarget, IdentifiableWTElement pRef) {
 		
 		String ref = pResetRefOp.getReference();

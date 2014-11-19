@@ -2,7 +2,11 @@ package patterns;
 
 import DseMergeDiffModel.Create;
 import DseMergeDiffModel.Delete;
+import java.util.Arrays;
+import java.util.List;
+import org.eclipse.incquery.runtime.api.IPatternMatch;
 import org.eclipse.incquery.runtime.api.impl.BasePatternMatch;
+import org.eclipse.incquery.runtime.exception.IncQueryException;
 import patterns.util.CreateInsteadOfDeleteQuerySpecification;
 
 /**
@@ -24,7 +28,7 @@ public abstract class CreateInsteadOfDeleteMatch extends BasePatternMatch {
   
   private Create fCreateOp;
   
-  private static java.util.List parameterNames = makeImmutableList("deleteOp", "createOp");
+  private static List<String> parameterNames = makeImmutableList("deleteOp", "createOp");
   
   private CreateInsteadOfDeleteMatch(final Delete pDeleteOp, final Create pCreateOp) {
     this.fDeleteOp = pDeleteOp;
@@ -32,7 +36,13 @@ public abstract class CreateInsteadOfDeleteMatch extends BasePatternMatch {
     
   }
   
-  public java.lang.Object get();
+  @Override
+  public Object get(final String parameterName) {
+    if ("deleteOp".equals(parameterName)) return this.fDeleteOp;
+    if ("createOp".equals(parameterName)) return this.fCreateOp;
+    return null;
+    
+  }
   
   public Delete getDeleteOp() {
     return this.fDeleteOp;
@@ -44,7 +54,20 @@ public abstract class CreateInsteadOfDeleteMatch extends BasePatternMatch {
     
   }
   
-  public boolean set();
+  @Override
+  public boolean set(final String parameterName, final Object newValue) {
+    if (!isMutable()) throw new java.lang.UnsupportedOperationException();
+    if ("deleteOp".equals(parameterName) ) {
+    	this.fDeleteOp = (DseMergeDiffModel.Delete) newValue;
+    	return true;
+    }
+    if ("createOp".equals(parameterName) ) {
+    	this.fCreateOp = (DseMergeDiffModel.Create) newValue;
+    	return true;
+    }
+    return false;
+    
+  }
   
   public void setDeleteOp(final Delete pDeleteOp) {
     if (!isMutable()) throw new java.lang.UnsupportedOperationException();
@@ -58,21 +81,81 @@ public abstract class CreateInsteadOfDeleteMatch extends BasePatternMatch {
     
   }
   
-  public java.lang.String patternName();
+  @Override
+  public String patternName() {
+    return "patterns.createInsteadOfDelete";
+    
+  }
   
-  public java.util.List parameterNames();
+  @Override
+  public List<String> parameterNames() {
+    return CreateInsteadOfDeleteMatch.parameterNames;
+    
+  }
   
-  public /* type is 'null' */ toArray();
+  @Override
+  public Object[] toArray() {
+    return new Object[]{fDeleteOp, fCreateOp};
+    
+  }
   
-  public CreateInsteadOfDeleteMatch toImmutable();
+  @Override
+  public CreateInsteadOfDeleteMatch toImmutable() {
+    return isMutable() ? newMatch(fDeleteOp, fCreateOp) : this;
+    
+  }
   
-  public java.lang.String prettyPrint();
+  @Override
+  public String prettyPrint() {
+    StringBuilder result = new StringBuilder();
+    result.append("\"deleteOp\"=" + prettyPrintValue(fDeleteOp) + ", ");
+    result.append("\"createOp\"=" + prettyPrintValue(fCreateOp));
+    return result.toString();
+    
+  }
   
-  public int hashCode();
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((fDeleteOp == null) ? 0 : fDeleteOp.hashCode());
+    result = prime * result + ((fCreateOp == null) ? 0 : fCreateOp.hashCode());
+    return result;
+    
+  }
   
-  public boolean equals();
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj)
+    	return true;
+    if (!(obj instanceof CreateInsteadOfDeleteMatch)) { // this should be infrequent
+    	if (obj == null)
+    		return false;
+    	if (!(obj instanceof IPatternMatch))
+    		return false;
+    	IPatternMatch otherSig  = (IPatternMatch) obj;
+    	if (!specification().equals(otherSig.specification()))
+    		return false;
+    	return Arrays.deepEquals(toArray(), otherSig.toArray());
+    }
+    CreateInsteadOfDeleteMatch other = (CreateInsteadOfDeleteMatch) obj;
+    if (fDeleteOp == null) {if (other.fDeleteOp != null) return false;}
+    else if (!fDeleteOp.equals(other.fDeleteOp)) return false;
+    if (fCreateOp == null) {if (other.fCreateOp != null) return false;}
+    else if (!fCreateOp.equals(other.fCreateOp)) return false;
+    return true;
+  }
   
-  public CreateInsteadOfDeleteQuerySpecification specification();
+  @Override
+  public CreateInsteadOfDeleteQuerySpecification specification() {
+    try {
+    	return CreateInsteadOfDeleteQuerySpecification.instance();
+    } catch (IncQueryException ex) {
+     	// This cannot happen, as the match object can only be instantiated if the query specification exists
+     	throw new IllegalStateException	(ex);
+    }
+    
+  }
   
   /**
    * Returns an empty, mutable match.
@@ -120,7 +203,10 @@ public abstract class CreateInsteadOfDeleteMatch extends BasePatternMatch {
       
     }
     
-    public boolean isMutable();
+    @Override
+    public boolean isMutable() {
+      return true;
+    }
   }
   
   private static final class Immutable extends CreateInsteadOfDeleteMatch {
@@ -129,6 +215,9 @@ public abstract class CreateInsteadOfDeleteMatch extends BasePatternMatch {
       
     }
     
-    public boolean isMutable();
+    @Override
+    public boolean isMutable() {
+      return false;
+    }
   }
 }

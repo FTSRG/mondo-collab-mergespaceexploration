@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.dse.api.TransformationRule;
 
-import WTSpecID.IdentifiableWTElement;
+import wtspecid.IdentifiableWTElement;
 import patterns.SetAttributeMatch;
 import patterns.SetAttributeMatcher;
 import patterns.util.SetAttributeProcessor;
@@ -18,7 +18,7 @@ import patterns.util.SetAttributeProcessor;
 public class SetAttribute extends SetAttributeProcessor {
 
 	@Override
-	public void process(DiffModel.SetAttribute pSetAttrOp,
+	public void process(DseMergeDiffModel.SetAttribute pSetAttrOp,
 			IdentifiableWTElement pTarget) {
 
 		String attr = pSetAttrOp.getAttribute();

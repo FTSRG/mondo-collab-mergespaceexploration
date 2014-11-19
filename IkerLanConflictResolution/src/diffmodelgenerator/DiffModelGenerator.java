@@ -30,13 +30,13 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.viatra.dse.util.EMFHelper;
 
-import WTSpecID.IdentifiableWTElement;
-import DiffModel.Create;
-import DiffModel.Delete;
-import DiffModel.DiffContainer;
-import DiffModel.DiffModelFactory;
-import DiffModel.SetAttribute;
-import DiffModel.SetReference;
+import wtspecid.IdentifiableWTElement;
+import DseMergeDiffModel.Create;
+import DseMergeDiffModel.Delete;
+import DseMergeDiffModel.DiffContainer;
+import DseMergeDiffModel.DseMergeDiffModelFactory;
+import DseMergeDiffModel.SetAttribute;
+import DseMergeDiffModel.SetReference;
 
 public class DiffModelGenerator {
 
@@ -89,7 +89,7 @@ public class DiffModelGenerator {
 			System.out.println(diff.toString());
 		}
 		
-		DiffContainer dc = (DiffContainer) DiffModelFactory.eINSTANCE.createDiffContainer();
+		DiffContainer dc = (DiffContainer) DseMergeDiffModelFactory.eINSTANCE.createDiffContainer();
 		
 		for (Diff diff : differences){
 			if(diff instanceof ReferenceChangeSpec){
@@ -101,7 +101,7 @@ public class DiffModelGenerator {
 				if(kind.equals("ADD")) {
 
 					// CreateOp
-					Create c = DiffModelFactory.eINSTANCE.createCreate();
+					Create c = DseMergeDiffModelFactory.eINSTANCE.createCreate();
 					c.setID("Create_" + createNum++ + "_" + targetID);
 					c.setTargetID(targetID);
 					c.setType(r.getValue().eClass().getName());
@@ -146,7 +146,7 @@ public class DiffModelGenerator {
 					
 				}
 				else if(kind.equals("DELETE")) {
-					Delete d = DiffModelFactory.eINSTANCE.createDelete();
+					Delete d = DseMergeDiffModelFactory.eINSTANCE.createDelete();
 					d.setID("Delete_" + deleteNum++ + "_" + targetID);
 					d.setTargetID(targetID);
 					dc.getDeleteDiffs().add(d);
@@ -159,7 +159,7 @@ public class DiffModelGenerator {
 						refID = ((IdentifiableWTElement) obj).getID();
 					}
 					// TODO targetID and refID should be swapped
-					SetReference sr = DiffModelFactory.eINSTANCE.createSetReference();
+					SetReference sr = DseMergeDiffModelFactory.eINSTANCE.createSetReference();
 					sr.setID("SetReference_" + setRefNum++ + "_" + targetID);
 					sr.setTargetID(refID);
 					sr.setReference(refName);
@@ -179,7 +179,7 @@ public class DiffModelGenerator {
 				String attrName = r.getAttribute().getName();
 				String value = r.getValue().toString();
 				
-				SetAttribute sa = DiffModelFactory.eINSTANCE.createSetAttribute();
+				SetAttribute sa = DseMergeDiffModelFactory.eINSTANCE.createSetAttribute();
 				sa.setID("SetAttribute_" + setAttrNum++ + "_" + targetID);
 				sa.setTargetID(targetID);
 				sa.setAttribute(attrName);

@@ -21,5 +21,9 @@ public abstract class SetReferenceInsteadOfDeleteProcessor implements IMatchProc
    */
   public abstract void process(final Delete pDeleteOp, final SetReference pSetRefOp);
   
-  public void process();
+  @Override
+  public void process(final SetReferenceInsteadOfDeleteMatch match) {
+    process(match.getDeleteOp(), match.getSetRefOp());
+    
+  }
 }

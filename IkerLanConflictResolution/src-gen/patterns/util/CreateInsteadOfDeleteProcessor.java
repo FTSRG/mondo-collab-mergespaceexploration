@@ -21,5 +21,9 @@ public abstract class CreateInsteadOfDeleteProcessor implements IMatchProcessor<
    */
   public abstract void process(final Delete pDeleteOp, final Create pCreateOp);
   
-  public void process();
+  @Override
+  public void process(final CreateInsteadOfDeleteMatch match) {
+    process(match.getDeleteOp(), match.getCreateOp());
+    
+  }
 }

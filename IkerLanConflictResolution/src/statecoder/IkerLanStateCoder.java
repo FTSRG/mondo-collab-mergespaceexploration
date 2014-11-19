@@ -11,25 +11,25 @@ import org.eclipse.incquery.runtime.api.IPatternMatch;
 import org.eclipse.incquery.runtime.api.IncQueryEngine;
 import org.eclipse.viatra.dse.statecode.IStateSerializer;
 
-//import patterns.CreateInsteadOfDeleteMatch;
-//import patterns.CreateMatch;
-//import patterns.DeleteMatch;
-//import patterns.ResetAttributeMatch;
-//import patterns.ResetReferenceMatch;
-//import patterns.SetAttributeMatch;
-//import patterns.SetReferenceInsteadOfDeleteMatch;
-//import patterns.SetReferenceMatch;
-import DiffModel.Create;
-import DiffModel.Delete;
-import DiffModel.DiffContainer;
-import DiffModel.Identifiable;
-import DiffModel.ResetAttribute;
-import DiffModel.ResetReference;
-import DiffModel.SetAttribute;
-import DiffModel.SetReference;
+import patterns.CreateInsteadOfDeleteMatch;
+import patterns.CreateMatch;
+import patterns.DeleteMatch;
+import patterns.ResetAttributeMatch;
+import patterns.ResetReferenceMatch;
+import patterns.SetAttributeMatch;
+import patterns.SetReferenceInsteadOfDeleteMatch;
+import patterns.SetReferenceMatch;
+import DseMergeDiffModel.Create;
+import DseMergeDiffModel.Delete;
+import DseMergeDiffModel.DiffContainer;
+import DseMergeDiffModel.Identifiable;
+import DseMergeDiffModel.ResetAttribute;
+import DseMergeDiffModel.ResetReference;
+import DseMergeDiffModel.SetAttribute;
+import DseMergeDiffModel.SetReference;
 import ModelContainer.MainRoot;
-import WTSpecID.IdentifiableWTElement;
-import WTSpecID.WT;
+import wtspecid.IdentifiableWTElement;
+import wtspecid.WT;
 
 public class IkerLanStateCoder implements IStateSerializer{
 

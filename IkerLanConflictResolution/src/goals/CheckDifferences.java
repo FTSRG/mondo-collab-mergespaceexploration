@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.viatra.dse.api.strategy.interfaces.ICheckGoalState;
 import org.eclipse.viatra.dse.base.ThreadContext;
 
-import DiffModel.DiffContainer;
+import DseMergeDiffModel.DiffContainer;
 import ModelContainer.MainRoot;
 
 public class CheckDifferences implements ICheckGoalState {
@@ -81,6 +81,7 @@ public class CheckDifferences implements ICheckGoalState {
 //		System.out.println("diffOB: " + differences.size());
 
 		MainRoot modelRoot = (MainRoot) context.getModelRoot();
+		
 		double a = modelRoot.getDeltaOA().eContents().size();
 		double b = modelRoot.getDeltaOB().eContents().size();
 		

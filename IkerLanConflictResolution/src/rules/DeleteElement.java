@@ -4,8 +4,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.dse.api.TransformationRule;
 
-import DiffModel.Delete;
-import WTSpecID.IdentifiableWTElement;
+import DseMergeDiffModel.Delete;
+import wtspecid.IdentifiableWTElement;
 import patterns.DeleteMatch;
 import patterns.DeleteMatcher;
 import patterns.util.DeleteProcessor;

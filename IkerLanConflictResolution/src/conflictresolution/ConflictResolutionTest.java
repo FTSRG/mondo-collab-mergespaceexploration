@@ -32,30 +32,17 @@ import org.eclipse.viatra.dse.statecode.incrementalgraph.IncrementalGraphHasherF
 import org.eclipse.viatra.dse.util.EMFHelper;
 import org.junit.Test;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 import diffmodelgenerator.DiffModelGenerator;
-//import patterns.CreateInsteadOfDeleteMatch;
-////import patterns.CountOperationsMatcher;
-//import patterns.CreateMatch;
-//import patterns.CreateMatcher;
-//import patterns.DeleteMatch;
-//import patterns.ResetAttributeMatch;
-//import patterns.ResetReferenceMatch;
-//import patterns.SetAttributeMatch;
-//import patterns.SetReferenceInsteadOfDeleteMatch;
-//import patterns.SetReferenceMatch;
+import patterns.CreateInsteadOfDeleteMatch;
+//import patterns.CountOperationsMatcher;
+import patterns.CreateMatch;
+import patterns.CreateMatcher;
+import patterns.DeleteMatch;
+import patterns.ResetAttributeMatch;
+import patterns.ResetReferenceMatch;
+import patterns.SetAttributeMatch;
+import patterns.SetReferenceInsteadOfDeleteMatch;
+import patterns.SetReferenceMatch;
 import rules.CreateElement;
 import rules.CreateInsteadOfDelete;
 import rules.DeleteElement;
@@ -65,13 +52,13 @@ import rules.SetAttribute;
 import rules.SetReference;
 import rules.SetReferenceInsteadOfDelete;
 import statecoder.IkerLanStateCoderFactory;
-import DiffModel.DiffContainer;
-import DiffModel.DiffModelPackage;
+import DseMergeDiffModel.DiffContainer;
+import DseMergeDiffModel.DseMergeDiffModelPackage;
 import ModelContainer.MainRoot;
 import ModelContainer.ModelContainerFactory;
 import ModelContainer.ModelContainerPackage;
-import WTSpecID.WT;
-import WTSpecID.WTSpecIDPackage;
+import wtspecid.WT;
+import wtspecid.WtspecidPackage;
 
 public class ConflictResolutionTest {
 
@@ -109,8 +96,8 @@ public class ConflictResolutionTest {
 //				"/IkerLanConflictResolution/instancemodels/deltaOB.diffmodel",
 //				true), true);
 		
-		DiffContainer diffOA_gen = dmg.generateDiffModel("instancemodels/original.wtspecid", "instancemodels/A.wtspecid");
-		DiffContainer diffOB_gen = dmg.generateDiffModel("instancemodels/original.wtspecid", "instancemodels/B.wtspecid");
+		DiffContainer diffOA_gen = (DiffContainer) dmg.generateDiffModel("instancemodels/original.wtspecid", "instancemodels/A.wtspecid");
+		DiffContainer diffOB_gen = (DiffContainer) dmg.generateDiffModel("instancemodels/original.wtspecid", "instancemodels/B.wtspecid");
 
 		MainRoot mainRoot = ModelContainerFactory.eINSTANCE.createMainRoot();
 
@@ -131,8 +118,8 @@ public class ConflictResolutionTest {
 
 		// adding metamodel packages
 		dse.addMetaModelPackage(ModelContainerPackage.eINSTANCE);
-		dse.addMetaModelPackage(WTSpecIDPackage.eINSTANCE);
-		dse.addMetaModelPackage(DiffModelPackage.eINSTANCE);
+		dse.addMetaModelPackage(WtspecidPackage.eINSTANCE);
+		dse.addMetaModelPackage(DseMergeDiffModelPackage.eINSTANCE);
 
 		// dse.setSerializerFactory(new IncrementalGraphHasherFactory(dse
 		// .getMetaModelPackages()));

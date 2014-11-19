@@ -12,10 +12,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.dse.api.TransformationRule;
 
-import DiffModel.Create;
-import ModelContainer.MainRoot;
-import WTSpecID.IdentifiableWTElement;
-import WTSpecID.WTSpecIDPackage;
+import DseMergeDiffModel.Create;
+import wtspecid.IdentifiableWTElement;
+import wtspecid.WtspecidPackage;
 import patterns.CreateMatch;
 import patterns.CreateMatcher;
 import patterns.util.CreateProcessor;
@@ -59,6 +58,13 @@ public class CreateElement extends CreateProcessor {
 		return createElement;
 	}
 
+//	@Override
+//	public void process(Create pCreateOp, IdentifiableWTElement pContainerTarget) {
+//
+//		
+//		
+//	}
+
 	@Override
 	public void process(Create pCreateOp, IdentifiableWTElement pContainerTarget) {
 
@@ -68,13 +74,13 @@ public class CreateElement extends CreateProcessor {
 		String newID = pCreateOp.getTargetID();
 		String ref = pCreateOp.getReference();
 
-		WTSpecIDPackage.eINSTANCE.eClass();
+		WtspecidPackage.eINSTANCE.eClass();
 
 		// getting EClassifier
-		EClassifier classifier = WTSpecIDPackage.eINSTANCE
+		EClassifier classifier = WtspecidPackage.eINSTANCE
 				.getEClassifier(classType);
 		// creating new EObject based on EClassifier
-		EObject newObject = WTSpecIDPackage.eINSTANCE.getWTSpecIDFactory()
+		EObject newObject = WtspecidPackage.eINSTANCE.getWtspecidFactory()
 				.create((EClass) classifier);
 		// setting ID of the new EObject - there should be an "ID" attribute
 		newObject.eSet(newObject.eClass().getEStructuralFeature("ID"), newID);
