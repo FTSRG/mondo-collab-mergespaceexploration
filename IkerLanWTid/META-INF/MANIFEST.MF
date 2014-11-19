@@ -8,12 +8,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: wtspecid;uses:="org.eclipse.emf.ecore,org.eclipse.emf.common.util",
- wtspecid.impl;
-  uses:="org.eclipse.emf.ecore,
-   org.eclipse.emf.common.util,
-   wtspecid,
-   org.eclipse.emf.common.notify,
-   org.eclipse.emf.ecore.impl",
+ wtspecid.impl;uses:="org.eclipse.emf.ecore,  org.eclipse.emf.common.util,  wtspecid,  org.eclipse.emf.common.notify,  org.eclipse.emf.ecore.impl",
  wtspecid.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
