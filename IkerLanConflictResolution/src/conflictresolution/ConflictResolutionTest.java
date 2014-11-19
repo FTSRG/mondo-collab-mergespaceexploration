@@ -75,17 +75,19 @@ public class ConflictResolutionTest {
 
 		ResourceSet rS = new ResourceSetImpl();
 
+		// IkerLanConflictResolution
+		
 		// loading models
 		Resource original = rS.getResource(URI.createPlatformPluginURI(
-				"/IkerLanConflictResolution/instancemodels/original.wtspecid",
+				"/eu.mondo.collaboration.dsemerge.conflictresolver/instancemodels/original.wtspecid",
 				true), true);
 
 		Resource modA = rS.getResource(URI.createPlatformPluginURI(
-				"/IkerLanConflictResolution/instancemodels/A.wtspecid", true),
+				"/eu.mondo.collaboration.dsemerge.conflictresolver/instancemodels/A.wtspecid", true),
 				true);
 
 		Resource modB = rS.getResource(URI.createPlatformPluginURI(
-				"/IkerLanConflictResolution/instancemodels/B.wtspecid", true),
+				"/eu.mondo.collaboration.dsemerge.conflictresolver/instancemodels/B.wtspecid", true),
 				true);
 
 //		Resource deltaOA = rS.getResource(URI.createPlatformPluginURI(
