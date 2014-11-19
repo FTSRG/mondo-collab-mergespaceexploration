@@ -214,8 +214,10 @@ public class ConflictResolutionTest {
 			SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
 					"MM.dd.'at'.HH.mm.ss");
 			String date = DATE_FORMAT.format(d);
-			EMFHelper.serializeModel(mainRoot, "solution_" + date + "_Number"
-					+ s++, "modelcontainer");
+			EMFHelper.serializeModel(mainRoot, "3outputs_" + date + "_Number"
+					+ s, "modelcontainer");
+			EMFHelper.serializeModel(mainRoot.getOriginal(), "solution_" + date + "_Number"
+					+ s++, "wtspecid");
 
 			System.out.println("AFTER serialization");
 
