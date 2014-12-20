@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><plugin>
+  <extension id="eu.mondo.collaboration.dsemerge.patterns.Patterns" point="org.eclipse.incquery.runtime.queryspecification">
+    <group group="org.eclipse.incquery.runtime.extensibility.SingletonExtensionFactory:eu.mondo.collaboration.dsemerge.patterns.Patterns" id="eu.mondo.collaboration.dsemerge.patterns.Patterns"/>
+  </extension>
+  <extension id="eu.mondo.collaboration.dsemerge.patterns.HelperPatterns" point="org.eclipse.incquery.runtime.queryspecification">
+    <group group="org.eclipse.incquery.runtime.extensibility.SingletonExtensionFactory:eu.mondo.collaboration.dsemerge.patterns.HelperPatterns" id="eu.mondo.collaboration.dsemerge.patterns.HelperPatterns"/>
+  </extension>
+</plugin>
