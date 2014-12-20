@@ -1,0 +1,380 @@
+package eu.mondo.collaboration.dsemerge.patterns
+
+import "http://eu.mondo.collaboration.dsemerge.diffmodel/1.0"
+
+// ---------------------------------------------------------------------------------------------------------
+//	HelperPatterns: they prepare the elements of DiffModels (deltaOA and deltaOB) for conflict resolution.
+// ---------------------------------------------------------------------------------------------------------
+
+pattern createConflictsWithSameDelete(createOp : Create, deleteOp : Delete) {
+	Create.containerTargetID(createOp, cid);
+	Delete.targetID(deleteOp, cid);
+	
+	Create.eliminated(createOp, false);
+	Create.executable(createOp, false);
+}
+
+pattern setAttributeConflictsWithSameDelete(setAttrOp : SetAttribute, deleteOp : Delete) {
+	SetAttribute.targetID(setAttrOp, tid);
+	Delete.targetID(deleteOp, tid);
+	
+	SetAttribute.eliminated(setAttrOp, false);
+	SetAttribute.executable(setAttrOp, false);
+}
+
+pattern setReferenceConflictsWithSameDelete(setRefOp : SetReference, deleteOp : Delete) {
+	SetReference.targetID(setRefOp, tid);
+	Delete.targetID(deleteOp, tid);
+	
+	SetReference.eliminated(setRefOp, false);
+	SetReference.executable(setRefOp, false);
+} or {
+	SetReference.refID(setRefOp, rid);
+	Delete.targetID(deleteOp, rid);
+	
+	SetReference.eliminated(setRefOp, false);
+	SetReference.executable(setRefOp, false);
+}
+
+pattern moveConflictsWithSameDelete(moveOp : Move, deleteOp : Delete) {
+	Move.targetID(moveOp, tid);
+	Delete.targetID(deleteOp, tid);
+	
+	Move.eliminated(moveOp, false);
+	Move.executable(moveOp, false);
+} or {
+	Move.containerTargetID(moveOp, cid);
+	Delete.targetID(deleteOp, cid);
+	
+	Move.eliminated(moveOp, false);
+	Move.executable(moveOp, false);
+}
+
+pattern setReferenceConnectedToConflictingCreate(setRefOp : SetReference, createOp : Create, deleteOp : Delete) {
+	Create.targetID(createOp, tid);
+	SetReference.refID(setRefOp, tid);
+	Create.containerTargetID(createOp, cid);
+	Delete.targetID(deleteOp, cid);
+	
+	Create.eliminated(createOp, false);
+	Create.executable(createOp, false);
+} or {
+	Create.targetID(createOp, tid);
+	SetReference.targetID(setRefOp, tid);
+	Create.containerTargetID(createOp, cid);
+	Delete.targetID(deleteOp, cid);
+	
+	Create.eliminated(createOp, false);
+	Create.executable(createOp, false);
+}
+
+pattern moveConnectedToConflictingCreate(moveOp : Move, createOp : Create, deleteOp : Delete) {
+	Create.targetID(createOp, tid);
+	Move.containerTargetID(moveOp, tid);
+	Create.containerTargetID(createOp, cid);
+	Delete.targetID(deleteOp, cid);
+	
+	Create.eliminated(createOp, false);
+	Create.executable(createOp, false);
+}
+
+pattern containerDelete(moveOp : Move, deleteOp : Delete) {
+	Move.containerTargetID(moveOp, cid);
+	Delete.targetID(deleteOp, cid);
+	
+	Delete.executable(deleteOp, true);
+} 
+
+pattern targetOfMoveExists(moveOp : Move, deleteOp : Delete) {
+	Move.targetID(moveOp, cid);
+	Delete.targetID(deleteOp, cid);
+	
+	Delete.executable(deleteOp, false);
+} 
+
+pattern containerToBeCreated(moveOp : Move, createOp : Create, deleteOp : Delete) {
+	Create.targetID(createOp, tid);
+	Move.containerTargetID(moveOp, tid);
+	Create.containerTargetID(createOp, cid);
+	Delete.targetID(deleteOp, cid);
+	
+	//Delete.executable(deleteOp, true);
+	//Create.executable(createOp, true);
+}
+
+// Executable Create operation conflicts with executable Delete operation (DeleteOp will be non-executable this way.)
+pattern createVSDelete(createOp : Create, deleteOp : Delete) {
+	Create.containerTargetID(createOp, id);
+	Delete.targetID(deleteOp, id);
+
+	Create.executable(createOp, true);
+	Delete.executable(deleteOp, true);
+	
+	neg find createConflictsWithSameDelete(_createOpX, deleteOp);
+	neg find setAttributeConflictsWithSameDelete(_setAttrOpX, deleteOp);
+	neg find setReferenceConflictsWithSameDelete(_setRefOpX, deleteOp);
+	neg find moveConflictsWithSameDelete(_moveOpX, deleteOp);
+}
+
+// Executable Delete operation conflicts with executable Create operation (CreateOp will be non-executable this way.)
+pattern deleteVSCreate(deleteOp : Delete, createOp : Create) {
+	Delete.targetID(deleteOp, id);
+	Create.containerTargetID(createOp, id);
+	
+	Delete.executable(deleteOp, true);
+	Create.executable(createOp, true);
+}
+
+// Executable SetAttribute operation conflicts with executable Delete operation (DeleteOp will be non-executable this way.)
+pattern setAttrVSDelete(setAttrOp : SetAttribute, deleteOp : Delete) {
+	SetAttribute.targetID(setAttrOp, id);
+	Delete.targetID(deleteOp, id);
+	
+	SetAttribute.executable(setAttrOp, true);
+	Delete.executable(deleteOp, true);
+	
+	//neg find nonExecSetRefWithSameTarget(deleteOp, _setRefOp);
+	neg find createConflictsWithSameDelete(_createOpX, deleteOp);
+	neg find setAttributeConflictsWithSameDelete(_setAttrOpX, deleteOp);
+	neg find setReferenceConflictsWithSameDelete(_setRefOpX, deleteOp);
+	neg find moveConflictsWithSameDelete(_moveOpX, deleteOp); 
+}
+
+// Executable Delete operation conflicts with executable SetAttribute operation (SetAttributeOp will be non-executable this way.)
+pattern deleteVSSetAttr(deleteOp : Delete, setAttrOp : SetAttribute) {
+	Delete.targetID(deleteOp, id);
+	SetAttribute.targetID(setAttrOp, id);
+	
+	Delete.executable(deleteOp, true);
+	SetAttribute.executable(setAttrOp, true);
+}
+
+// Executable SetReference operation conflicts with executable Delete operation (DeleteOp will be non-executable this way.)
+pattern setRefVSDelete(setRefOp : SetReference, deleteOp : Delete) {
+	SetReference.targetID(setRefOp, id);
+	Delete.targetID(deleteOp, id);
+	
+	SetReference.executable(setRefOp, true);
+	Delete.executable(deleteOp, true);
+	
+	//neg find nonExecSetAttrWithSameTargetAsDelete(deleteOp, _setAttrOp);
+	neg find createConflictsWithSameDelete(_createOpX, deleteOp);
+	neg find setAttributeConflictsWithSameDelete(_setAttrOpX, deleteOp);
+	neg find setReferenceConflictsWithSameDelete(_setRefOpX, deleteOp);
+	neg find moveConflictsWithSameDelete(_moveOpX, deleteOp);
+} or {
+	SetReference.refID(setRefOp, id);
+	Delete.targetID(deleteOp, id);
+	
+	SetReference.executable(setRefOp, true);
+	Delete.executable(deleteOp, true);
+	
+	//neg find nonExecSetAttrWithSameTargetAsDelete(deleteOp, _setAttrOp);
+	neg find createConflictsWithSameDelete(_createOpX, deleteOp);
+	neg find setAttributeConflictsWithSameDelete(_setAttrOpX, deleteOp);
+	neg find setReferenceConflictsWithSameDelete(_setRefOpX, deleteOp);
+	neg find moveConflictsWithSameDelete(_moveOpX, deleteOp);
+}
+
+// Executable Delete operation conflicts with executable SetReference operation (SetReferenceOp will be non-executable this way.)
+pattern deleteVSSetRef(deleteOp : Delete, setRefOp : SetReference) {
+	Delete.targetID(deleteOp, id);
+	SetReference.targetID(setRefOp, id);
+	
+	Delete.executable(deleteOp, true);
+	SetReference.executable(setRefOp, true);
+} or {
+	Delete.targetID(deleteOp, id);
+	SetReference.refID(setRefOp, id);
+	
+	Delete.executable(deleteOp, true);
+	SetReference.executable(setRefOp, true);
+} or {
+	find setReferenceConnectedToConflictingCreate(setRefOp, _createOpX, deleteOp);
+	
+	Delete.executable(deleteOp, true);
+	SetReference.executable(setRefOp, true);
+}
+
+// Executable Move operation conflicts with executable Delete operation (DeleteOp will be non-executable this way.)
+pattern moveVSDelete(moveOp : Move, deleteOp : Delete) {
+	Move.targetID(moveOp, id);
+	Delete.targetID(deleteOp, id);
+	
+	Move.executable(moveOp, true);
+	Delete.executable(deleteOp, true);
+	
+	neg find createConflictsWithSameDelete(_createOpX, deleteOp);
+	neg find setAttributeConflictsWithSameDelete(_setAttrOpX, deleteOp);
+	neg find setReferenceConflictsWithSameDelete(_setRefOpX, deleteOp);
+	neg find moveConflictsWithSameDelete(_moveOpX, deleteOp);
+} or {
+	Move.containerTargetID(moveOp, id);
+	Delete.targetID(deleteOp, id);
+	
+	Move.executable(moveOp, true);
+	Delete.executable(deleteOp, true);
+	
+	neg find createConflictsWithSameDelete(_createOpX, deleteOp);
+	neg find setAttributeConflictsWithSameDelete(_setAttrOpX, deleteOp);
+	neg find setReferenceConflictsWithSameDelete(_setRefOpX, deleteOp);
+	neg find moveConflictsWithSameDelete(_moveOpX, deleteOp);
+}
+
+// Executable Delete operation conflicts with executable Move operation (Move will be non-executable this way.)
+pattern deleteVSMove(deleteOp : Delete, moveOp : Move) {
+	Delete.targetID(deleteOp, id);
+	Move.targetID(moveOp, id);
+	
+	Delete.executable(deleteOp, true);
+	Move.executable(moveOp, true);
+	
+	//neg find containerDelete(moveOp, _deleteOpX);
+} or {
+	Delete.targetID(deleteOp, id);
+	Move.containerTargetID(moveOp, id);
+	
+	Delete.executable(deleteOp, true);
+	Move.executable(moveOp, true);
+	// TODO
+	//neg find targetOfMoveExists(moveOp, _deleteOpX);
+} or {
+	find moveConnectedToConflictingCreate(moveOp, _createOpX, deleteOp);
+	
+	Delete.executable(deleteOp, true);
+	Move.executable(moveOp, true);
+}
+
+// Non-executable SetAttribute operations which have the same target as a Delete operation
+pattern nonExecSetAttrWithSameTargetAsDelete(deleteOp : Delete, setAttrOp : SetAttribute) {
+	Delete.targetID(deleteOp, id);
+	SetAttribute.targetID(setAttrOp, id);
+	
+	SetAttribute.executable(setAttrOp, false);
+}
+
+// Non-executable SetReference operations which have the same target (or referenced element) as a Delete operation
+pattern nonExecSetRefWithSameTarget(deleteOp : Delete, setRefOp : SetReference) {
+	Delete.targetID(deleteOp, id);
+	SetReference.targetID(setRefOp, id);
+	
+	SetReference.executable(setRefOp, false);
+} or {
+	Delete.targetID(deleteOp, id);
+	SetReference.refID(setRefOp, id);
+	
+	SetReference.executable(setRefOp, false);
+}
+
+
+
+
+
+
+
+
+
+
+// Executable Move operation conflicts with executable Move operation (One of them will be eliminated this way.)
+pattern moveVSMove(moveOp : Move, moveOp2 : Move) {
+	Move.targetID(moveOp, tid);
+	Move.targetID(moveOp2, tid);
+	
+	Move.containerTargetID(moveOp, cid);
+	Move.containerTargetID(moveOp2, cid2);
+	cid != cid2;
+	
+	Move.executable(moveOp, true);
+	Move.executable(moveOp2, true);
+	Move.eliminated(moveOp, false);
+	Move.eliminated(moveOp2, false);
+	
+	//neg find containerDelete(moveOp, _deleteOpX);
+	//neg find containerDelete(moveOp2, _deleteOpX2);
+	neg find containerToBeCreated(moveOp, _createOpX, _deleteOpX);
+	//neg find containerToBeCreated(moveOp2, _createOpX2, _deleteOpX4);
+} or {
+	Move.targetID(moveOp, tid);
+	Move.targetID(moveOp2, tid);
+	
+	Move.reference(moveOp, ref);
+	Move.reference(moveOp2, ref2);
+	ref != ref2;
+	
+	Move.executable(moveOp, true);
+	Move.executable(moveOp2, true);
+	Move.eliminated(moveOp, false);
+	Move.eliminated(moveOp2, false);
+	
+	//neg find containerDelete(moveOp, _deleteOpX);
+	//neg find containerDelete(moveOp2, _deleteOpX2);
+	neg find containerToBeCreated(moveOp, _createOpX, _deleteOpX);
+	//neg find containerToBeCreated(moveOp2, _createOpX2, _deleteOpX4);
+}
+
+// Executable SetReference operation conflicts with executable SetReference operation (One of them will be eliminated this way.)
+pattern setRefVSSetRef(setRefOp : SetReference, setRefOp2 : SetReference) {
+	SetReference.targetID(setRefOp, tid);
+	SetReference.targetID(setRefOp2, tid);
+	SetReference.reference(setRefOp, ref);
+	SetReference.reference(setRefOp2, ref);
+	
+	SetReference.refID(setRefOp, rid);
+	SetReference.refID(setRefOp2, rid2);
+	rid != rid2;
+	
+	SetReference.executable(setRefOp, true);
+	SetReference.executable(setRefOp2, true);
+	SetReference.eliminated(setRefOp, false);
+	SetReference.eliminated(setRefOp2, false);
+}
+
+// Executable SetAttribute operation conflicts with executable SetAttribute operation (One of them will be eliminated this way.)
+pattern setAttrVSSetAttr(setAttrOp : SetAttribute, setAttrOp2 : SetAttribute) {
+	SetAttribute.targetID(setAttrOp, tid);
+	SetAttribute.targetID(setAttrOp2, tid);
+	SetAttribute.attribute(setAttrOp, attr);
+	SetAttribute.attribute(setAttrOp2, attr);
+	
+	SetAttribute.value(setAttrOp, value);
+	SetAttribute.value(setAttrOp2, value2);
+	value != value2;
+
+	SetAttribute.executable(setAttrOp, true);
+	SetAttribute.executable(setAttrOp2, true);
+	SetAttribute.eliminated(setAttrOp, false);
+	SetAttribute.eliminated(setAttrOp2, false);
+}
+
+// Non-executable Create operation has to disable executable SetReference operations conflicting with the same Delete as Create
+pattern nonExecCreateAndExecSetRefWithSameTarget(createOp : Create, setRefOp : SetReference) {
+	Create.targetID(createOp, id);
+	SetReference.targetID(setRefOp, id);
+	
+	Create.eliminated(createOp, false);
+	Create.executable(createOp, false);
+	SetReference.executable(setRefOp, true);
+} or {
+	Create.targetID(createOp, id);
+	SetReference.refID(setRefOp, id);
+	
+	Create.eliminated(createOp, false);
+	Create.executable(createOp, false);
+	SetReference.executable(setRefOp, true);
+} 
+//or {
+//	Create.targetID(createOp, id);
+//	SetReference.targetID(setRefOp, id);
+//	
+//	SetReference.eliminated(setRefOp, false);
+//	Create.executable(createOp, true);
+//	SetReference.executable(setRefOp, false);
+//} 
+//or {
+//	Create.targetID(createOp, id);
+//	SetReference.refID(setRefOp, id);
+//	
+//	SetReference.eliminated(setRefOp, false);
+//	Create.executable(createOp, true);
+//	SetReference.executable(setRefOp, false);
+//}

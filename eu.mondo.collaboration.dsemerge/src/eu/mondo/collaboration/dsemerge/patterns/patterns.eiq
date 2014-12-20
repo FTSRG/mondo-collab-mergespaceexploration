@@ -1,0 +1,518 @@
+package eu.mondo.collaboration.dsemerge.patterns
+
+import "http://dsemergewtspecid/1.0"
+import "http://eu.mondo.collaboration.dsemerge.diffmodel/1.0"
+import "http://eu.mondo.collaboration.dsemerge.modelcontainer/1.0"
+
+// Executable Delete operation which have the same target as a Create operation
+pattern execDeleteWithSameTargetAsCreate(createOp : Create, deleteOp : Delete) {
+	Create.containerTargetID(createOp, tid);
+	Delete.targetID(deleteOp, tid);
+	
+	Delete.executable(deleteOp, true);
+}
+
+// Non-executable SetAttribute operations which have the same target as a Create operation
+pattern nonExecSetAttrWithSameTargetAsCreate(createOp : Create, setAttrOp : SetAttribute) {
+	Create.containerTargetID(createOp, id);
+	SetAttribute.targetID(setAttrOp, id);
+	
+	SetAttribute.executable(setAttrOp, false);
+	SetAttribute.eliminated(setAttrOp, false);
+}
+
+// Non-executable SetReference operations which have the same target as a Create operation
+pattern nonExecSetRefWithSameTargetAsCreate(createOp : Create, setRefOp : SetReference) {
+	Create.containerTargetID(createOp, id);
+	SetReference.targetID(setRefOp, id);
+	
+	SetReference.executable(setRefOp, false);
+	SetReference.eliminated(setRefOp, false);
+}
+
+// Non-executable Move operations which have the same target as a Create operation
+pattern nonExecMoveWithSameTargetAsCreate(createOp : Create, moveOp : Move) {
+	Create.containerTargetID(createOp, id);
+	Move.containerTargetID(moveOp, id);
+	
+	Move.executable(moveOp, false);
+	Move.eliminated(moveOp, false);
+}
+
+// Executable Create operations which have the same target as a Delete operation
+pattern execCreateWithSameTargetAsDelete(deleteOp : Delete, createOp : Create) {
+	Delete.targetID(deleteOp, tid);
+	Create.containerTargetID(createOp, tid);
+	
+	Create.executable(createOp, true);
+}
+
+// Executable SetReference operations which have the same target (or referenced element) as a Delete operation
+pattern execSetRefWithSameTargetAsDelete(deleteOp : Delete, setRefOp : SetReference) {
+	Delete.targetID(deleteOp, id);
+	SetReference.targetID(setRefOp, id);
+	
+	SetReference.executable(setRefOp, true);
+} or {
+	Delete.targetID(deleteOp, id);
+	SetReference.refID(setRefOp, id);
+	
+	SetReference.executable(setRefOp, true);
+}
+
+// Executable SetAttribute operations which have the same target as a Delete operation
+pattern execSetAttrWithSameTargetAsDelete(deleteOp : Delete, setAttrOp : SetAttribute) {
+	Delete.targetID(deleteOp, id);
+	SetAttribute.targetID(setAttrOp, id);
+	
+	SetAttribute.executable(setAttrOp, true);
+}
+
+// Executable Move operations which have the same target as a Delete operation
+pattern execMoveWithSameTargetAsDelete(deleteOp : Delete, moveOp : Move) {
+	Delete.targetID(deleteOp, id);
+	Move.targetID(moveOp, id);
+	
+	Move.executable(moveOp, true);
+} or {
+	Delete.targetID(deleteOp, id);
+	Move.containerTargetID(moveOp, id);
+	
+	Move.executable(moveOp, true);
+}
+
+// Executable Delete operation which have the same target as a Move operation
+pattern execDeleteWithSameTargetAsMove(moveOp : Move, deleteOp : Delete) {
+	Move.containerTargetID(moveOp, id);
+	Delete.targetID(deleteOp, id);
+	
+	Delete.executable(deleteOp, true);
+} or {
+	Move.targetID(moveOp, id);
+	Delete.targetID(deleteOp, id);
+	
+	Delete.executable(deleteOp, true);
+}
+
+// Non-executable Create operations which have the same target as a Move operation
+pattern nonExecCreateWithSameTargetAsMove(moveOp : Move, createOp : Create) {
+	Move.containerTargetID(moveOp, id);
+	Create.containerTargetID(createOp, id);
+	
+	Create.executable(createOp, false);
+	Create.eliminated(createOp, false);
+} or {
+	Move.targetID(moveOp, id);
+	Create.containerTargetID(createOp, id);
+	
+	Create.executable(createOp, false);
+	Create.eliminated(createOp, false);
+}
+
+// Non-executable SetAttribute operations which have the same target as a Move operation
+pattern nonExecSetAttrWithSameTargetAsMove(moveOp : Move, setAttrOp : SetAttribute) {
+	Move.containerTargetID(moveOp, id);
+	SetAttribute.targetID(setAttrOp, id);
+	
+	SetAttribute.executable(setAttrOp, false);
+	SetAttribute.eliminated(setAttrOp, false);
+} or {
+	Move.targetID(moveOp, id);
+	SetAttribute.targetID(setAttrOp, id);
+	
+	SetAttribute.executable(setAttrOp, false);
+	SetAttribute.eliminated(setAttrOp, false);
+}
+
+// Non-executable SetReference operations which have the same target as a Move operation
+pattern nonExecSetRefWithSameTargetAsMove(moveOp : Move, setRefOp : SetReference) {
+	Move.containerTargetID(moveOp, id);
+	SetReference.targetID(setRefOp, id);
+	
+	SetReference.executable(setRefOp, false);
+	SetReference.eliminated(setRefOp, false);
+} or {
+	Move.targetID(moveOp, id);
+	SetReference.targetID(setRefOp, id);
+	
+	SetReference.executable(setRefOp, false);
+	SetReference.eliminated(setRefOp, false);
+}
+
+// Pairs of different Move operations with the same target (same referenced element, different target container or reference)
+pattern differentMoveWithSameTarget(moveOp : Move, moveOp2 : Move) {
+	Move.targetID(moveOp, rid);
+	Move.targetID(moveOp2, rid);
+	
+	Move.containerTargetID(moveOp, id);
+	Move.containerTargetID(moveOp2, id2);
+	id != id2;
+	
+	Move.eliminated(moveOp2, false);
+} or {
+	Move.targetID(moveOp, rid);
+	Move.targetID(moveOp2, rid);
+	
+	Move.reference(moveOp, r);
+	Move.reference(moveOp, r2);
+	r != r2;
+	
+	Move.eliminated(moveOp2, false);
+}
+
+// Executable Delete operation which have the same target as a SetAttribute operation
+pattern execDeleteWithSameTargetAsSetAttr(setAttrOp : SetAttribute, deleteOp : Delete) {
+	SetAttribute.targetID(setAttrOp, id);
+	Delete.targetID(deleteOp, id);
+	
+	Delete.executable(deleteOp, true);
+}
+
+// Non-executable SetReference operations which have the same target as a SetAttribute operation
+pattern nonExecSetRefWithSameTargetAsSetAttr(setAttrOp : SetAttribute, setRefOp : SetReference) {
+	SetAttribute.targetID(setAttrOp, id);
+	SetReference.targetID(setRefOp, id);
+	
+	SetReference.executable(setRefOp, false);
+	SetReference.eliminated(setRefOp, false);
+}
+
+// Non-executable Create operations which have the same target as a SetAttribute operation
+pattern nonExecCreateWithSameTargetAsSetAttr(setAttrOp : SetAttribute, createOp : Create) {
+	SetAttribute.targetID(setAttrOp, id);
+	Create.containerTargetID(createOp, id);
+	
+	Create.executable(createOp, false);
+	Create.eliminated(createOp, false);
+}
+
+// Non-executable Move operations which have the same target as a SetAttribute operation
+pattern nonExecMoveWithSameTargetAsSetAttr(setAttrOp : SetAttribute, moveOp : Move) {
+	SetAttribute.targetID(setAttrOp, id);
+	Move.containerTargetID(moveOp, id);
+	
+	Move.executable(moveOp, false);
+	Move.eliminated(moveOp, false);
+}
+
+// Pairs of different SetAttribute operations with the same target (same attribute, different value)
+pattern differentSetAttributeWithSameTarget(setAttrOp : SetAttribute, setAttrOp2 : SetAttribute) {
+	SetAttribute.targetID(setAttrOp, tid);
+	SetAttribute.targetID(setAttrOp2, tid);
+	SetAttribute.attribute(setAttrOp, attr);
+	SetAttribute.attribute(setAttrOp2, attr);
+	
+	SetAttribute.value(setAttrOp, value);
+	SetAttribute.value(setAttrOp2, value2);
+	value != value2;
+	
+	SetAttribute.eliminated(setAttrOp2, false);
+//	SetAttribute.ID(setAttrOp, id);
+//	SetAttribute.ID(setAttrOp2, id2);
+//	id != id2;
+}
+
+// Executable Delete operation which have the same target as a SetReference operation (or its referenced element)
+pattern execDeleteWithSameTargetAsSetRef(setRefOp : SetReference, deleteOp : Delete) {
+	SetReference.targetID(setRefOp, id);
+	Delete.targetID(deleteOp, id);
+	
+	Delete.executable(deleteOp, true);
+} or {
+	SetReference.refID(setRefOp, id);
+	Delete.targetID(deleteOp, id);
+	
+	Delete.executable(deleteOp, true);
+}
+
+// Non-executable SetAttribute operations which have the same target as a SetReference operation (or its referenced element)
+pattern nonExecSetAttrWithSameTargetAsSetRef(setRefOp : SetReference, setAttrOp : SetAttribute) {
+	SetReference.targetID(setRefOp, id);
+	SetAttribute.targetID(setAttrOp, id);
+	
+	SetAttribute.executable(setAttrOp, false);
+	SetAttribute.eliminated(setAttrOp, false);
+} or {
+	SetReference.refID(setRefOp, id);
+	SetAttribute.targetID(setAttrOp, id);
+	
+	SetAttribute.executable(setAttrOp, false);
+	SetAttribute.eliminated(setAttrOp, false);
+}
+
+// Non-executable Create operations which have the same target as a SetReference operation
+pattern nonExecCreateWithSameTargetAsSetRef(setRefOp : SetReference, createOp : Create) {
+	SetReference.targetID(setRefOp, id);
+	Create.containerTargetID(createOp, id);
+	
+	Create.executable(createOp, false);
+	Create.eliminated(createOp, false);
+} or {
+	SetReference.refID(setRefOp, id);
+	Create.containerTargetID(createOp, id);
+	
+	Create.executable(createOp, false);
+	Create.eliminated(createOp, false);
+}
+
+// Non-executable Move operations which have the same target as a SetReference operation
+pattern nonExecMoveWithSameTargetAsSetRef(setRefOp : SetReference, moveOp : Move) {
+	SetReference.targetID(setRefOp, id);
+	Move.containerTargetID(moveOp, id);
+	
+	Move.executable(moveOp, false);
+	Move.eliminated(moveOp, false);
+} or {
+	SetReference.refID(setRefOp, id);
+	Move.containerTargetID(moveOp, id);
+	
+	Move.executable(moveOp, false);
+	Move.eliminated(moveOp, false);
+}
+
+// Pairs of different SetReference operations with the same target (same reference, different referenced element)
+pattern differentSetReferenceWithSameTarget(setRefOp : SetReference, setRefOp2 : SetReference) {
+	SetReference.targetID(setRefOp, tid);
+	SetReference.targetID(setRefOp2, tid);
+	SetReference.reference(setRefOp, ref);
+	SetReference.reference(setRefOp2, ref);
+	
+	SetReference.refID(setRefOp, rid);
+	SetReference.refID(setRefOp2, rid2);
+	rid != rid2;
+	
+	SetReference.eliminated(setRefOp2, false);
+//	SetReference.ID(setRefOp, id);
+//	SetReference.ID(setRefOp2, id2);
+//	id != id2;
+}
+
+
+
+// 
+// Create operations
+// 
+// 		- checking if the container of new element exists
+// 		- checking if the Create operation is executable
+// 		- checking if conflicting Delete operation is non-executable
+// TODO commenting
+pattern create(createOp : Create, containerTarget : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(containerTarget, id);
+	Create.containerTargetID(createOp, id);
+	
+	Create.executable(createOp, true);
+	neg find execDeleteWithSameTargetAsCreate(createOp, _deleteOp);
+	neg find nonExecSetAttrWithSameTargetAsCreate(createOp, _setAttrOp);
+	neg find nonExecSetRefWithSameTargetAsCreate(createOp, _setRefOp);
+	neg find nonExecMoveWithSameTargetAsCreate(createOp, _moveOp);
+}
+
+// 
+// Delete operations
+// 
+// 		- checking if the target of Delete operation exists
+// 		- checking if the Delete operation is executable
+// 		- checking if conflicting Create, SetReference and SetAttribute operations are non-executable
+// TODO handling of conflicting Move operations and commenting
+pattern delete(deleteOp : Delete, target : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, id);
+	Delete.targetID(deleteOp, id);
+	
+	Delete.executable(deleteOp, true);
+	neg find execCreateWithSameTargetAsDelete(deleteOp, _createOp);
+	neg find execSetRefWithSameTargetAsDelete(deleteOp, _setRefOp);
+	neg find execSetAttrWithSameTargetAsDelete(deleteOp, _setAttrOp);
+	neg find execMoveWithSameTargetAsDelete(deleteOp, _moveOp);
+}
+
+// 
+// Move operations
+// 
+// 		- checking if the referenced element exists
+// 		- checking if the container of referenced element exists
+// 		- checking if the Move operation is executable
+// 		- checking if conflicting Delete operation is non-executable
+// TODO commenting and conflict handling
+pattern move(moveOp : Move, containerTarget : IdentifiableWTElement, ref : IdentifiableWTElement, moveOp2 : Move, containerTarget2 : IdentifiableWTElement, ref2 : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(ref, rid);
+	Move.targetID(moveOp, rid);
+	IdentifiableWTElement.ID(ref2, rid);
+	Move.targetID(moveOp2, rid);
+	
+	IdentifiableWTElement.ID(containerTarget, id);
+	Move.containerTargetID(moveOp, id);
+	IdentifiableWTElement.ID(containerTarget2, id2);
+	Move.containerTargetID(moveOp2, id2);
+	id != id2;
+	
+	Move.executable(moveOp, true);
+	Move.executable(moveOp2, false);
+	Move.eliminated(moveOp2, false);
+	
+	neg find execDeleteWithSameTargetAsMove(moveOp, _deleteOp);
+	neg find nonExecCreateWithSameTargetAsMove(moveOp, _createOp);
+	neg find nonExecSetAttrWithSameTargetAsMove(moveOp, _setAttrOp);
+	neg find nonExecSetRefWithSameTargetAsMove(moveOp, _setRefOp);
+	
+} or {
+	IdentifiableWTElement.ID(ref, rid);
+	Move.targetID(moveOp, rid);
+	IdentifiableWTElement.ID(ref2, rid);
+	Move.targetID(moveOp2, rid);
+	
+	IdentifiableWTElement.ID(containerTarget, id);
+	Move.containerTargetID(moveOp, id);
+	IdentifiableWTElement.ID(containerTarget2, id);
+	Move.containerTargetID(moveOp2, id);
+	
+	Move.reference(moveOp, r);
+	Move.reference(moveOp, r2);
+	r != r2;
+	
+	Move.executable(moveOp, true);
+	Move.executable(moveOp2, false);
+	Move.eliminated(moveOp2, false);
+	
+	neg find execDeleteWithSameTargetAsMove(moveOp, _deleteOp);
+	neg find nonExecCreateWithSameTargetAsMove(moveOp, _createOp);
+	neg find nonExecSetAttrWithSameTargetAsMove(moveOp, _setAttrOp);
+	neg find nonExecSetRefWithSameTargetAsMove(moveOp, _setRefOp);
+	
+} or {
+	neg find differentMoveWithSameTarget(moveOp, _moveOpX);
+	
+	IdentifiableWTElement.ID(ref, rid);
+	Move.targetID(moveOp, rid);
+	IdentifiableWTElement.ID(ref2, rid);
+	Move.targetID(moveOp2, rid);
+	
+	IdentifiableWTElement.ID(containerTarget, id);
+	Move.containerTargetID(moveOp, id);
+	IdentifiableWTElement.ID(containerTarget2, id);
+	Move.containerTargetID(moveOp2, id);
+	
+	Move.reference(moveOp, r);
+	Move.reference(moveOp2, r);
+	
+	Move.executable(moveOp, true);
+	
+	neg find execDeleteWithSameTargetAsMove(moveOp, _deleteOp);
+	neg find nonExecCreateWithSameTargetAsMove(moveOp, _createOp);
+	neg find nonExecSetAttrWithSameTargetAsMove(moveOp, _setAttrOp);
+	neg find nonExecSetRefWithSameTargetAsMove(moveOp, _setRefOp);
+}
+
+// 
+// SetAttribute operations
+// 
+// 		If a pair of different SetAttribute operations (with the same target) exists:
+// 		- checking if only one of them is executable
+// 		- checking if conflicting Delete operation is non-executable
+// 		- checking if SetReference operations with the same target (conflicting with 
+// 		  the same Delete operation above) are still executable
+// 		else if it does not exist:
+// 		- the elements of the pair have to be the same
+// 		
+pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement, setAttrOp2 : SetAttribute, target2 : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, tid);
+	IdentifiableWTElement.ID(target2, tid);
+	SetAttribute.targetID(setAttrOp, tid);
+	SetAttribute.targetID(setAttrOp2, tid);
+	SetAttribute.attribute(setAttrOp, attr);
+	SetAttribute.attribute(setAttrOp2, attr);
+	
+	SetAttribute.value(setAttrOp, value);
+	SetAttribute.value(setAttrOp2, value2);
+	value != value2;
+	
+//	SetAttribute.ID(setAttrOp, id);
+//	SetAttribute.ID(setAttrOp2, id2);
+//	id != id2;
+	
+	SetAttribute.executable(setAttrOp, true);
+	SetAttribute.executable(setAttrOp2, false);
+	SetAttribute.eliminated(setAttrOp2, false);
+	
+	neg find execDeleteWithSameTargetAsSetAttr(setAttrOp, _deleteOp);
+	neg find nonExecSetRefWithSameTargetAsSetAttr(setAttrOp, _setRefOp);
+	neg find nonExecCreateWithSameTargetAsSetAttr(setAttrOp, _createOp);
+	neg find nonExecMoveWithSameTargetAsSetAttr(setAttrOp, _moveOp);
+	
+} or {
+	neg find differentSetAttributeWithSameTarget(setAttrOp, _setAttrOpX);
+	
+	IdentifiableWTElement.ID(target, tid);
+	SetAttribute.targetID(setAttrOp, tid);
+	SetAttribute.attribute(setAttrOp, attr);
+	SetAttribute.value(setAttrOp, value);
+	IdentifiableWTElement.ID(target2, tid);
+	SetAttribute.targetID(setAttrOp2, tid);
+	SetAttribute.attribute(setAttrOp2, attr);
+	SetAttribute.value(setAttrOp2, value);
+	
+//	SetAttribute.ID(setAttrOp, id);
+//	SetAttribute.ID(setAttrOp2, id);
+
+	SetAttribute.executable(setAttrOp, true);
+	
+	neg find execDeleteWithSameTargetAsSetAttr(setAttrOp, _deleteOp);
+	neg find nonExecSetRefWithSameTargetAsSetAttr(setAttrOp, _setRefOp);
+	neg find nonExecCreateWithSameTargetAsSetAttr(setAttrOp, _createOp);
+	neg find nonExecMoveWithSameTargetAsSetAttr(setAttrOp, _moveOp);
+}
+
+pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement, ref : IdentifiableWTElement, setRefOp2 : SetReference, target2 : IdentifiableWTElement, ref2 : IdentifiableWTElement) {
+	IdentifiableWTElement.ID(target, tid);
+	SetReference.targetID(setRefOp, tid);
+	IdentifiableWTElement.ID(ref, rid);
+	SetReference.refID(setRefOp, rid);
+	
+	IdentifiableWTElement.ID(target2, tid);
+	SetReference.targetID(setRefOp2, tid);
+	IdentifiableWTElement.ID(ref2, rid2);
+	SetReference.refID(setRefOp2, rid2);
+	
+	rid != rid2;
+	
+	SetReference.reference(setRefOp, r);
+	SetReference.reference(setRefOp2, r);
+	
+//	SetReference.ID(setRefOp, id);
+//	SetReference.ID(setRefOp2, id2);
+//	id != id2;
+	
+	SetReference.executable(setRefOp, true);
+	SetReference.executable(setRefOp2, false);
+	SetReference.eliminated(setRefOp2, false);
+
+	neg find execDeleteWithSameTargetAsSetRef(setRefOp, _deleteOp);
+	neg find nonExecSetAttrWithSameTargetAsSetRef(setRefOp, _setAttrOp);
+	neg find nonExecCreateWithSameTargetAsSetRef(setRefOp, _createOp);
+	neg find nonExecMoveWithSameTargetAsSetRef(setRefOp, _moveOp);
+	
+} or {
+	neg find differentSetReferenceWithSameTarget(setRefOp, _setRefOpX);
+	
+	IdentifiableWTElement.ID(target, tid);
+	SetReference.targetID(setRefOp, tid);
+	IdentifiableWTElement.ID(ref, rid);
+	SetReference.refID(setRefOp, rid);
+	
+	IdentifiableWTElement.ID(target2, tid);
+	SetReference.targetID(setRefOp2, tid);
+	IdentifiableWTElement.ID(ref2, rid);
+	SetReference.refID(setRefOp2, rid);
+	
+	SetReference.reference(setRefOp, r);
+	SetReference.reference(setRefOp2, r);
+	
+//	SetReference.ID(setRefOp, id);
+//	SetReference.ID(setRefOp2, id);
+	
+	SetReference.executable(setRefOp, true);
+
+	neg find execDeleteWithSameTargetAsSetRef(setRefOp, _deleteOp);
+	neg find nonExecSetAttrWithSameTargetAsSetRef(setRefOp, _setAttrOp);
+	neg find nonExecCreateWithSameTargetAsSetRef(setRefOp, _createOp);
+	neg find nonExecMoveWithSameTargetAsSetRef(setRefOp, _moveOp);
+}

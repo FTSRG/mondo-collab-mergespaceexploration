@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wtc:WT xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wtc="http://dsemergewtspecid/1.0" ID="WTModel_1" sysId="WTModel_1" model="WTModel" version="1.0">
+  <itsSubsystems ID="Subsystem_01" sysId="Subsystem_01" description="desc"/>
+  <itsSubsystems ID="Subsystem_02" sysId="Subsystem_02" description="desc">
+    <itsSubsystems ID="Subsystem_03_nested" sysId="Subsystem_03_nested" description="nested">
+      <itsWTCs xsi:type="wtc:CtrlUnit2" ID="CU2_01" sysId="CU2_01" description="" Parameter__pNorthOffset="PA_1"/>
+    </itsSubsystems>
+  </itsSubsystems>
+  <itsSubsystems ID="Subsystem_03" sysId="Subsystem_03" description="desc"/>
+  <itsParams ID="PA_1" sysId="PA_1"/>
+</wtc:WT>

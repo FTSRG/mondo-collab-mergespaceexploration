@@ -1,0 +1,59 @@
+SetRef VS Delete
+Create VS Delete
+
+expected solutions: 4
+
+solutions:4
+states: 1248
+1: 
+CreateElement
+SetRefVSDelete
+SetReferenceOnElement
+SetAttributeOnElement
+SetReferenceOnElement
+SetReferenceOnElement
+DeleteVSCreate
+DeleteVSSetRef
+DeleteVSSetRef
+DeleteVSSetRef
+DeleteElement
+AFTER serialization_1
+2: 
+CreateElement
+DeleteVSSetRef
+DeleteVSCreate
+DeleteVSSetRef
+DeleteVSSetRef
+DeleteElement
+SetAttributeOnElement
+SetReferenceOnElement
+DeleteVSSetRef
+SetReferenceOnElement
+DeleteElement
+AFTER serialization_2
+3: 
+CreateElement
+SetRefVSDelete
+SetReferenceOnElement
+SetAttributeOnElement
+SetReferenceOnElement
+CreateVSDelete
+SetReferenceOnElement
+CreateElement
+SetReferenceOnElement
+SetReferenceOnElement
+SetReferenceOnElement
+AFTER serialization_3
+4: 
+CreateElement
+DeleteVSSetRef
+SetReferenceOnElement
+DeleteElement
+SetReferenceOnElement
+SetAttributeOnElement
+CreateVSDelete
+CreateElement
+SetReferenceOnElement
+SetReferenceOnElement
+SetReferenceOnElement
+AFTER serialization_4

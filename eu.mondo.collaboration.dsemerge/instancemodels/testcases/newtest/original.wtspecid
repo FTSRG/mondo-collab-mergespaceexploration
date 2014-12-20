@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wtc:WT xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:wtc="http://dsemergewtspecid/1.0" ID="WTModel_1" sysId="WTModel_1" model="WTModel" version="1.0">
+  <itsSubsystems ID="Subsystem_01" sysId="Subsystem_01" description="desc"/>
+</wtc:WT>

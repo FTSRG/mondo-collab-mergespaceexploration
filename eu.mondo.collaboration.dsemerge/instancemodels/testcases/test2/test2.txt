@@ -1,0 +1,121 @@
+SetRef VS Delete
+Create VS Delete
+SetAttr VS SetAttr
+
+expected solutions: 8
+
+
+solutions:8
+states: 3120
+1: 
+CreateElement
+SetReferenceOnElement
+SetReferenceOnElement
+DeleteVSCreate
+SetAttrVSSetAttr
+DeleteVSSetRef
+DeleteVSSetRef
+SetAttributeOnElement
+SetRefVSDelete
+DeleteVSSetRef
+DeleteElement
+SetReferenceOnElement
+AFTER serialization_1
+2: 
+CreateElement
+SetReferenceOnElement
+DeleteVSSetRef
+DeleteElement
+CreateVSDelete
+CreateElement
+SetReferenceOnElement
+SetAttrVSSetAttr
+SetReferenceOnElement
+SetReferenceOnElement
+SetAttributeOnElement
+SetReferenceOnElement
+AFTER serialization_2
+3: 
+CreateElement
+SetReferenceOnElement
+SetReferenceOnElement
+CreateVSDelete
+CreateElement
+SetAttrVSSetAttr
+SetReferenceOnElement
+SetAttributeOnElement
+SetReferenceOnElement
+SetReferenceOnElement
+SetRefVSDelete
+SetReferenceOnElement
+AFTER serialization_3
+4: 
+CreateElement
+SetReferenceOnElement
+DeleteVSSetRef
+DeleteVSCreate
+SetReferenceOnElement
+DeleteVSSetRef
+DeleteVSSetRef
+DeleteVSSetRef
+DeleteElement
+SetAttrVSSetAttr
+SetAttributeOnElement
+DeleteElement
+AFTER serialization_4
+5: 
+CreateElement
+SetReferenceOnElement
+DeleteVSSetRef
+DeleteVSCreate
+SetReferenceOnElement
+SetAttrVSSetAttr
+DeleteElement
+DeleteVSSetRef
+SetAttributeOnElement
+DeleteVSSetRef
+DeleteVSSetRef
+DeleteElement
+AFTER serialization_5
+6: 
+CreateElement
+SetReferenceOnElement
+SetReferenceOnElement
+DeleteVSCreate
+SetAttrVSSetAttr
+DeleteVSSetRef
+SetRefVSDelete
+DeleteVSSetRef
+DeleteVSSetRef
+SetAttributeOnElement
+SetReferenceOnElement
+DeleteElement
+AFTER serialization_6
+7: 
+CreateElement
+SetReferenceOnElement
+DeleteVSSetRef
+DeleteElement
+SetAttrVSSetAttr
+CreateVSDelete
+SetReferenceOnElement
+SetAttributeOnElement
+CreateElement
+SetReferenceOnElement
+SetReferenceOnElement
+SetReferenceOnElement
+AFTER serialization_7
+8: 
+CreateElement
+SetReferenceOnElement
+SetReferenceOnElement
+SetAttrVSSetAttr
+SetRefVSDelete
+SetAttributeOnElement
+CreateVSDelete
+CreateElement
+SetReferenceOnElement
+SetReferenceOnElement
+SetReferenceOnElement
+SetReferenceOnElement
+AFTER serialization_8

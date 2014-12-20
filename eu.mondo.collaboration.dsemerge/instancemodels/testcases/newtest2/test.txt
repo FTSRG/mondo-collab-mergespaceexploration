@@ -1,0 +1,72 @@
+SetRef VS SetRef
+SetAttr VS SetAttr
+SetAttr VS SetAttr
+
+expected solutions: 8
+
+solutions:8
+states: 125
+1: 
+SetAttrVSSetAttr
+SetAttrVSSetAttr
+SetAttributeOnElement
+SetRefVSSetRef
+SetReferenceOnElement
+SetAttributeOnElement
+AFTER serialization_1
+2: 
+SetAttrVSSetAttr
+SetAttrVSSetAttr
+SetAttributeOnElement
+SetAttributeOnElement
+SetRefVSSetRef
+SetReferenceOnElement
+AFTER serialization_2
+3: 
+SetAttrVSSetAttr
+SetAttributeOnElement
+SetAttrVSSetAttr
+SetRefVSSetRef
+SetAttributeOnElement
+SetReferenceOnElement
+AFTER serialization_3
+4: 
+SetAttrVSSetAttr
+SetAttrVSSetAttr
+SetRefVSSetRef
+SetAttributeOnElement
+SetReferenceOnElement
+SetAttributeOnElement
+AFTER serialization_4
+5: 
+SetAttrVSSetAttr
+SetRefVSSetRef
+SetAttributeOnElement
+SetAttrVSSetAttr
+SetAttributeOnElement
+SetReferenceOnElement
+AFTER serialization_5
+6: 
+SetAttrVSSetAttr
+SetAttrVSSetAttr
+SetAttributeOnElement
+SetAttributeOnElement
+SetRefVSSetRef
+SetReferenceOnElement
+AFTER serialization_6
+7: 
+SetAttrVSSetAttr
+SetRefVSSetRef
+SetAttributeOnElement
+SetAttrVSSetAttr
+SetReferenceOnElement
+SetAttributeOnElement
+AFTER serialization_7
+8: 
+SetAttrVSSetAttr
+SetAttrVSSetAttr
+SetAttributeOnElement
+SetAttributeOnElement
+SetRefVSSetRef
+SetReferenceOnElement
+AFTER serialization_8

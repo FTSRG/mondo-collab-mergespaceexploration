@@ -1,0 +1,24 @@
+Create VS Delete
+Create VS Delete
+Create's SetRef VS Delete
+SetAttr VS Delete
+
+expected solutions: 2 (only delete or only others are executed)
+
+1:
+SetAttrVSDelete
+CreateElement
+CreateElement
+CreateElement
+SetReferenceOnElement
+SetAttributeOnElement
+CreateElement
+
+2: 
+DeleteVSSetAttr
+DeleteVSCreate
+DeleteVSSetRef
+DeleteVSCreate
+CreateElement
+DeleteElement
+CreateElement

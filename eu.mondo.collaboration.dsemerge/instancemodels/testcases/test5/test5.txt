@@ -1,0 +1,16 @@
+
+
+
+solutions:2
+states: 16
+1: 
+SetReferenceOnElement
+CreateVSDelete
+CreateElement
+MoveElement
+AFTER serialization_1
+2: 
+SetReferenceOnElement
+DeleteVSCreate
+DeleteVSMove
+DeleteElement

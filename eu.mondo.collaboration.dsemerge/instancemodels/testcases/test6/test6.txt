@@ -1,0 +1,28 @@
+Create VS Delete
+Move1 VS Move2
+(Move1.containerTarget = Create.target)
+
+
+solutions:3
+states: 40
+1: 
+CreateVSDelete
+CreateElement
+MoveVSMove
+MoveElement
+SetReferenceOnElement
+AFTER serialization_1
+2: 
+MoveVSMove
+SetReferenceOnElement
+MoveElement
+CreateVSDelete
+CreateElement
+AFTER serialization_2
+3: 
+MoveVSMove
+SetReferenceOnElement
+MoveElement
+DeleteVSCreate
+DeleteElement
+AFTER serialization_3

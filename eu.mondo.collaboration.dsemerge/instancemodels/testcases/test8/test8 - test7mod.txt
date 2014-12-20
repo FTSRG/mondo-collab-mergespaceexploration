@@ -1,0 +1,26 @@
+
+
+
+solutions:3
+states: 40
+1: 
+SetAttributeOnElement
+MoveVSDelete
+SetAttributeOnElement
+DeleteVSMove
+DeleteElement
+AFTER serialization_1
+2: 
+SetAttributeOnElement
+DeleteVSSetAttr
+DeleteVSMove
+DeleteElement
+DeleteElement
+AFTER serialization_2
+3: 
+MoveVSDelete
+SetAttributeOnElement
+MoveVSDelete
+MoveElement
+SetAttributeOnElement
+AFTER serialization_3

@@ -1,0 +1,41 @@
+
+
+
+solutions:4
+states: 154
+1: 
+DeleteVSSetAttr
+SetAttributeOnElement
+SetAttrVSDelete
+SetAttributeOnElement
+DeleteVSMove
+DeleteVSSetRef
+DeleteElement
+AFTER serialization_1
+2: 
+MoveVSDelete
+SetAttributeOnElement
+SetAttributeOnElement
+SetRefVSDelete
+SetReferenceOnElement
+SetAttributeOnElement
+MoveElement
+AFTER serialization_2
+3: 
+DeleteVSSetAttr
+SetAttributeOnElement
+DeleteVSSetRef
+DeleteVSMove
+DeleteVSSetAttr
+DeleteElement
+DeleteElement
+AFTER serialization_3
+4: 
+SetAttributeOnElement
+SetAttrVSDelete
+SetAttributeOnElement
+DeleteVSSetAttr
+SetReferenceOnElement
+DeleteVSMove
+DeleteElement
+AFTER serialization_4
