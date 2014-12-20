@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><plugin>
-  <extension id="patterns.Patterns" point="org.eclipse.incquery.runtime.queryspecification">
-    <group group="org.eclipse.incquery.runtime.extensibility.SingletonExtensionFactory:patterns.Patterns" id="patterns.Patterns"/>
-  </extension>
-  <extension id="patterns.HelperPatterns" point="org.eclipse.incquery.runtime.queryspecification">
-    <group group="org.eclipse.incquery.runtime.extensibility.SingletonExtensionFactory:patterns.HelperPatterns" id="patterns.HelperPatterns"/>
-  </extension>
-</plugin>
