@@ -22,7 +22,6 @@ import org.eclipse.viatra.dse.api.TransformationRule;
 import org.eclipse.viatra.dse.api.strategy.Strategy;
 import org.eclipse.viatra.dse.base.DesignSpaceManager;
 import org.eclipse.viatra.dse.designspace.impl.pojo.ConcurrentDesignSpace;
-import org.eclipse.viatra.dse.guidance.Guidance;
 import org.eclipse.viatra.dse.util.EMFHelper;
 import org.junit.Test;
 
@@ -46,7 +45,6 @@ import eu.mondo.collaboration.dsemerge.patterns.DeleteVSSetRefMatch;
 import eu.mondo.collaboration.dsemerge.patterns.MoveMatch;
 import eu.mondo.collaboration.dsemerge.patterns.MoveVSDeleteMatch;
 import eu.mondo.collaboration.dsemerge.patterns.MoveVSMoveMatch;
-import eu.mondo.collaboration.dsemerge.patterns.NonExecCreateAndExecSetRefWithSameTargetMatch;
 import eu.mondo.collaboration.dsemerge.patterns.SetAttrVSDeleteMatch;
 import eu.mondo.collaboration.dsemerge.patterns.SetAttrVSSetAttrMatch;
 import eu.mondo.collaboration.dsemerge.patterns.SetAttributeMatch;
@@ -65,50 +63,50 @@ import eu.mondo.collaboration.dsemerge.rules.helper.DeleteVSSetAttr;
 import eu.mondo.collaboration.dsemerge.rules.helper.DeleteVSSetRef;
 import eu.mondo.collaboration.dsemerge.rules.helper.MoveVSDelete;
 import eu.mondo.collaboration.dsemerge.rules.helper.MoveVSMove;
-import eu.mondo.collaboration.dsemerge.rules.helper.NonExecCreateAndExecSetRef;
 import eu.mondo.collaboration.dsemerge.rules.helper.SetAttrVSDelete;
 import eu.mondo.collaboration.dsemerge.rules.helper.SetAttrVSSetAttr;
 import eu.mondo.collaboration.dsemerge.rules.helper.SetRefVSDelete;
 import eu.mondo.collaboration.dsemerge.rules.helper.SetRefVSSetRef;
-import eu.mondo.collaboration.dsemerge.statecoder.IkerLanStateCoder;
 import eu.mondo.collaboration.dsemerge.statecoder.IkerLanStateCoderFactory;
 
 public class ConflictResolver {
 
 	@Test
 	public void conflictResolution() throws IncQueryException {
-		
+
 		// Configuring loggers
 		BasicConfigurator.configure();
-		Logger.getRootLogger().setLevel(Level.ERROR);
-		Logger.getLogger(DesignSpaceManager.class).setLevel(Level.DEBUG);
-		Logger.getLogger(ConcurrentDesignSpace.class).setLevel(Level.DEBUG);
-//		Logger.getLogger(DepthFirstNextTransition.class).setLevel(Level.DEBUG);
 		Logger.getRootLogger().setLevel(Level.OFF);
 		Logger.getLogger(DesignSpaceManager.class).setLevel(Level.OFF);
 		Logger.getLogger(ConcurrentDesignSpace.class).setLevel(Level.OFF);
 
 		DesignSpaceExplorer dse = new DesignSpaceExplorer();
-		DiffModelGenerator dmg = new DiffModelGenerator(); 
+		DiffModelGenerator dmg = new DiffModelGenerator();
 
 		ResourceSet rS = new ResourceSetImpl();
-		
+
 		// loading models
-		Resource original = rS.getResource(URI.createPlatformPluginURI(
-				"/eu.mondo.collaboration.dsemerge/instancemodels/original.wtspecid",
-				true), true);
+		Resource original = rS
+				.getResource(
+						URI.createPlatformPluginURI(
+								"/eu.mondo.collaboration.dsemerge/instancemodels/original.wtspecid",
+								true), true);
 
 		Resource modA = rS.getResource(URI.createPlatformPluginURI(
-				"/eu.mondo.collaboration.dsemerge/instancemodels/A.wtspecid", true),
-				true);
+				"/eu.mondo.collaboration.dsemerge/instancemodels/A.wtspecid",
+				true), true);
 
 		Resource modB = rS.getResource(URI.createPlatformPluginURI(
-				"/eu.mondo.collaboration.dsemerge/instancemodels/B.wtspecid", true),
-				true);
-		
-		DiffContainer deltaOA_gen = (DiffContainer) dmg.generateDiffModel("instancemodels/original.wtspecid", "instancemodels/A.wtspecid", true);
-		DiffContainer deltaOB_gen = (DiffContainer) dmg.generateDiffModel("instancemodels/original.wtspecid", "instancemodels/B.wtspecid", true);
-		
+				"/eu.mondo.collaboration.dsemerge/instancemodels/B.wtspecid",
+				true), true);
+
+		DiffContainer deltaOA_gen = (DiffContainer) dmg.generateDiffModel(
+				"instancemodels/original.wtspecid",
+				"instancemodels/A.wtspecid", true);
+		DiffContainer deltaOB_gen = (DiffContainer) dmg.generateDiffModel(
+				"instancemodels/original.wtspecid",
+				"instancemodels/B.wtspecid", true);
+
 		MainRoot mainRoot = ModelContainerFactory.eINSTANCE.createMainRoot();
 
 		WT originalRoot = (WT) original.getContents().get(0);
@@ -116,66 +114,57 @@ public class ConflictResolver {
 		mainRoot.setOriginal(originalRoot);
 		mainRoot.setDeltaOA(deltaOA_gen);
 		mainRoot.setDeltaOB(deltaOB_gen);
-		
+
 		dse.setStartingModel(mainRoot);
-		
-		// TODO setting MaxNumberOfThreads
-		//dse.setMaxNumberOfThreads(1);
-		
+
 		// adding metamodel packages
 		dse.addMetaModelPackage(ModelContainerPackage.eINSTANCE);
 		dse.addMetaModelPackage(WtspecidPackage.eINSTANCE);
 		dse.addMetaModelPackage(DiffModelPackage.eINSTANCE);
 
 		dse.setSerializerFactory(new IkerLanStateCoderFactory());
-		
-		TransformationRule<CreateMatch> createElement = CreateElement.createRule();
-		TransformationRule<DeleteMatch> deleteElement = DeleteElement.createRule();
-		TransformationRule<MoveMatch> moveElement = MoveElement.createRule();
-		TransformationRule<SetAttributeMatch> setAttributeOnElement = SetAttributeOnElement.createRule();
-		TransformationRule<SetReferenceMatch> setReferenceOnElement = SetReferenceOnElement.createRule();
-		
-		TransformationRule<CreateVSDeleteMatch> createVSDelete = CreateVSDelete.createRule();
-		TransformationRule<DeleteVSCreateMatch> deleteVSCreate = DeleteVSCreate.createRule();
-		TransformationRule<MoveVSDeleteMatch> moveVSDelete = MoveVSDelete.createRule();
-		TransformationRule<DeleteVSMoveMatch> deleteVSMove = DeleteVSMove.createRule();
-		TransformationRule<SetAttrVSDeleteMatch> setAttrVSDelete = SetAttrVSDelete.createRule();
-		TransformationRule<DeleteVSSetAttrMatch> deleteVSSetAttr = DeleteVSSetAttr.createRule();
-		TransformationRule<SetRefVSDeleteMatch> setRefVSDelete = SetRefVSDelete.createRule();
-		TransformationRule<DeleteVSSetRefMatch> deleteVSSetRef = DeleteVSSetRef.createRule();
-		//TransformationRule<NonExecCreateAndExecSetRefWithSameTargetMatch> nonExecCreateAndExecSetRef = NonExecCreateAndExecSetRef.createRule();
 
-		TransformationRule<SetAttrVSSetAttrMatch> setAttrVSSetAttr = SetAttrVSSetAttr.createRule();
-		TransformationRule<SetRefVSSetRefMatch> setRefVSSetRef = SetRefVSSetRef.createRule();
-		TransformationRule<MoveVSMoveMatch> moveVSMove = MoveVSMove.createRule();
-		
-//		Guidance guidance = new Guidance();
-//		guidance.addPriorityRuleInfo(createElement, 1);
-//		guidance.addPriorityRuleInfo(deleteElement, 1);
-//		guidance.addPriorityRuleInfo(moveElement, 1);
-//		guidance.addPriorityRuleInfo(setAttributeOnElement, 1);
-//		guidance.addPriorityRuleInfo(setReferenceOnElement, 1);
-//		
-//		guidance.addPriorityRuleInfo(createVSDelete, 2);
-//		guidance.addPriorityRuleInfo(deleteVSCreate, 2);
-//		guidance.addPriorityRuleInfo(setAttrVSDelete, 2);
-//		guidance.addPriorityRuleInfo(deleteVSSetAttr, 2);
-//		guidance.addPriorityRuleInfo(setRefVSDelete, 2);
-//		guidance.addPriorityRuleInfo(deleteVSSetRef, 2);
-//		//guidance.addPriorityRuleInfo(nonExecCreateAndExecSetRef, 2);
-//		
-//		guidance.addPriorityRuleInfo(setAttrVSSetAttr, 3);
-//		guidance.addPriorityRuleInfo(setRefVSSetRef, 3);
-//		guidance.addPriorityRuleInfo(moveVSMove, 3);
-//		
-//		dse.setGuidance(guidance);
-		
+		TransformationRule<CreateMatch> createElement = CreateElement
+				.createRule();
+		TransformationRule<DeleteMatch> deleteElement = DeleteElement
+				.createRule();
+		TransformationRule<MoveMatch> moveElement = MoveElement.createRule();
+		TransformationRule<SetAttributeMatch> setAttributeOnElement = SetAttributeOnElement
+				.createRule();
+		TransformationRule<SetReferenceMatch> setReferenceOnElement = SetReferenceOnElement
+				.createRule();
+
+		TransformationRule<CreateVSDeleteMatch> createVSDelete = CreateVSDelete
+				.createRule();
+		TransformationRule<DeleteVSCreateMatch> deleteVSCreate = DeleteVSCreate
+				.createRule();
+		TransformationRule<MoveVSDeleteMatch> moveVSDelete = MoveVSDelete
+				.createRule();
+		TransformationRule<DeleteVSMoveMatch> deleteVSMove = DeleteVSMove
+				.createRule();
+		TransformationRule<SetAttrVSDeleteMatch> setAttrVSDelete = SetAttrVSDelete
+				.createRule();
+		TransformationRule<DeleteVSSetAttrMatch> deleteVSSetAttr = DeleteVSSetAttr
+				.createRule();
+		TransformationRule<SetRefVSDeleteMatch> setRefVSDelete = SetRefVSDelete
+				.createRule();
+		TransformationRule<DeleteVSSetRefMatch> deleteVSSetRef = DeleteVSSetRef
+				.createRule();
+
+		TransformationRule<SetAttrVSSetAttrMatch> setAttrVSSetAttr = SetAttrVSSetAttr
+				.createRule();
+		TransformationRule<SetRefVSSetRefMatch> setRefVSSetRef = SetRefVSSetRef
+				.createRule();
+		TransformationRule<MoveVSMoveMatch> moveVSMove = MoveVSMove
+				.createRule();
+
+		// adding basic rules
 		dse.addTransformationRule(createElement);
 		dse.addTransformationRule(deleteElement);
 		dse.addTransformationRule(moveElement);
 		dse.addTransformationRule(setAttributeOnElement);
 		dse.addTransformationRule(setReferenceOnElement);
-		
+		// adding helper rules
 		dse.addTransformationRule(createVSDelete);
 		dse.addTransformationRule(deleteVSCreate);
 		dse.addTransformationRule(moveVSDelete);
@@ -184,96 +173,64 @@ public class ConflictResolver {
 		dse.addTransformationRule(deleteVSSetAttr);
 		dse.addTransformationRule(setRefVSDelete);
 		dse.addTransformationRule(deleteVSSetRef);
-		//dse.addTransformationRule(nonExecCreateAndExecSetRef);
 		
 		dse.addTransformationRule(setAttrVSSetAttr);
 		dse.addTransformationRule(setRefVSSetRef);
 		dse.addTransformationRule(moveVSMove);
-		
-//		// adding basic rules
-//		dse.addTransformationRule(CreateElement.createRule());
-//		dse.addTransformationRule(DeleteElement.createRule());
-//		dse.addTransformationRule(MoveElement.createRule());
-//		dse.addTransformationRule(SetAttributeOnElement.createRule());
-//		dse.addTransformationRule(SetReferenceOnElement.createRule());
-//		
-//		// adding helper rules
-//		dse.addTransformationRule(CreateVSDelete.createRule());
-//		dse.addTransformationRule(DeleteVSCreate.createRule());
-//		dse.addTransformationRule(SetAttrVSDelete.createRule());
-//		dse.addTransformationRule(DeleteVSSetAttr.createRule());
-//		dse.addTransformationRule(SetRefVSDelete.createRule());
-//		dse.addTransformationRule(DeleteVSSetRef.createRule());
-//		dse.addTransformationRule(SetAttrVSSetAttr.createRule());
-//		dse.addTransformationRule(SetRefVSSetRef.createRule());
-//		dse.addTransformationRule(NonExecCreateAndExecSetRef.createRule());
-		
+
 		// setting solution and goal parameters
 		dse.setSolutionStore(new SolutionStoreForConflictResolver());
-		
+
 		boolean waitForTermination = true;
 		Strategy strategy = Strategies.createDFSStrategy(-1);
-		//Strategy strategy = Strategies.createFixedPriorityStrategy(-1);
 		strategy.setGoalStateChecker(new GoalChecker());
-		
-		System.out.println("BEFORE startExploration");
 
+		System.out.println("Design Space Exploration is running...");
 		dse.startExploration(strategy, waitForTermination);
+		System.out.println("Design Space Exploration is done.");
 
-		System.out.println("AFTER startExploration");
-		
 		Collection<Solution> solutions = dse.getAllSolutions();
 		System.out.println("solutions:" + solutions.size());
 		int s = 1;
-		
+
 		System.out.println("states: " + dse.getNumberOfStates());
-		
+
 		if (!solutions.isEmpty()) {
-			//System.out.println("there is at least 1 solution");
-			
-			//EMFHelper.serializeModel(mainRoot, "Number" + s + "_threeoutputs_" + date, "modelcontainer");
-			
 			for (Solution solution : solutions) {
-//				MainRoot copyMainRoot = (MainRoot) EcoreUtil.copy(mainRoot);
-//				SolutionTrajectory solutionTrajectory = solution.getArbitraryTrajectory();
-				SolutionTrajectory solutionTrajectory = solution.getShortestTrajectory();
-				
-				Collection<SolutionTrajectory> trajectories = solution.getTrajectories();
-				//System.out.println("trajsize: " + trajectories.size());
-				//for (SolutionTrajectory solutionTrajectory : trajectories) {
-					
-					MainRoot copyMainRoot = (MainRoot) EcoreUtil.copy(mainRoot);
-					//System.out.println("BEFORE transformation");
+				SolutionTrajectory solutionTrajectory = solution
+						.getShortestTrajectory();
 
-					System.out.println(s + ": ");
-					// Transform the model
-					solutionTrajectory.setModel(IncQueryEngine.on(copyMainRoot));
-					//System.out.println("BEFORE doTransformation");
-					try{
-						solutionTrajectory.doTransformation();
-					}
-					catch(Exception e) {
-						e.printStackTrace();
-					}
+				Collection<SolutionTrajectory> trajectories = solution
+						.getTrajectories();
 
-					//System.out.println("AFTER transformation");
-	
-					Date d = new Date();
-					SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
-							"MM.dd.'at'.HH.mm.ss");
-					String date = DATE_FORMAT.format(d);
-					EMFHelper.serializeModel(copyMainRoot, date+ "_threeoutputs" + "_Number" + s , "modelcontainer");
-					
-					EMFHelper.serializeModel(copyMainRoot.getOriginal(), date + "_solution" + "_Number"+ s, "wtspecid");
-					EMFHelper.serializeModel(copyMainRoot.getDeltaOA(), date + "_nonExOpDeltaOA" + "_Number"+ s, "wtspecid");
-					EMFHelper.serializeModel(copyMainRoot.getDeltaOB(), date + "_nonExOpDeltaOB" + "_Number"+ s++, "wtspecid");
-	
-					System.out.println("AFTER serialization_" + (s-1));
-				//}
+				MainRoot copyMainRoot = (MainRoot) EcoreUtil.copy(mainRoot);
+
+				// Transform the model
+				solutionTrajectory.setModel(IncQueryEngine.on(copyMainRoot));
+				try {
+					solutionTrajectory.doTransformation();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				// Serilize solutions
+				Date d = new Date();
+				SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
+						"MM.dd.'at'.HH.mm.ss");
+				String date = DATE_FORMAT.format(d);
+
+				EMFHelper.serializeModel(copyMainRoot.getOriginal(), date
+						+ "_solution" + "_Number" + s, "wtspecid");
+				EMFHelper.serializeModel(copyMainRoot.getDeltaOA(), date
+						+ "_nonExOpDeltaOA" + "_Number" + s, "wtspecid");
+				EMFHelper.serializeModel(copyMainRoot.getDeltaOB(), date
+						+ "_nonExOpDeltaOB" + "_Number" + s++, "wtspecid");
+
+				System.out.println("serialization_" + (s - 1) + "_is_done");
 			}
 
 		}
-		
+
 	}
-	
+
 }

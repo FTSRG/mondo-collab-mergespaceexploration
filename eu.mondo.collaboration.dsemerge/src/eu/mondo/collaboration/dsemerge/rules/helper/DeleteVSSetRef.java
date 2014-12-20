@@ -13,7 +13,7 @@ public class DeleteVSSetRef extends DeleteVSSetRefProcessor {
 
 	@Override
 	public void process(Delete pDeleteOp, SetReference pSetRefOp) {
-		System.out.println("DeleteVSSetRef");
+		
 		pSetRefOp.setExecutable(false);
 		
 	}

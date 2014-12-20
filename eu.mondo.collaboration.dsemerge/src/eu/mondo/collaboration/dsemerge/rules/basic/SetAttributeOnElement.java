@@ -16,7 +16,7 @@ public class SetAttributeOnElement extends SetAttributeProcessor {
 	@Override
 	public void process(SetAttribute pSetAttrOp, IdentifiableWTElement pTarget,
 			SetAttribute pSetAttrOp2, IdentifiableWTElement pTarget2) {
-		System.out.println("SetAttributeOnElement");
+		
 		String attr = pSetAttrOp.getAttribute();
 		String value = pSetAttrOp.getValue();
 		

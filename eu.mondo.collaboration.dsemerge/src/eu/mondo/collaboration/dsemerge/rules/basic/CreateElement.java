@@ -23,7 +23,7 @@ public class CreateElement extends CreateProcessor {
 
 	@Override
 	public void process(Create pCreateOp, IdentifiableWTElement pContainerTarget) {
-		System.out.println("CreateElement");
+		
 		String classType = pCreateOp.getType();
 		String newID = pCreateOp.getTargetID();
 		String ref = pCreateOp.getReference();

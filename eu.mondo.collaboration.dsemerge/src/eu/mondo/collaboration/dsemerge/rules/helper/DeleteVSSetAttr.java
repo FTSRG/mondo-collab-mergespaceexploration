@@ -13,7 +13,7 @@ public class DeleteVSSetAttr extends DeleteVSSetAttrProcessor {
 
 	@Override
 	public void process(Delete pDeleteOp, SetAttribute pSetAttrOp) {
-		System.out.println("DeleteVSSetAttr");
+		
 		pSetAttrOp.setExecutable(false);
 		
 	}

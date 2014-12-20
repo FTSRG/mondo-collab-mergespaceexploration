@@ -14,7 +14,7 @@ public class DeleteElement extends DeleteProcessor {
 
 	@Override
 	public void process(Delete pDeleteOp, IdentifiableWTElement pTarget) {
-		System.out.println("DeleteElement");
+		
 		// deleting target from original
 		EcoreUtil.delete(pTarget);
 		// deleting this DeleteOp from DiffModel

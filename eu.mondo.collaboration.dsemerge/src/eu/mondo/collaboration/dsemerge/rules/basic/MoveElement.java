@@ -22,7 +22,7 @@ public class MoveElement extends MoveProcessor {
 	public void process(Move pMoveOp, IdentifiableWTElement pContainerTarget,
 			IdentifiableWTElement pRef, Move pMoveOp2, IdentifiableWTElement pContainerTarget2,
 			IdentifiableWTElement pRef2) {
-		System.out.println("MoveElement");
+		
 		String ref = pMoveOp.getReference();
 
 		EStructuralFeature esf = pContainerTarget.eClass().getEStructuralFeature(ref);

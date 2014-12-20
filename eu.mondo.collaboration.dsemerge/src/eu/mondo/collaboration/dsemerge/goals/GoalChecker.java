@@ -50,8 +50,6 @@ public class GoalChecker implements ICheckGoalState {
 			}
 		}
 		
-		System.out.println("executables" + executables);
-		System.out.println("nonExecutables" + nonExecutables);
 		values.put("executables", executables);
 		values.put("nonExecutables", nonExecutables);
 		

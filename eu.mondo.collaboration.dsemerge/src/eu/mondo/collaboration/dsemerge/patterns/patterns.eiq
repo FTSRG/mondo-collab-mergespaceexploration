@@ -4,6 +4,10 @@ import "http://dsemergewtspecid/1.0"
 import "http://eu.mondo.collaboration.dsemerge.diffmodel/1.0"
 import "http://eu.mondo.collaboration.dsemerge.modelcontainer/1.0"
 
+// ---------------------------------------------------------------------------------------------------------
+//	BasicPatterns: they execute operations of DiffModels (deltaOA and deltaOB) for conflict resolution.
+// ---------------------------------------------------------------------------------------------------------
+
 // Executable Delete operation which have the same target as a Create operation
 pattern execDeleteWithSameTargetAsCreate(createOp : Create, deleteOp : Delete) {
 	Create.containerTargetID(createOp, tid);
@@ -207,9 +211,6 @@ pattern differentSetAttributeWithSameTarget(setAttrOp : SetAttribute, setAttrOp2
 	value != value2;
 	
 	SetAttribute.eliminated(setAttrOp2, false);
-//	SetAttribute.ID(setAttrOp, id);
-//	SetAttribute.ID(setAttrOp2, id2);
-//	id != id2;
 }
 
 // Executable Delete operation which have the same target as a SetReference operation (or its referenced element)
@@ -282,9 +283,6 @@ pattern differentSetReferenceWithSameTarget(setRefOp : SetReference, setRefOp2 :
 	rid != rid2;
 	
 	SetReference.eliminated(setRefOp2, false);
-//	SetReference.ID(setRefOp, id);
-//	SetReference.ID(setRefOp2, id2);
-//	id != id2;
 }
 
 
@@ -295,7 +293,7 @@ pattern differentSetReferenceWithSameTarget(setRefOp : SetReference, setRefOp2 :
 // 		- checking if the container of new element exists
 // 		- checking if the Create operation is executable
 // 		- checking if conflicting Delete operation is non-executable
-// TODO commenting
+//
 pattern create(createOp : Create, containerTarget : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(containerTarget, id);
 	Create.containerTargetID(createOp, id);
@@ -313,7 +311,7 @@ pattern create(createOp : Create, containerTarget : IdentifiableWTElement) {
 // 		- checking if the target of Delete operation exists
 // 		- checking if the Delete operation is executable
 // 		- checking if conflicting Create, SetReference and SetAttribute operations are non-executable
-// TODO handling of conflicting Move operations and commenting
+//
 pattern delete(deleteOp : Delete, target : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, id);
 	Delete.targetID(deleteOp, id);
@@ -332,7 +330,7 @@ pattern delete(deleteOp : Delete, target : IdentifiableWTElement) {
 // 		- checking if the container of referenced element exists
 // 		- checking if the Move operation is executable
 // 		- checking if conflicting Delete operation is non-executable
-// TODO commenting and conflict handling
+//
 pattern move(moveOp : Move, containerTarget : IdentifiableWTElement, ref : IdentifiableWTElement, moveOp2 : Move, containerTarget2 : IdentifiableWTElement, ref2 : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(ref, rid);
 	Move.targetID(moveOp, rid);
@@ -425,10 +423,6 @@ pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement, s
 	SetAttribute.value(setAttrOp2, value2);
 	value != value2;
 	
-//	SetAttribute.ID(setAttrOp, id);
-//	SetAttribute.ID(setAttrOp2, id2);
-//	id != id2;
-	
 	SetAttribute.executable(setAttrOp, true);
 	SetAttribute.executable(setAttrOp2, false);
 	SetAttribute.eliminated(setAttrOp2, false);
@@ -449,9 +443,6 @@ pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement, s
 	SetAttribute.targetID(setAttrOp2, tid);
 	SetAttribute.attribute(setAttrOp2, attr);
 	SetAttribute.value(setAttrOp2, value);
-	
-//	SetAttribute.ID(setAttrOp, id);
-//	SetAttribute.ID(setAttrOp2, id);
 
 	SetAttribute.executable(setAttrOp, true);
 	
@@ -461,6 +452,17 @@ pattern setAttribute(setAttrOp : SetAttribute, target : IdentifiableWTElement, s
 	neg find nonExecMoveWithSameTargetAsSetAttr(setAttrOp, _moveOp);
 }
 
+// 
+// SetReference operations
+// 
+// 		If a pair of different SetReference operations (with the same target) exists:
+// 		- checking if only one of them is executable
+// 		- checking if conflicting Delete operation is non-executable
+// 		- checking if SetAttribute operations with the same target (conflicting with 
+// 		  the same Delete operation above) are still executable
+// 		else if it does not exist:
+// 		- the elements of the pair have to be the same
+// 
 pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement, ref : IdentifiableWTElement, setRefOp2 : SetReference, target2 : IdentifiableWTElement, ref2 : IdentifiableWTElement) {
 	IdentifiableWTElement.ID(target, tid);
 	SetReference.targetID(setRefOp, tid);
@@ -476,10 +478,6 @@ pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement, re
 	
 	SetReference.reference(setRefOp, r);
 	SetReference.reference(setRefOp2, r);
-	
-//	SetReference.ID(setRefOp, id);
-//	SetReference.ID(setRefOp2, id2);
-//	id != id2;
 	
 	SetReference.executable(setRefOp, true);
 	SetReference.executable(setRefOp2, false);
@@ -505,9 +503,6 @@ pattern setReference(setRefOp : SetReference, target : IdentifiableWTElement, re
 	
 	SetReference.reference(setRefOp, r);
 	SetReference.reference(setRefOp2, r);
-	
-//	SetReference.ID(setRefOp, id);
-//	SetReference.ID(setRefOp2, id);
 	
 	SetReference.executable(setRefOp, true);
 

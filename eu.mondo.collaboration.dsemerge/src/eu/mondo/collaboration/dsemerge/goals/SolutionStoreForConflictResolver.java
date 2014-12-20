@@ -61,8 +61,5 @@ public class SolutionStoreForConflictResolver implements ISolutionStore {
     }
 
 	@Override
-	public void registerSolutionFoundHandler(ISolutionFoundHandler handler) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void registerSolutionFoundHandler(ISolutionFoundHandler handler) {}
 }

@@ -12,7 +12,7 @@ public class SetRefVSSetRef extends SetRefVSSetRefProcessor {
 
 	@Override
 	public void process(SetReference pSetRefOp, SetReference pSetRefOp2) {
-		System.out.println("SetRefVSSetRef");
+		
 		pSetRefOp2.setEliminated(true);
 		pSetRefOp2.setExecutable(false);
 		

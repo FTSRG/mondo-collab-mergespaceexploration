@@ -12,7 +12,7 @@ public class SetAttrVSSetAttr extends SetAttrVSSetAttrProcessor {
 
 	@Override
 	public void process(SetAttribute pSetAttrOp, SetAttribute pSetAttrOp2) {
-		System.out.println("SetAttrVSSetAttr");
+		
 		pSetAttrOp2.setEliminated(true);
 		pSetAttrOp2.setExecutable(false);
 		

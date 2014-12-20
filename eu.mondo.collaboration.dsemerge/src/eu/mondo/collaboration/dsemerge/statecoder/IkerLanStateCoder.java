@@ -21,7 +21,6 @@ import eu.mondo.collaboration.dsemerge.patterns.DeleteVSSetRefMatch;
 import eu.mondo.collaboration.dsemerge.patterns.MoveMatch;
 import eu.mondo.collaboration.dsemerge.patterns.MoveVSDeleteMatch;
 import eu.mondo.collaboration.dsemerge.patterns.MoveVSMoveMatch;
-import eu.mondo.collaboration.dsemerge.patterns.NonExecCreateAndExecSetRefWithSameTargetMatch;
 import eu.mondo.collaboration.dsemerge.patterns.SetAttrVSDeleteMatch;
 import eu.mondo.collaboration.dsemerge.patterns.SetAttrVSSetAttrMatch;
 import eu.mondo.collaboration.dsemerge.patterns.SetAttributeMatch;
@@ -267,7 +266,6 @@ public class IkerLanStateCoder implements IStateSerializer{
 			sb.append(opSR.getRefID() + ",");
 			sb.append(opSR.isEliminated() + ",");
 			sb.append(opSR.isExecutable() + ",");
-			//sb.append("true" + ",");
 			
 			return sb.toString();
 			
@@ -288,31 +286,6 @@ public class IkerLanStateCoder implements IStateSerializer{
 			sb.append(opSR.getRefID() + ",");
 			sb.append(opSR.isEliminated() + ",");
 			sb.append(opSR.isExecutable() + ",");
-			
-			return sb.toString();
-			
-		}
-		else if(match instanceof NonExecCreateAndExecSetRefWithSameTargetMatch){
-			NonExecCreateAndExecSetRefWithSameTargetMatch m = (NonExecCreateAndExecSetRefWithSameTargetMatch) match;
-			sb.append("NonExecCreateAndExecSetRefWithSameTargetMatch:");
-			
-			SetReference opSR = m.getSetRefOp();
-			Create opC = m.getCreateOp();
-			sb.append(opSR.getID() + ",");
-			sb.append(opSR.getTargetID() + ",");
-			sb.append(opSR.getReference() + ",");
-			sb.append(opSR.getRefID() + ",");
-			sb.append(opSR.isEliminated() + ",");
-			sb.append(opSR.isExecutable() + ",");
-			sb.append(opC.getID() + ",");
-			sb.append(opC.getTargetID() + ",");
-			sb.append(opC.getType() + ",");
-			sb.append(opC.getAttributes() + ",");
-			sb.append(opC.getValues() + ",");
-			sb.append(opC.getContainerTargetID() + ",");
-			sb.append(opC.getReference() + ",");
-			sb.append(opC.isEliminated() + ",");
-			sb.append(opC.isExecutable() + ",");
 			
 			return sb.toString();
 			
@@ -468,9 +441,6 @@ public class IkerLanStateCoder implements IStateSerializer{
 	}
 
 	@Override
-	public void resetCache() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void resetCache() {}
 	
 }

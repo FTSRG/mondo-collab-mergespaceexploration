@@ -84,9 +84,6 @@ public class DiffModelGenerator {
 
 		// Getting differences
 		List<Diff> differences = comparison.getDifferences();
-		for (Diff diff : differences){
-			System.out.println(diff.toString());
-		}
 		
 		DiffContainer dc = (DiffContainer) DiffModelFactory.eINSTANCE.createDiffContainer();
 		

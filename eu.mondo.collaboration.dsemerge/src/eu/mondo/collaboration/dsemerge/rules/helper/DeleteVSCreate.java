@@ -13,7 +13,7 @@ public class DeleteVSCreate extends DeleteVSCreateProcessor {
 
 	@Override
 	public void process(Delete pDeleteOp, Create pCreateOp) {
-		System.out.println("DeleteVSCreate");
+		
 		pCreateOp.setExecutable(false);
 		
 	}

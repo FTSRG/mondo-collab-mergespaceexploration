@@ -12,7 +12,7 @@ public class MoveVSMove extends MoveVSMoveProcessor {
 
 	@Override
 	public void process(Move pMoveOp, Move pMoveOp2) {
-		System.out.println("MoveVSMove");
+		
 		pMoveOp2.setEliminated(true);
 		pMoveOp2.setExecutable(false);
 		

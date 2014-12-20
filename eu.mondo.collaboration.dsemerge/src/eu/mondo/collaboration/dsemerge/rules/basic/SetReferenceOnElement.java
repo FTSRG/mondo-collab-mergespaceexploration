@@ -22,7 +22,7 @@ public class SetReferenceOnElement extends SetReferenceProcessor {
 	public void process(SetReference pSetRefOp, IdentifiableWTElement pTarget,
 			IdentifiableWTElement pRef, SetReference pSetRefOp2,
 			IdentifiableWTElement pTarget2, IdentifiableWTElement pRef2) {
-		System.out.println("SetReferenceOnElement");
+		
 		String ref = pSetRefOp.getReference();
 		
 		EStructuralFeature esf = pTarget.eClass().getEStructuralFeature(ref);
@@ -39,8 +39,6 @@ public class SetReferenceOnElement extends SetReferenceProcessor {
 			
 		}
 		else {
-			// TODO unset for lists
-			System.out.println("setRefList");
 			
 			List<EObject> newList = new ArrayList<EObject>();
 			

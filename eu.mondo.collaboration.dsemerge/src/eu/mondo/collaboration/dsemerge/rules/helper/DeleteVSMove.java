@@ -13,7 +13,7 @@ public class DeleteVSMove extends DeleteVSMoveProcessor{
 
 	@Override
 	public void process(Delete pDeleteOp, Move pMoveOp) {
-		System.out.println("DeleteVSMove");
+		
 		pMoveOp.setExecutable(false);
 		
 	}
