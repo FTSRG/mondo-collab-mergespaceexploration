@@ -20,6 +20,7 @@ import org.eclipse.emf.compare.match.impl.MatchEngineFactoryImpl;
 import org.eclipse.emf.compare.match.impl.MatchEngineFactoryRegistryImpl;
 import org.eclipse.emf.compare.scope.IComparisonScope;
 import org.eclipse.emf.compare.utils.UseIdentifiers;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
@@ -42,6 +43,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.team.internal.ui.mapping.AbstractCompareInput;
+import org.eclipse.team.internal.ui.mapping.ResourceDiffCompareInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 import org.eclipse.viatra.dse.merge.DSEMergeManager.Solution;
@@ -51,6 +53,7 @@ import org.eclipse.viatra.dse.merge.model.ChangeSet;
 import org.eclipse.viatra.dse.merge.model.Priority;
 import org.eclipse.viatra.dse.merge.model.provider.ModelItemProviderAdapterFactory;
 import org.eclipse.viatra.dse.merge.ui.Util;
+import org.eclipse.viatra.dse.merge.ui.Util.LoadKind;
 import org.eclipse.viatra.dse.merge.ui.provider.SolutionContentProvider;
 import org.eclipse.viatra.dse.merge.ui.provider.SolutionLabelProvider;
 
@@ -72,9 +75,9 @@ public class DSEContentMergeViewer extends Viewer {
 	public static final String SOLUTIONS = "Solutions";
 	public static final String SELECTED_SOLUTION = "SelectedSolution";
 	
-	private IResource remote;
-	private IResource local;
-	private IResource original;
+	private Resource remote;
+	private Resource local;
+	private Resource original;
 	private ChangeSet changeOL;
 	private ChangeSet changeOR;
 	private Collection<Solution> solutions;
@@ -87,9 +90,7 @@ public class DSEContentMergeViewer extends Viewer {
 
 	private void initialize() {
 		mergeControl.getLeftViewer().addCheckStateListener(new MayMustCheckStateListener());
-		mergeControl.getLabelLeft().setText(config.getLeftLabel(null));
 		mergeControl.getRightViewer().addCheckStateListener(new MayMustCheckStateListener());
-		mergeControl.getLabelRight().setText(config.getRightLabel(null));
 		
 		config.addPropertyChangeListener(new IPropertyChangeListener() {
 			
@@ -178,16 +179,27 @@ public class DSEContentMergeViewer extends Viewer {
 	@Override
 	@SuppressWarnings("restriction")
 	public void setInput(Object input) {
+		if(input instanceof ResourceDiffCompareInput) {
+			ResourceDiffCompareInput compareInput = (ResourceDiffCompareInput) input;
+			IResource file = compareInput.getResource();
+			local = new ResourceSetImpl().getResource(URI.createFileURI(file.getLocation().toString()), true);
+			config.setProperty(LEFT, local);
+		}
+		mergeControl.getLabelLeft().setText(config.getLeftLabel(input));
+		mergeControl.getLabelRight().setText(config.getLeftLabel(input));
 		if(input instanceof AbstractCompareInput) {
 			this.input = (AbstractCompareInput) input;
-			original = Util.getResource(this.input.getAncestor());
+			original = Util.getResource(this.input.getAncestor(), LoadKind.ANCESTOR);
 			config.setProperty(ANCESTOR, original);
-			local = Util.getResource(this.input.getLeft());
-			config.setProperty(LEFT, local);
-			remote = Util.getResource(this.input.getRight());
+			if(local == null) {
+				local = Util.getResource(this.input.getLeft(), LoadKind.LEFT);
+				config.setProperty(LEFT, local);
+			}
+			remote = Util.getResource(this.input.getRight(), LoadKind.RIGHT);
 			config.setProperty(RIGHT, remote);
 			executeComparison();
-		}
+		} 
+		
 	}
 
 	private void executeComparison() {
@@ -199,16 +211,6 @@ public class DSEContentMergeViewer extends Viewer {
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 					
 					monitor.beginTask("Comparison is in progress...", 8);
-					
-					ResourceSet originalSet = new ResourceSetImpl();
-					ResourceSet localSet = new ResourceSetImpl();
-					ResourceSet remoteSet = new ResourceSetImpl();
-					
-					// Loading models to resource set
-					originalSet.getResource(URI.createFileURI(original.getLocation().toString()), true);
-					localSet.getResource(URI.createFileURI(local.getLocation().toString()), true);
-					remoteSet.getResource(URI.createFileURI(remote.getLocation().toString()), true);
-					
 					monitor.worked(1);
 					
 					// Configure EMF Compare
@@ -223,12 +225,12 @@ public class DSEContentMergeViewer extends Viewer {
 					monitor.worked(1);
 					
 					// Compare the two models
-					IComparisonScope scopeOL = EMFCompare.createDefaultScope(localSet, originalSet);
+					IComparisonScope scopeOL = EMFCompare.createDefaultScope(local, original);
 					Comparison comparisonOL = comparator.compare(scopeOL);
 					
 					monitor.worked(2);
 					
-					IComparisonScope scopeOR = EMFCompare.createDefaultScope(remoteSet, originalSet);
+					IComparisonScope scopeOR = EMFCompare.createDefaultScope(remote, original);
 					Comparison comparisonOR = comparator.compare(scopeOR);
 
 					monitor.worked(2);

@@ -37,6 +37,7 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 	private ChangeSet changeOR;
 	private ChangeSet changeOL;
 	private Resource original;
+	private Resource local;
 	private ReflectiveItemProviderAdapterFactory adapterFactory = new ReflectiveItemProviderAdapterFactory();
 	private Solution selectedSolution;	
 	
@@ -45,7 +46,7 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 		this.config = config;
 		initialize(parent);
 	}
-
+	
 	private void initialize(Composite parent) {
 		
 		setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
@@ -63,13 +64,16 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 				}
 				
 				if(event.getProperty().equals(DSEContentMergeViewer.ANCESTOR)) {
-					ResourceSetImpl rSet = new ResourceSetImpl();
-					original = rSet.getResource(URI.createFileURI(((IResource)event.getNewValue()).getLocation().toString()), true);
+					original = (Resource) event.getNewValue();
 					Display.getDefault().syncExec(new Runnable() {
 					    public void run() {
 					    	setInput(original.getContents().get(0));
 					    }
 					});
+				}
+				if(event.getProperty().equals(DSEContentMergeViewer.LEFT)) {
+					local = (Resource) event.getNewValue();
+					
 				}
 				if(event.getProperty().equals(DSEContentMergeViewer.SELECTED_SOLUTION)) {
 					selectedSolution = (Solution) event.getNewValue();
@@ -90,7 +94,8 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 	private Action applyMerge = new Action("Apply Selected Solution") {
 		public void run() {
 			EObject newOrigin = selectedSolution.getScope().getOrigin();
-			Resource resource = original;
+			Resource resource = local;
+			resource.getContents().clear();
 			resource.getContents().add(newOrigin);
 			try {
 				resource.save(Collections.emptyMap());
