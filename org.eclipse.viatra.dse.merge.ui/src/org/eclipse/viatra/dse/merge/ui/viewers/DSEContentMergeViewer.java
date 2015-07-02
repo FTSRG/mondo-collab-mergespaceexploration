@@ -21,7 +21,6 @@ import org.eclipse.emf.compare.match.impl.MatchEngineFactoryRegistryImpl;
 import org.eclipse.emf.compare.scope.IComparisonScope;
 import org.eclipse.emf.compare.utils.UseIdentifiers;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -81,9 +80,11 @@ public class DSEContentMergeViewer extends Viewer {
 	private ChangeSet changeOL;
 	private ChangeSet changeOR;
 	private Collection<Solution> solutions;
+	private Composite parent;
 	
 	public DSEContentMergeViewer(Composite parent, CompareConfiguration config) {
 		mergeControl = new DSEContentMergeControl(parent, SWT.None);
+		this.parent = parent;
 		this.config = config;
 		initialize();
 	}
@@ -167,8 +168,7 @@ public class DSEContentMergeViewer extends Viewer {
 
 	@Override
 	public ISelection getSelection() {
-		// TODO Auto-generated method stub
-		return null;
+		return mergeControl.getLeftViewer().getSelection();
 	}
 
 	@Override

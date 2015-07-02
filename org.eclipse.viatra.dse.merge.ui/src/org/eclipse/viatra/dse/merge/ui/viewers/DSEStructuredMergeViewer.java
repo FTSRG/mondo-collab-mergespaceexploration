@@ -7,13 +7,9 @@ import java.util.Collections;
 
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareViewerPane;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -30,6 +26,7 @@ import org.eclipse.ui.progress.IProgressService;
 import org.eclipse.viatra.dse.merge.DSEMergeManager;
 import org.eclipse.viatra.dse.merge.DSEMergeManager.Solution;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
+import org.eclipse.viatra.dse.merge.ui.provider.DetailedReflectiveItemProviderAdapterFactory;
 
 public class DSEStructuredMergeViewer extends TreeViewer {
 
@@ -38,7 +35,7 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 	private ChangeSet changeOL;
 	private Resource original;
 	private Resource local;
-	private ReflectiveItemProviderAdapterFactory adapterFactory = new ReflectiveItemProviderAdapterFactory();
+	private ReflectiveItemProviderAdapterFactory adapterFactory = new DetailedReflectiveItemProviderAdapterFactory();
 	private Solution selectedSolution;	
 	
 	public DSEStructuredMergeViewer(Composite parent, CompareConfiguration config) {
@@ -78,7 +75,7 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 				if(event.getProperty().equals(DSEContentMergeViewer.SELECTED_SOLUTION)) {
 					selectedSolution = (Solution) event.getNewValue();
 					applyMerge.setEnabled(true);
-				}
+				}				
 			}
 		});
 		
