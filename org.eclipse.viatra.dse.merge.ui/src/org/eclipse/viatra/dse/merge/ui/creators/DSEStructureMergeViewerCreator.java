@@ -5,6 +5,7 @@ import org.eclipse.compare.IViewerCreator;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.viatra.dse.merge.ui.viewers.DSEContentMergeViewer;
+import org.eclipse.viatra.dse.merge.ui.viewers.DSEStructuredMergeViewer;
 
 public class DSEStructureMergeViewerCreator implements IViewerCreator {
 
@@ -13,8 +14,7 @@ public class DSEStructureMergeViewerCreator implements IViewerCreator {
 
 	@Override
 	public Viewer createViewer(Composite parent, CompareConfiguration config) {
-		return null;
-//		return new DSEContentMergeViewer(parent, config);
+		return new DSEStructuredMergeViewer(parent, config);
 	}
 
 }

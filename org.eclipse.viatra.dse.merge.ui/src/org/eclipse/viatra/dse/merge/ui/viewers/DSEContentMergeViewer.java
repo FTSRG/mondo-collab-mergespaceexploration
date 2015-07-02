@@ -1,6 +1,7 @@
 package org.eclipse.viatra.dse.merge.ui.viewers;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.core.resources.IResource;
@@ -23,22 +24,37 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
+import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.team.internal.ui.mapping.AbstractCompareInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
+import org.eclipse.viatra.dse.merge.DSEMergeManager.Solution;
 import org.eclipse.viatra.dse.merge.emf.compare.EMFCompareTranslator;
+import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
+import org.eclipse.viatra.dse.merge.model.Priority;
 import org.eclipse.viatra.dse.merge.model.provider.ModelItemProviderAdapterFactory;
 import org.eclipse.viatra.dse.merge.ui.Util;
+import org.eclipse.viatra.dse.merge.ui.provider.SolutionContentProvider;
+import org.eclipse.viatra.dse.merge.ui.provider.SolutionLabelProvider;
+
+import com.google.common.collect.Lists;
 
 public class DSEContentMergeViewer extends Viewer {
 
@@ -47,18 +63,22 @@ public class DSEContentMergeViewer extends Viewer {
 	private final CompareConfiguration config;
 	private AdapterFactory adapterFactory = new ModelItemProviderAdapterFactory();
 	
+	
 	public static final String ANCESTOR = "ANCESTOR";
 	public static final String LEFT = "LEFT";
 	public static final String RIGHT = "RIGHT";
 	public static final String CHANGESET_OL = "ChangeSet_OL";
 	public static final String CHANGESET_OR = "ChangeSet_OR";
+	public static final String SOLUTIONS = "Solutions";
+	public static final String SELECTED_SOLUTION = "SelectedSolution";
 	
 	private IResource remote;
 	private IResource local;
 	private IResource original;
 	private ChangeSet changeOL;
 	private ChangeSet changeOR;
-
+	private Collection<Solution> solutions;
+	
 	public DSEContentMergeViewer(Composite parent, CompareConfiguration config) {
 		mergeControl = new DSEContentMergeControl(parent, SWT.None);
 		this.config = config;
@@ -66,12 +86,17 @@ public class DSEContentMergeViewer extends Viewer {
 	}
 
 	private void initialize() {
+		mergeControl.getLeftViewer().addCheckStateListener(new MayMustCheckStateListener());
+		mergeControl.getLabelLeft().setText(config.getLeftLabel(null));
+		mergeControl.getRightViewer().addCheckStateListener(new MayMustCheckStateListener());
+		mergeControl.getLabelRight().setText(config.getRightLabel(null));
+		
 		config.addPropertyChangeListener(new IPropertyChangeListener() {
 			
 			@Override
 			public void propertyChange(final PropertyChangeEvent event) {
 				
-				Display.getDefault().syncExec(new Runnable() {
+				Display.getDefault().asyncExec(new Runnable() {
 				    public void run() {
 				    	if(event.getProperty().equals(CHANGESET_OL)) {
 							changeOL = (ChangeSet) event.getNewValue();
@@ -88,26 +113,45 @@ public class DSEContentMergeViewer extends Viewer {
 							mergeControl.getRightViewer().setInput(changeOR);
 							refresh();
 						}
+						if(event.getProperty().equals(SOLUTIONS)) {
+							solutions = (Collection<Solution>) event.getNewValue();
+							mergeControl.getSolutionViewer().setContentProvider(new SolutionContentProvider());
+							mergeControl.getSolutionViewer().setLabelProvider(new SolutionLabelProvider());
+							mergeControl.getSolutionViewer().setInput(new SolutionList(solutions));
+							mergeControl.changeToSolutionPage();
+						}
 				    }
 				});
-				
-//				IProgressService service = PlatformUI.getWorkbench().getProgressService();
-//				try {
-//					service.run(true, false, new IRunnableWithProgress() {
-//						
-//						@Override
-//						public void run(IProgressMonitor monitor) throws InvocationTargetException,
-//								InterruptedException {
-//							
-//						}
-//					});
-//				} catch (InvocationTargetException | InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				
 			}
 		});
+		
+		
+		MenuManager menuMgr = new MenuManager();
+	    menuMgr.setRemoveAllWhenShown(true);
+	    menuMgr.addMenuListener(new IMenuListener() {
+	        public void menuAboutToShow(IMenuManager manager) {
+	        	
+	        	IStructuredSelection selection = (IStructuredSelection) mergeControl.getSolutionViewer().getSelection();
+	        	if(selection.size() == 1) {
+	        		Object object = selection.iterator().next();
+	        		
+	        		if(object instanceof SolutionElement) {
+	        			final SolutionElement element = (SolutionElement) object;
+	        			manager.add(new Action("Select solution #" + element.counter) {
+	    	        		@Override
+	    	        		public void run() {
+	    	        			mergeControl.getSelected().setText("Selected solution is: Solution #" + element.counter);
+	    	        			config.setProperty(SELECTED_SOLUTION, element.solution);
+	    	        		}
+	    	        	});
+	        		}
+	        	}
+	        	
+	        }
+	    });
+	    Menu menu = menuMgr.createContextMenu(mergeControl.getSolutionViewer().getControl());
+	    mergeControl.getSolutionViewer().getControl().setMenu(menu);
+	    PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart().getSite().registerContextMenu(menuMgr, mergeControl.getSolutionViewer());
 	}
 
 	@Override
@@ -206,8 +250,39 @@ public class DSEContentMergeViewer extends Viewer {
 
 	@Override
 	public void setSelection(ISelection selection, boolean reveal) {
-		// TODO Auto-generated method stub
 		
 	}
 	
+	private class MayMustCheckStateListener implements ICheckStateListener {
+
+		@Override
+		public void checkStateChanged(CheckStateChangedEvent event) {
+			Object object = event.getElement();
+			Change change = (Change) object;
+			change.setPriority(event.getChecked() ? Priority.MUST : Priority.MAY);
+		}
+		
+	}	
+	
+	public class SolutionElement {
+		public int counter;
+		public Solution solution;
+		public SolutionElement(int counter, Solution solution) {
+			this.counter = counter;
+			this.solution = solution;
+		}
+	}
+	
+	public class SolutionList {
+		public Collection<SolutionElement> list = Lists.newArrayList();	
+		public SolutionList(Collection<Solution> solutions) {
+			for (Solution solution : solutions) {
+				add(solution);
+			}
+		}
+		
+		private void add(Solution solution) {
+			list.add(new SolutionElement(list.size()+1, solution));
+		}
+	}
 }
