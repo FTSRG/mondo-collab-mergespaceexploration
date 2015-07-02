@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><?eclipse version="3.0"?><!--
 --><plugin>
+      <extension-point id="configuration" name="DSE Merge Configuration" schema="schema/configuration.exsd"/>
   <extension point="org.eclipse.emf.ecore.generated_package">
     <!-- @generated merge -->
     <package class="org.eclipse.viatra.dse.merge.model.ModelPackage" genModel="model/merge.genmodel" uri="http://org.eclipse.viatra.dse.merge/model"/>

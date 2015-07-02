@@ -2,10 +2,17 @@ package org.eclipse.viatra.dse.merge;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.InvalidRegistryObjectException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.incquery.runtime.api.IMatchProcessor;
@@ -30,9 +37,15 @@ import org.eclipse.viatra.dse.objectives.impl.ModelQueryType;
 import org.eclipse.viatra.dse.util.EMFHelper;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class DSEMergeManager {
 
+	private static Map<String,DSEMergeConfigurator> configuratorMapping;
+	public static String CONFIGURATION_POINT = "org.eclipse.viatra.dse.merge.configuration";
+	public static String URI_ATTRIBUTE = "epackageURI";
+	public static String CLASS_ATTRIBUTE = "class";
+	
 	private ChangeSet local;
 	private ChangeSet remote;
 	private EObject original; 
@@ -42,6 +55,8 @@ public class DSEMergeManager {
 	
 	private Collection<DSETransformationRule<?,?>> rules;
 	private Collection<IQuerySpecification<?>> objectives;
+	
+	static Logger logger = Logger.getLogger(DSEMergeManager.class);
 	
 	private IQuerySpecification<IncQueryMatcher<IPatternMatch>> id2eobject;
 	
@@ -55,18 +70,19 @@ public class DSEMergeManager {
 		return original;
 	}
 	
-	public void setMetamodel(EPackage metamodel) {
+	private void setMetamodel(EPackage metamodel) {
 		this.metamodel = metamodel;
 	}
 	
-	public void setRules(Collection<DSETransformationRule<?,?>> rules) {
+	private void setRules(Collection<DSETransformationRule<?,?>> rules) {
 		this.rules = rules;
 	}
 	
-	public void setObjectives(Collection<IQuerySpecification<?>> objectives) {
+	private void setObjectives(Collection<IQuerySpecification<?>> objectives) {
 		this.objectives = objectives;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void setId2EObject(IQuerySpecification<?> querySpecification) {
 		this.id2eobject = (IQuerySpecification<IncQueryMatcher<IPatternMatch>>) querySpecification;
 	}
@@ -82,19 +98,46 @@ public class DSEMergeManager {
 		scope.setOrigin(original);	
 		scope.setCemetery(ScopeFactory.eINSTANCE.createCemetery());
 		
+		DSEMergeConfigurator configurator = configuratorMapping.get(original.eClass().getEPackage().getNsURI());
+		if(configurator != null) {
+			this.setMetamodel(configurator.getMetamodel());
+			try {
+				this.setId2EObject(configurator.getId2EObject());
+				this.setObjectives(configurator.getObjectives());
+				this.setRules(configurator.getRules());
+			} catch (IncQueryException e) {
+				logger.error(e.getMessage());
+			}			
+		}
+		
 		dse = new DesignSpaceExplorer();
 	}
 	
 	public static DSEMergeManager create(EObject original, ChangeSet local, ChangeSet remote) {
+		if(configuratorMapping == null)
+			initializeConfiguration();
 		return new DSEMergeManager(original, local, remote);
 	}
 	
+	private static void initializeConfiguration() {
+		try {
+			configuratorMapping = Maps.newHashMap();
+			IExtensionPoint extensionPoint = Platform.getExtensionRegistry().getExtensionPoint(CONFIGURATION_POINT);
+			for (IExtension ext : extensionPoint.getExtensions()) {
+				
+				for(IConfigurationElement conf : ext.getConfigurationElements()) {
+					String uri = conf.getAttribute(URI_ATTRIBUTE);
+					DSEMergeConfigurator configurator;
+						configurator = (DSEMergeConfigurator) conf.createExecutableExtension(CLASS_ATTRIBUTE);
+					if(uri != null && configurator != null)
+						configuratorMapping.put(uri, configurator);
+				}
+			}
+		} catch (InvalidRegistryObjectException | CoreException e) {
+			logger.error(e.getMessage());
+		}
+	}
 	public Collection<Solution> start() {
-		BasicConfigurator.configure();
-		Logger.getRootLogger().setLevel(Level.ERROR);
-		Logger.getLogger(DSEMergeStrategy.class).setLevel(Level.DEBUG);
-		Logger.getLogger(DesignSpaceManager.class).setLevel(Level.DEBUG);	
-		
 		dse.addMetaModelPackage(metamodel);
 		dse.addMetaModelPackage(ScopePackage.eINSTANCE);
 		dse.addMetaModelPackage(ModelPackage.eINSTANCE);

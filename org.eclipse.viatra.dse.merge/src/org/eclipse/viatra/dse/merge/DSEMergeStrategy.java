@@ -22,7 +22,9 @@ import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
 import org.eclipse.viatra.dse.merge.model.Create;
 import org.eclipse.viatra.dse.merge.model.Delete;
+import org.eclipse.viatra.dse.merge.model.Feature;
 import org.eclipse.viatra.dse.merge.model.Id;
+import org.eclipse.viatra.dse.merge.model.Kind;
 import org.eclipse.viatra.dse.merge.model.Reference;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 import org.eclipse.viatra.dse.merge.util.FilterHelper;
@@ -79,7 +81,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 			else if(change instanceof Attribute) {
 				findParents(getId(((Attribute)change).getSrc()), getId(((Attribute)change).getSrc()), idsNotToDelete);
 			}
-			else if(change instanceof Reference) {
+			else if(change instanceof Reference && ((Feature) change).getKind() != Kind.UNSET) {
 				findParents(getId(((Reference)change).getSrc()), getId(((Reference)change).getSrc()), idsNotToDelete);
 				findParents(getId(((Reference)change).getTrg()), getId(((Reference)change).getTrg()), idsNotToDelete);
 			}
@@ -140,7 +142,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 		}
 		
 		//Backtrack if there is no transitions
-		while (transitions == null || transitions.iterator().hasNext()) {
+		while (transitions == null || !transitions.iterator().hasNext()) {
 			boolean didUndo = dsm.undoLastTransformation();
 			if (!didUndo) {
 				return null;
