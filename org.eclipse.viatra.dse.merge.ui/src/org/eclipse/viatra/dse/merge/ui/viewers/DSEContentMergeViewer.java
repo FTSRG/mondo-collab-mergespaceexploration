@@ -1,5 +1,6 @@
 package org.eclipse.viatra.dse.merge.ui.viewers;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
@@ -181,9 +182,15 @@ public class DSEContentMergeViewer extends Viewer {
 	public void setInput(Object input) {
 		if(input instanceof ResourceDiffCompareInput) {
 			ResourceDiffCompareInput compareInput = (ResourceDiffCompareInput) input;
-			IResource file = compareInput.getResource();
-			local = new ResourceSetImpl().getResource(URI.createFileURI(file.getLocation().toString()), true);
-			config.setProperty(LEFT, local);
+			IResource file = compareInput.getResource();			
+			String location = file.getLocation().toString();
+			if(new File(location + "." + "changeset").exists()) {
+				changeOL = (ChangeSet) new ResourceSetImpl().getResource(URI.createFileURI(location + "." + "changeset"), true).getContents().get(0);
+				config.setProperty(CHANGESET_OL, changeOL);
+			} else {
+				local = new ResourceSetImpl().getResource(URI.createFileURI(location), true);
+				config.setProperty(LEFT, local);
+			}
 		}
 		mergeControl.getLabelLeft().setText(config.getLeftLabel(input));
 		mergeControl.getLabelRight().setText(config.getLeftLabel(input));
@@ -191,7 +198,7 @@ public class DSEContentMergeViewer extends Viewer {
 			this.input = (AbstractCompareInput) input;
 			original = Util.getResource(this.input.getAncestor(), LoadKind.ANCESTOR);
 			config.setProperty(ANCESTOR, original);
-			if(local == null) {
+			if(local == null && changeOL == null) {
 				local = Util.getResource(this.input.getLeft(), LoadKind.LEFT);
 				config.setProperty(LEFT, local);
 			}
@@ -210,7 +217,7 @@ public class DSEContentMergeViewer extends Viewer {
 				@Override
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 					
-					monitor.beginTask("Comparison is in progress...", 8);
+					monitor.beginTask("Comparison is in progress...", 6);
 					monitor.worked(1);
 					
 					// Configure EMF Compare
@@ -225,24 +232,23 @@ public class DSEContentMergeViewer extends Viewer {
 					monitor.worked(1);
 					
 					// Compare the two models
-					IComparisonScope scopeOL = EMFCompare.createDefaultScope(local, original);
-					Comparison comparisonOL = comparator.compare(scopeOL);
-					
+					if(local != null) {
+						IComparisonScope scopeOL = EMFCompare.createDefaultScope(local, original);
+						Comparison comparisonOL = comparator.compare(scopeOL);
+						changeOL = EMFCompareTranslator.translate(comparisonOL);
+					}
 					monitor.worked(2);
 					
 					IComparisonScope scopeOR = EMFCompare.createDefaultScope(remote, original);
 					Comparison comparisonOR = comparator.compare(scopeOR);
-
-					monitor.worked(2);
-
-					ChangeSet translatedOL = EMFCompareTranslator.translate(comparisonOL);
-					ChangeSet translatedOR = EMFCompareTranslator.translate(comparisonOR);
+					changeOR = EMFCompareTranslator.translate(comparisonOR);
 					
 					monitor.worked(2);
 					monitor.done();
 					
-					config.setProperty(CHANGESET_OL, translatedOL);
-					config.setProperty(CHANGESET_OR, translatedOR);
+					if(local != null)
+						config.setProperty(CHANGESET_OL, changeOL);
+					config.setProperty(CHANGESET_OR, changeOR);
 				}
 			});
 		} catch (InvocationTargetException | InterruptedException e) {
