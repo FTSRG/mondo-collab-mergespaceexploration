@@ -178,16 +178,6 @@ public class DSEMergeManager {
 		return s;
 	}
 	
-	public DSEMergeScope applyMerge(SolutionTrajectory trajectory) {
-		try {
-			trajectory.setModel(scope);		
-			trajectory.doNextTransformation();
-		} catch (IncQueryException e) {
-			e.printStackTrace();
-		}
-		return scope;
-	}
-	
 	private class DefaultMatchProcessor<T extends IPatternMatch> implements IMatchProcessor<T> {
 
 		@Override
@@ -209,11 +199,11 @@ public class DSEMergeManager {
 		
 		public DSEMergeScope getScope() {
 			if(!applied)
-				return applyMerge();
+				applyMerge();
 			return scope;
 		}
 		
-		private DSEMergeScope applyMerge() {
+		private void applyMerge() {
 			try {
 				SolutionTrajectory trajectory = solution.getShortestTrajectory();
 				trajectory.setModel(this.scope);		
@@ -222,7 +212,6 @@ public class DSEMergeManager {
 			} catch (IncQueryException e) {
 				e.printStackTrace();
 			}
-			return this.scope;
 		}
 		
 		@Override
