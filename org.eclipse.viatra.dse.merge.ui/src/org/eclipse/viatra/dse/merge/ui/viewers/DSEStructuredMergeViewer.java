@@ -90,7 +90,7 @@ public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 		addActions(parent);
 	}
 
-	private Action executeMerge = new Action("Execute Merge") {
+	private Action executeMerge = new Action("Calculate Solutions") {
 		public void run() {
 			executeMerge();
 		};

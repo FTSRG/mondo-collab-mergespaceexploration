@@ -192,8 +192,10 @@ public class DSEContentMergeViewer extends Viewer {
 				config.setProperty(LEFT, local);
 			}
 		}
+		
 		mergeControl.getLabelLeft().setText(config.getLeftLabel(input));
-		mergeControl.getLabelRight().setText(config.getLeftLabel(input));
+		mergeControl.getLabelRight().setText(config.getRightLabel(input));
+		
 		if(input instanceof AbstractCompareInput) {
 			this.input = (AbstractCompareInput) input;
 			original = Util.getResource(this.input.getAncestor(), LoadKind.ANCESTOR);
