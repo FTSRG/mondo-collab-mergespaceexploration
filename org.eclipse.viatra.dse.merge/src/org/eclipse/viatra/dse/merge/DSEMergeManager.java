@@ -95,7 +95,7 @@ public class DSEMergeManager {
 		scope = ScopeFactory.eINSTANCE.createDSEMergeScope();
 		scope.setRemote(remote);
 		scope.setLocal(local);
-		scope.setOrigin(original);	
+		scope.setOrigin(EMFHelper.clone(original));	
 		scope.setCemetery(ScopeFactory.eINSTANCE.createCemetery());
 		
 		DSEMergeConfigurator configurator = configuratorMapping.get(original.eClass().getEPackage().getNsURI());
