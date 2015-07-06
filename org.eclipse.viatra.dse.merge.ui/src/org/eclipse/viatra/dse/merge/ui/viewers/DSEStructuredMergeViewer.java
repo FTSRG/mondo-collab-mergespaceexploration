@@ -6,7 +6,9 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.eclipse.compare.CompareConfiguration;
+import org.eclipse.compare.CompareEditorInput;
 import org.eclipse.compare.CompareViewerPane;
+import org.eclipse.compare.contentmergeviewer.IFlushable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -28,7 +30,7 @@ import org.eclipse.viatra.dse.merge.DSEMergeManager.Solution;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
 import org.eclipse.viatra.dse.merge.ui.provider.DetailedReflectiveItemProviderAdapterFactory;
 
-public class DSEStructuredMergeViewer extends TreeViewer {
+public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 
 	private CompareConfiguration config;
 	private ChangeSet changeOR;
@@ -36,7 +38,8 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 	private Resource original;
 	private Resource local;
 	private ReflectiveItemProviderAdapterFactory adapterFactory = new DetailedReflectiveItemProviderAdapterFactory();
-	private Solution selectedSolution;	
+	private Solution selectedSolution;
+	private CompareEditorInput editorInput;	
 	
 	public DSEStructuredMergeViewer(Composite parent, CompareConfiguration config) {
 		super(parent);
@@ -48,6 +51,7 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 		
 		setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 		setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+		editorInput = (CompareEditorInput)config.getContainer();
 		config.addPropertyChangeListener(new IPropertyChangeListener() {
 			
 			@Override
@@ -73,8 +77,12 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 					
 				}
 				if(event.getProperty().equals(DSEContentMergeViewer.SELECTED_SOLUTION)) {
+					if(event.getNewValue() == null) 
+						return;
 					selectedSolution = (Solution) event.getNewValue();
-					applyMerge.setEnabled(true);
+					revertChanges.setEnabled(true);
+					setInput(selectedSolution.getScope().getOrigin());
+					editorInput.setDirty(true);
 				}				
 			}
 		});
@@ -88,28 +96,28 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 		};
 	};
 	
-	private Action applyMerge = new Action("Apply Selected Solution") {
+	private Action revertChanges = new Action("Revert Solution") {
 		public void run() {
-			EObject newOrigin = selectedSolution.getScope().getOrigin();
-			Resource resource = local;
-			resource.getContents().clear();
-			resource.getContents().add(newOrigin);
-			try {
-				resource.save(Collections.emptyMap());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			Display.getDefault().syncExec(new Runnable() {
+			    public void run() {
+			    	setInput(original.getContents().get(0));
+			    	config.setProperty(DSEContentMergeViewer.SELECTED_SOLUTION, null);
+			    	editorInput.setDirty(false);
+					revertChanges.setEnabled(false);
+			    }
+			});			
 		};
 	};
 	
 	private void addActions(Composite parent) {
 		ToolBarManager tbm= CompareViewerPane.getToolBarManager(parent);
+		revertChanges.setEnabled(false);
 		if (tbm != null) {
 			tbm.removeAll();
 			tbm.add(executeMerge);
-			tbm.add(applyMerge);
-			applyMerge.setEnabled(false);
+			tbm.add(revertChanges);
 			tbm.update(true);
+			
 		}
 	}
 
@@ -132,6 +140,22 @@ public class DSEStructuredMergeViewer extends TreeViewer {
 		} catch (InvocationTargetException | InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void flush(IProgressMonitor monitor) {
+		monitor.beginTask("Saving the merged model", 1);
+		EObject newOrigin = selectedSolution.getScope().getOrigin();
+		Resource resource = local;
+		resource.getContents().clear();
+		resource.getContents().add(newOrigin);
+		try {
+			resource.save(Collections.emptyMap());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		monitor.worked(1);
+		monitor.done();
 	}
 	
 }
