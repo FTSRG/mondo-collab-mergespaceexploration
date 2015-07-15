@@ -1,14 +1,18 @@
 package org.eclipse.viatra.dse.merge.ui.viewers;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
+import org.apache.log4j.Logger;
 import org.eclipse.compare.CompareConfiguration;
-import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.InvalidRegistryObjectException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.compare.Comparison;
 import org.eclipse.emf.compare.EMFCompare;
 import org.eclipse.emf.compare.match.DefaultComparisonFactory;
@@ -19,10 +23,10 @@ import org.eclipse.emf.compare.match.IMatchEngine;
 import org.eclipse.emf.compare.match.eobject.IEObjectMatcher;
 import org.eclipse.emf.compare.match.impl.MatchEngineFactoryImpl;
 import org.eclipse.emf.compare.match.impl.MatchEngineFactoryRegistryImpl;
+import org.eclipse.emf.compare.scope.DefaultComparisonScope;
 import org.eclipse.emf.compare.scope.IComparisonScope;
 import org.eclipse.emf.compare.utils.UseIdentifiers;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.action.Action;
@@ -42,8 +46,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.team.internal.ui.mapping.AbstractCompareInput;
-import org.eclipse.team.internal.ui.mapping.ResourceDiffCompareInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 import org.eclipse.viatra.dse.merge.DSEMergeManager.Solution;
@@ -52,8 +54,9 @@ import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
 import org.eclipse.viatra.dse.merge.model.Priority;
 import org.eclipse.viatra.dse.merge.model.provider.ModelItemProviderAdapterFactory;
-import org.eclipse.viatra.dse.merge.ui.Util;
-import org.eclipse.viatra.dse.merge.ui.Util.LoadKind;
+import org.eclipse.viatra.dse.merge.ui.Properties;
+import org.eclipse.viatra.dse.merge.ui.interpreter.DefaultCompareEditorInterpreter;
+import org.eclipse.viatra.dse.merge.ui.interpreter.ICompareEditorInputInterpreter;
 import org.eclipse.viatra.dse.merge.ui.provider.SolutionContentProvider;
 import org.eclipse.viatra.dse.merge.ui.provider.SolutionLabelProvider;
 
@@ -61,19 +64,14 @@ import com.google.common.collect.Lists;
 
 public class DSEContentMergeViewer extends Viewer {
 
+	private static final String INTERPRETER_POINT = "org.eclipse.viatra.dse.merge.ui.interpreter";
+	private static final String CLASS_ATTRIBUTE = "interpreter";
 	private DSEContentMergeControl mergeControl;
-	private AbstractCompareInput input;
+	private Object input;
 	private final CompareConfiguration config;
 	private AdapterFactory adapterFactory = new ModelItemProviderAdapterFactory();
 	
-	
-	public static final String ANCESTOR = "ANCESTOR";
-	public static final String LEFT = "LEFT";
-	public static final String RIGHT = "RIGHT";
-	public static final String CHANGESET_OL = "ChangeSet_OL";
-	public static final String CHANGESET_OR = "ChangeSet_OR";
-	public static final String SOLUTIONS = "Solutions";
-	public static final String SELECTED_SOLUTION = "SelectedSolution";
+	private static Collection<ICompareEditorInputInterpreter> interpreters;
 	
 	private Resource remote;
 	private Resource local;
@@ -81,16 +79,33 @@ public class DSEContentMergeViewer extends Viewer {
 	private ChangeSet changeOL;
 	private ChangeSet changeOR;
 	private Collection<Solution> solutions;
-	private Composite parent;
 	
 	public DSEContentMergeViewer(Composite parent, CompareConfiguration config) {
 		mergeControl = new DSEContentMergeControl(parent, SWT.None);
-		this.parent = parent;
 		this.config = config;
 		initialize();
 	}
 
+	private static void initializeConfiguration() {
+		interpreters = Lists.newArrayList();
+		try {
+			IExtensionPoint extensionPoint = Platform.getExtensionRegistry().getExtensionPoint(INTERPRETER_POINT);
+			for (IExtension ext : extensionPoint.getExtensions()) {
+				
+				for(IConfigurationElement conf : ext.getConfigurationElements()) {
+					interpreters.add((ICompareEditorInputInterpreter) conf.createExecutableExtension(CLASS_ATTRIBUTE));
+				}
+			}
+		} catch (InvalidRegistryObjectException | CoreException e) {
+			Logger.getLogger(DSEContentMergeViewer.class).error(e.getMessage());
+		}
+		interpreters.add(new DefaultCompareEditorInterpreter());
+	}
+	
 	private void initialize() {
+		if(interpreters == null)
+			initializeConfiguration();
+		
 		mergeControl.getLeftViewer().addCheckStateListener(new MayMustCheckStateListener());
 		mergeControl.getRightViewer().addCheckStateListener(new MayMustCheckStateListener());
 		
@@ -100,8 +115,21 @@ public class DSEContentMergeViewer extends Viewer {
 			public void propertyChange(final PropertyChangeEvent event) {
 				
 				Display.getDefault().asyncExec(new Runnable() {
-				    public void run() {
-				    	if(event.getProperty().equals(CHANGESET_OL)) {
+				    @SuppressWarnings("unchecked")
+					public void run() {
+				    	if(event.getProperty().equals(Properties.READY_TO_COMPARE)) {
+							executeComparison();
+						}
+				    	if(event.getProperty().equals(Properties.ANCESTOR)) {
+							original = (Resource) event.getNewValue();
+						}
+						if(event.getProperty().equals(Properties.LEFT)) {
+							local = (Resource) event.getNewValue();
+						}
+						if(event.getProperty().equals(Properties.RIGHT)) {
+							remote = (Resource) event.getNewValue();
+						}
+				    	if(event.getProperty().equals(Properties.CHANGESET_OL)) {
 							changeOL = (ChangeSet) event.getNewValue();
 							mergeControl.getLeftViewer().setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 							mergeControl.getLeftViewer().setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
@@ -109,14 +137,14 @@ public class DSEContentMergeViewer extends Viewer {
 							refresh();
 						}
 						
-						if(event.getProperty().equals(CHANGESET_OR)) {
+						if(event.getProperty().equals(Properties.CHANGESET_OR)) {
 							changeOR = (ChangeSet) event.getNewValue();
 							mergeControl.getRightViewer().setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 							mergeControl.getRightViewer().setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 							mergeControl.getRightViewer().setInput(changeOR);
 							refresh();
 						}
-						if(event.getProperty().equals(SOLUTIONS)) {
+						if(event.getProperty().equals(Properties.SOLUTIONS)) {
 							solutions = (Collection<Solution>) event.getNewValue();
 							mergeControl.getSolutionViewer().setContentProvider(new SolutionContentProvider());
 							mergeControl.getSolutionViewer().setLabelProvider(new SolutionLabelProvider());
@@ -144,7 +172,7 @@ public class DSEContentMergeViewer extends Viewer {
 	    	        		@Override
 	    	        		public void run() {
 	    	        			mergeControl.getSelected().setText("Selected solution is: Solution #" + element.counter);
-	    	        			config.setProperty(SELECTED_SOLUTION, element.solution);
+	    	        			config.setProperty(Properties.SELECTED_SOLUTION, element.solution);
 	    	        		}
 	    	        	});
 	        		}
@@ -178,37 +206,17 @@ public class DSEContentMergeViewer extends Viewer {
 	}
 
 	@Override
-	@SuppressWarnings("restriction")
 	public void setInput(Object input) {
-		if(input instanceof ResourceDiffCompareInput) {
-			ResourceDiffCompareInput compareInput = (ResourceDiffCompareInput) input;
-			IResource file = compareInput.getResource();			
-			String location = file.getLocation().toString();
-			if(new File(location + "." + "changeset").exists()) {
-				changeOL = (ChangeSet) new ResourceSetImpl().getResource(URI.createFileURI(location + "." + "changeset"), true).getContents().get(0);
-				config.setProperty(CHANGESET_OL, changeOL);
-			} else {
-				local = new ResourceSetImpl().getResource(URI.createFileURI(location), true);
-				config.setProperty(LEFT, local);
-			}
-		}
 		
 		mergeControl.getLabelLeft().setText(config.getLeftLabel(input));
 		mergeControl.getLabelRight().setText(config.getRightLabel(input));
 		
-		if(input instanceof AbstractCompareInput) {
-			this.input = (AbstractCompareInput) input;
-			original = Util.getResource(this.input.getAncestor(), LoadKind.ANCESTOR);
-			config.setProperty(ANCESTOR, original);
-			if(local == null && changeOL == null) {
-				local = Util.getResource(this.input.getLeft(), LoadKind.LEFT);
-				config.setProperty(LEFT, local);
+		for (ICompareEditorInputInterpreter interpreter : interpreters) {
+			if(interpreter.isInterpreterForType(input)) {
+				interpreter.interpretEditorInput(input, config);
+				break;
 			}
-			remote = Util.getResource(this.input.getRight(), LoadKind.RIGHT);
-			config.setProperty(RIGHT, remote);
-			executeComparison();
-		} 
-		
+		}
 	}
 
 	private void executeComparison() {
@@ -223,34 +231,48 @@ public class DSEContentMergeViewer extends Viewer {
 					monitor.worked(1);
 					
 					// Configure EMF Compare
-					IEObjectMatcher matcher = DefaultMatchEngine.createDefaultEObjectMatcher(UseIdentifiers.WHEN_AVAILABLE);
-					IComparisonFactory comparisonFactory = new DefaultComparisonFactory(new DefaultEqualityHelperFactory());
-					IMatchEngine.Factory matchEngineFactory = new MatchEngineFactoryImpl(matcher, comparisonFactory);
-					matchEngineFactory.setRanking(20);
-					IMatchEngine.Factory.Registry matchEngineRegistry = new MatchEngineFactoryRegistryImpl();
-					matchEngineRegistry.add(matchEngineFactory);
-					EMFCompare comparator = EMFCompare.builder().setMatchEngineFactoryRegistry(matchEngineRegistry).build();
-
-					monitor.worked(1);
-					
-					// Compare the two models
-					if(local != null) {
-						IComparisonScope scopeOL = EMFCompare.createDefaultScope(local, original);
-						Comparison comparisonOL = comparator.compare(scopeOL);
-						changeOL = EMFCompareTranslator.translate(comparisonOL);
+					{
+						IEObjectMatcher matcher = DefaultMatchEngine.createDefaultEObjectMatcher(UseIdentifiers.WHEN_AVAILABLE);
+						IComparisonFactory comparisonFactory = new DefaultComparisonFactory(new DefaultEqualityHelperFactory());
+						IMatchEngine.Factory matchEngineFactory = new MatchEngineFactoryImpl(matcher, comparisonFactory);
+						matchEngineFactory.setRanking(20);
+						IMatchEngine.Factory.Registry matchEngineRegistry = new MatchEngineFactoryRegistryImpl();
+						matchEngineRegistry.add(matchEngineFactory);
+						EMFCompare comparator = EMFCompare.builder().setMatchEngineFactoryRegistry(matchEngineRegistry).build();
+	
+						monitor.worked(1);
+						
+						// Compare the two models
+						if(local != null) {
+							IComparisonScope scopeOL = new DefaultComparisonScope(local, original, null);
+							Comparison comparisonOL = comparator.compare(scopeOL);
+							changeOL = new EMFCompareTranslator().translate(comparisonOL);
+						}
 					}
 					monitor.worked(2);
 					
-					IComparisonScope scopeOR = EMFCompare.createDefaultScope(remote, original);
-					Comparison comparisonOR = comparator.compare(scopeOR);
-					changeOR = EMFCompareTranslator.translate(comparisonOR);
-					
+					{
+						IEObjectMatcher matcher = DefaultMatchEngine.createDefaultEObjectMatcher(UseIdentifiers.WHEN_AVAILABLE);
+						IComparisonFactory comparisonFactory = new DefaultComparisonFactory(new DefaultEqualityHelperFactory());
+						IMatchEngine.Factory matchEngineFactory = new MatchEngineFactoryImpl(matcher, comparisonFactory);
+						matchEngineFactory.setRanking(20);
+						IMatchEngine.Factory.Registry matchEngineRegistry = new MatchEngineFactoryRegistryImpl();
+						matchEngineRegistry.add(matchEngineFactory);
+						EMFCompare comparator = EMFCompare.builder().setMatchEngineFactoryRegistry(matchEngineRegistry).build();
+						
+						monitor.worked(1);
+						 
+						IComparisonScope scopeOR = new DefaultComparisonScope(remote, original, null);
+						Comparison comparisonOR = comparator.compare(scopeOR);
+						changeOR = new EMFCompareTranslator().translate(comparisonOR);
+						
+					}
 					monitor.worked(2);
 					monitor.done();
 					
 					if(local != null)
-						config.setProperty(CHANGESET_OL, changeOL);
-					config.setProperty(CHANGESET_OR, changeOR);
+						config.setProperty(Properties.CHANGESET_OL, changeOL);
+					config.setProperty(Properties.CHANGESET_OR, changeOR);
 				}
 			});
 		} catch (InvocationTargetException | InterruptedException e) {

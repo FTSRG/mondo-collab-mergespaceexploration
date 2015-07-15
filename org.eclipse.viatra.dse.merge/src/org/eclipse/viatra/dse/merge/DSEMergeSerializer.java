@@ -29,10 +29,10 @@ public class DSEMergeSerializer implements IStateCoder {
 		
 		sb.append("Local mods: {\n");
 		serializeChangeSet(scope.getLocal(), sb);
-		sb.append("\n}");
+		sb.append("\n}\n");
 		sb.append("Remote mods: {\n");
 		serializeChangeSet(scope.getRemote(), sb);
-		sb.append("\n}");
+		sb.append("\n}\n");
 		
 		return sb.toString();
 	}
@@ -140,7 +140,7 @@ public class DSEMergeSerializer implements IStateCoder {
 				ret += "scope;";
 			}
 			else if(p instanceof Change) {
-				ret += serializeChange((Change) p) + ";";
+				ret += serializeChange((Change) p).replace("\n", "") + ";";
 			}
 			else if(p instanceof EObject) {
 				EStructuralFeature feature = ((EObject) p).eClass().getEStructuralFeature("id");

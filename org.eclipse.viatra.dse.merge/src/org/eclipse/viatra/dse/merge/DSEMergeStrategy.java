@@ -42,7 +42,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 	private boolean isInterrupted = false;
 	public static String MUST_PREFIX = "MUST_";
 	public static String MAY_PREFIX = "MAY_";
-	private Logger logger = Logger.getLogger(IStrategy.class);
+	private Logger logger = Logger.getLogger(DSEMergeStrategy.class);
 	private Random random = new Random();
 	private DesignSpaceManager.FilterOptions filterOptions;
 	private boolean onlyNewMust = false;
@@ -52,6 +52,8 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 	private Set<String> usedMustTransitions = Sets.newHashSet();
 	private Set<String> tempLiberateMustTransitions = Sets.newHashSet();
 	private Set<String> liberateMustTransitions = Sets.newHashSet();
+	private boolean forceToFinish;
+	private boolean fromBacktracking;
 	
 	@Override
 	public void init(ThreadContext context) {
@@ -124,7 +126,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 
 	@Override
 	public ITransition getNextTransition(boolean lastWasSuccessful) {
-		if (isInterrupted) {
+		if (isInterrupted || forceToFinish) {
 			return null;
 		}
 
@@ -132,7 +134,21 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 		
 		//Query available transitions
 		Iterable<? extends ITransition> transitions = FilterHelper.filterEmptyTransitions(dsm.getTransitionsFromCurrentState(filterOptions));
+		
+		logger.debug("All transitions");
+		logTransitionList(transitions);
+		
 		transitions = restrictTransitions(transitions);
+		
+		logger.debug("Restricted transitions");
+		logTransitionList(transitions);
+		
+		if(fromBacktracking) {
+			logger.debug("We are from backtracking... (Don't forget it!)");
+			usedMustTransitions.removeAll(liberateMustTransitions);
+			liberateMustTransitions.clear();
+			fromBacktracking = false;
+		}
 		
 		if(dsm.getTrajectoryInfo().getDepthFromRoot() == 0) {
 			boolean needMust = FilterHelper.hasMustTransition(dsm.getCurrentState().getOutgoingTransitions());
@@ -148,12 +164,15 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 				return null;
 			}
 
-			logger.debug("Backtracking as there aren't anymore transitions from this state: "
-					+ dsm.getCurrentState().getId());
+			logger.debug("Backtracking as there aren't anymore transitions from this state:\n" + dsm.getCurrentState().getId());
 
 			//Update transitions
 			transitions = FilterHelper.filterEmptyTransitions(dsm.getTransitionsFromCurrentState(filterOptions));
 			transitions = restrictTransitions(transitions);			
+			
+			logger.debug("After the backtracking, we found the following transitions");
+			logTransitionList(transitions);
+			
 		}
 		
 //		TODO: parallel execution
@@ -170,12 +189,19 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 		}
 		ITransition transition = iterator.next();
 
-		logger.debug("Depth: "
-				+ dsm.getTrajectoryInfo().getDepthFromCrawlerRoot()
-				+ " Next transition: " + transition.getId() + " From state: "
-				+ transition.getFiredFrom().getId());
-
+		logger.debug("Executing:");
+		logger.debug(transition);
+		logger.debug("From state:\n"+dsm.getCurrentState().getId());
+		
 		return transition;
+	}
+
+	private void logTransitionList(Iterable<? extends ITransition> transitions) {
+		logger.debug("Number of transitions " + Iterables.size(transitions));
+		
+		for (ITransition iTransition : transitions) {
+			logger.debug(iTransition);
+		}
 	}
 
 	private Iterable<? extends ITransition> restrictTransitions(Iterable<? extends ITransition> transitions) {
@@ -230,28 +256,37 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 	private void undoUntilMust(boolean isAlreadyTraversed, Fitness fitness,
 			boolean constraintsNotSatisfied, DesignSpaceManager dsm) {
 		boolean hasMust;
+		logBacktrack(isAlreadyTraversed, fitness, constraintsNotSatisfied);
 		do {
 			if(!dsm.undoLastTransformation())
 				return;
 			
-			logBacktrack(isAlreadyTraversed, fitness, constraintsNotSatisfied);
+			logger.debug("Backtracked to the following state:\n" + dsm.getCurrentState().getId());
+			
 			liberateMustTransitions.addAll(tempLiberateMustTransitions);
 			tempLiberateMustTransitions.clear();
 			Iterable<? extends ITransition> transitions = FilterHelper.filterEmptyTransitions(dsm.getCurrentState().getOutgoingTransitions());
 			tempLiberateMustTransitions.addAll(FilterHelper.selectTempLiberateMustTransitions(transitions, usedMustTransitions));
 			transitions = FilterHelper.filterEmptyTransitions(dsm.getTransitionsFromCurrentState(filterOptions));
 			transitions = restrictTransitions(transitions);
+			
+			logger.debug("Executable operations in the backtracked state:");
+			logTransitionList(transitions);
 			hasMust = FilterHelper.hasMustTransition(transitions);
+			if(!hasMust && dsm.getTrajectoryInfo().getDepthFromRoot() == 0) {
+				forceToFinish = true;
+				logger.debug("We are the top and there is no more executable MUST operation... So we finished");
+			}
 		} while (!hasMust && dsm.getTrajectoryInfo().getDepthFromRoot() > 0);
-		usedMustTransitions.removeAll(liberateMustTransitions);
-		liberateMustTransitions.clear();
+		fromBacktracking = true;
 	}
 
 	private void logBacktrack(boolean isAlreadyTraversed, Fitness fitness,
 			boolean constraintsNotSatisfied) {
-		logger.debug("Backtrack. Already traversed: " + isAlreadyTraversed
-				+ ". Goal state: " + (fitness.isSatisifiesHardObjectives())
-				+ ". Constraints not satisfied: " + constraintsNotSatisfied);
+		logger.debug("We have to backtrack from a state where:"
+				+ "\nAlready traversed: " + isAlreadyTraversed
+				+ "\nGoal state: " + (fitness.isSatisifiesHardObjectives())
+				+ "\nConstraints not satisfied: " + constraintsNotSatisfied);
 	}
 
 	@Override

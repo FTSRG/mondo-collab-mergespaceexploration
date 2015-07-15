@@ -10,25 +10,22 @@ import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.Create;
 import org.eclipse.viatra.dse.merge.model.Delete;
 import org.eclipse.viatra.dse.merge.model.Feature;
-import org.eclipse.viatra.dse.merge.model.Kind;
-import org.eclipse.viatra.dse.merge.model.Reference;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 
 import com.google.common.collect.Lists;
 
 public class DefaultCreateOperation {
 
-	public static void process(EObject pContainer, Create pChange,
-			DSEMergeScope pScope) {
+	public static void process(EObject pContainer, Create pChange) {
+		DSEMergeScope pScope = (DSEMergeScope) pChange.eContainer().eContainer();
+		
 		EObject element = (EObject) EcoreUtil.create(pChange.getClazz());
-		EStructuralFeature feature = element.eClass().getEStructuralFeature(
-				"id");
+		EStructuralFeature feature = element.eClass().getEStructuralFeature("id");
 		element.eSet(feature, DSEMergeStrategy.getId(pChange.getSrc()));
 
 		if (pChange.getFeature().isMany()) {
 			@SuppressWarnings("unchecked")
-			EList<EObject> list = (EList<EObject>) pContainer.eGet(pChange
-					.getFeature());
+			EList<EObject> list = (EList<EObject>) pContainer.eGet(pChange.getFeature());
 			list.add(element);
 		} else {
 			pContainer.eSet(pChange.getFeature(), element);
@@ -39,13 +36,13 @@ public class DefaultCreateOperation {
 				Attribute attribute = (Attribute) f;
 				switch (attribute.getKind()) {
 				case ADD:
-					DefaultAddAttributeOperation.process(element, attribute, pScope);
+					DefaultAddAttributeOperation.process(element, attribute);
 					break;
 				case REMOVE:
-					DefaultRemoveAttributeOperation.process(element, attribute,	pScope);
+					DefaultRemoveAttributeOperation.process(element, attribute);
 					break;
 				case SET:
-					DefaultSetAttributeOperation.process(element, attribute, pScope);
+					DefaultSetAttributeOperation.process(element, attribute);
 					break;
 				case UNSET:
 				default:
@@ -54,27 +51,31 @@ public class DefaultCreateOperation {
 			}
 		}
 
-		update(pScope, pChange);
+		update(pScope, pChange, pContainer);
 
 		EcoreUtil.delete(pChange);
 	}
 
-	private static void update(DSEMergeScope pScope, Create pChange) {
-		for (Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeStrategy.getId(pChange
-				.getSrc()))) {
-			d.setExecutable(false);
-			;
+	private static void update(DSEMergeScope pScope, Create pChange, EObject pSrc) {
+		for (Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeStrategy.getId(pChange.getSrc()))) {
+			d.setExecutable(false);			
 		}
 
 		if (pScope.getRemote().getChanges().contains(pChange)) {
 			for (Change change : pScope.getLocal().getChanges()) {
 				setToFalse(pChange, change);
+				if(change instanceof Feature && ((Feature) change).getFeature() == getIdFeature(pSrc)) {
+					change.setExecutable(false);
+				}
 			}
 		}
 
 		if (pScope.getLocal().getChanges().contains(pChange)) {
 			for (Change change : pScope.getRemote().getChanges()) {
 				setToFalse(pChange, change);
+				if(change instanceof Feature && ((Feature) change).getFeature() == getIdFeature(pSrc)) {
+					change.setExecutable(false);
+				}
 			}
 		}
 
@@ -83,8 +84,7 @@ public class DefaultCreateOperation {
 	private static void setToFalse(Create pChange, Change change) {
 		if (change instanceof Create) {
 			Create _change = (Create) change;
-			if (DSEMergeStrategy.getId(_change.getSrc()) == DSEMergeStrategy
-					.getId(pChange.getSrc())) {
+			if (DSEMergeStrategy.getId(_change.getSrc()) == DSEMergeStrategy.getId(pChange.getSrc())) {
 				_change.setExecutable(false);
 				for (Attribute attribute : pChange.getAttributes()) {
 					attribute.setExecutable(false);
@@ -92,6 +92,10 @@ public class DefaultCreateOperation {
 			}
 
 		}
+	}
+	
+	private static EStructuralFeature getIdFeature(EObject pSrc) {
+		return pSrc.eClass().getEStructuralFeature("id");
 	}
 
 }

@@ -30,5 +30,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  swing2swt.jar
-Import-Package: org.eclipse.jface.text
+Import-Package: org.apache.log4j;version="1.2.15",
+ org.eclipse.jface.text
 Bundle-Vendor: Budapest University of Technology and Economics, Fault Tolerant Systems Research Group
+Export-Package: org.eclipse.viatra.dse.merge.ui.interpreter

@@ -137,7 +137,10 @@ public class DSEMergeManager {
 			logger.error(e.getMessage());
 		}
 	}
+	
 	public Collection<Solution> start() {
+		Logger.getLogger(DSEMergeStrategy.class).setLevel(Level.DEBUG);
+		
 		dse.addMetaModelPackage(metamodel);
 		dse.addMetaModelPackage(ScopePackage.eINSTANCE);
 		dse.addMetaModelPackage(ModelPackage.eINSTANCE);

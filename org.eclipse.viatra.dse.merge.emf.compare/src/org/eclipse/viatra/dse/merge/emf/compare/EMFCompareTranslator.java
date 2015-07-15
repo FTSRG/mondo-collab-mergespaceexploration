@@ -22,14 +22,14 @@ import org.eclipse.viatra.dse.merge.model.Reference;
 
 public class EMFCompareTranslator {
 
-	public static ChangeSet translate(Comparison compare) {
+	public ChangeSet translate(Comparison compare) {
 		ChangeSet changeSet = ModelFactory.eINSTANCE.createChangeSet();
 		processFeatureChangeSpec(compare, changeSet);
 
 		return changeSet;
 	}
 
-	private static void processFeatureChangeSpec(Comparison compare,
+	private void processFeatureChangeSpec(Comparison compare,
 			ChangeSet changeSet) {
 		
 		EList<Diff> list = compare.getDifferences();
@@ -43,8 +43,7 @@ public class EMFCompareTranslator {
 		}
 	}
 
-	private static void processAttributeChangeSpec(AttributeChangeSpec diff,
-			ChangeSet changeSet) {
+	private void processAttributeChangeSpec(AttributeChangeSpec diff, ChangeSet changeSet) {
 		
 		EObject original = diff.getMatch().getRight();
 		if(original == null) {
@@ -54,13 +53,15 @@ public class EMFCompareTranslator {
 		if(object == null)
 			return; //A delete operation will come...
 		
-		EStructuralFeature feature = object.eClass().getEStructuralFeature("id");
-
 		Attribute attribute = ModelFactory.eINSTANCE.createAttribute();
 		attribute.setFeature(diff.getAttribute());
-		attribute.setSrc(create(object.eGet(feature)));
 		attribute.setValue(diff.getValue());
 		attribute.setExecutable(true);
+
+		if(diff.getAttribute() == getIdFeature(object))
+			attribute.setSrc(create(diff.getMatch().getRight()));
+		else 
+			attribute.setSrc(create(diff.getMatch().getLeft()));
 		
 		switch (diff.getKind()) {
 		case ADD:
@@ -68,6 +69,7 @@ public class EMFCompareTranslator {
 			break;
 		case CHANGE: 
 			attribute.setKind(Kind.SET);
+			attribute.setOldValue(diff.getMatch().getRight().eGet(diff.getAttribute()));
 			break;
 		case DELETE:
 			attribute.setKind(Kind.REMOVE);
@@ -79,7 +81,7 @@ public class EMFCompareTranslator {
 		changeSet.getChanges().add(attribute);		
 	}
 
-	private static void processReferenceChangeSpec(ReferenceChangeSpec diff, ChangeSet changeSet) {
+	private void processReferenceChangeSpec(ReferenceChangeSpec diff, ChangeSet changeSet) {
 
 		if(processIfDelete(diff, changeSet)) return;
 		
@@ -94,15 +96,15 @@ public class EMFCompareTranslator {
 		if (object == null) {
 			return; // A delete operation will come
 		}
-		EStructuralFeature feature = object.eClass().getEStructuralFeature("id");
 		
 		Reference reference = ModelFactory.eINSTANCE.createReference();
 		reference.setFeature(diff.getReference());
-		reference.setSrc(create(object.eGet(feature)));
+		reference.setSrc(create(diff.getMatch().getLeft()));
+		
 		Object target = object.eGet(diff.getReference());
 		if(target != null) {
 			if(diff.getMatch().getComparison().getMatch(diff.getValue()).getLeft() == null) return;
-			reference.setTrg(create(((EObject)diff.getValue()).eGet(feature)));
+			reference.setTrg(create((EObject)diff.getValue()));
 		}
 		reference.setExecutable(true);
 		
@@ -113,8 +115,10 @@ public class EMFCompareTranslator {
 			case CHANGE:
 				if(target == null) {
 					reference.setKind(Kind.UNSET);
+					reference.setOldTrg(create((EObject)diff.getMatch().getRight().eGet(diff.getReference())));
 				} else {
 					reference.setKind(Kind.SET);
+					reference.setOldTrg(create((EObject)diff.getMatch().getRight().eGet(diff.getReference())));
 				}
 				break;
 			case DELETE:
@@ -133,35 +137,34 @@ public class EMFCompareTranslator {
 		changeSet.getChanges().add(reference);		
 	}
 
-	private static boolean processIfCreate(ReferenceChangeSpec diff, ChangeSet changeSet) {
+	private boolean processIfCreate(ReferenceChangeSpec diff, ChangeSet changeSet) {
 		if(diff.getReference().isContainment() && diff.getKind() != DifferenceKind.DELETE) {
 			
 			EObject object = diff.getValue();
-			EStructuralFeature feature = object.eClass().getEStructuralFeature("id");
 			
 			Create create = ModelFactory.eINSTANCE.createCreate();
 			create.setExecutable(true);
-			create.setSrc(create(object.eGet(feature)));
+			create.setSrc(create(object));
 			create.setFeature(diff.getReference());
 			create.setClazz(object.eClass());
-			create.setContainer(create(object.eContainer().eGet(feature)));
+			create.setContainer(create(object.eContainer()));
 			changeSet.getChanges().add(create);
 			
 			for(EStructuralFeature f : object.eClass().getEAllStructuralFeatures()) {
-				if(f == feature) { 
+				if(f == getIdFeature(object)) { 
 					continue; 
 				}
 				if(f instanceof EReference) {
 					Object result = object.eGet(f);
 					if(result instanceof EList<?>) {
 						for(EObject trg : (EList<EObject>) result) {
-							EStructuralFeature feature2 = trg.eClass().getEStructuralFeature("id");
-							insertReference(create, f, object.eGet(feature), trg.eGet(feature2), changeSet, Kind.ADD);
+							EStructuralFeature feature2 = getIdFeature(trg);
+							insertReference(create, f, object, trg, changeSet, Kind.ADD);
 						}
 					} else if (result != null) {
 						EObject trg = (EObject) result;
-						EStructuralFeature feature2 = trg.eClass().getEStructuralFeature("id");
-						insertReference(create, f, object.eGet(feature), trg.eGet(feature2), changeSet, Kind.SET);
+						EStructuralFeature feature2 = getIdFeature(trg);
+						insertReference(create, f, object, trg, changeSet, Kind.SET);
 					}
 					
 				}
@@ -169,11 +172,11 @@ public class EMFCompareTranslator {
 					Object result = object.eGet(f);
 					if(result instanceof EList<?>) {
 						for(Object trg : (EList<Object>) result) {
-							insertAttribute(create, f, object.eGet(feature), trg, changeSet, Kind.ADD);
+							insertAttribute(create, f, object, trg, changeSet, Kind.ADD);
 						}
 					} else {
 						Object trg = (Object) result;
-						insertAttribute(create, f, object.eGet(feature), trg, changeSet, Kind.SET);
+						insertAttribute(create, f, object, trg, changeSet, Kind.SET);
 					}
 				}
 			}		
@@ -182,22 +185,22 @@ public class EMFCompareTranslator {
 		return false;
 	}
 
-	private static boolean processIfDelete(ReferenceChangeSpec diff, ChangeSet changeSet) {
+	private boolean processIfDelete(ReferenceChangeSpec diff, ChangeSet changeSet) {
 		if(diff.getKind() == DifferenceKind.DELETE && diff.getReference().isContainment()) {
 			
 			EObject object = diff.getValue();
-			EStructuralFeature feature = object.eClass().getEStructuralFeature("id");
+			EStructuralFeature feature = getIdFeature(object);
 			
 			Delete delete = ModelFactory.eINSTANCE.createDelete();
 			delete.setExecutable(true);
-			delete.setSrc(create(object.eGet(feature)));
+			delete.setSrc(create(object));
 			changeSet.getChanges().add(delete);
 			return true;
 		}
 		return false;
 	}
 
-	private static void insertReference(Create create, EStructuralFeature feature, Object src, Object trg, ChangeSet set, Kind kind) {
+	private void insertReference(Create create, EStructuralFeature feature, EObject src, EObject trg, ChangeSet set, Kind kind) {
 		Reference reference = ModelFactory.eINSTANCE.createReference();
 		reference.setFeature(feature);
 		reference.setSrc(create(src));
@@ -208,7 +211,7 @@ public class EMFCompareTranslator {
 		create.getFeatures().add(reference);
 	}
 	
-	private static void insertAttribute(Create create, EStructuralFeature feature, Object src, Object trg, ChangeSet set, Kind kind) {
+	private void insertAttribute(Create create, EStructuralFeature feature, EObject src, Object trg, ChangeSet set, Kind kind) {
 		Attribute reference = ModelFactory.eINSTANCE.createAttribute();
 		reference.setFeature(feature);
 		reference.setSrc(create(src));
@@ -240,7 +243,10 @@ public class EMFCompareTranslator {
 		return id;
 	}
 	
-	private static Id create(Object value) {
+	private static Id create(EObject object) {
+		EStructuralFeature feature = getIdFeature(object);
+		Object value = object.eGet(feature);
+		
 		if(value instanceof Integer) {
 			return create((int)value);
 		}
@@ -251,6 +257,11 @@ public class EMFCompareTranslator {
 			return create((String)value);
 		}
 		return null;
+	}
+
+	private static EStructuralFeature getIdFeature(EObject object) {
+		EStructuralFeature feature = object.eClass().getEStructuralFeature("id");
+		return feature;
 	}
 	
 }

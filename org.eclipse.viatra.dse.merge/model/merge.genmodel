@@ -14,34 +14,50 @@
       <genEnumLiterals ecoreEnumLiteral="merge.ecore#//Kind/add"/>
       <genEnumLiterals ecoreEnumLiteral="merge.ecore#//Kind/remove"/>
       <genEnumLiterals ecoreEnumLiteral="merge.ecore#//Kind/set"/>
+      <genEnumLiterals ecoreEnumLiteral="merge.ecore#//Kind/unset"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="merge.ecore#//Priority">
       <genEnumLiterals ecoreEnumLiteral="merge.ecore#//Priority/must"/>
       <genEnumLiterals ecoreEnumLiteral="merge.ecore#//Priority/may"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="merge.ecore#//IdType">
+      <genEnumLiterals ecoreEnumLiteral="merge.ecore#//IdType/EInt"/>
+      <genEnumLiterals ecoreEnumLiteral="merge.ecore#//IdType/ELong"/>
+      <genEnumLiterals ecoreEnumLiteral="merge.ecore#//IdType/EString"/>
+    </genEnums>
     <genClasses ecoreClass="merge.ecore#//ChangeSet">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference merge.ecore#//ChangeSet/changes"/>
     </genClasses>
     <genClasses ecoreClass="merge.ecore#//Change">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Change/src"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference merge.ecore#//Change/src"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Change/executable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Change/priority"/>
     </genClasses>
-    <genClasses ecoreClass="merge.ecore#//Reference">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Reference/trg"/>
+    <genClasses ecoreClass="merge.ecore#//Create">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference merge.ecore#//Create/container"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference merge.ecore#//Create/feature"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference merge.ecore#//Create/clazz"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference merge.ecore#//Create/attributes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference merge.ecore#//Create/features"/>
     </genClasses>
+    <genClasses ecoreClass="merge.ecore#//Delete"/>
     <genClasses ecoreClass="merge.ecore#//Feature">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Feature/kind"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference merge.ecore#//Feature/feature"/>
     </genClasses>
+    <genClasses ecoreClass="merge.ecore#//Reference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference merge.ecore#//Reference/trg"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference merge.ecore#//Reference/oldTrg"/>
+    </genClasses>
     <genClasses ecoreClass="merge.ecore#//Attribute">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Attribute/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Attribute/oldValue"/>
     </genClasses>
-    <genClasses ecoreClass="merge.ecore#//Delete"/>
-    <genClasses ecoreClass="merge.ecore#//Create">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Create/container"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference merge.ecore#//Create/feature"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference merge.ecore#//Create/clazz"/>
+    <genClasses ecoreClass="merge.ecore#//Id">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Id/eString"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Id/eInt"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Id/eLong"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute merge.ecore#//Id/type"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

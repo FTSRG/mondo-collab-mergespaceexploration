@@ -3,26 +3,29 @@ package org.eclipse.viatra.dse.merge.operations;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
 import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.Delete;
+import org.eclipse.viatra.dse.merge.model.Feature;
 import org.eclipse.viatra.dse.merge.model.Reference;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 
 public class DefaultRemoveReferenceOperation {
 
-	public static void process(EObject pSrc, EObject pTrg, Reference pChange, DSEMergeScope pScope) {
+	public static void process(EObject pSrc, EObject pTrg, Reference pChange) {
 		@SuppressWarnings("unchecked")
 		EList<EObject> list = (EList<EObject>) pSrc.eGet(pChange.getFeature());
 		list.remove(pTrg);
 
-		update(pScope, pChange);
+		DSEMergeScope pScope = (DSEMergeScope) pChange.eContainer().eContainer();
+		update(pScope, pChange, pSrc);
 
 		EcoreUtil.delete(pChange);
 	}
 
-	private static void update(DSEMergeScope pScope, Reference pChange) {
+	private static void update(DSEMergeScope pScope, Reference pChange, EObject pSrc) {
 		for(Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeStrategy.getId(pChange.getSrc()))) {
 			d.setExecutable(false);
 		}
@@ -30,12 +33,18 @@ public class DefaultRemoveReferenceOperation {
 		if (pScope.getRemote().getChanges().contains(pChange)) {
 			for (Change change : pScope.getLocal().getChanges()) {
 				setToFalse(pChange, change);
+				if(change instanceof Feature && ((Feature) change).getFeature() == getIdFeature(pSrc)) {
+					change.setExecutable(false);
+				}
 			}
 		}
 
 		if (pScope.getLocal().getChanges().contains(pChange)) {
 			for (Change change : pScope.getRemote().getChanges()) {
 				setToFalse(pChange, change);
+				if(change instanceof Feature && ((Feature) change).getFeature() == getIdFeature(pSrc)) {
+					change.setExecutable(false);
+				}
 			}
 		}
 	}
@@ -52,5 +61,9 @@ public class DefaultRemoveReferenceOperation {
 //				_change.setExecutable(false);
 //			}
 		}
+	}
+	
+	private static EStructuralFeature getIdFeature(EObject pSrc) {
+		return pSrc.eClass().getEStructuralFeature("id");
 	}
 }

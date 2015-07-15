@@ -28,6 +28,7 @@ import org.eclipse.ui.progress.IProgressService;
 import org.eclipse.viatra.dse.merge.DSEMergeManager;
 import org.eclipse.viatra.dse.merge.DSEMergeManager.Solution;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
+import org.eclipse.viatra.dse.merge.ui.Properties;
 import org.eclipse.viatra.dse.merge.ui.provider.DetailedReflectiveItemProviderAdapterFactory;
 
 public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
@@ -56,15 +57,15 @@ public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent event) {
-				if(event.getProperty().equals(DSEContentMergeViewer.CHANGESET_OL)) {
+				if(event.getProperty().equals(Properties.CHANGESET_OL)) {
 					changeOL = (ChangeSet) event.getNewValue();
 				}
 				
-				if(event.getProperty().equals(DSEContentMergeViewer.CHANGESET_OR)) {
+				if(event.getProperty().equals(Properties.CHANGESET_OR)) {
 					changeOR = (ChangeSet) event.getNewValue();
 				}
 				
-				if(event.getProperty().equals(DSEContentMergeViewer.ANCESTOR)) {
+				if(event.getProperty().equals(Properties.ANCESTOR)) {
 					original = (Resource) event.getNewValue();
 					Display.getDefault().syncExec(new Runnable() {
 					    public void run() {
@@ -72,11 +73,11 @@ public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 					    }
 					});
 				}
-				if(event.getProperty().equals(DSEContentMergeViewer.LEFT)) {
+				if(event.getProperty().equals(Properties.LEFT)) {
 					local = (Resource) event.getNewValue();
 					
 				}
-				if(event.getProperty().equals(DSEContentMergeViewer.SELECTED_SOLUTION)) {
+				if(event.getProperty().equals(Properties.SELECTED_SOLUTION)) {
 					if(event.getNewValue() == null) 
 						return;
 					selectedSolution = (Solution) event.getNewValue();
@@ -101,7 +102,7 @@ public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 			Display.getDefault().syncExec(new Runnable() {
 			    public void run() {
 			    	setInput(original.getContents().get(0));
-			    	config.setProperty(DSEContentMergeViewer.SELECTED_SOLUTION, null);
+			    	config.setProperty(Properties.SELECTED_SOLUTION, null);
 			    	editorInput.setDirty(false);
 					revertChanges.setEnabled(false);
 			    }
@@ -123,7 +124,6 @@ public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 
 	private void executeMerge() {
 		final DSEMergeManager manager = DSEMergeManager.create(original.getContents().get(0), changeOL, changeOR);
-		
 		IProgressService service = PlatformUI.getWorkbench().getProgressService();
 		try {
 			service.run(true, false, new IRunnableWithProgress() {
@@ -133,7 +133,7 @@ public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 					monitor.beginTask("Searching solutions...", 1);
 					Collection<Solution> solutions = manager.start();
 					monitor.worked(1);
-					config.setProperty(DSEContentMergeViewer.SOLUTIONS, solutions);
+					config.setProperty(Properties.SOLUTIONS, solutions);
 					monitor.done();
 				}
 			});

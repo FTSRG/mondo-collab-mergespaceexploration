@@ -7,7 +7,9 @@ import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 
 public class DefaultDeleteOperation {
 
-	public static void process(EObject pSrc, Delete pChange, DSEMergeScope pScope) {
+	public static void process(EObject pSrc, Delete pChange) {
+		DSEMergeScope pScope = (DSEMergeScope) pChange.eContainer().eContainer();
+
 		EcoreUtil.delete(pSrc);
 		EcoreUtil.delete(pChange);
 		
