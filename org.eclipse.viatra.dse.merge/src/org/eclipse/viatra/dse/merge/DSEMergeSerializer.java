@@ -8,6 +8,7 @@ import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.incquery.runtime.api.IPatternMatch;
+import org.eclipse.viatra.dse.merge.iq.ExecutableDeleteChangeMatch;
 import org.eclipse.viatra.dse.merge.model.Attribute;
 import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
@@ -15,7 +16,6 @@ import org.eclipse.viatra.dse.merge.model.Create;
 import org.eclipse.viatra.dse.merge.model.Delete;
 import org.eclipse.viatra.dse.merge.model.Priority;
 import org.eclipse.viatra.dse.merge.model.Reference;
-import org.eclipse.viatra.dse.merge.queries.ExecutableDeleteChangeMatch;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 import org.eclipse.viatra.dse.statecode.IStateCoder;
 

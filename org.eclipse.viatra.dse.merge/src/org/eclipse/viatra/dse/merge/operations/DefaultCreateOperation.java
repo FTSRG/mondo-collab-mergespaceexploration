@@ -5,6 +5,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
+import org.eclipse.viatra.dse.merge.iq.util.CreateProcessor;
 import org.eclipse.viatra.dse.merge.model.Attribute;
 import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.Create;
@@ -14,7 +15,7 @@ import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 
 import com.google.common.collect.Lists;
 
-public class DefaultCreateOperation {
+public class DefaultCreateOperation extends CreateProcessor {
 
 	public static void process(EObject pContainer, Create pChange) {
 		DSEMergeScope pScope = (DSEMergeScope) pChange.eContainer().eContainer();
@@ -96,6 +97,11 @@ public class DefaultCreateOperation {
 	
 	private static EStructuralFeature getIdFeature(EObject pSrc) {
 		return pSrc.eClass().getEStructuralFeature("id");
+	}
+
+	@Override
+	public void _process(EObject pContainer, Create pChange) {
+		process(pContainer, pChange);
 	}
 
 }

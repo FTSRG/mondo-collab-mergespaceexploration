@@ -4,16 +4,21 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
+import org.eclipse.viatra.dse.merge.iq.util.SetReferenceProcessor;
 import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.Delete;
 import org.eclipse.viatra.dse.merge.model.Feature;
 import org.eclipse.viatra.dse.merge.model.Reference;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 
-public class DefaultSetReferenceOperation {
+public class DefaultSetReferenceOperation extends SetReferenceProcessor {
 
 	public static void process(EObject pSrc, EObject pTrg, Reference pChange) {
-		pSrc.eSet(pChange.getFeature(), pTrg);
+		try {
+			pSrc.eSet(pChange.getFeature(), pTrg);
+		} catch ( Exception e) {
+			System.out.println();
+		}
 	
 		DSEMergeScope pScope = (DSEMergeScope) pChange.eContainer().eContainer();
 		update(pScope, pChange, pSrc);
@@ -59,5 +64,10 @@ public class DefaultSetReferenceOperation {
 	
 	private static EStructuralFeature getIdFeature(EObject pSrc) {
 		return pSrc.eClass().getEStructuralFeature("id");
+	}
+
+	@Override
+	public void _process(EObject pSrc, EObject pTrg, Reference pChange) {
+		process(pSrc, pTrg, pChange);
 	}
 }

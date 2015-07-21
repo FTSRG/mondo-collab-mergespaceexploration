@@ -4,13 +4,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
+import org.eclipse.viatra.dse.merge.iq.util.SetAttributeProcessor;
 import org.eclipse.viatra.dse.merge.model.Attribute;
 import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.Delete;
 import org.eclipse.viatra.dse.merge.model.Feature;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 
-public class DefaultSetAttributeOperation {
+public class DefaultSetAttributeOperation extends SetAttributeProcessor {
 
 	public static void process(EObject pSrc, Attribute pChange) {
 		pSrc.eSet(pChange.getFeature(), pChange.getValue());
@@ -62,6 +63,11 @@ public class DefaultSetAttributeOperation {
 	
 	private static EStructuralFeature getIdFeature(EObject pSrc) {
 		return pSrc.eClass().getEStructuralFeature("id");
+	}
+
+	@Override
+	public void _process(EObject pSrc, Attribute pChange) {
+		process(pSrc, pChange);
 	}
 		
 }

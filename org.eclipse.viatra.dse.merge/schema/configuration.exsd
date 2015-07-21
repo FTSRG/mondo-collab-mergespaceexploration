@@ -62,7 +62,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.viatra.dse.merge.DSEMergeConfigurator"/>
+                  <meta.attribute kind="java" basedOn="org.eclipse.viatra.dse.merge.DSEMergeConfigurator:"/>
                </appInfo>
             </annotation>
          </attribute>

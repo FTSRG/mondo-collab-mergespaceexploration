@@ -12,4 +12,7 @@
   <extension id="org.eclipse.viatra.dse.merge.queries.Query" point="org.eclipse.incquery.runtime.queryspecification">
     <group group="org.eclipse.incquery.runtime.extensibility.SingletonExtensionFactory:org.eclipse.viatra.dse.merge.queries.Query" id="org.eclipse.viatra.dse.merge.queries.Query"/>
   </extension>
+  <extension id="org.eclipse.viatra.dse.merge.iq.Query" point="org.eclipse.incquery.runtime.queryspecification">
+    <group group="org.eclipse.incquery.runtime.extensibility.SingletonExtensionFactory:org.eclipse.viatra.dse.merge.iq.Query" id="org.eclipse.viatra.dse.merge.iq.Query"/>
+  </extension>
 </plugin>

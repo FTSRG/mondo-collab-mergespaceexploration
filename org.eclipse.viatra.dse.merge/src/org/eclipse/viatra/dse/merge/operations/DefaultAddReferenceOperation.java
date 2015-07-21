@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
+import org.eclipse.viatra.dse.merge.iq.util.AddReferenceProcessor;
 import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.Delete;
 import org.eclipse.viatra.dse.merge.model.Feature;
@@ -13,7 +14,7 @@ import org.eclipse.viatra.dse.merge.model.Kind;
 import org.eclipse.viatra.dse.merge.model.Reference;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 
-public class DefaultAddReferenceOperation {
+public class DefaultAddReferenceOperation extends AddReferenceProcessor {
 
 	public static void process(EObject pSrc, EObject pTrg, Reference pChange) {
 		@SuppressWarnings("unchecked")
@@ -72,5 +73,10 @@ public class DefaultAddReferenceOperation {
 	
 	private static EStructuralFeature getIdFeature(EObject pSrc) {
 		return pSrc.eClass().getEStructuralFeature("id");
+	}
+
+	@Override
+	public void _process(EObject pSrc, EObject pTrg, Reference pChange) {
+		process(pSrc, pTrg, pChange);
 	}
 }

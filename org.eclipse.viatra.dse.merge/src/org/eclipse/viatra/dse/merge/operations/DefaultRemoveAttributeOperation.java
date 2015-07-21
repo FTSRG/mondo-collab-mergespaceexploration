@@ -5,13 +5,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
+import org.eclipse.viatra.dse.merge.iq.util.RemoveAttributeProcessor;
 import org.eclipse.viatra.dse.merge.model.Attribute;
 import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.Delete;
 import org.eclipse.viatra.dse.merge.model.Feature;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 
-public class DefaultRemoveAttributeOperation {
+public class DefaultRemoveAttributeOperation extends RemoveAttributeProcessor{
 
 	public static void process(EObject pSrc, Attribute pChange) {
 		
@@ -60,5 +61,10 @@ public class DefaultRemoveAttributeOperation {
 	
 	private static EStructuralFeature getIdFeature(EObject pSrc) {
 		return pSrc.eClass().getEStructuralFeature("id");
+	}
+
+	@Override
+	public void _process(EObject pSrc, Attribute pChange) {
+		process(pSrc, pChange);
 	}
 }
