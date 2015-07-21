@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2010-2015, Csaba Debreceni, Istvan Rath and Daniel Varro
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Csaba Debreceni - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.viatra.dse.merge.operations;
 
 import org.eclipse.emf.common.util.EList;
@@ -12,6 +22,7 @@ import org.eclipse.viatra.dse.merge.model.Create;
 import org.eclipse.viatra.dse.merge.model.Delete;
 import org.eclipse.viatra.dse.merge.model.Feature;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
+import org.eclipse.viatra.dse.merge.util.DSEMergeUtil;
 
 import com.google.common.collect.Lists;
 
@@ -22,7 +33,7 @@ public class DefaultCreateOperation extends CreateProcessor {
 		
 		EObject element = (EObject) EcoreUtil.create(pChange.getClazz());
 		EStructuralFeature feature = element.eClass().getEStructuralFeature("id");
-		element.eSet(feature, DSEMergeStrategy.getId(pChange.getSrc()));
+		element.eSet(feature, DSEMergeUtil.getId(pChange.getSrc()));
 
 		if (pChange.getFeature().isMany()) {
 			@SuppressWarnings("unchecked")
@@ -58,7 +69,7 @@ public class DefaultCreateOperation extends CreateProcessor {
 	}
 
 	private static void update(DSEMergeScope pScope, Create pChange, EObject pSrc) {
-		for (Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeStrategy.getId(pChange.getSrc()))) {
+		for (Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeUtil.getId(pChange.getSrc()))) {
 			d.setExecutable(false);			
 		}
 
@@ -85,7 +96,7 @@ public class DefaultCreateOperation extends CreateProcessor {
 	private static void setToFalse(Create pChange, Change change) {
 		if (change instanceof Create) {
 			Create _change = (Create) change;
-			if (DSEMergeStrategy.getId(_change.getSrc()) == DSEMergeStrategy.getId(pChange.getSrc())) {
+			if (DSEMergeUtil.getId(_change.getSrc()) == DSEMergeUtil.getId(pChange.getSrc())) {
 				_change.setExecutable(false);
 				for (Attribute attribute : pChange.getAttributes()) {
 					attribute.setExecutable(false);

@@ -20,8 +20,11 @@ import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
@@ -31,7 +34,7 @@ import org.eclipse.viatra.dse.merge.model.ChangeSet;
 import org.eclipse.viatra.dse.merge.ui.Properties;
 import org.eclipse.viatra.dse.merge.ui.provider.DetailedReflectiveItemProviderAdapterFactory;
 
-public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
+public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
 
 	private CompareConfiguration config;
 	private ChangeSet changeOR;
@@ -41,18 +44,43 @@ public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 	private ReflectiveItemProviderAdapterFactory adapterFactory = new DetailedReflectiveItemProviderAdapterFactory();
 	private Solution selectedSolution;
 	private CompareEditorInput editorInput;	
+	private TreeViewer fViewer;
 	
 	public DSEStructuredMergeViewer(Composite parent, CompareConfiguration config) {
-		super(parent);
+		fViewer = new TreeViewer(parent);
 		this.config = config;
 		initialize(parent);
 	}
 	
 	private void initialize(Composite parent) {
 		
-		setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-		setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+		fViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+		fViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 		editorInput = (CompareEditorInput)config.getContainer();
+		
+		initializeCompareConfig();
+		
+		addActions(parent);
+	}
+
+	
+	
+	private void initializeCompareConfig() {
+		if(config.getProperty(Properties.ANCESTOR) != null) {
+			original = (Resource) config.getProperty(Properties.ANCESTOR);
+			Display.getDefault().syncExec(new Runnable() {
+			    public void run() {
+			    	setInput(original);
+			    }
+			});
+		}
+		if(config.getProperty(Properties.LEFT) != null) 
+			local = (Resource) config.getProperty(Properties.LEFT);
+		if(config.getProperty(Properties.CHANGESET_OL) != null)
+			changeOL = (ChangeSet) config.getProperty(Properties.CHANGESET_OL);
+		if(config.getProperty(Properties.CHANGESET_OR) != null)
+			changeOR = (ChangeSet) config.getProperty(Properties.CHANGESET_OR);
+					
 		config.addPropertyChangeListener(new IPropertyChangeListener() {
 			
 			@Override
@@ -69,7 +97,7 @@ public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 					original = (Resource) event.getNewValue();
 					Display.getDefault().syncExec(new Runnable() {
 					    public void run() {
-					    	setInput(original.getContents().get(0));
+					    	setInput(original);
 					    }
 					});
 				}
@@ -86,9 +114,7 @@ public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 					editorInput.setDirty(true);
 				}				
 			}
-		});
-		
-		addActions(parent);
+		});		
 	}
 
 	private Action executeMerge = new Action("Calculate Solutions") {
@@ -156,6 +182,40 @@ public class DSEStructuredMergeViewer extends TreeViewer implements IFlushable {
 		}
 		monitor.worked(1);
 		monitor.done();
+		editorInput.setDirty(false);
+	}
+
+	@Override
+	public Control getControl() {
+		return fViewer.getControl();
+	}
+
+	@Override
+	public Object getInput() {
+		return original;
+	}
+
+	@Override
+	public ISelection getSelection() {
+		return fViewer.getSelection();
+	}
+
+	@Override
+	public void refresh() {
+		fViewer.refresh();
+	}
+
+	@Override
+	public void setInput(Object input) {
+		if(input instanceof Resource) {
+			original = (Resource) input;
+			fViewer.setInput(original.getContents().get(0));
+		}
+	}
+
+	@Override
+	public void setSelection(ISelection selection, boolean reveal) {
+		fViewer.setSelection(selection, reveal);
 	}
 	
 }

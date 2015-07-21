@@ -20,10 +20,10 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
 import org.eclipse.viatra.dse.merge.model.Create;
 import org.eclipse.viatra.dse.merge.model.ModelFactory;
 import org.eclipse.viatra.dse.merge.model.ModelPackage;
+import org.eclipse.viatra.dse.merge.util.DSEMergeUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.viatra.dse.merge.model.Create} object.
@@ -276,7 +276,7 @@ public class CreateItemProvider
 	@Override
 	public String getText(Object object) {
 		Create create = (Create)object;
-		return getString("_UI_Create_type") + " " + DSEMergeStrategy.getId(create.getSrc()) + "(" + create.getClazz().getName() + ")" + " under " + create.getFeature().getName() + " of " + DSEMergeStrategy.getId(create.getContainer());
+		return getString("_UI_Create_type") + " " + DSEMergeUtil.getId(create.getSrc()) + "(" + create.getClazz().getName() + ")" + " under " + create.getFeature().getName() + " of " + DSEMergeUtil.getId(create.getContainer());
 	}
 	
 

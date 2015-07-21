@@ -8,21 +8,29 @@
  * Contributors:
  *    Csaba Debreceni - initial API and implementation
  *******************************************************************************/
-package org.eclipse.viatra.dse.merge;
+package org.eclipse.viatra.dse.merge.util;
 
-import org.eclipse.viatra.dse.statecode.IStateCoder;
-import org.eclipse.viatra.dse.statecode.IStateCoderFactory;
+import org.eclipse.viatra.dse.merge.model.Id;
 
-/**
- * State Coder Factory for DSE Merge
- * @author Csaba Debreceni
- *
- */
-public class DSEMergeSerializerFactory implements IStateCoderFactory {
+public final class DSEMergeUtil {
 
-	@Override
-	public IStateCoder createStateCoder() {
-		return new DSEMergeSerializer();
-	}
+    public DSEMergeUtil() {
+        // disabled ctor
+    }
+
+    public static Object getId(Id id) {
+        if (id == null)
+            return null;
+        switch (id.getType()) {
+        case EINT:
+            return id.getEInt();
+        case ELONG:
+            return id.getELong();
+        case ESTRING:
+            return id.getEString();
+        default:
+            return null;
+        }
+    }
 
 }

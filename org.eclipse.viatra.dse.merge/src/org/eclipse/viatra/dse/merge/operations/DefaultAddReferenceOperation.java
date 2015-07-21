@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2010-2015, Csaba Debreceni, Istvan Rath and Daniel Varro
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Csaba Debreceni - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.viatra.dse.merge.operations;
 
 import org.eclipse.emf.common.util.EList;
@@ -13,6 +23,7 @@ import org.eclipse.viatra.dse.merge.model.Feature;
 import org.eclipse.viatra.dse.merge.model.Kind;
 import org.eclipse.viatra.dse.merge.model.Reference;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
+import org.eclipse.viatra.dse.merge.util.DSEMergeUtil;
 
 public class DefaultAddReferenceOperation extends AddReferenceProcessor {
 
@@ -28,11 +39,11 @@ public class DefaultAddReferenceOperation extends AddReferenceProcessor {
 	}
 	
 	private static void update(DSEMergeScope pScope, Reference pChange, EObject pSrc) {
-		for(Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeStrategy.getId(pChange.getSrc()))) {
+		for(Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeUtil.getId(pChange.getSrc()))) {
 			d.setExecutable(false);
 		}
 		
-		for(Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeStrategy.getId(pChange.getTrg()))) {
+		for(Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeUtil.getId(pChange.getTrg()))) {
 			d.setExecutable(false);
 		}
 		
@@ -60,7 +71,7 @@ public class DefaultAddReferenceOperation extends AddReferenceProcessor {
 			Reference _change = (Reference) change;
 			if(_change.getKind().equals(Kind.ADD)) {
 				if(((EReference)_change.getFeature()).isContainment() && ((EReference)pChange.getFeature()).isContainment()) {
-					if(DSEMergeStrategy.getId(_change.getTrg()) == DSEMergeStrategy.getId(pChange.getTrg())) {
+					if(DSEMergeUtil.getId(_change.getTrg()) == DSEMergeUtil.getId(pChange.getTrg())) {
 						_change.setExecutable(false);
 					}	
 				} 

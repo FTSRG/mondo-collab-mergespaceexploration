@@ -109,6 +109,38 @@ public class DSEContentMergeViewer extends Viewer {
 		mergeControl.getLeftViewer().addCheckStateListener(new MayMustCheckStateListener());
 		mergeControl.getRightViewer().addCheckStateListener(new MayMustCheckStateListener());
 		
+		initializeCompareConfig();
+		
+		MenuManager menuMgr = new MenuManager();
+	    menuMgr.setRemoveAllWhenShown(true);
+	    menuMgr.addMenuListener(new IMenuListener() {
+	        public void menuAboutToShow(IMenuManager manager) {
+	        	
+	        	IStructuredSelection selection = (IStructuredSelection) mergeControl.getSolutionViewer().getSelection();
+	        	if(selection.size() == 1) {
+	        		Object object = selection.iterator().next();
+	        		
+	        		if(object instanceof SolutionElement) {
+	        			final SolutionElement element = (SolutionElement) object;
+	        			manager.add(new Action("Select solution #" + element.counter) {
+	    	        		@Override
+	    	        		public void run() {
+	    	        			mergeControl.getSelected().setText("Selected solution is: Solution #" + element.counter);
+	    	        			config.setProperty(Properties.SELECTED_SOLUTION, element.solution);
+	    	        		}
+	    	        	});
+	        		}
+	        	}
+	        	
+	        }
+	    });
+	    Menu menu = menuMgr.createContextMenu(mergeControl.getSolutionViewer().getControl());
+	    mergeControl.getSolutionViewer().getControl().setMenu(menu);
+	    PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart().getSite().registerContextMenu(menuMgr, mergeControl.getSolutionViewer());
+	}
+
+	private void initializeCompareConfig() {
+		
 		config.addPropertyChangeListener(new IPropertyChangeListener() {
 			
 			@Override
@@ -155,34 +187,6 @@ public class DSEContentMergeViewer extends Viewer {
 				});
 			}
 		});
-		
-		
-		MenuManager menuMgr = new MenuManager();
-	    menuMgr.setRemoveAllWhenShown(true);
-	    menuMgr.addMenuListener(new IMenuListener() {
-	        public void menuAboutToShow(IMenuManager manager) {
-	        	
-	        	IStructuredSelection selection = (IStructuredSelection) mergeControl.getSolutionViewer().getSelection();
-	        	if(selection.size() == 1) {
-	        		Object object = selection.iterator().next();
-	        		
-	        		if(object instanceof SolutionElement) {
-	        			final SolutionElement element = (SolutionElement) object;
-	        			manager.add(new Action("Select solution #" + element.counter) {
-	    	        		@Override
-	    	        		public void run() {
-	    	        			mergeControl.getSelected().setText("Selected solution is: Solution #" + element.counter);
-	    	        			config.setProperty(Properties.SELECTED_SOLUTION, element.solution);
-	    	        		}
-	    	        	});
-	        		}
-	        	}
-	        	
-	        }
-	    });
-	    Menu menu = menuMgr.createContextMenu(mergeControl.getSolutionViewer().getControl());
-	    mergeControl.getSolutionViewer().getControl().setMenu(menu);
-	    PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart().getSite().registerContextMenu(menuMgr, mergeControl.getSolutionViewer());
 	}
 
 	@Override

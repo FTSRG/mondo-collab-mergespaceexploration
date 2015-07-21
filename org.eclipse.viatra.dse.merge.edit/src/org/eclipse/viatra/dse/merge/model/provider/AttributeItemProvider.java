@@ -15,6 +15,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
 import org.eclipse.viatra.dse.merge.model.Attribute;
 import org.eclipse.viatra.dse.merge.model.ModelPackage;
+import org.eclipse.viatra.dse.merge.util.DSEMergeUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.viatra.dse.merge.model.Attribute} object.
@@ -91,7 +92,7 @@ public class AttributeItemProvider extends FeatureItemProvider {
 	@Override
 	public String getText(Object object) {
 		Attribute attribute = (Attribute)object;
-		return getString("_UI_Attribute_type") + " " + attribute.getKind() + " " + attribute.getValue() + " to " + attribute.getFeature().getName() + " of " + DSEMergeStrategy.getId(attribute.getSrc());
+		return getString("_UI_Attribute_type") + " " + attribute.getKind() + " " + attribute.getValue() + " to " + attribute.getFeature().getName() + " of " + DSEMergeUtil.getId(attribute.getSrc());
 	}
 	
 

@@ -11,9 +11,9 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
 import org.eclipse.viatra.dse.merge.model.ModelPackage;
 import org.eclipse.viatra.dse.merge.model.Reference;
+import org.eclipse.viatra.dse.merge.util.DSEMergeUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.viatra.dse.merge.model.Reference} object.
@@ -90,7 +90,7 @@ public class ReferenceItemProvider extends FeatureItemProvider {
 	@Override
 	public String getText(Object object) {
 		Reference reference = (Reference)object;
-		return getString("_UI_Reference_type") + " " + reference.getKind() + " " + DSEMergeStrategy.getId(reference.getTrg()) + " to " + reference.getFeature().getName() + " of " + DSEMergeStrategy.getId(reference.getSrc());
+		return getString("_UI_Reference_type") + " " + reference.getKind() + " " + DSEMergeUtil.getId(reference.getTrg()) + " to " + reference.getFeature().getName() + " of " + DSEMergeUtil.getId(reference.getSrc());
 	}
 	
 
