@@ -63,6 +63,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
     private Set<String> liberateMustTransitions = Sets.newHashSet();
     private boolean forceToFinish;
     private boolean fromBacktracking;
+    private DSEMergeIdMapper idMapper;
 
     @Override
     public void init(ThreadContext context) {
@@ -157,7 +158,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
             return; // no more parent...
         }
         EObject parent = eobject.eContainer();
-        EStructuralFeature feature = parent.eClass().getEStructuralFeature("id");
+        EStructuralFeature feature = idMapper.getIdAttribute(parent.eClass());
         if (feature == null)
             return;
         createDependency(parent.eGet(feature), original, dependencyGraph);
@@ -348,5 +349,9 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
      */
     public void setId2EObject(IQuerySpecification<IncQueryMatcher<IPatternMatch>> querySpecification) {
         this.id2eobject = querySpecification;
+    }
+
+    public void setIdMapper(DSEMergeIdMapper idMapper) {
+        this.idMapper = idMapper;
     }
 }

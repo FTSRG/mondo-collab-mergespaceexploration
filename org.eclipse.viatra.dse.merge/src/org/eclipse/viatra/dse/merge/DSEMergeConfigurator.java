@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.incquery.runtime.api.IQuerySpecification;
 import org.eclipse.incquery.runtime.exception.IncQueryException;
@@ -87,13 +88,39 @@ public abstract class DSEMergeConfigurator {
     public abstract EPackage getMetamodel();
 
     /**
-     * Maps the identifiers and objects
+     * Maps the identifiers and objects. It has two parameter: the first one is the object while the second one is the
+     * identifier. An example pattern can be the following
+     * 
+     * <pre>
+     * pattern id2object(obj : YourEClass, id) { 
+     *   YourEClass.id(obj, id); 
+     * }
+     * </pre>
      * 
      * @return a query for mapping
      * @throws IncQueryException
      */
     public abstract IQuerySpecification<?> getId2EObject() throws IncQueryException;
 
+    /**
+     * Returns id mapper implementation. An example (but not safe) implementation can be the following:
+     * 
+     * <pre>
+     * public DSEMergeIdMapper getIdMapper() {
+     *  return new DSEMergeIdMapper() {
+     *   public EAttribute getIdAttribute(EClass eClass) {
+     *    return (EAttribute) eClass.getEStructuralFeature("id");
+     *   }
+     *  };
+     * }
+     * </pre>
+     * 
+     * If it returns <i>null</i> it will generate a runtime exception.
+     * 
+     * @return the identifier attribute of the {@link EClass}.
+     */
+    public abstract DSEMergeIdMapper getIdMapper();
+    
     /**
      * Returns a union of default and additional objectives to be satisfied at the end of the merge process. <i>This
      * method is intend to be override when the default objectives are not required.</i>
@@ -163,6 +190,7 @@ public abstract class DSEMergeConfigurator {
      * <pre>
      * defaultRules().remove(defaultXXX());
      * </pre>
+     * 
      * </p>
      * 
      * @return default rules

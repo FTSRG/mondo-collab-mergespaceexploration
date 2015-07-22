@@ -70,6 +70,7 @@ public class DSEMergeManager {
     static Logger logger = Logger.getLogger(DSEMergeManager.class);
 
     private IQuerySpecification<IncQueryMatcher<IPatternMatch>> id2eobject;
+    private DSEMergeIdMapper idMapper;
 
     /**
      * Private constructor of the manager.
@@ -78,6 +79,7 @@ public class DSEMergeManager {
      * @param local
      * @param remote
      */
+    
     private DSEMergeManager(EObject original, ChangeSet local, ChangeSet remote) {
         buildScope(original, local, remote);
         configureMerge(original);
@@ -85,6 +87,13 @@ public class DSEMergeManager {
         dse = new DesignSpaceExplorer();
     }
 
+    private DSEMergeManager(EObject original, ChangeSet local, ChangeSet remote, DSEMergeConfigurator config) {
+        buildScope(original, local, remote);
+        configureMerge(config);
+
+        dse = new DesignSpaceExplorer();
+    }
+    
     /**
      * Static method for initializing the merge manager object.
      * 
@@ -99,23 +108,31 @@ public class DSEMergeManager {
         return new DSEMergeManager(original, local, remote);
     }
 
+    public static DSEMergeManager create(EObject original, ChangeSet local, ChangeSet remote, DSEMergeConfigurator config) {
+        return new DSEMergeManager(original, local, remote, config);
+    }
+    
     /**
      * Based on the original model, configures the fields.
      * 
      * @param original
      */
-    @SuppressWarnings("unchecked")
     private void configureMerge(EObject original) {
         DSEMergeConfigurator configurator = configuratorMapping.get(original.eClass().getEPackage().getNsURI());
         if (configurator != null) {
-            try {
-                metamodel = configurator.getMetamodel();
-                objectives = configurator.getObjectives();
-                rules = configurator.getRules();
-                id2eobject = (IQuerySpecification<IncQueryMatcher<IPatternMatch>>) configurator.getId2EObject();
-            } catch (IncQueryException e) {
-                logger.error(e.getMessage(), e);
-            }
+            configureMerge(configurator);
+        }
+    }
+
+    private void configureMerge(DSEMergeConfigurator configurator) {
+        try {
+            metamodel = configurator.getMetamodel();
+            objectives = configurator.getObjectives();
+            rules = configurator.getRules();
+            id2eobject = (IQuerySpecification<IncQueryMatcher<IPatternMatch>>) configurator.getId2EObject();
+            idMapper = configurator.getIdMapper();
+        } catch (IncQueryException e) {
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -136,8 +153,9 @@ public class DSEMergeManager {
 
     /**
      * Read up the extension point and store the available merge configurations
+     * @return 
      */
-    private static void initializeConfiguration() {
+    public static Map<String, DSEMergeConfigurator> initializeConfiguration() {
         try {
             configuratorMapping = Maps.newHashMap();
             IExtensionPoint extensionPoint = Platform.getExtensionRegistry().getExtensionPoint(CONFIGURATION_POINT);
@@ -154,6 +172,7 @@ public class DSEMergeManager {
         } catch (InvalidRegistryObjectException | CoreException e) {
             logger.error(e.getMessage(),e);
         }
+        return configuratorMapping;
     }
 
     /**
@@ -168,6 +187,7 @@ public class DSEMergeManager {
         //Create strategy
         DSEMergeStrategy strategy = new DSEMergeStrategy();
         strategy.setId2EObject(id2eobject);     
+        strategy.setIdMapper(idMapper);
         
         //Start Exploration
         dse.startExploration(strategy);
