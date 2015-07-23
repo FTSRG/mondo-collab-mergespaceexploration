@@ -124,6 +124,7 @@ public class DSEMergeManager {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void configureMerge(DSEMergeConfigurator configurator) {
         try {
             metamodel = configurator.getMetamodel();

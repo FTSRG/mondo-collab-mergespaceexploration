@@ -107,11 +107,13 @@ public abstract class DSEMergeConfigurator {
      * 
      * <pre>
      * public DSEMergeIdMapper getIdMapper() {
-     *  return new DSEMergeIdMapper() {
-     *   public EAttribute getIdAttribute(EClass eClass) {
-     *    return (EAttribute) eClass.getEStructuralFeature("id");
-     *   }
-     *  };
+     *     return new DSEMergeIdMapper() {
+     *         public Object getId(EObject object) {
+     *             EClass eClass = object.eClass();
+     *             EStructuralFeature id = eClass.getEStructuralFeature(&quot;id&quot;);
+     *             return object.eGet(id);
+     *         }
+     *     };
      * }
      * </pre>
      * 
@@ -120,7 +122,7 @@ public abstract class DSEMergeConfigurator {
      * @return the identifier attribute of the {@link EClass}.
      */
     public abstract DSEMergeIdMapper getIdMapper();
-    
+
     /**
      * Returns a union of default and additional objectives to be satisfied at the end of the merge process. <i>This
      * method is intend to be override when the default objectives are not required.</i>

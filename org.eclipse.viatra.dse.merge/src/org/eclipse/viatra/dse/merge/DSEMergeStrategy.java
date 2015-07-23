@@ -17,7 +17,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.incquery.runtime.api.IPatternMatch;
 import org.eclipse.incquery.runtime.api.IQuerySpecification;
 import org.eclipse.incquery.runtime.api.IncQueryEngine;
@@ -158,10 +157,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
             return; // no more parent...
         }
         EObject parent = eobject.eContainer();
-        EStructuralFeature feature = idMapper.getIdAttribute(parent.eClass());
-        if (feature == null)
-            return;
-        createDependency(parent.eGet(feature), original, dependencyGraph);
+        createDependency(idMapper.getId(parent), original, dependencyGraph);
     }
 
     @Override
