@@ -12,7 +12,6 @@ package org.eclipse.viatra.dse.merge;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -51,7 +50,6 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
     public static String MUST_PREFIX = "MUST_";
     public static String MAY_PREFIX = "MAY_";
     private Logger logger = Logger.getLogger(DSEMergeStrategy.class);
-    private Random random = new Random();
     private DesignSpaceManager.FilterOptions filterOptions;
     private boolean onlyNewMust = false;
     private IQuerySpecification<IncQueryMatcher<IPatternMatch>> id2eobject;
@@ -138,6 +136,8 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
      */
     private void createDependency(Object current, Object original, Multimap<Object, Object> dependencyGraph)
             throws Exception {
+        if (current == null)
+            return;
         dependencyGraph.put(current, original);
 
         IncQueryEngine engine = context.getIncqueryEngine();
@@ -170,8 +170,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 
         // Query available transitions
         Iterable<? extends ITransition> transitions = null;
-        transitions = FilterHelper.filterEmptyTransitions(dsm
-                .getTransitionsFromCurrentState(filterOptions));
+        transitions = FilterHelper.filterEmptyTransitions(dsm.getTransitionsFromCurrentState(filterOptions));
         transitions = restrictTransitions(transitions);
 
         if (fromBacktracking) {
@@ -209,12 +208,12 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
         // }
 
         // Get a random transition from the available ones
-        int index = random.nextInt(Iterables.size(transitions));
-        Iterator<? extends ITransition> iterator = transitions.iterator();
-        while (iterator.hasNext() && index != 0) {
-            index--;
-            iterator.next();
-        }
+        // int index = random.nextInt(Iterables.size(transitions));
+        Iterator<? extends ITransition> iterator = FilterHelper.orderTransitions(transitions).iterator();
+        // while (iterator.hasNext() && index != 0) {
+        // index--;
+        // iterator.next();
+        // }
         ITransition transition = iterator.next();
 
         logger.debug("Executing:");
@@ -322,15 +321,15 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
 
     /**
      * Logging the reason the backtrack
+     * 
      * @param isAlreadyTraversed
      * @param fitness
      * @param constraintsNotSatisfied
      */
     private void logBacktrackReason(boolean isAlreadyTraversed, Fitness fitness, boolean constraintsNotSatisfied) {
-        logger.debug("We have to backtrack from a state where:" 
-                + "\nAlready traversed: " + isAlreadyTraversed
-                + "\nGoal state: " + (fitness.isSatisifiesHardObjectives()) 
-                + "\nConstraints not satisfied: " + constraintsNotSatisfied);
+        logger.debug("We have to backtrack from a state where:" + "\nAlready traversed: " + isAlreadyTraversed
+                + "\nGoal state: " + (fitness.isSatisifiesHardObjectives()) + "\nConstraints not satisfied: "
+                + constraintsNotSatisfied);
     }
 
     @Override

@@ -297,6 +297,10 @@ public class DSEMergeManager {
             }
         }
 
+        public SolutionTrajectory getTrajectory() {
+            return solution.getShortestTrajectory();
+        }
+        
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();

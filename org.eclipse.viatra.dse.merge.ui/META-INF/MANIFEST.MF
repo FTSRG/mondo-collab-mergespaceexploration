@@ -33,4 +33,6 @@ Bundle-ClassPath: .,
 Import-Package: org.apache.log4j;version="1.2.15",
  org.eclipse.jface.text
 Bundle-Vendor: Budapest University of Technology and Economics, Fault Tolerant Systems Research Group
-Export-Package: org.eclipse.viatra.dse.merge.ui.interpreter
+Export-Package: org.eclipse.viatra.dse.merge.ui,
+ org.eclipse.viatra.dse.merge.ui.interpreter,
+ org.eclipse.viatra.dse.merge.ui.viewers

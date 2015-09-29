@@ -4,7 +4,6 @@ import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.IViewerCreator;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.viatra.dse.merge.ui.viewers.DSEContentMergeViewer;
 import org.eclipse.viatra.dse.merge.ui.viewers.DSEStructuredMergeViewer;
 
 public class DSEStructureMergeViewerCreator implements IViewerCreator {

@@ -1,28 +1,20 @@
 package org.eclipse.viatra.dse.merge.ui.viewers;
 
+import java.util.Collection;
+
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Tree;
 
 import swing2swt.layout.BorderLayout;
-
-import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.custom.CBanner;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.swt.custom.TableTree;
-import org.eclipse.jface.viewers.TableTreeViewer;
-import org.eclipse.jface.viewers.CheckboxTableViewer;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.widgets.TreeColumn;
 
 public class DSEContentMergeControl extends Composite {
 
@@ -30,17 +22,17 @@ public class DSEContentMergeControl extends Composite {
 	private CheckboxTreeViewer fRightViewer;
 	private Label lblLabelRight;
 	private Label lblLabelLeft;
-	private TreeViewer solutionViewer;
 	private Label lblSelected;
 	private TabItem tbtmSolutions;
 	private TabFolder tabFolder;
+    private CTabFolder tabFolderSolutions;
 	
 	/**
 	 * Create the composite.
 	 * @param parent
 	 * @param style
 	 */
-	public DSEContentMergeControl(Composite parent, int style) {
+	public DSEContentMergeControl(Composite parent, Collection<AbstractSolutionTab> tabs, int style) {
 		super(parent, style);
 		setLayout(new BorderLayout(0, 0));
 		
@@ -89,12 +81,21 @@ public class DSEContentMergeControl extends Composite {
 		tbtmSolutions.setControl(sComposite);
 		sComposite.setLayout(new BorderLayout(0, 0));
 		
-		solutionViewer = new TreeViewer(sComposite, SWT.BORDER);
-		
 		lblSelected = new Label(sComposite, SWT.NONE);
 		lblSelected.setLayoutData(BorderLayout.NORTH);
 		lblSelected.setText("Selected");
 		
+		Composite solutionsComposite = new Composite(sComposite, SWT.NONE);
+		solutionsComposite.setLayoutData(BorderLayout.CENTER);
+		solutionsComposite.setLayout(new BorderLayout(0, 0));
+		
+		tabFolderSolutions = new CTabFolder(solutionsComposite, SWT.BORDER | SWT.BOTTOM);
+		tabFolderSolutions.setLayoutData(BorderLayout.CENTER);
+		tabFolderSolutions.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+		
+		for (AbstractSolutionTab tab : tabs) {
+		    tab.createPartControl(tabFolderSolutions);
+	    }
 		tabFolder.setSelection(tbtmPriorities);
 	}
 
@@ -119,15 +120,12 @@ public class DSEContentMergeControl extends Composite {
 		return lblLabelRight;
 	}
 	
-	public TreeViewer getSolutionViewer() {
-		return solutionViewer;
-	}
-	
 	public Label getSelected() {
 		return lblSelected;
 	}
 	
 	public void changeToSolutionPage() {
 		tabFolder.setSelection(tbtmSolutions);
+		tabFolderSolutions.setSelection(0);
 	}
 }

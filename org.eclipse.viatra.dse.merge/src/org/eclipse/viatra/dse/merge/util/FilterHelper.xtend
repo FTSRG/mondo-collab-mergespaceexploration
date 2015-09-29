@@ -35,4 +35,8 @@ class FilterHelper {
 	def static selectTempLiberateMustTransitions(Iterable<? extends ITransition> transitions, Set<String> usedMustTransitions) {
 		return transitions.filter[x | usedMustTransitions.contains(x.getId())].map[x | x.getId().toString()].toList
 	}
+	
+	def static orderTransitions(Iterable<? extends ITransition> transitions) {
+		return transitions.sortBy[x | x.id.toString]
+	}
 }

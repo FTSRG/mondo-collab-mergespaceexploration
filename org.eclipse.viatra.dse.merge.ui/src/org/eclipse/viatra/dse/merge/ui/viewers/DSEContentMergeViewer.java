@@ -29,23 +29,17 @@ import org.eclipse.emf.compare.utils.UseIdentifiers;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IMenuListener;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 import org.eclipse.viatra.dse.merge.DSEMergeConfigurator;
@@ -59,22 +53,23 @@ import org.eclipse.viatra.dse.merge.model.provider.ModelItemProviderAdapterFacto
 import org.eclipse.viatra.dse.merge.ui.Properties;
 import org.eclipse.viatra.dse.merge.ui.interpreter.DefaultCompareEditorInterpreter;
 import org.eclipse.viatra.dse.merge.ui.interpreter.ICompareEditorInputInterpreter;
-import org.eclipse.viatra.dse.merge.ui.provider.SolutionContentProvider;
-import org.eclipse.viatra.dse.merge.ui.provider.SolutionLabelProvider;
 
 import com.google.common.collect.Lists;
 
 public class DSEContentMergeViewer extends Viewer {
 
     private static final String INTERPRETER_POINT = "org.eclipse.viatra.dse.merge.ui.interpreter";
-    private static final String CLASS_ATTRIBUTE = "interpreter";
+    private static final String INTERPRETER_CLASS_ATTRIBUTE = "interpreter";
+    private static final String VISUALIZER_POINT = "org.eclipse.viatra.dse.merge.ui.visualizer";
+    private static final String VISUALIZER_CLASS_ATTRIBUTE = "visualizer";
     private DSEContentMergeControl mergeControl;
     private Object input;
     private final CompareConfiguration config;
     private AdapterFactory adapterFactory = new ModelItemProviderAdapterFactory();
 
     private static Collection<ICompareEditorInputInterpreter> interpreters;
-
+    private Collection<AbstractSolutionTab> tabs;
+    
     private Resource remote;
     private Resource local;
     private Resource original;
@@ -83,9 +78,8 @@ public class DSEContentMergeViewer extends Viewer {
     private Collection<Solution> solutions;
 
     public DSEContentMergeViewer(Composite parent, CompareConfiguration config) {
-        mergeControl = new DSEContentMergeControl(parent, SWT.None);
         this.config = config;
-        initialize();
+        initialize(parent);
     }
 
     private static void initializeConfiguration() {
@@ -95,7 +89,7 @@ public class DSEContentMergeViewer extends Viewer {
             for (IExtension ext : extensionPoint.getExtensions()) {
 
                 for (IConfigurationElement conf : ext.getConfigurationElements()) {
-                    interpreters.add((ICompareEditorInputInterpreter) conf.createExecutableExtension(CLASS_ATTRIBUTE));
+                    interpreters.add((ICompareEditorInputInterpreter) conf.createExecutableExtension(INTERPRETER_CLASS_ATTRIBUTE));
                 }
             }
         } catch (InvalidRegistryObjectException | CoreException e) {
@@ -104,43 +98,33 @@ public class DSEContentMergeViewer extends Viewer {
         interpreters.add(new DefaultCompareEditorInterpreter());
     }
 
-    private void initialize() {
+    private void initializeTabs() {
+        tabs = Lists.newArrayList();
+        try {
+            IExtensionPoint extensionPoint = Platform.getExtensionRegistry().getExtensionPoint(VISUALIZER_POINT);
+            for (IExtension ext : extensionPoint.getExtensions()) {
+
+                for (IConfigurationElement conf : ext.getConfigurationElements()) {
+                    tabs.add((AbstractSolutionTab) conf.createExecutableExtension(VISUALIZER_CLASS_ATTRIBUTE));
+                }
+            }
+        } catch (InvalidRegistryObjectException | CoreException e) {
+            Logger.getLogger(DSEContentMergeViewer.class).error(e.getMessage());
+        }
+        tabs.add(new DefaultSolutionTab());
+    }
+    
+    private void initialize(Composite parent) {
         if (interpreters == null)
             initializeConfiguration();
 
+        initializeTabs();
+        
+        mergeControl = new DSEContentMergeControl(parent, tabs, SWT.None);
         mergeControl.getLeftViewer().addCheckStateListener(new MayMustCheckStateListener());
         mergeControl.getRightViewer().addCheckStateListener(new MayMustCheckStateListener());
 
         initializeCompareConfig();
-
-        MenuManager menuMgr = new MenuManager();
-        menuMgr.setRemoveAllWhenShown(true);
-        menuMgr.addMenuListener(new IMenuListener() {
-            public void menuAboutToShow(IMenuManager manager) {
-
-                IStructuredSelection selection = (IStructuredSelection) mergeControl.getSolutionViewer().getSelection();
-                if (selection.size() == 1) {
-                    Object object = selection.iterator().next();
-
-                    if (object instanceof SolutionElement) {
-                        final SolutionElement element = (SolutionElement) object;
-                        manager.add(new Action("Select solution #" + element.counter) {
-                            @Override
-                            public void run() {
-                                mergeControl.getSelected()
-                                        .setText("Selected solution is: Solution #" + element.counter);
-                                config.setProperty(Properties.SELECTED_SOLUTION, element.solution);
-                            }
-                        });
-                    }
-                }
-
-            }
-        });
-        Menu menu = menuMgr.createContextMenu(mergeControl.getSolutionViewer().getControl());
-        mergeControl.getSolutionViewer().getControl().setMenu(menu);
-        PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart().getSite()
-                .registerContextMenu(menuMgr, mergeControl.getSolutionViewer());
     }
 
     private void initializeCompareConfig() {
@@ -186,9 +170,13 @@ public class DSEContentMergeViewer extends Viewer {
                         }
                         if (event.getProperty().equals(Properties.SOLUTIONS)) {
                             solutions = (Collection<Solution>) event.getNewValue();
-                            mergeControl.getSolutionViewer().setContentProvider(new SolutionContentProvider());
-                            mergeControl.getSolutionViewer().setLabelProvider(new SolutionLabelProvider());
-                            mergeControl.getSolutionViewer().setInput(new SolutionList(solutions));
+                            SolutionList solutionList = new SolutionList(solutions);
+                            
+                            for (AbstractSolutionTab tab : tabs) {
+                                tab.setSolutions(solutionList);
+                                tab.setConfig(config);
+                            }
+                            
                             mergeControl.changeToSolutionPage();
                         }
                     }

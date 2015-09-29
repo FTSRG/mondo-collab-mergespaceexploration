@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="interpreter" name="Editor Input Interpreter" schema="schema/interpreter.exsd"/>
+   <extension-point id="visualizer" name="Solution Visualizer" schema="schema/visualizer.exsd"/>
    <extension
          point="org.eclipse.compare.structureMergeViewers">
       <viewer

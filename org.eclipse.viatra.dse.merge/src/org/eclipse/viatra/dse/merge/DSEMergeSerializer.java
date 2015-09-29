@@ -64,7 +64,7 @@ public class DSEMergeSerializer implements IStateCoder {
         ECollections.sort(changeSet.getChanges(), new ChangeComparator());
 
         for (Change change : changeSet.getChanges()) {
-            sb.append(serializeChange(change));
+            sb.append(serializeChange(change).toString());
         }
     }
 
@@ -74,70 +74,13 @@ public class DSEMergeSerializer implements IStateCoder {
      * @param change
      * @return serialized change
      */
-    private String serializeChange(Change change) {
-        String ret = "";
-
-        if (change instanceof Create) {
-            Create _change = (Create) change;
-            ret = "Create{executable=" + _change.isExecutable() + ";srcId=" + DSEMergeUtil.getId(_change.getSrc())
-                    + ";containerId=" + DSEMergeUtil.getId(_change.getContainer()) + ";feature="
-                    + _change.getFeature().getName() + "}";
-        }
-        if (change instanceof Delete) {
-            Delete _change = (Delete) change;
-            ret = "Delete{executable=" + _change.isExecutable() + ";srcId=" + DSEMergeUtil.getId(_change.getSrc())
-                    + "}";
-        }
-        if (change instanceof Reference) {
-            Reference _change = (Reference) change;
-            ret = "Reference{executable=" + _change.isExecutable() + ";srcId=" + DSEMergeUtil.getId(_change.getSrc())
-                    + ";trgId=" + DSEMergeUtil.getId(_change.getTrg()) + ";feature=" + _change.getFeature().getName()
-                    + ";kind=" + _change.getKind() + "}";
-        }
-        if (change instanceof Attribute) {
-            Attribute _change = (Attribute) change;
-            ret = "Attribute{executable=" + _change.isExecutable() + ";srcId=" + DSEMergeUtil.getId(_change.getSrc())
-                    + ";value=" + _change.getValue() + ";feature=" + _change.getFeature().getName() + ";kind="
-                    + _change.getKind() + "}";
-        }
-        if (change.getPriority() == Priority.MUST)
-            ret = DSEMergeStrategy.MUST_PREFIX + ret;
-        else
-            ret = DSEMergeStrategy.MAY_PREFIX + ret;
-
-        return ret + "\n";
+    private ChangeWrapper serializeChange(Change change) {
+        return new ChangeWrapper(change);
     }
 
     @Override
     public Object createActivationCode(IPatternMatch match) {
-        String ret = "";
-        if (match instanceof ExecutableDeleteChangeMatch)
-            return ret;
-        Change change = (Change) match.get("change");
-        if (change == null)
-            return ret;
-        if (change.getPriority() == Priority.MUST)
-            ret = DSEMergeStrategy.MUST_PREFIX;
-        else
-            ret = DSEMergeStrategy.MAY_PREFIX;
-
-        ret += "Match|" + match.patternName() + "|(";
-        for (String param : match.parameterNames()) {
-            Object p = match.get(param);
-            if (p instanceof DSEMergeScope) {
-                ret += "scope;";
-            } else if (p instanceof Change) {
-                ret += serializeChange((Change) p).replace("\n", "") + ";";
-            } else if (p instanceof EObject) {
-                EStructuralFeature feature = ((EObject) p).eClass().getEStructuralFeature("id");
-                String id = String.valueOf(((EObject) p).eGet(feature));
-                ret += id + ";";
-            } else {
-                ret += p.toString() + ";";
-            }
-        }
-
-        return ret;
+        return new ActivationCodeWrapper(match);
     }
 
     @Override
@@ -150,6 +93,137 @@ public class DSEMergeSerializer implements IStateCoder {
         }
     }
 
+    public static class ChangeWrapper {
+        
+        private Change change;
+
+        public ChangeWrapper(Change change) {
+            this.change = change;
+        }
+        
+        @Override
+        public String toString() {
+            String ret = "";
+
+            if (change instanceof Create) {
+                Create _change = (Create) change;
+                ret = "Create{executable=" + _change.isExecutable() + ";srcId=" + DSEMergeUtil.getId(_change.getSrc())
+                        + ";containerId=" + DSEMergeUtil.getId(_change.getContainer()) + ";feature="
+                        + _change.getFeature().getName() + "}";
+            }
+            if (change instanceof Delete) {
+                Delete _change = (Delete) change;
+                ret = "Delete{executable=" + _change.isExecutable() + ";srcId=" + DSEMergeUtil.getId(_change.getSrc())
+                        + "}";
+            }
+            if (change instanceof Reference) {
+                Reference _change = (Reference) change;
+                ret = "Reference{executable=" + _change.isExecutable() + ";srcId=" + DSEMergeUtil.getId(_change.getSrc())
+                        + ";trgId=" + DSEMergeUtil.getId(_change.getTrg()) + ";feature=" + _change.getFeature().getName()
+                        + ";kind=" + _change.getKind() + "}";
+            }
+            if (change instanceof Attribute) {
+                Attribute _change = (Attribute) change;
+                ret = "Attribute{executable=" + _change.isExecutable() + ";srcId=" + DSEMergeUtil.getId(_change.getSrc())
+                        + ";value=" + _change.getValue() + ";feature=" + _change.getFeature().getName() + ";kind="
+                        + _change.getKind() + "}";
+            }
+            if (change.getPriority() == Priority.MUST)
+                ret = DSEMergeStrategy.MUST_PREFIX + ret;
+            else
+                ret = DSEMergeStrategy.MAY_PREFIX + ret;
+
+            return ret + "\n";
+        }
+        
+        @Override
+        public boolean equals(Object obj) {
+            return toString().equals(obj);
+        }
+        
+        @Override
+        public int hashCode() {
+            return toString().hashCode();
+        }
+    }
+    
+    public static class ActivationCodeWrapper {
+        
+        private IPatternMatch match;
+        private Change change;
+        private String code;
+        
+        public ActivationCodeWrapper(IPatternMatch match) {
+            this.match = match;
+            this.change = (Change) match.get("change");
+            this.code = calculateCode();
+         }
+        
+        public Change getChange() {
+            return change;
+        }
+        
+        private String calculateCode() {
+            String ret = "";
+            if (match instanceof ExecutableDeleteChangeMatch)
+                return ret;
+            if (change == null)
+                return ret;
+            if (change.getPriority() == Priority.MUST)
+                ret = DSEMergeStrategy.MUST_PREFIX;
+            else
+                ret = DSEMergeStrategy.MAY_PREFIX;
+
+            ret += "Match|" + match.patternName() + "|(";
+            for (String param : match.parameterNames()) {
+                Object p = match.get(param);
+                if (p instanceof DSEMergeScope) {
+                    ret += "scope;";
+                } else if (p instanceof Change) {
+                    ret += new ChangeWrapper((Change) p).toString().replace("\n", "") + ";";
+                } else if (p instanceof EObject) {
+                    EStructuralFeature feature = ((EObject) p).eClass().getEStructuralFeature("id");
+                    String id = String.valueOf(((EObject) p).eGet(feature));
+                    ret += id + ";";
+                } else {
+                    ret += p.toString() + ";";
+                }
+            }            
+            return ret;
+        }
+        
+        @Override
+        public String toString() {
+            return code;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((code == null) ? 0 : code.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            ActivationCodeWrapper other = (ActivationCodeWrapper) obj;
+            if (code == null) {
+                if (other.code != null)
+                    return false;
+            } else if (!code.equals(other.code))
+                return false;
+            return true;
+        }
+        
+    }
+    
     /**
      * Comparator to provide fix order of the operations between two transitions application
      * 
