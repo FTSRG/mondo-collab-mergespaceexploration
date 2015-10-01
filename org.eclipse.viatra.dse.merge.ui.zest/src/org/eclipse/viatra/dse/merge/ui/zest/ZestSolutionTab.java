@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.gef4.layout.algorithms.GridLayoutAlgorithm;
 import org.eclipse.gef4.layout.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.gef4.layout.algorithms.TreeLayoutAlgorithm;
 import org.eclipse.gef4.zest.core.viewers.GraphViewer;
@@ -15,6 +14,7 @@ import org.eclipse.gef4.zest.core.widgets.GraphWidget;
 import org.eclipse.gef4.zest.core.widgets.ZestStyles;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
@@ -43,8 +43,12 @@ public class ZestSolutionTab extends AbstractSolutionTab {
 
     Map<Object, GraphNode> nodeMapping = Maps.newHashMap();
     Map<GraphNode, SolutionElement> solutionMapping = Maps.newHashMap();
-    private Composite parent;
+    Composite parent;
+    SolutionElement selected;
 
+    int sumMay, sumMust, selectedMay, selectedMust;
+    private ZestSolutionForm form;
+    
     @Override
     protected String getTabTitle() {
         return "Graph Visualizer";
@@ -59,10 +63,17 @@ public class ZestSolutionTab extends AbstractSolutionTab {
     protected Control createViewer(Composite parent) {
         this.parent = parent;
         
-        ZestSolutionForm form = new ZestSolutionForm(parent, SWT.None);
+        form = new ZestSolutionForm(parent, SWT.None);
+        form.getSelectButton().addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if(selected != null)
+                    selectSolution(selected.solution);
+            }
+        });
         
         graph = new GraphWidget(form.getGraphComposite(), SWT.None);
-        graph.setLayoutAlgorithm(new SpringLayoutAlgorithm(), true);
+        graph.setLayoutAlgorithm(new TreeLayoutAlgorithm(), true);
         graph.addSelectionListener(new ZestTabSelectionListener());
         
         viewer = new GraphViewer(graph);
@@ -71,7 +82,14 @@ public class ZestSolutionTab extends AbstractSolutionTab {
 
     @Override
     protected void setSolutions(SolutionList solutionList) {
+        if(solutionList.list.isEmpty()) {
+            form.getSelectButton().setEnabled(false);
+        } else {
+            form.getSelectButton().setEnabled(true);
+        }
+        
         nodeMapping.clear();
+        sumMay = sumMust = 0;
         int counter = 0;
         for (SolutionElement solution : solutionList.list) {
             GraphNode s = new GraphNode(graph, SWT.None, "Solution #" + ++counter);
@@ -87,6 +105,7 @@ public class ZestSolutionTab extends AbstractSolutionTab {
                 if (!nodeMapping.containsKey(object)) {
                     GraphNode node = new GraphNode(graph, SWT.None);
                     setStyles(node, (ActivationCodeWrapper) object);
+                    modifyNumbers((ActivationCodeWrapper) object);
                     nodeMapping.put(object, node);
                 }
                 GraphNode current = nodeMapping.get(object);
@@ -103,6 +122,16 @@ public class ZestSolutionTab extends AbstractSolutionTab {
                 previous = current;
             }
         }
+        if(!solutionMapping.keySet().isEmpty())
+            selectFullSolution(solutionMapping.keySet().iterator().next());
+    }
+
+    private void modifyNumbers(ActivationCodeWrapper object) {
+        if(object.getChange().getPriority() == Priority.MUST)
+            sumMust++;
+        else
+            sumMay++;
+            
     }
 
     protected void setStyles(GraphNode node, ActivationCodeWrapper wrapper) {
@@ -133,13 +162,57 @@ public class ZestSolutionTab extends AbstractSolutionTab {
             label = _change.getKind() + " Attribute: " + DSEMergeUtil.getId(_change.getSrc()) + "-"
                     + _change.getFeature().getName() + "-" + _change.getValue();
         }
-
         node.setText(label);
     }
 
+    private void setMetrics() {
+        form.getIncludedLabel().setText(String.format("Included: %d", selectedMay + selectedMust));
+        form.getExcludedLabel().setText(String.format("Excluded: %d", (sumMay + sumMust) - (selectedMay + selectedMust)));
+        form.getMayLabel().setText(String.format("May %d/%d", selectedMay, sumMay));
+        form.getMustLabel().setText(String.format("Must %d/%d", selectedMust, sumMust));
+    }
+    
+    HashSet<GraphItem> set = Sets.newHashSet();
+    public void selectFullSolution(GraphNode solutionNode) {
+        set = Sets.newHashSet();
+        selectedMay = selectedMust = 0;
+        selected = solutionMapping.get(solutionNode);
+        SolutionTrajectory trajectory = selected.solution.getTrajectory();
+        GraphNode previous = solutionNode;
+        previous.highlight();
+        set.add(previous);
+        for (Object code : trajectory.getActivationCodes()) {
+            GraphNode current = nodeMapping.get(code);
+            modifyCurrentCounts((ActivationCodeWrapper) code);
+            
+            current.highlight();
+            for (GraphConnection graphConnection : current.getTargetConnections()) {
+                if (graphConnection.getSource() == previous) {
+                    graphConnection.highlight();
+                    set.add(graphConnection);
+                }
+            }
+            previous = current;
+            set.add(previous);
+        }
+        setMetrics();
+    }
+    
+    private void clearPreviousSelection() {
+        for (GraphItem graphItem : set) {
+            graphItem.unhighlight();
+        }
+    }
+
+    private void modifyCurrentCounts(ActivationCodeWrapper code) {
+        if(code.getChange().getPriority() == Priority.MUST)
+            selectedMust++;
+        else
+            selectedMay++;
+    }
+
+    
     public class ZestTabSelectionListener implements SelectionListener  {
-        
-        HashSet<GraphItem> set = Sets.newHashSet();
         
         @Override
         public void widgetSelected(SelectionEvent e) {
@@ -147,32 +220,6 @@ public class ZestSolutionTab extends AbstractSolutionTab {
             clearPreviousSelection();
             if(selection.size() == 1 && solutionMapping.containsKey(selection.get(0)))
                 selectFullSolution((GraphNode)selection.get(0));
-        }
-
-        private void clearPreviousSelection() {
-            for (GraphItem graphItem : set) {
-                graphItem.unhighlight();
-            }
-        }
-
-        private void selectFullSolution(GraphNode solutionNode) {
-            set = Sets.newHashSet();
-            SolutionTrajectory trajectory = solutionMapping.get(solutionNode).solution.getTrajectory();
-            GraphNode previous = solutionNode;
-            previous.highlight();
-            set.add(previous);
-            for (Object code : trajectory.getActivationCodes()) {
-                GraphNode current = nodeMapping.get(code);
-                current.highlight();
-                for (GraphConnection graphConnection : current.getTargetConnections()) {
-                    if (graphConnection.getSource() == previous) {
-                        graphConnection.highlight();
-                        set.add(graphConnection);
-                    }
-                }
-                previous = current;
-                set.add(previous);
-            }
         }
 
         @Override

@@ -19,6 +19,12 @@ public class ZestSolutionForm extends Composite {
     private final FormToolkit toolkit = new FormToolkit(Display.getCurrent());
     private Section visualizerSection;
     private Composite graphComposite;
+    private Button selectButton;
+    private Label includedLabel;
+    private Label mustLabel;
+    private Label mayLabel;
+    private Label excludedLabel;
+    private Label selectedLabel;
 
     /**
      * Create the composite.
@@ -53,7 +59,7 @@ public class ZestSolutionForm extends Composite {
         visualizerSection.setText("Solution Graph");
         visualizerSection.setExpanded(true);
         
-        Button selectButton = toolkit.createButton(visualizerSection, "Select", SWT.NONE);
+        selectButton = toolkit.createButton(visualizerSection, "Apply", SWT.NONE);
         visualizerSection.setTextClient(selectButton);
 
         graphComposite = toolkit.createComposite(visualizerSection, SWT.WRAP);
@@ -66,25 +72,49 @@ public class ZestSolutionForm extends Composite {
         metricsSection.setClient(metricsComposite);
         metricsComposite.setLayout(new RowLayout(SWT.HORIZONTAL));
         
-        Label selectedLabel = toolkit.createLabel(metricsComposite, "Selected #1", SWT.NONE);
+        selectedLabel = toolkit.createLabel(metricsComposite, "Selected #1", SWT.NONE);
         
         Label label = toolkit.createSeparator(metricsComposite, SWT.NONE);
         label.setLayoutData(new RowData(1, 20));
         
-        Label includedLabel = toolkit.createLabel(metricsComposite, "Included: 12", SWT.NONE);
+        includedLabel = toolkit.createLabel(metricsComposite, "Included: 0000", SWT.NONE);
         
-        Label mustLabel = toolkit.createLabel(metricsComposite, "Must: 9", SWT.NONE);
+        mustLabel = toolkit.createLabel(metricsComposite, "Must: 000/000", SWT.NONE);
         
-        Label mayLabel = toolkit.createLabel(metricsComposite, "May: 3", SWT.NONE);
+        mayLabel = toolkit.createLabel(metricsComposite, "May: 000/000", SWT.NONE);
         
         Label label_1 = toolkit.createSeparator(metricsComposite, SWT.NONE);
         label_1.setLayoutData(new RowData(2, 20));
         
-        Label excludedLabel = toolkit.createLabel(metricsComposite, "Excluded: 4", SWT.NONE);
+        excludedLabel = toolkit.createLabel(metricsComposite, "Excluded: 000", SWT.NONE);
     }
     
     public Composite getGraphComposite() {
         return graphComposite;
+    }
+    
+    public Button getSelectButton() {
+        return selectButton;
+    }
+    
+    public Label getIncludedLabel() {
+        return includedLabel;
+    }
+    
+    public Label getMustLabel() {
+        return mustLabel;
+    }
+    
+    public Label getMayLabel() {
+        return mayLabel;
+    }
+    
+    public Label getExcludedLabel() {
+        return excludedLabel;
+    }
+    
+    public Label getSelectedLabel() {
+        return selectedLabel;
     }
 }
 
