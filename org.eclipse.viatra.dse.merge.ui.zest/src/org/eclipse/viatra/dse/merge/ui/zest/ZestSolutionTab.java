@@ -82,11 +82,11 @@ public class ZestSolutionTab extends AbstractSolutionTab {
 
     @Override
     protected void setSolutions(SolutionList solutionList) {
-        if(solutionList.list.isEmpty()) {
-            form.getSelectButton().setEnabled(false);
-        } else {
-            form.getSelectButton().setEnabled(true);
-        }
+//        if(solutionList.list.isEmpty()) {
+//            form.getSelectButton().setEnabled(false);
+//        } else {
+//            form.getSelectButton().setEnabled(true);
+//        }
         
         nodeMapping.clear();
         sumMay = sumMust = 0;
@@ -122,8 +122,8 @@ public class ZestSolutionTab extends AbstractSolutionTab {
                 previous = current;
             }
         }
-        if(!solutionMapping.keySet().isEmpty())
-            selectFullSolution(solutionMapping.keySet().iterator().next());
+//        if(!solutionMapping.keySet().isEmpty())
+//            selectFullSolution(solutionMapping.keySet().iterator().next());
     }
 
     private void modifyNumbers(ActivationCodeWrapper object) {

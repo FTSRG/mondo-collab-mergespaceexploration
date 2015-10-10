@@ -1,5 +1,6 @@
 package org.eclipse.viatra.dse.merge.ui.viewers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
@@ -9,6 +10,7 @@ import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareEditorInput;
 import org.eclipse.compare.CompareViewerPane;
 import org.eclipse.compare.contentmergeviewer.IFlushable;
+import org.eclipse.compare.internal.BufferedResourceNode;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -45,7 +47,8 @@ public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
 	private Solution selectedSolution;
 	private CompareEditorInput editorInput;	
 	private TreeViewer fViewer;
-	
+	private BufferedResourceNode target;
+
 	public DSEStructuredMergeViewer(Composite parent, CompareConfiguration config) {
 		fViewer = new TreeViewer(parent);
 		this.config = config;
@@ -85,7 +88,11 @@ public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent event) {
-				if(event.getProperty().equals(Properties.CHANGESET_OL)) {
+			    if(event.getProperty().equals(Properties.TARGET)) {
+                    target = (BufferedResourceNode) event.getNewValue();
+                }
+                
+			    if(event.getProperty().equals(Properties.CHANGESET_OL)) {
 					changeOL = (ChangeSet) event.getNewValue();
 				}
 				
@@ -97,7 +104,7 @@ public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
 					original = (Resource) event.getNewValue();
 					Display.getDefault().syncExec(new Runnable() {
 					    public void run() {
-					    	setInput(original);
+					    	setInput(original.getContents().get(0));
 					    }
 					});
 				}
@@ -111,6 +118,7 @@ public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
 					selectedSolution = (Solution) event.getNewValue();
 					revertChanges.setEnabled(true);
 					setInput(selectedSolution.getScope().getOrigin());
+					refresh();
 					editorInput.setDirty(true);
 				}				
 			}
@@ -176,7 +184,9 @@ public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
 		resource.getContents().clear();
 		resource.getContents().add(newOrigin);
 		try {
-			resource.save(Collections.emptyMap());
+		    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		    resource.save(baos, Collections.emptyMap());
+		    target.setContent(baos.toByteArray());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -210,7 +220,9 @@ public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
 		if(input instanceof Resource) {
 			original = (Resource) input;
 			fViewer.setInput(original.getContents().get(0));
-		}
+		} else if (input instanceof EObject) {
+		    fViewer.setInput(input);
+	   }
 	}
 
 	@Override

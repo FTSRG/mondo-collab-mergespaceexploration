@@ -1,5 +1,9 @@
 package org.eclipse.viatra.dse.merge.emf.compare;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.compare.Comparison;
 import org.eclipse.emf.compare.Diff;
@@ -10,27 +14,56 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.dse.merge.DSEMergeIdMapper;
 import org.eclipse.viatra.dse.merge.model.Attribute;
+import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
 import org.eclipse.viatra.dse.merge.model.Create;
 import org.eclipse.viatra.dse.merge.model.Delete;
+import org.eclipse.viatra.dse.merge.model.Feature;
 import org.eclipse.viatra.dse.merge.model.Id;
 import org.eclipse.viatra.dse.merge.model.IdType;
 import org.eclipse.viatra.dse.merge.model.Kind;
 import org.eclipse.viatra.dse.merge.model.ModelFactory;
 import org.eclipse.viatra.dse.merge.model.Reference;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 @SuppressWarnings("restriction")
 public class EMFCompareTranslator {
 
     private DSEMergeIdMapper mapper;
+    private Map<Object, Create> created = Maps.newHashMap();
+    private Map<Object, Delete> deleted = Maps.newHashMap();
 
     public ChangeSet translate(Comparison compare, DSEMergeIdMapper mapper) {
         this.mapper = mapper;
         ChangeSet changeSet = ModelFactory.eINSTANCE.createChangeSet();
         processFeatureChangeSpec(compare, changeSet);
 
+        Collection<Change> toDelete = Lists.newArrayList();
+        for(Object key : created.keySet()) {
+            if(deleted.containsKey(key)) {
+                toDelete.add(created.get(key));
+                toDelete.add(deleted.get(key));
+            }
+        }
+        
+        Iterator<Change> iterator = toDelete.iterator();
+        while(iterator.hasNext()) {
+            Change change = iterator.next();
+            if(change instanceof Create) {
+                Create create = (Create) change;
+                EList<Feature> features = create.getFeatures();
+                while(!features.isEmpty()) {
+                    EcoreUtil.delete(features.get(0));
+                }
+            }
+            EcoreUtil.delete(change);
+        }
+        
         return changeSet;
     }
 
@@ -191,6 +224,7 @@ public class EMFCompareTranslator {
                     }
                 }
             }
+            created.put(mapper.getId(object), create);
             return true;
         }
         return false;
@@ -204,6 +238,7 @@ public class EMFCompareTranslator {
             delete.setExecutable(true);
             delete.setSrc(create(object));
             changeSet.getChanges().add(delete);
+            deleted.put(mapper.getId(object), delete);
             return true;
         }
         return false;
@@ -267,5 +302,5 @@ public class EMFCompareTranslator {
             return create((String) value);
         }
         return null;
-    }
+    }    
 }

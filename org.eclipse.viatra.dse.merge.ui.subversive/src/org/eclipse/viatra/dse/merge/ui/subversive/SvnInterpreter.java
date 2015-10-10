@@ -30,6 +30,7 @@ public class SvnInterpreter implements ICompareEditorInputInterpreter {
         Resource ancestor = getResource(node.getAncestor());
         config.setProperty(Properties.ANCESTOR, ancestor);
         Resource left = getResource(node.getLeft(), null);
+        config.setProperty(Properties.TARGET, node.getLeft());
         config.setProperty(Properties.LEFT, left);
         Resource right = getResource(node.getRight());
         config.setProperty(Properties.RIGHT, right);
@@ -46,9 +47,9 @@ public class SvnInterpreter implements ICompareEditorInputInterpreter {
             BufferedResourceNode node = (BufferedResourceNode) element;
             ResourceSet rSet = new ResourceSetImpl();
             if(uri == null) {
-                String location = node.getResource().getFullPath().toString();
+                uri = node.getResource().getRawLocation().toString();
             }
-            Resource resource = rSet.createResource(URI.createURI(uri));
+            Resource resource = rSet.createResource(URI.createFileURI(uri));
             try {
                 resource.load(node.getContents(), Collections.emptyMap());
             } catch (IOException | CoreException e) {

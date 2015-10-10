@@ -10,5 +10,6 @@ public class Properties {
 	public static final String SOLUTIONS = "Solutions";
 	public static final String SELECTED_SOLUTION = "SelectedSolution";
 	public static final String READY_TO_COMPARE = "ReadyToCompare";
+    public static final String TARGET = "Target";
 
 }

@@ -37,6 +37,8 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -77,6 +79,8 @@ public class DSEContentMergeViewer extends Viewer {
     private ChangeSet changeOR;
     private Collection<Solution> solutions;
 
+    private AdapterFactoryContentProvider contentProvider = new AdapterFactoryContentProvider(adapterFactory);
+    private AdapterFactoryLabelProvider labelProvider = new AdapterFactoryLabelProvider(adapterFactory);
     public DSEContentMergeViewer(Composite parent, CompareConfiguration config) {
         this.config = config;
         initialize(parent);
@@ -123,8 +127,48 @@ public class DSEContentMergeViewer extends Viewer {
         mergeControl = new DSEContentMergeControl(parent, tabs, SWT.None);
         mergeControl.getLeftViewer().addCheckStateListener(new MayMustCheckStateListener());
         mergeControl.getRightViewer().addCheckStateListener(new MayMustCheckStateListener());
-
+        
+        initializeButtons();
         initializeCompareConfig();
+    }
+
+    private void initializeButtons() {
+        mergeControl.getButtonLeftAll().addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                for (Change change : changeOL.getChanges()) {
+                    mergeControl.getLeftViewer().setSubtreeChecked(change, true);
+                    change.setPriority(Priority.MUST);
+                }
+            }
+        });
+        mergeControl.getButtonLeftNone().addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                for (Change change : changeOL.getChanges()) {
+                    mergeControl.getLeftViewer().setSubtreeChecked(change, false);
+                    change.setPriority(Priority.MAY);
+                }
+            }
+        });
+        mergeControl.getButtonRightAll().addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                for (Change change : changeOR.getChanges()) {
+                    mergeControl.getRightViewer().setSubtreeChecked(change, true);
+                    change.setPriority(Priority.MUST);
+                }
+            }
+        });
+        mergeControl.getButtonRightNone().addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                for (Change change : changeOR.getChanges()) {
+                    mergeControl.getRightViewer().setSubtreeChecked(change, false);
+                    change.setPriority(Priority.MAY);
+                }
+            }
+        });
     }
 
     private void initializeCompareConfig() {
@@ -151,20 +195,16 @@ public class DSEContentMergeViewer extends Viewer {
                         }
                         if (event.getProperty().equals(Properties.CHANGESET_OL)) {
                             changeOL = (ChangeSet) event.getNewValue();
-                            mergeControl.getLeftViewer().setContentProvider(
-                                    new AdapterFactoryContentProvider(adapterFactory));
-                            mergeControl.getLeftViewer().setLabelProvider(
-                                    new AdapterFactoryLabelProvider(adapterFactory));
+                            mergeControl.getLeftViewer().setContentProvider(contentProvider);
+                            mergeControl.getLeftViewer().setLabelProvider(labelProvider);
                             mergeControl.getLeftViewer().setInput(changeOL);
                             refresh();
                         }
 
                         if (event.getProperty().equals(Properties.CHANGESET_OR)) {
                             changeOR = (ChangeSet) event.getNewValue();
-                            mergeControl.getRightViewer().setContentProvider(
-                                    new AdapterFactoryContentProvider(adapterFactory));
-                            mergeControl.getRightViewer().setLabelProvider(
-                                    new AdapterFactoryLabelProvider(adapterFactory));
+                            mergeControl.getRightViewer().setContentProvider(contentProvider);
+                            mergeControl.getRightViewer().setLabelProvider(labelProvider);
                             mergeControl.getRightViewer().setInput(changeOR);
                             refresh();
                         }

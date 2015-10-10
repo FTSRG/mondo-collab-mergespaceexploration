@@ -157,7 +157,8 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
             return; // no more parent...
         }
         EObject parent = eobject.eContainer();
-        createDependency(idMapper.getId(parent), original, dependencyGraph);
+        if(!(parent instanceof DSEMergeScope))
+            createDependency(idMapper.getId(parent), original, dependencyGraph);
     }
 
     @Override
