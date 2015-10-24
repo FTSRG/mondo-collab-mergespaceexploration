@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="interpreter" name="Editor Input Interpreter" schema="schema/interpreter.exsd"/>
+   <extension-point id="visualizer" name="Solution Visualizer" schema="schema/visualizer.exsd"/>
+   <extension-point id="resource.handler" name="Resource Handler" schema="schema/resource.handler.exsd"/>
+</plugin>
