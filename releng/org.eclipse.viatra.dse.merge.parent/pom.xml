@@ -56,10 +56,6 @@
         <compilerVersion>${java.version}</compilerVersion>
         <source>${java.version}</source>
         <target>${java.version}</target>
-        <configuration>
-                <compilerArgument>-warn:none</compilerArgument>
-                <compilerArgument>-err:none</compilerArgument>
-        </configuration>
       </configuration>
     </plugin>
     <plugin>
