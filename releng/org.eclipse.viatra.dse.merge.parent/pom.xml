@@ -19,12 +19,20 @@
     <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
     <jacoco.version>0.7.0.201403182114</jacoco.version>
 		<jacoco.targetdir>${project.basedir}/../../target</jacoco.targetdir>
-    <incquery.compiler.version>1.0.0-SNAPSHOT</incquery.compiler.version>
+    <incquery.compiler.version>1.1.0-SNAPSHOT</incquery.compiler.version>
+    <incquery.repository.url>http://download.eclipse.org/incquery/updates/integration</incquery.repository.url>
   </properties>
 
   <modules>
     <module>../../releng/org.eclipse.viatra.dse.merge.targetplatform</module>
     <module>../../plugins/org.eclipse.viatra.dse.merge</module>
+    <module>../../plugins/org.eclipse.viatra.dse.merge.edit</module>
+    <module>../../plugins/org.eclipse.viatra.dse.merge.emf.compare</module>
+    <module>../../plugins/org.eclipse.viatra.dse.merge.ui</module>
+    <module>../../plugins/org.eclipse.viatra.dse.merge.ui.subversive</module>
+    <module>../../plugins/org.eclipse.viatra.dse.merge.ui.zest</module>
+    <module>../../features/org.eclipse.viatra.dse.merge.feature</module>
+    <module>../../releng/org.eclipse.viatra.dse.merge.update</module>
   </modules>
 
   <build>
@@ -160,6 +168,16 @@
 		</plugins>
   </pluginManagement>
 </build>
+
+<pluginRepositories>
+		<pluginRepository>
+			<id>incquery-snapshots</id>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<url>https://repo.eclipse.org/content/repositories/emf-incquery-snapshots/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<profiles>
 		<profile>

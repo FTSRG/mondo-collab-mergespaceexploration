@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.viatra.dse.merge.feature_1.0.0.qualifier.jar" id="org.eclipse.viatra.dse.merge.feature" version="1.0.0.qualifier">
+      <category name="org.eclipse.viatra.dse.merge"/>
+   </feature>
+   <category-def name="org.eclipse.viatra.dse.merge" label="DSE Merge"/>
+</site>
