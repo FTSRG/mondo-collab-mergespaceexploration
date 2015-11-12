@@ -25,7 +25,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.viatra.dse.base,
  org.eclipse.viatra.dse.designspace,
  com.google.guava,
- org.eclipse.emf.edit
+ org.eclipse.emf.edit,
+ org.eclipse.xtext.xbase;bundle-version="2.9.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j
