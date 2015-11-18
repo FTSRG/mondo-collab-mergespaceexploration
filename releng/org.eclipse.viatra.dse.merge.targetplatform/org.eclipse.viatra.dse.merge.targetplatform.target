@@ -28,7 +28,7 @@
 <repository location="http://download.eclipse.org/incquery/updates-extra/integration"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.viatra.dse.feature.feature.group" version="0.8.0.201511061733"/>
+<unit id="org.eclipse.viatra.dse.feature.feature.group" version="0.8.0.201511131732"/>
 <repository location="http://download.eclipse.org/viatra2/emf/updates/integration"/>
 </location>
 </locations>
