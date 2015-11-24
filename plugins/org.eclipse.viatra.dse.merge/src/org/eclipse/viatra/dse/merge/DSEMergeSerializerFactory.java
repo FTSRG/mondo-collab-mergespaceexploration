@@ -20,9 +20,15 @@ import org.eclipse.viatra.dse.statecode.IStateCoderFactory;
  */
 public class DSEMergeSerializerFactory implements IStateCoderFactory {
 
-	@Override
+	private DSEMergeIdMapper idMapper;
+
+    public DSEMergeSerializerFactory(DSEMergeIdMapper idMapper) {
+	    this.idMapper = idMapper;
+    }
+
+    @Override
 	public IStateCoder createStateCoder() {
-		return new DSEMergeSerializer();
+		return new DSEMergeSerializer(idMapper);
 	}
 
 }

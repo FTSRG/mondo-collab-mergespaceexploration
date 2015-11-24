@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.incquery.runtime.api.IPatternMatch;
 import org.eclipse.viatra.dse.merge.iq.ExecutableDeleteChangeMatch;
 import org.eclipse.viatra.dse.merge.model.Attribute;
@@ -38,7 +37,12 @@ import org.eclipse.viatra.dse.statecode.IStateCoder;
  */
 public class DSEMergeSerializer implements IStateCoder {
 
-    private DSEMergeScope scope;
+    protected DSEMergeScope scope;
+    protected DSEMergeIdMapper mapper;
+    
+    public DSEMergeSerializer(DSEMergeIdMapper idMapper) {
+        this.mapper = idMapper;
+    }
 
     @Override
     public Object createStateCode() {
@@ -87,7 +91,7 @@ public class DSEMergeSerializer implements IStateCoder {
     public void init(Notifier notifier) {
         if (notifier instanceof DSEMergeScope) {
             this.scope = (DSEMergeScope) notifier;
-        } else {
+            } else {
             Logger.getLogger(this.getClass())
                     .error("Only DSEMergeScope can be used instead of: " + notifier.getClass());
         }
@@ -147,7 +151,7 @@ public class DSEMergeSerializer implements IStateCoder {
         }
     }
     
-    public static class ActivationCodeWrapper {
+    public class ActivationCodeWrapper {
         
         private IPatternMatch match;
         private Change change;
@@ -182,8 +186,7 @@ public class DSEMergeSerializer implements IStateCoder {
                 } else if (p instanceof Change) {
                     ret += new ChangeWrapper((Change) p).toString().replace("\n", "") + ";";
                 } else if (p instanceof EObject) {
-                    EStructuralFeature feature = ((EObject) p).eClass().getEStructuralFeature("id");
-                    String id = String.valueOf(((EObject) p).eGet(feature));
+                    String id = String.valueOf(mapper.getId((EObject) p));
                     ret += id + ";";
                 } else {
                     ret += p.toString() + ";";

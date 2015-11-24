@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -186,6 +187,7 @@ public class DSEMergeManager {
         configureDSE();
 
         //Create strategy
+        Logger.getLogger(DSEMergeStrategy.class).setLevel(Level.DEBUG);
         DSEMergeStrategy strategy = new DSEMergeStrategy();
         strategy.setId2EObject(id2eobject);     
         strategy.setIdMapper(idMapper);
@@ -205,7 +207,7 @@ public class DSEMergeManager {
         dse.addMetaModelPackage(ModelPackage.eINSTANCE);
 
         dse.setInitialModel(scope);
-        dse.setStateCoderFactory(new DSEMergeSerializerFactory());
+        dse.setStateCoderFactory(new DSEMergeSerializerFactory(idMapper));
 
         ModelQueriesHardObjective modelQueriesHardObjective = new ModelQueriesHardObjective();
         for (IQuerySpecification<?> objective : objectives) {
