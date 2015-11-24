@@ -52,7 +52,7 @@ public class DSEContentMergeViewer extends Viewer {
     private static final String INTERPRETER_POINT = "org.eclipse.viatra.dse.merge.ui.interpreter";
     private static final String INTERPRETER_CLASS_ATTRIBUTE = "interpreter";
     private static final String VISUALIZER_POINT = "org.eclipse.viatra.dse.merge.ui.visualizer";
-    private static final String VISUALIZER_CLASS_ATTRIBUTE = "visualizers";
+    private static final String VISUALIZER_CLASS_ATTRIBUTE = "visualizer";
     // objects read from extension points
     private static Collection<ICompareEditorInputInterpreter> interpreters;
     private Collection<AbstractSolutionTab> visualizers;
@@ -198,8 +198,9 @@ public class DSEContentMergeViewer extends Viewer {
     public void executeComparison() {
         IProgressService service = PlatformUI.getWorkbench().getProgressService();
         try {
-            service.run(true, false, new ComparisonRunnable(original, local, remote, service, service, config));
+            service.run(true, false, new ComparisonRunnable(original, local, remote, null, null, config));
         } catch (InvocationTargetException | InterruptedException e) {
+            e.printStackTrace();
             Logger.getLogger(DSEContentMergeViewer.class).error(e.getMessage());
         }
     }
