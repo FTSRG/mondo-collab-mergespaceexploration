@@ -53,7 +53,8 @@ public class EMFCompareTranslator {
     private DSEMergeIdMapper mapper;
     private Map<Object, Create> created = Maps.newHashMap();
     private Map<Object, Delete> deleted = Maps.newHashMap();
-
+    private Map<Change, EObject> mapToObject = Maps.newHashMap();
+    
     /**
      * Executes the translation
      * @param compare - comparison result of EMF Compare
@@ -68,6 +69,7 @@ public class EMFCompareTranslator {
         Collection<Change> toDelete = Lists.newArrayList();
         for(Object key : created.keySet()) {
             if(deleted.containsKey(key)) {
+                compareAttributes(created.get(key), deleted.get(key), changeSet);
                 toDelete.add(created.get(key));
                 toDelete.add(deleted.get(key));
             }
@@ -89,6 +91,22 @@ public class EMFCompareTranslator {
         return changeSet;
     }
 
+    private void compareAttributes(Create create, Delete delete, ChangeSet changeSet) {
+        EObject newObject = mapToObject.get(create);
+        EObject oldObject = mapToObject.get(delete);
+        
+        if(newObject.eClass() == oldObject.eClass()) {
+            EList<EAttribute> attributes = newObject.eClass().getEAllAttributes();
+            for (EAttribute attribute : attributes) {
+                Object newValue = newObject.eGet(attribute);
+                Object oldValue = oldObject.eGet(attribute);
+                if(!newValue.equals(oldValue)) {
+                    insertAttribute(null, attribute, newObject, newValue, changeSet, Kind.SET);
+                }
+            }
+        }
+    }
+
     private void processFeatureChangeSpec(Comparison compare, ChangeSet changeSet) {
 
         EList<Diff> list = compare.getDifferences();
@@ -108,22 +126,24 @@ public class EMFCompareTranslator {
         if (original == null) {
             return; // A create operation will come
         }
-        EObject object = diff.getMatch().getLeft();
+        EObject src = diff.getMatch().getLeft();
+        EObject object = src;
         if (object == null)
             return; // A delete operation will come
 
+        EAttribute feature = diff.getAttribute();
+        Object newValue = diff.getValue();
+        if (mapper.isDeterminativeFeature(feature)) {
+            EObject o = diff.getMatch().getRight();
+            createChange(changeSet, (EReference) o.eContainingFeature(), o);
+            return;
+        }
+
         Attribute attribute = ModelFactory.eINSTANCE.createAttribute();
-        attribute.setFeature(diff.getAttribute());
-        attribute.setValue(diff.getValue());
+        attribute.setFeature(feature);
+        attribute.setValue(newValue);
         attribute.setExecutable(true);
-
-        // TODO: introduce new operation if it is related to changing identifier
-
-        // If we change the value of an attribute that
-        if (mapper.isDeterminativeFeature(diff.getAttribute()))
-            attribute.setSrc(create(diff.getMatch().getRight()));
-        else
-            attribute.setSrc(create(diff.getMatch().getLeft()));
+        attribute.setSrc(create(src));
 
         switch (diff.getKind()) {
         case ADD:
@@ -131,7 +151,7 @@ public class EMFCompareTranslator {
             break;
         case CHANGE:
             attribute.setKind(Kind.SET);
-            attribute.setOldValue(diff.getMatch().getRight().eGet(diff.getAttribute()));
+            attribute.setOldValue(diff.getMatch().getRight().eGet(feature));
             break;
         case DELETE:
             attribute.setKind(Kind.REMOVE);
@@ -204,52 +224,57 @@ public class EMFCompareTranslator {
 
     @SuppressWarnings("unchecked")
     private boolean processIfCreate(ReferenceChangeSpec diff, ChangeSet changeSet) {
-        if (diff.getReference().isContainment() && diff.getKind() != DifferenceKind.DELETE) {
+        EReference reference = diff.getReference();
+        if (reference.isContainment() && diff.getKind() != DifferenceKind.DELETE) {
 
             EObject object = diff.getValue();
-
-            Create create = ModelFactory.eINSTANCE.createCreate();
-            create.setExecutable(true);
-            create.setSrc(create(object));
-            create.setFeature(diff.getReference());
-            create.setClazz(object.eClass());
-            create.setContainer(create(object.eContainer()));
-            changeSet.getChanges().add(create);
-
-            for (EStructuralFeature f : object.eClass().getEAllStructuralFeatures()) {
-                // If this feature is determinative in calculating the identifier we miss it 'cause we will set it at
-                // the object creation.
-                if (mapper.isDeterminativeFeature(f)) {
-                    continue;
-                }
-                if (f instanceof EReference) {
-                    Object result = object.eGet(f);
-                    if (result instanceof EList<?>) {
-                        for (EObject trg : (EList<EObject>) result) {
-                            insertReference(create, f, object, trg, changeSet, Kind.ADD);
-                        }
-                    } else if (result != null) {
-                        EObject trg = (EObject) result;
-                        insertReference(create, f, object, trg, changeSet, Kind.SET);
-                    }
-
-                }
-                if (f instanceof EAttribute) {
-                    Object result = object.eGet(f);
-                    if (result instanceof EList<?>) {
-                        for (Object trg : (EList<Object>) result) {
-                            insertAttribute(create, f, object, trg, changeSet, Kind.ADD);
-                        }
-                    } else {
-                        Object trg = (Object) result;
-                        insertAttribute(create, f, object, trg, changeSet, Kind.SET);
-                    }
-                }
-            }
-            created.put(mapper.getId(object), create);
+            createChange(changeSet, reference, object);
             return true;
         }
         return false;
+    }
+
+    private void createChange(ChangeSet changeSet, EReference reference, EObject object) {
+        Create create = ModelFactory.eINSTANCE.createCreate();
+        create.setExecutable(true);
+        create.setSrc(create(object));
+        create.setFeature(reference);
+        create.setClazz(object.eClass());
+        create.setContainer(create(object.eContainer()));
+        changeSet.getChanges().add(create);
+
+        for (EStructuralFeature f : object.eClass().getEAllStructuralFeatures()) {
+            // If this feature is determinative in calculating the identifier we miss it 'cause we will set it at
+            // the object creation.
+            if (mapper.isDeterminativeFeature(f)) {
+                continue;
+            }
+            if (f instanceof EReference) {
+                Object result = object.eGet(f);
+                if (result instanceof EList<?>) {
+                    for (EObject trg : (EList<EObject>) result) {
+                        insertReference(create, f, object, trg, changeSet, Kind.ADD);
+                    }
+                } else if (result != null) {
+                    EObject trg = (EObject) result;
+                    insertReference(create, f, object, trg, changeSet, Kind.SET);
+                }
+
+            }
+            if (f instanceof EAttribute) {
+                Object result = object.eGet(f);
+                if (result instanceof EList<?>) {
+                    for (Object trg : (EList<Object>) result) {
+                        insertAttribute(create, f, object, trg, changeSet, Kind.ADD);
+                    }
+                } else {
+                    Object trg = (Object) result;
+                    insertAttribute(create, f, object, trg, changeSet, Kind.SET);
+                }
+            }
+        }
+        created.put(mapper.getId(object), create);
+        mapToObject.put(create, object);
     }
 
     private boolean processIfDelete(ReferenceChangeSpec diff, ChangeSet changeSet) {
@@ -261,6 +286,7 @@ public class EMFCompareTranslator {
             delete.setSrc(create(object));
             changeSet.getChanges().add(delete);
             deleted.put(mapper.getId(object), delete);
+            mapToObject.put(delete, object);
             return true;
         }
         return false;
@@ -278,16 +304,16 @@ public class EMFCompareTranslator {
         create.getFeatures().add(reference);
     }
 
-    private void insertAttribute(Create create, EStructuralFeature feature, EObject src, Object trg, ChangeSet set,
-            Kind kind) {
-        Attribute reference = ModelFactory.eINSTANCE.createAttribute();
-        reference.setFeature(feature);
-        reference.setSrc(create(src));
-        reference.setValue(trg);
-        reference.setExecutable(true);
-        reference.setKind(kind);
-        set.getChanges().add(reference);
-        create.getFeatures().add(reference);
+    private void insertAttribute(Create create, EStructuralFeature feature, EObject src, Object trg, ChangeSet set, Kind kind) {
+        Attribute attribute = ModelFactory.eINSTANCE.createAttribute();
+        attribute.setFeature(feature);
+        attribute.setSrc(create(src));
+        attribute.setValue(trg);
+        attribute.setExecutable(true);
+        attribute.setKind(kind);
+        set.getChanges().add(attribute);
+        if(create != null)
+            create.getFeatures().add(attribute);
     }
 
     private Id create(int value) {
