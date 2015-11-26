@@ -248,7 +248,7 @@ public abstract class DSEMergeConfigurator {
     public final DSETransformationRule<CreateMatch, CreateMatcher> defaultCreate() throws IncQueryException {
         return create == null ? create = new DSETransformationRule<CreateMatch, CreateMatcher>(
                 CreateQuerySpecification.instance(getId2EObject().getInternalQueryRepresentation()),
-                new DefaultCreateOperation()) : create;
+                new DefaultCreateOperation(getIdMapper())) : create;
     }
 
     public final DSETransformationRule<AddReferenceMatch, AddReferenceMatcher> defaultAddReference()

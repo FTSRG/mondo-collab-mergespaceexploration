@@ -11,6 +11,7 @@
 package org.eclipse.viatra.dse.merge.operations;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
@@ -68,9 +69,11 @@ public class DefaultSetReferenceOperation extends SetReferenceProcessor {
 	private static void setToFalse(Reference pChange, Change change) {
 		if (change instanceof Reference) {
 			Reference _change = (Reference) change;
-			if (DSEMergeUtil.getId(_change.getSrc()) == DSEMergeUtil.getId(pChange.getSrc()) && _change.getFeature() == pChange.getFeature())
+			if (DSEMergeUtil.getId(_change.getSrc()).equals(DSEMergeUtil.getId(pChange.getSrc())) && _change.getFeature() == pChange.getFeature())
 				_change.setExecutable(false);
-		}
+			if (DSEMergeUtil.getId(_change.getTrg()).equals(DSEMergeUtil.getId(pChange.getTrg())) && _change.getFeature() == pChange.getFeature() && ((EReference)_change.getFeature()).isContainment())
+			    _change.setExecutable(false);
+        }
 	}
 	
 	private static EStructuralFeature getIdFeature(EObject pSrc) {

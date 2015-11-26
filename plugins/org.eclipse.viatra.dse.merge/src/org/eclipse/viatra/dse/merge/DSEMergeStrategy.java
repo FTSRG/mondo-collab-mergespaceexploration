@@ -101,16 +101,16 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
         // Iterates over all the changes in the "from" set
         for (Change change : from.getChanges()) {
             if (change instanceof Create) {
-                createDependency(DSEMergeUtil.getId(((Create) change).getContainer()),
-                        DSEMergeUtil.getId(((Create) change).getContainer()), dependencyGraph);
+                createDependency(DSEMergeUtil.getId(((Create) change).getSrc()),
+                        DSEMergeUtil.getId(((Create) change).getSrc()), dependencyGraph, DSEMergeUtil.getId(((Create) change).getContainer()));
             } else if (change instanceof Attribute) {
                 createDependency(DSEMergeUtil.getId(((Attribute) change).getSrc()),
-                        DSEMergeUtil.getId(((Attribute) change).getSrc()), dependencyGraph);
+                        DSEMergeUtil.getId(((Attribute) change).getSrc()), dependencyGraph, null);
             } else if (change instanceof Reference && ((Feature) change).getKind() != Kind.UNSET) {
                 createDependency(DSEMergeUtil.getId(((Reference) change).getSrc()),
-                        DSEMergeUtil.getId(((Reference) change).getSrc()), dependencyGraph);
+                        DSEMergeUtil.getId(((Reference) change).getSrc()), dependencyGraph, null);
                 createDependency(DSEMergeUtil.getId(((Reference) change).getTrg()),
-                        DSEMergeUtil.getId(((Reference) change).getTrg()), dependencyGraph);
+                        DSEMergeUtil.getId(((Reference) change).getTrg()), dependencyGraph, null);
             }
         }
 
@@ -134,7 +134,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
      * @param dependencyGraph
      * @throws Exception
      */
-    private void createDependency(Object current, Object original, Multimap<Object, Object> dependencyGraph)
+    private void createDependency(Object current, Object original, Multimap<Object, Object> dependencyGraph, Object parent)
             throws Exception {
         if (current == null)
             return;
@@ -146,7 +146,10 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
         Collection<IPatternMatch> matchesForCurrent = matcherForCurrent.getAllMatches(partialMatchForCurrent);
 
         if (matchesForCurrent.isEmpty()) {
-            return; // may create related...
+            if(parent != null) { // create related
+                createDependency(parent, original, dependencyGraph, null);
+            }
+            return; // something went wrong...
         }
 
         if (matchesForCurrent.size() > 1) {
@@ -156,9 +159,9 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
         if (eobject.eContainer() == null) {
             return; // no more parent...
         }
-        EObject parent = eobject.eContainer();
-        if(!(parent instanceof DSEMergeScope))
-            createDependency(idMapper.getId(parent), original, dependencyGraph);
+        EObject parentObject = eobject.eContainer();
+        if(!(parentObject instanceof DSEMergeScope))
+            createDependency(idMapper.getId(parentObject), original, dependencyGraph, null);
     }
 
     @Override

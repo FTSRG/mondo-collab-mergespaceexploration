@@ -37,4 +37,6 @@ public interface DSEMergeIdMapper {
      * @return <i>true</i> if it is determinative, otherwise, <i>false</i>
      */
     public boolean isDeterminativeFeature(EStructuralFeature feature);
+    
+    public EStructuralFeature getIdFeature(EObject object);
 }

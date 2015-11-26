@@ -100,7 +100,7 @@ public class EMFCompareTranslator {
             for (EAttribute attribute : attributes) {
                 Object newValue = newObject.eGet(attribute);
                 Object oldValue = oldObject.eGet(attribute);
-                if(!newValue.equals(oldValue)) {
+                if((newValue == null && oldValue != null ) || (newValue != null && !newValue.equals(oldValue))) {
                     insertAttribute(null, attribute, newObject, newValue, changeSet, Kind.SET);
                 }
             }
@@ -187,7 +187,7 @@ public class EMFCompareTranslator {
 
         Object target = object.eGet(diff.getReference());
         if (target != null) {
-            if (diff.getMatch().getComparison().getMatch(diff.getValue()).getLeft() == null)
+            if (diff.getMatch().getComparison().getMatch(diff.getValue()) != null && diff.getMatch().getComparison().getMatch(diff.getValue()).getLeft() == null)
                 return;
             reference.setTrg(create((EObject) diff.getValue()));
         }
@@ -225,7 +225,7 @@ public class EMFCompareTranslator {
     @SuppressWarnings("unchecked")
     private boolean processIfCreate(ReferenceChangeSpec diff, ChangeSet changeSet) {
         EReference reference = diff.getReference();
-        if (reference.isContainment() && diff.getKind() != DifferenceKind.DELETE) {
+        if (reference.isContainment() && diff.getKind() != DifferenceKind.DELETE && diff.getKind() != DifferenceKind.MOVE) {
 
             EObject object = diff.getValue();
             createChange(changeSet, reference, object);

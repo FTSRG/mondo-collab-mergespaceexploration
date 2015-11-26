@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.viatra.dse.merge.DSEMergeIdMapper;
 import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
 import org.eclipse.viatra.dse.merge.iq.util.CreateProcessor;
 import org.eclipse.viatra.dse.merge.model.Attribute;
@@ -28,11 +29,17 @@ import com.google.common.collect.Lists;
 
 public class DefaultCreateOperation extends CreateProcessor {
 
-	public static void process(EObject pContainer, Create pChange) {
+	private DSEMergeIdMapper idMapper;
+
+    public DefaultCreateOperation(DSEMergeIdMapper idMapper) {
+        this.idMapper = idMapper;
+    }
+
+    public static void process(EObject pContainer, Create pChange, DSEMergeIdMapper mapper) {
 		DSEMergeScope pScope = (DSEMergeScope) pChange.eContainer().eContainer();
 		
 		EObject element = (EObject) EcoreUtil.create(pChange.getClazz());
-		EStructuralFeature feature = element.eClass().getEStructuralFeature("id");
+		EStructuralFeature feature = mapper.getIdFeature(element);
 		element.eSet(feature, DSEMergeUtil.getId(pChange.getSrc()));
 
 		if (pChange.getFeature().isMany()) {
@@ -63,12 +70,12 @@ public class DefaultCreateOperation extends CreateProcessor {
 			}
 		}
 
-		update(pScope, pChange, pContainer);
+		update(pScope, pChange, pContainer, mapper);
 
 		EcoreUtil.delete(pChange);
 	}
 
-	private static void update(DSEMergeScope pScope, Create pChange, EObject pSrc) {
+	private static void update(DSEMergeScope pScope, Create pChange, EObject pSrc, DSEMergeIdMapper mapper) {
 		for (Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeUtil.getId(pChange.getSrc()))) {
 			d.setExecutable(false);			
 		}
@@ -76,7 +83,7 @@ public class DefaultCreateOperation extends CreateProcessor {
 		if (pScope.getRemote().getChanges().contains(pChange)) {
 			for (Change change : pScope.getLocal().getChanges()) {
 				setToFalse(pChange, change);
-				if(change instanceof Feature && ((Feature) change).getFeature() == getIdFeature(pSrc)) {
+				if(change instanceof Feature && ((Feature) change).getFeature() == mapper.getIdFeature(pSrc)) {
 					change.setExecutable(false);
 				}
 			}
@@ -85,7 +92,7 @@ public class DefaultCreateOperation extends CreateProcessor {
 		if (pScope.getLocal().getChanges().contains(pChange)) {
 			for (Change change : pScope.getRemote().getChanges()) {
 				setToFalse(pChange, change);
-				if(change instanceof Feature && ((Feature) change).getFeature() == getIdFeature(pSrc)) {
+				if(change instanceof Feature && ((Feature) change).getFeature() == mapper.getIdFeature(pSrc)) {
 					change.setExecutable(false);
 				}
 			}
@@ -105,14 +112,10 @@ public class DefaultCreateOperation extends CreateProcessor {
 
 		}
 	}
-	
-	private static EStructuralFeature getIdFeature(EObject pSrc) {
-		return pSrc.eClass().getEStructuralFeature("id");
-	}
 
 	@Override
 	public void _process(EObject pContainer, Create pChange) {
-		process(pContainer, pChange);
+		process(pContainer, pChange, idMapper);
 	}
 
 }

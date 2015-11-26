@@ -71,7 +71,7 @@ public class DefaultAddReferenceOperation extends AddReferenceProcessor {
 			Reference _change = (Reference) change;
 			if(_change.getKind().equals(Kind.ADD)) {
 				if(((EReference)_change.getFeature()).isContainment() && ((EReference)pChange.getFeature()).isContainment()) {
-					if(DSEMergeUtil.getId(_change.getTrg()) == DSEMergeUtil.getId(pChange.getTrg())) {
+					if(DSEMergeUtil.getId(_change.getTrg()).equals(DSEMergeUtil.getId(pChange.getTrg()))) {
 						_change.setExecutable(false);
 					}	
 				} 
