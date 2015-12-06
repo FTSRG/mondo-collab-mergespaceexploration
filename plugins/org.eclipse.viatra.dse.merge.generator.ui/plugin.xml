@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.viatra.dse.merge.generator.ui.objectContribution"
+            nameFilter="*.dsemerge"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.eclipse.viatra.dse.merge.generator.ui.GenerateDelegate"
+               id="org.eclipse.viatra.dse.merge.generator.ui.generate"
+               label="Generate DSE Merge Artifacts">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.viatra.dse.merge.generator.ui"
+            name="DSE Merge">
+      </category>
+      <wizard
+            category="org.eclipse.viatra.dse.merge.generator.ui"
+            class="org.eclipse.viatra.dse.merge.generator.ui.DSEMergeProjectWizard"
+            id="org.eclipse.viatra.dse.merge.generator.ui.project"
+            name="DSE Merge Project"
+            project="true">
+      </wizard>
+   </extension>
+
+</plugin>

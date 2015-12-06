@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DSE Merge Generator
+Bundle-SymbolicName: org.eclipse.viatra.dse.merge.generator
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.xtend;bundle-version="2.2.0",
+ org.eclipse.xtend.lib;bundle-version="2.9.0",
+ org.eclipse.xtext;bundle-version="2.9.0",
+ org.eclipse.core.resources;bundle-version="3.10.0",
+ org.junit;bundle-version="4.12.0",
+ org.eclipse.core.runtime;bundle-version="3.11.0",
+ org.eclipse.jdt;bundle-version="3.11.0",
+ org.eclipse.jdt.core;bundle-version="3.11.0",
+ org.eclipse.incquery.tooling.core;bundle-version="1.1.0",
+ org.eclipse.pde;bundle-version="3.11.0",
+ org.eclipse.pde.core;bundle-version="3.10.100",
+ org.eclipse.ui.workbench
+Export-Package: org.eclipse.viatra.dse.merge.generator
+Import-Package: org.apache.log4j
+Bundle-Activator: org.eclipse.viatra.dse.merge.generator.Activator
+Bundle-ActivationPolicy: lazy

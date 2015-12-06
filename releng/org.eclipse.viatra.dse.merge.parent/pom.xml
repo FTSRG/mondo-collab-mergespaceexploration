@@ -28,6 +28,8 @@
     <module>../../plugins/org.eclipse.viatra.dse.merge</module>
     <module>../../plugins/org.eclipse.viatra.dse.merge.edit</module>
     <module>../../plugins/org.eclipse.viatra.dse.merge.emf.compare</module>
+    <module>../../plugins/org.eclipse.viatra.dse.merge.generator</module>
+    <module>../../plugins/org.eclipse.viatra.dse.merge.generator.ui</module>
     <module>../../plugins/org.eclipse.viatra.dse.merge.ui</module>
     <module>../../plugins/org.eclipse.viatra.dse.merge.ui.subversive</module>
     <module>../../plugins/org.eclipse.viatra.dse.merge.ui.zest</module>
