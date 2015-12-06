@@ -15,14 +15,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.dse.merge.DSEMergeIdMapper;
-import org.eclipse.viatra.dse.merge.DSEMergeStrategy;
 import org.eclipse.viatra.dse.merge.iq.util.CreateProcessor;
 import org.eclipse.viatra.dse.merge.model.Attribute;
-import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.Create;
-import org.eclipse.viatra.dse.merge.model.Delete;
 import org.eclipse.viatra.dse.merge.model.Feature;
-import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 import org.eclipse.viatra.dse.merge.util.DSEMergeUtil;
 
 import com.google.common.collect.Lists;
@@ -36,9 +32,8 @@ public class DefaultCreateOperation extends CreateProcessor {
     }
 
     public static void process(EObject pContainer, Create pChange, DSEMergeIdMapper mapper) {
-		DSEMergeScope pScope = (DSEMergeScope) pChange.eContainer().eContainer();
 		
-		EObject element = (EObject) EcoreUtil.create(pChange.getClazz());
+        EObject element = (EObject) EcoreUtil.create(pChange.getClazz());
 		EStructuralFeature feature = mapper.getIdFeature(element);
 		element.eSet(feature, DSEMergeUtil.getId(pChange.getSrc()));
 
@@ -70,47 +65,7 @@ public class DefaultCreateOperation extends CreateProcessor {
 			}
 		}
 
-		update(pScope, pChange, pContainer, mapper);
-
-		EcoreUtil.delete(pChange);
-	}
-
-	private static void update(DSEMergeScope pScope, Create pChange, EObject pSrc, DSEMergeIdMapper mapper) {
-		for (Delete d : DSEMergeStrategy.deleteDependencies.get(DSEMergeUtil.getId(pChange.getSrc()))) {
-			d.setExecutable(false);			
-		}
-
-		if (pScope.getRemote().getChanges().contains(pChange)) {
-			for (Change change : pScope.getLocal().getChanges()) {
-				setToFalse(pChange, change);
-				if(change instanceof Feature && ((Feature) change).getFeature() == mapper.getIdFeature(pSrc)) {
-					change.setExecutable(false);
-				}
-			}
-		}
-
-		if (pScope.getLocal().getChanges().contains(pChange)) {
-			for (Change change : pScope.getRemote().getChanges()) {
-				setToFalse(pChange, change);
-				if(change instanceof Feature && ((Feature) change).getFeature() == mapper.getIdFeature(pSrc)) {
-					change.setExecutable(false);
-				}
-			}
-		}
-
-	}
-
-	private static void setToFalse(Create pChange, Change change) {
-		if (change instanceof Create) {
-			Create _change = (Create) change;
-			if (DSEMergeUtil.getId(_change.getSrc()) == DSEMergeUtil.getId(pChange.getSrc())) {
-				_change.setExecutable(false);
-				for (Attribute attribute : pChange.getAttributes()) {
-					attribute.setExecutable(false);
-				}
-			}
-
-		}
+		DSEMergeUtil.moveChangeToCompleted(pChange);
 	}
 
 	@Override

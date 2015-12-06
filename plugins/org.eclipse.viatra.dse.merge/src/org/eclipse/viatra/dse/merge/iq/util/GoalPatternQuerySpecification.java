@@ -42,8 +42,8 @@ import com.google.common.collect.Sets;
 @SuppressWarnings("all")
 public final class GoalPatternQuerySpecification extends
 		BaseGeneratedEMFQuerySpecification<GoalPatternMatcher> {
-	private GoalPatternQuerySpecification(PQuery id2object) {
-		super(new GeneratedPQuery(id2object));
+	private GoalPatternQuerySpecification(PQuery id2object, PQuery containment) {
+		super(new GeneratedPQuery(id2object, containment));
 	}
 
 	/**
@@ -59,9 +59,9 @@ public final class GoalPatternQuerySpecification extends
 	}
 	
 	public static GoalPatternQuerySpecification instance(
-			PQuery id2object) throws IncQueryException {
+			PQuery id2object, PQuery containment) throws IncQueryException {
 		try {
-			return LazyHolder.make(id2object);
+			return LazyHolder.make(id2object, containment);
 		} catch (ExceptionInInitializerError err) {
 			throw processInitializerError(err);
 		}
@@ -88,17 +88,19 @@ public final class GoalPatternQuerySpecification extends
 		private static GoalPatternQuerySpecification INSTANCE;
 		
 		public static GoalPatternQuerySpecification make(
-				PQuery id2object) {
-			return INSTANCE = new GoalPatternQuerySpecification(id2object);
+				PQuery id2object, PQuery containment) {
+			return INSTANCE = new GoalPatternQuerySpecification(id2object, containment);
 		}
 	}
 
 	private static class GeneratedPQuery extends BaseGeneratedEMFPQuery {
 
 		PQuery id2object;
+		PQuery containment;
 
-		public GeneratedPQuery(PQuery id2object) {
+		public GeneratedPQuery(PQuery id2object, PQuery containment) {
 			this.id2object = id2object;
+			this.containment = containment;
 		}
 
 		@Override
@@ -139,7 +141,7 @@ public final class GoalPatternQuerySpecification extends
 					body.setExportedParameters(Arrays
 							.<ExportedParameter> asList());
 					new PositivePatternCall(body, new FlatTuple(var___0_,
-							var___1_), DeleteQuerySpecification.instance(id2object)
+							var___1_), DeleteQuerySpecification.instance(id2object, containment)
 							.getInternalQueryRepresentation());
 					bodies.add(body);
 				}

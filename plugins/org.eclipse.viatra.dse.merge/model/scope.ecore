@@ -10,6 +10,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cemetery" lowerBound="1"
         eType="#//Cemetery" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="completed" upperBound="-1"
+        eType="ecore:EClass merge.ecore#//Change" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cemetery">
     <eStructuralFeatures xsi:type="ecore:EReference" name="objects" upperBound="-1"

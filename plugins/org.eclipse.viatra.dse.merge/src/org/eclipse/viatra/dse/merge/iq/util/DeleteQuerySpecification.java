@@ -49,8 +49,8 @@ import com.google.common.collect.Sets;
 @SuppressWarnings("all")
 public final class DeleteQuerySpecification extends
 		BaseGeneratedEMFQuerySpecification<DeleteMatcher> {
-	private DeleteQuerySpecification(PQuery id2object) {
-		super(new GeneratedPQuery(id2object));
+	private DeleteQuerySpecification(PQuery id2object, PQuery containment) {
+		super(new GeneratedPQuery(id2object, containment));
 	}
 
 	/**
@@ -65,10 +65,9 @@ public final class DeleteQuerySpecification extends
 		return LazyHolder.INSTANCE;
 	}
 	
-	public static DeleteQuerySpecification instance(
-			PQuery id2object) throws IncQueryException {
+	public static DeleteQuerySpecification instance(PQuery id2object, PQuery containment) throws IncQueryException {
 		try {
-			return LazyHolder.make(id2object);
+			return LazyHolder.make(id2object, containment);
 		} catch (ExceptionInInitializerError err) {
 			throw processInitializerError(err);
 		}
@@ -96,17 +95,18 @@ public final class DeleteQuerySpecification extends
 
 		private static DeleteQuerySpecification INSTANCE;
 
-		public static DeleteQuerySpecification make(
-				PQuery id2object) {
-			return INSTANCE = new DeleteQuerySpecification(id2object);
+		public static DeleteQuerySpecification make(PQuery id2object, PQuery containment) {
+			return INSTANCE = new DeleteQuerySpecification(id2object, containment);
 		}
 	}
 
 	private static class GeneratedPQuery extends BaseGeneratedEMFPQuery {
 		private PQuery id2object;
+        private PQuery containment;
 
-		public GeneratedPQuery(PQuery id2object) {
+		public GeneratedPQuery(PQuery id2object, PQuery containment) {
 			this.id2object = id2object;
+			this.containment = containment;
 		}
 
 		@Override
@@ -147,10 +147,10 @@ public final class DeleteQuerySpecification extends
 							.getOrCreateVariableByName(".virtual{3}");
 					PVariable var__virtual_4_ = body
 							.getOrCreateVariableByName(".virtual{4}");
-					body.setExportedParameters(Arrays
-							.<ExportedParameter> asList(new ExportedParameter(
-									body, var_src, "src"),
-
+					PVariable var__virtual_5_ = body
+                            .getOrCreateVariableByName(".virtual{5}");
+                    body.setSymbolicParameters(Arrays.<ExportedParameter> asList(
+					        new ExportedParameter(body, var_src, "src"),
 							new ExportedParameter(body, var_change, "change")));
 					new TypeConstraint(
 							body,
@@ -173,7 +173,9 @@ public final class DeleteQuerySpecification extends
 									(EClass) getClassifierLiteral(
 											"http://www.eclipse.org/emf/2002/Ecore",
 											"EObject")));
-					new PositivePatternCall(body, new FlatTuple(var_src,
+					new NegativePatternCall(body, new FlatTuple(var_src,
+                            var__virtual_5_), containment);
+                    new PositivePatternCall(body, new FlatTuple(var_src,
 							var_c_id), id2object);
 					new TypeConstraint(
 							body,

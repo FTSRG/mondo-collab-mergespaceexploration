@@ -9,6 +9,8 @@ Bundle-Localization: plugin
 Export-Package: org.eclipse.viatra.dse.merge,
  org.eclipse.viatra.dse.merge.iq,
  org.eclipse.viatra.dse.merge.iq.util,
+ org.eclipse.viatra.dse.merge.iqconflicts,
+ org.eclipse.viatra.dse.merge.iqconflicts.util,
  org.eclipse.viatra.dse.merge.model,
  org.eclipse.viatra.dse.merge.model.impl,
  org.eclipse.viatra.dse.merge.model.util,

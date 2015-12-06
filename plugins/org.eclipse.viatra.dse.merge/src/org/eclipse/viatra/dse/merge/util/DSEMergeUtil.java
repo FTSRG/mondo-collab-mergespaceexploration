@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.viatra.dse.merge.util;
 
+import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.Id;
+import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 
 public final class DSEMergeUtil {
 
@@ -18,6 +20,11 @@ public final class DSEMergeUtil {
         // disabled ctor
     }
 
+    public static void moveChangeToCompleted(Change pChange) {
+        DSEMergeScope scope = (DSEMergeScope) pChange.eContainer().eContainer();
+        scope.getCompleted().add(pChange);
+    }
+    
     public static Object getId(Id id) {
         if (id == null)
             return null;

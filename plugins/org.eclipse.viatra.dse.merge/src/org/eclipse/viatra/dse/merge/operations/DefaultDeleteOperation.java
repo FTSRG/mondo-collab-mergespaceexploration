@@ -15,15 +15,14 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.dse.merge.iq.util.DeleteProcessor;
 import org.eclipse.viatra.dse.merge.model.Delete;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
+import org.eclipse.viatra.dse.merge.util.DSEMergeUtil;
 
 public class DefaultDeleteOperation extends DeleteProcessor {
 
 	public static void process(EObject pSrc, Delete pChange) {
 		DSEMergeScope pScope = (DSEMergeScope) pChange.eContainer().eContainer();
-
 		EcoreUtil.delete(pSrc);
-		EcoreUtil.delete(pChange);
-		
+		DSEMergeUtil.moveChangeToCompleted(pChange);		
 		pScope.getCemetery().getObjects().add(pSrc);
 	}
 

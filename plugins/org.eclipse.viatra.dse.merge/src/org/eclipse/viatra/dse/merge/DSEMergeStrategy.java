@@ -10,34 +10,18 @@
  *******************************************************************************/
 package org.eclipse.viatra.dse.merge;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.incquery.runtime.api.IPatternMatch;
-import org.eclipse.incquery.runtime.api.IQuerySpecification;
-import org.eclipse.incquery.runtime.api.IncQueryEngine;
-import org.eclipse.incquery.runtime.api.IncQueryMatcher;
 import org.eclipse.viatra.dse.api.strategy.interfaces.LocalSearchStrategyBase;
 import org.eclipse.viatra.dse.base.DesignSpaceManager;
 import org.eclipse.viatra.dse.base.ThreadContext;
 import org.eclipse.viatra.dse.designspace.api.ITransition;
-import org.eclipse.viatra.dse.merge.model.Attribute;
-import org.eclipse.viatra.dse.merge.model.Change;
-import org.eclipse.viatra.dse.merge.model.ChangeSet;
-import org.eclipse.viatra.dse.merge.model.Create;
 import org.eclipse.viatra.dse.merge.model.Delete;
-import org.eclipse.viatra.dse.merge.model.Feature;
-import org.eclipse.viatra.dse.merge.model.Kind;
-import org.eclipse.viatra.dse.merge.model.Reference;
-import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
-import org.eclipse.viatra.dse.merge.util.DSEMergeUtil;
 import org.eclipse.viatra.dse.merge.util.FilterHelper;
 import org.eclipse.viatra.dse.objectives.Fitness;
 
-import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Multimap;
@@ -52,7 +36,6 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
     private Logger logger = Logger.getLogger(DSEMergeStrategy.class);
     private DesignSpaceManager.FilterOptions filterOptions;
     private boolean onlyNewMust = false;
-    private IQuerySpecification<IncQueryMatcher<IPatternMatch>> id2eobject;
 
     public static Multimap<Object, Delete> deleteDependencies = HashMultimap.create();
     private Set<String> usedMustTransitions = Sets.newHashSet();
@@ -60,109 +43,14 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
     private Set<String> liberateMustTransitions = Sets.newHashSet();
     private boolean forceToFinish;
     private boolean fromBacktracking;
-    private DSEMergeIdMapper idMapper;
 
     @Override
     public void init(ThreadContext context) {
         this.context = context;
         filterOptions = new DesignSpaceManager.FilterOptions();
         filterOptions.nothingIfCut().nothingIfGoal().untraversedOnly();
-        try {
-            initializeDeleteDependencies();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    /**
-     * Building up the delete dependencies based on the scope
-     * 
-     * @throws Exception
-     */
-    private void initializeDeleteDependencies() throws Exception {
-        DSEMergeScope scope = (DSEMergeScope) context.getEditingDomain().getResourceSet().getResources().get(0)
-                .getContents().get(0);
-        buildDeleteDependencies(scope.getLocal(), scope.getRemote());
-        buildDeleteDependencies(scope.getRemote(), scope.getLocal());
-    }
-
-    /**
-     * Constructs the dependencies: upon removing an operation from {@link from}, selects which delete operations are
-     * not allowed to execute from {@link to}
-     * 
-     * @param from
-     * @param to
-     * @throws Exception
-     */
-    private void buildDeleteDependencies(ChangeSet from, ChangeSet to) throws Exception {
-        // This multi-map will store all the identifiers that depends on each other
-        Multimap<Object, Object> dependencyGraph = ArrayListMultimap.create();
-
-        // Iterates over all the changes in the "from" set
-        for (Change change : from.getChanges()) {
-            if (change instanceof Create) {
-                createDependency(DSEMergeUtil.getId(((Create) change).getSrc()),
-                        DSEMergeUtil.getId(((Create) change).getSrc()), dependencyGraph, DSEMergeUtil.getId(((Create) change).getContainer()));
-            } else if (change instanceof Attribute) {
-                createDependency(DSEMergeUtil.getId(((Attribute) change).getSrc()),
-                        DSEMergeUtil.getId(((Attribute) change).getSrc()), dependencyGraph, null);
-            } else if (change instanceof Reference && ((Feature) change).getKind() != Kind.UNSET) {
-                createDependency(DSEMergeUtil.getId(((Reference) change).getSrc()),
-                        DSEMergeUtil.getId(((Reference) change).getSrc()), dependencyGraph, null);
-                createDependency(DSEMergeUtil.getId(((Reference) change).getTrg()),
-                        DSEMergeUtil.getId(((Reference) change).getTrg()), dependencyGraph, null);
-            }
-        }
-
-        for (Change change : to.getChanges()) {
-            if (change instanceof Delete) {
-                Object toDeleteObject = DSEMergeUtil.getId(change.getSrc());
-                for (Object id : dependencyGraph.get(toDeleteObject)) {
-                    deleteDependencies.put(id, (Delete) change);
-                }
-            }
-        }
-    }
-
-    /**
-     * Put the dependency to the dependency graph then search for the parent of the "current" and recursively calls
-     * itself. Recursivity finishes when the operations is "Create"-related, there is no "id" feature or there is no
-     * more container object.
-     * 
-     * @param current
-     * @param original
-     * @param dependencyGraph
-     * @throws Exception
-     */
-    private void createDependency(Object current, Object original, Multimap<Object, Object> dependencyGraph, Object parent)
-            throws Exception {
-        if (current == null)
-            return;
-        dependencyGraph.put(current, original);
-
-        IncQueryEngine engine = context.getIncqueryEngine();
-        IncQueryMatcher<IPatternMatch> matcherForCurrent = id2eobject.getMatcher(engine);
-        IPatternMatch partialMatchForCurrent = matcherForCurrent.newMatch(null, current);
-        Collection<IPatternMatch> matchesForCurrent = matcherForCurrent.getAllMatches(partialMatchForCurrent);
-
-        if (matchesForCurrent.isEmpty()) {
-            if(parent != null) { // create related
-                createDependency(parent, original, dependencyGraph, null);
-            }
-            return; // something went wrong...
-        }
-
-        if (matchesForCurrent.size() > 1) {
-            throw new Exception(); // id has to be unique or not found
-        }
-        EObject eobject = (EObject) matchesForCurrent.iterator().next().get("eobject");
-        if (eobject.eContainer() == null) {
-            return; // no more parent...
-        }
-        EObject parentObject = eobject.eContainer();
-        if(!(parentObject instanceof DSEMergeScope))
-            createDependency(idMapper.getId(parentObject), original, dependencyGraph, null);
-    }
 
     @Override
     public ITransition getNextTransition(boolean lastWasSuccessful) {
@@ -207,17 +95,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
         }
 
         // TODO: parallel execution
-        // if (hasMust && transitions.size() > 1 && context.getGlobalContext().canStartNewThread()) {
-        // context.getGlobalContext().tryStartNewThread(context, new DSEMergeStrategy());
-        // }
-
-        // Get a random transition from the available ones
-        // int index = random.nextInt(Iterables.size(transitions));
         Iterator<? extends ITransition> iterator = FilterHelper.orderTransitions(transitions).iterator();
-        // while (iterator.hasNext() && index != 0) {
-        // index--;
-        // iterator.next();
-        // }
         ITransition transition = iterator.next();
 
         logger.debug("Executing:");
@@ -339,18 +217,5 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
     @Override
     public void interrupted() {
         isInterrupted = true;
-    }
-
-    /**
-     * Sets the mapping query specification between identifiers and objects
-     * 
-     * @param querySpecification
-     */
-    public void setId2EObject(IQuerySpecification<IncQueryMatcher<IPatternMatch>> querySpecification) {
-        this.id2eobject = querySpecification;
-    }
-
-    public void setIdMapper(DSEMergeIdMapper idMapper) {
-        this.idMapper = idMapper;
     }
 }
