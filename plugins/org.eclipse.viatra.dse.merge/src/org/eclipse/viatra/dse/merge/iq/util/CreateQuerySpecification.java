@@ -25,6 +25,7 @@ import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
+import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.NegativePatternCall;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.ConstantValue;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.PositivePatternCall;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeConstraint;
@@ -143,10 +144,6 @@ public final class CreateQuerySpecification extends
 							.getOrCreateVariableByName(".virtual{1}");
 					PVariable var__virtual_2_ = body
 							.getOrCreateVariableByName(".virtual{2}");
-					PVariable var__virtual_3_ = body
-							.getOrCreateVariableByName(".virtual{3}");
-					PVariable var__virtual_4_ = body
-							.getOrCreateVariableByName(".virtual{4}");
 					body.setExportedParameters(Arrays
 							.<ExportedParameter> asList(new ExportedParameter(
 									body, var_container, "container"),
@@ -166,22 +163,8 @@ public final class CreateQuerySpecification extends
 									(EClass) getClassifierLiteral(
 											"http://org.eclipse.viatra.dse.merge/model",
 											"Create")));
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_container),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://www.eclipse.org/emf/2002/Ecore",
-											"EObject")));
 					new PositivePatternCall(body, new FlatTuple(var_container,
 							var_c_id), id2object);
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Create")));
 					new TypeConstraint(
 							body,
 							new FlatTuple(var_change, var__virtual_1_),
@@ -189,30 +172,10 @@ public final class CreateQuerySpecification extends
 									getFeatureLiteral(
 											"http://org.eclipse.viatra.dse.merge/model",
 											"Create", "container")));
-					new TypeConstraint(
-							body,
-							new FlatTuple(var__virtual_1_, var__virtual_2_),
-							new EStructuralFeatureInstancesKey(
-									getFeatureLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Id", "eString")));
-					new Equality(body, var__virtual_2_, var_c_id);
-					new ConstantValue(body, var__virtual_3_, true);
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Change")));
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change, var__virtual_4_),
-							new EStructuralFeatureInstancesKey(
-									getFeatureLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Change", "executable")));
-					new Equality(body, var__virtual_4_, var__virtual_3_);
+					new PositivePatternCall(body, new FlatTuple(var__virtual_1_, var__virtual_2_), 
+                            IdValueQuerySpecification.instance().getInternalQueryRepresentation());
+                    new Equality(body, var__virtual_2_, var_c_id);
+                    new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());                    
 					bodies.add(body);
 				}
 				// to silence compiler error

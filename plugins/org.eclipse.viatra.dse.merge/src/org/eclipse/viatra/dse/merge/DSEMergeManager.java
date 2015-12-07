@@ -32,10 +32,7 @@ import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.dse.api.DSETransformationRule;
 import org.eclipse.viatra.dse.api.DesignSpaceExplorer;
 import org.eclipse.viatra.dse.api.SolutionTrajectory;
-import org.eclipse.viatra.dse.merge.iq.ExecutableDeleteChangeMatch;
-import org.eclipse.viatra.dse.merge.iq.ExecutableDeleteChangeMatcher;
-import org.eclipse.viatra.dse.merge.iq.util.ExecutableDeleteChangeQuerySpecification;
-import org.eclipse.viatra.dse.merge.iqconflicts.util.ConflictInternalQuerySpecification;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ConflictsQuerySpecification;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
 import org.eclipse.viatra.dse.merge.model.ModelPackage;
 import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
@@ -59,7 +56,6 @@ import com.google.common.collect.Maps;
 public class DSEMergeManager {
 
     private static Map<String, DSEMergeConfigurator> configuratorMapping;
-    private static Map<String, IQuerySpecification<?>> generatedMapping;
     public static String CONFIGURATION_POINT = "org.eclipse.viatra.dse.merge.configuration";
     public static String GENERATED_POINT = "org.eclipse.viatra.dse.merge.generated";
     public static String URI_ATTRIBUTE = "epackageURI";
@@ -125,13 +121,7 @@ public class DSEMergeManager {
     private void configureMerge(EObject original) {
         DSEMergeConfigurator configurator = configuratorMapping.get(original.eClass().getEPackage().getNsURI());
         if (configurator != null) {
-            IQuerySpecification<?> containmentQS = generatedMapping.get(original.eClass().getEPackage().getNsURI());
-            if(containmentQS != null) {
-                configurator.setContainmentQuerySpecification(containmentQS);
-                configureMerge(configurator);
-            } else {
-                logger.error("Missing required containment specification for " + original.eClass().getEPackage().getNsURI());                
-            }
+            configureMerge(configurator);
         } else {
             logger.error("Missing required configuration for " + original.eClass().getEPackage().getNsURI());                
         }
@@ -190,30 +180,6 @@ public class DSEMergeManager {
     }
 
     /**
-     * Read up the extension point and store the available merge configurations
-     * @return 
-     */
-    public static Map<String, DSEMergeConfigurator> initializeContainmentPatterns() {
-        try {
-            generatedMapping = Maps.newHashMap();
-            IExtensionPoint extensionPoint = Platform.getExtensionRegistry().getExtensionPoint(GENERATED_POINT);
-            for (IExtension ext : extensionPoint.getExtensions()) {
-
-                for (IConfigurationElement conf : ext.getConfigurationElements()) {
-                    String uri = conf.getAttribute(URI_ATTRIBUTE);
-                    IQuerySpecification<?> configurator;
-                    configurator = (IQuerySpecification<?>) conf.createExecutableExtension(CLASS_ATTRIBUTE);
-                    if (uri != null && configurator != null)
-                        generatedMapping.put(uri, configurator);
-                }
-            }
-        } catch (InvalidRegistryObjectException | CoreException e) {
-            logger.error(e.getMessage(),e);
-        }
-        return configuratorMapping;
-    }
-    
-    /**
      * This method starts the design space exploration based merge process. Returns a collection of possible solutions.
      * 
      * @return the collection of possible solutions
@@ -254,11 +220,11 @@ public class DSEMergeManager {
         }
 
         try {
-            dse.addGlobalConstraint(new ModelQueriesGlobalConstraint().withConstraint(ConflictInternalQuerySpecification.instance()));
-            dse.addTransformationRule(
-                    new DSETransformationRule<ExecutableDeleteChangeMatch, ExecutableDeleteChangeMatcher>(
-                    ExecutableDeleteChangeQuerySpecification.instance(),
-                    new DefaultMatchProcessor<ExecutableDeleteChangeMatch>()));
+            dse.addGlobalConstraint(new ModelQueriesGlobalConstraint().withConstraint(ConflictsQuerySpecification.instance()).withType(ModelQueryType.NO_MATCH));
+//            dse.addTransformationRule(
+//                    new DSETransformationRule<ExecutableDeleteChangeMatch, ExecutableDeleteChangeMatcher>(
+//                    ExecutableDeleteChangeQuerySpecification.instance(),
+//                    new DefaultMatchProcessor<ExecutableDeleteChangeMatch>()));
             dse.addTransformationRule(
                     new DSETransformationRule<IPatternMatch, IncQueryMatcher<IPatternMatch>>(
                     id2eobject, 

@@ -151,6 +151,7 @@ public class DSEMergeStrategy extends LocalSearchStrategyBase {
             DesignSpaceManager dsm = context.getDesignSpaceManager();
             processNotTraversed(isAlreadyTraversed);
             onlyNewMust = true; // we found a solution
+            logger.info("We found a new solution");
             undoUntilMust(isAlreadyTraversed, fitness, constraintsNotSatisfied, dsm);
             return;
         }

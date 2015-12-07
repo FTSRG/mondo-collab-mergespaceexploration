@@ -86,6 +86,7 @@ public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
 			service.run(true, false, new MergeRunnable(original, changeOL, changeOR, config));
 		} catch (InvocationTargetException | InterruptedException e) {
 		    Logger.getLogger(DSEStructuredMergeViewer.class).error(e.getMessage());
+		    e.printStackTrace();
 		}
 	}
 

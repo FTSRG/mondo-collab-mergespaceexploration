@@ -4,7 +4,6 @@ import com.google.common.collect.Lists
 import com.google.common.collect.Maps
 import java.io.ByteArrayInputStream
 import java.util.Collection
-import java.util.Collections
 import java.util.List
 import java.util.Map
 import java.util.Properties
@@ -19,7 +18,6 @@ import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
-import org.eclipse.incquery.tooling.core.generator.ExtensionGenerator
 import org.eclipse.incquery.tooling.core.project.ProjectGenerationHelper
 import org.eclipse.jdt.core.IPackageFragment
 import org.eclipse.jdt.core.JavaCore
@@ -150,19 +148,7 @@ class ArtifactBuilder extends Builder {
 			file.create(new ByteArrayInputStream(#[]), true, monitor)
 		}
 		var bytes = containmentPattern(packageFragment.elementName, metamodelURIs, containmentMapping).toString.bytes
-		file.setContents(new ByteArrayInputStream(bytes), true, true, monitor)
-		
-		val generator = new ExtensionGenerator
-		val extensions = newImmutableList({
-				generator.contribExtension(packageFragment.elementName+".dseContainment.generated", "org.eclipse.viatra.dse.merge.generated") [
-					generator.contribElement(it, "containment_query") [
-						generator.contribAttribute(it, "class", packageFragment.elementName + ".util.ContainmentPatternQuerySpecification")
-						generator.contribAttribute(it, "epackageURI", metamodelURIs.get(0))
-					]
-				]
-			})
-		
-		ProjectGenerationHelper::ensureExtensions(project, extensions, Collections.emptySet)
+		file.setContents(new ByteArrayInputStream(bytes), true, true, monitor)		
 	}
 
 	def static containmentPattern(String packageName, Collection<String> metamodelURIs, Map<EClass, List<EReference>> mapping) {
@@ -190,7 +176,7 @@ class ArtifactBuilder extends Builder {
 			«ENDFOR»
 			
 			
-			pattern id2object(key,object:EObject)
+			pattern id2object(object:EObject,key)
 			«FOR clazz : classes»«idPart(clazz, mapping.get(clazz),classes.iterator.next == clazz)»«ENDFOR»
 		'''
 	}

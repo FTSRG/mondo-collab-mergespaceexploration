@@ -124,6 +124,20 @@ public abstract class DSEMergeConfigurator {
     public abstract DSEMergeIdMapper getIdMapper();
 
     /**
+     * Collects all the containment references in the model to ensure about the parent children relationships.
+     * 
+     * <pre>
+     * pattern containmentPattern(parent:EObject,child:EObject) { 
+     *   YourEClass.containmentReference(parent, child); 
+     * }
+     * </pre>
+     *      
+     * @return a query describing the containments
+     * @throws IncQueryException
+     */
+    public abstract IQuerySpecification<?> getContainmentPattern() throws IncQueryException;
+    
+    /**
      * Returns a union of default and additional objectives to be satisfied at the end of the merge process. <i>This
      * method is intend to be override when the default objectives are not required.</i>
      * 
@@ -175,9 +189,11 @@ public abstract class DSEMergeConfigurator {
      * @throws IncQueryException
      */
     public final Set<IQuerySpecification<?>> defaultObjectives() throws IncQueryException {
-        return Sets.<IQuerySpecification<?>> newHashSet(GoalPatternQuerySpecification.instance(
+        return Sets.<IQuerySpecification<?>> newHashSet(
+                GoalPatternQuerySpecification.instance(
                 getId2EObject().getInternalQueryRepresentation(),
-                getContainmentQuerySpecification().getInternalQueryRepresentation()));
+                getContainmentPattern().getInternalQueryRepresentation()));
+//                SetAttributeQuerySpecification.instance(getId2EObject().getInternalQueryRepresentation()));
     }
 
     /**
@@ -243,7 +259,7 @@ public abstract class DSEMergeConfigurator {
     public final DSETransformationRule<DeleteMatch, DeleteMatcher> defaultDelete() throws IncQueryException {
         return delete == null ? delete = new DSETransformationRule<DeleteMatch, DeleteMatcher>(
                 DeleteQuerySpecification.instance(getId2EObject().getInternalQueryRepresentation(), 
-                        getContainmentQuerySpecification().getInternalQueryRepresentation()),
+                        getContainmentPattern().getInternalQueryRepresentation()),
                 new DefaultDeleteOperation()) : delete;
     }
 
@@ -265,14 +281,5 @@ public abstract class DSEMergeConfigurator {
         return addAttribute == null ? addAttribute = new DSETransformationRule<AddAttributeMatch, AddAttributeMatcher>(
                 AddAttributeQuerySpecification.instance(getId2EObject().getInternalQueryRepresentation()),
                 new DefaultAddAttributeOperation()) : addAttribute;
-    }
-    
-    private IQuerySpecification<?> containmentQuerySpecification;
-    public IQuerySpecification<?> getContainmentQuerySpecification() {
-        return containmentQuerySpecification;
-    }
-    
-    public void setContainmentQuerySpecification(IQuerySpecification<?> containmentQuerySpecification) {
-        this.containmentQuerySpecification = containmentQuerySpecification;
     }
 }

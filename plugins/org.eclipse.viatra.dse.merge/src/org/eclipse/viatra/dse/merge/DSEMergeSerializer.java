@@ -17,7 +17,6 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.incquery.runtime.api.IPatternMatch;
-import org.eclipse.viatra.dse.merge.iq.ExecutableDeleteChangeMatch;
 import org.eclipse.viatra.dse.merge.model.Attribute;
 import org.eclipse.viatra.dse.merge.model.Change;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
@@ -169,8 +168,8 @@ public class DSEMergeSerializer implements IStateCoder {
         
         private String calculateCode() {
             String ret = "";
-            if (match instanceof ExecutableDeleteChangeMatch)
-                return ret;
+//            if (match instanceof ExecutableDeleteChangeMatch)
+//                return ret;
             if (change == null)
                 return ret;
             if (change.getPriority() == Priority.MUST)
@@ -265,7 +264,10 @@ public class DSEMergeSerializer implements IStateCoder {
                     String.valueOf(DSEMergeUtil.getId(o2.getSrc())));
             int feature = o1.getFeature().getName().compareTo(o2.getFeature().getName());
             int type = o1.getKind().getName().compareTo(o2.getKind().getName());
-            int value = o1.getValue().toString().compareTo(o2.getValue().toString());
+            
+            String value1 = o1.getValue() == null ? "" : o1.getValue().toString();
+            String value2 = o2.getValue() == null ? "" : o2.getValue().toString();
+            int value = value1.compareTo(value2);
 
             return src + feature + type + value;
         }

@@ -4,15 +4,6 @@ import "http://org.eclipse.viatra.dse.merge/scope"
 import "http://org.eclipse.viatra.dse.merge/model"
 import "http://www.eclipse.org/emf/2002/Ecore"
 
-pattern executableDeleteChange(id, change: Delete, set: ChangeSet) {
-	Delete.src.eInt(change, id);
-	ChangeSet.changes(set,change);
-}
-
-pattern test(object : EObject) {
-	EObject(object);
-}
-
 pattern idValue(id : Id, value) {
 	Id.eInt(id, value);
 	Id.type(id, ::EInt);
@@ -24,16 +15,6 @@ pattern idValue(id : Id, value) {
 	Id.type(id, ::EString);
 }
 
-pattern inCemetery(object) {
-	DSEMergeScope.cemetery.objects(_,object);
-} or {
-	Id(object);
-} or {
-	Change(object);
-} or {
-	ChangeSet(object);
-} or {
-	DSEMergeScope(object);
-} or {
-	Cemetery(object);
+pattern executed(change:Change) {
+	DSEMergeScope.completed(_,change);
 }

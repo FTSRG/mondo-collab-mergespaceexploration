@@ -9,6 +9,11 @@ pattern conflicts(change1 : Change, change2 : Change) {
 	find conflictInternal(change1, change2);
 }
 
+pattern conflictHelper(change1 : Change, change2 : Change) {
+	DSEMergeScope.completed(_, change2);
+	find conflictInternal(change1, change2);
+}
+
 pattern conflictInternal(change1 : Change, change2 : Change) {
 	find sameAttributeSet(change1, change2);
 } or {

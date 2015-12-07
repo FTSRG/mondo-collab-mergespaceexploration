@@ -21,6 +21,7 @@ import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.incquery.runtime.matchers.psystem.PBody;
 import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
+import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.NegativePatternCall;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.PositivePatternCall;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PQuery;
@@ -28,6 +29,7 @@ import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitialization
 import org.eclipse.incquery.runtime.matchers.tuple.FlatTuple;
 import org.eclipse.viatra.dse.merge.iq.GoalPatternMatch;
 import org.eclipse.viatra.dse.merge.iq.GoalPatternMatcher;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ConflictHelperQuerySpecification;
 
 import com.google.common.collect.Sets;
 
@@ -132,6 +134,8 @@ public final class GoalPatternQuerySpecification extends
 					new PositivePatternCall(body, new FlatTuple(var___0_,
 							var___1_), CreateQuerySpecification.instance(id2object)
 							.getInternalQueryRepresentation());
+					PVariable var___2_ = body.getOrCreateVariableByName("_<2>");
+                    new NegativePatternCall(body, new FlatTuple(var___1_, var___2_), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
 					bodies.add(body);
 				}
 				{
@@ -141,9 +145,10 @@ public final class GoalPatternQuerySpecification extends
 					body.setExportedParameters(Arrays
 							.<ExportedParameter> asList());
 					new PositivePatternCall(body, new FlatTuple(var___0_,
-							var___1_), DeleteQuerySpecification.instance(id2object, containment)
-							.getInternalQueryRepresentation());
-					bodies.add(body);
+							var___1_), DeleteQuerySpecification.instance(id2object, containment).getInternalQueryRepresentation());
+					PVariable var___2_ = body.getOrCreateVariableByName("_<2>");
+                    new NegativePatternCall(body, new FlatTuple(var___1_, var___2_), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				{
 					PBody body = new PBody(this);
@@ -155,7 +160,9 @@ public final class GoalPatternQuerySpecification extends
 					new PositivePatternCall(body, new FlatTuple(var___0_,
 							var___1_, var___2_), SetReferenceQuerySpecification
 							.instance(id2object).getInternalQueryRepresentation());
-					bodies.add(body);
+					PVariable var___3_ = body.getOrCreateVariableByName("_<3>");
+                    new NegativePatternCall(body, new FlatTuple(var___2_, var___3_), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				{
 					PBody body = new PBody(this);
@@ -166,7 +173,9 @@ public final class GoalPatternQuerySpecification extends
 					new PositivePatternCall(body, new FlatTuple(var___0_,
 							var___1_), UnsetReferenceQuerySpecification
 							.instance(id2object).getInternalQueryRepresentation());
-					bodies.add(body);
+					PVariable var___2_ = body.getOrCreateVariableByName("_<2>");
+                    new NegativePatternCall(body, new FlatTuple(var___1_, var___2_), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				{
 					PBody body = new PBody(this);
@@ -178,7 +187,9 @@ public final class GoalPatternQuerySpecification extends
 					new PositivePatternCall(body, new FlatTuple(var___0_,
 							var___1_, var___2_), AddReferenceQuerySpecification
 							.instance(id2object).getInternalQueryRepresentation());
-					bodies.add(body);
+					PVariable var___3_ = body.getOrCreateVariableByName("_<3>");
+                    new NegativePatternCall(body, new FlatTuple(var___2_, var___3_), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				{
 					PBody body = new PBody(this);
@@ -191,7 +202,9 @@ public final class GoalPatternQuerySpecification extends
 							var___1_, var___2_),
 							RemoveReferenceQuerySpecification.instance(id2object)
 									.getInternalQueryRepresentation());
-					bodies.add(body);
+					PVariable var___3_ = body.getOrCreateVariableByName("_<3>");
+                    new NegativePatternCall(body, new FlatTuple(var___2_, var___3_), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				{
 					PBody body = new PBody(this);
@@ -202,7 +215,9 @@ public final class GoalPatternQuerySpecification extends
 					new PositivePatternCall(body, new FlatTuple(var___0_,
 							var___1_), SetAttributeQuerySpecification
 							.instance(id2object).getInternalQueryRepresentation());
-					bodies.add(body);
+					PVariable var___2_ = body.getOrCreateVariableByName("_<2>");
+                    new NegativePatternCall(body, new FlatTuple(var___1_, var___2_), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				{
 					PBody body = new PBody(this);
@@ -213,7 +228,9 @@ public final class GoalPatternQuerySpecification extends
 					new PositivePatternCall(body, new FlatTuple(var___0_,
 							var___1_), AddAttributeQuerySpecification
 							.instance(id2object).getInternalQueryRepresentation());
-					bodies.add(body);
+					PVariable var___2_ = body.getOrCreateVariableByName("_<2>");
+                    new NegativePatternCall(body, new FlatTuple(var___1_, var___2_), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				{
 					PBody body = new PBody(this);
@@ -224,7 +241,9 @@ public final class GoalPatternQuerySpecification extends
 					new PositivePatternCall(body, new FlatTuple(var___0_,
 							var___1_), RemoveAttributeQuerySpecification
 							.instance(id2object).getInternalQueryRepresentation());
-					bodies.add(body);
+					PVariable var___2_ = body.getOrCreateVariableByName("_<2>");
+                    new NegativePatternCall(body, new FlatTuple(var___1_, var___2_), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				// to silence compiler error
 				if (false)

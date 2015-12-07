@@ -26,7 +26,6 @@ import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.NegativePatternCall;
-import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.ConstantValue;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.PositivePatternCall;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeConstraint;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
@@ -145,10 +144,6 @@ public final class DeleteQuerySpecification extends
 							.getOrCreateVariableByName(".virtual{2}");
 					PVariable var__virtual_3_ = body
 							.getOrCreateVariableByName(".virtual{3}");
-					PVariable var__virtual_4_ = body
-							.getOrCreateVariableByName(".virtual{4}");
-					PVariable var__virtual_5_ = body
-                            .getOrCreateVariableByName(".virtual{5}");
                     body.setSymbolicParameters(Arrays.<ExportedParameter> asList(
 					        new ExportedParameter(body, var_src, "src"),
 							new ExportedParameter(body, var_change, "change")));
@@ -173,17 +168,8 @@ public final class DeleteQuerySpecification extends
 									(EClass) getClassifierLiteral(
 											"http://www.eclipse.org/emf/2002/Ecore",
 											"EObject")));
-					new NegativePatternCall(body, new FlatTuple(var_src,
-                            var__virtual_5_), containment);
-                    new PositivePatternCall(body, new FlatTuple(var_src,
+					new PositivePatternCall(body, new FlatTuple(var_src,
 							var_c_id), id2object);
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Delete")));
 					new TypeConstraint(
 							body,
 							new FlatTuple(var_change, var__virtual_1_),
@@ -191,34 +177,13 @@ public final class DeleteQuerySpecification extends
 									getFeatureLiteral(
 											"http://org.eclipse.viatra.dse.merge/model",
 											"Change", "src")));
-					new TypeConstraint(
-							body,
-							new FlatTuple(var__virtual_1_, var__virtual_2_),
-							new EStructuralFeatureInstancesKey(
-									getFeatureLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Id", "eString")));
-					new Equality(body, var__virtual_2_, var_c_id);
-					new ConstantValue(body, var__virtual_3_, true);
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Change")));
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change, var__virtual_4_),
-							new EStructuralFeatureInstancesKey(
-									getFeatureLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Change", "executable")));
-					new Equality(body, var__virtual_4_, var__virtual_3_);
-					new NegativePatternCall(body, new FlatTuple(var_src),
-							InCemeteryQuerySpecification.instance()
-									.getInternalQueryRepresentation());
-					bodies.add(body);
+					new PositivePatternCall(body, new FlatTuple(var__virtual_1_, var__virtual_2_), 
+                            IdValueQuerySpecification.instance().getInternalQueryRepresentation());
+                    new Equality(body, var__virtual_2_, var_c_id);
+                    new NegativePatternCall(body, new FlatTuple(var_src,
+                            var__virtual_3_), containment);
+                    new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				// to silence compiler error
 				if (false)

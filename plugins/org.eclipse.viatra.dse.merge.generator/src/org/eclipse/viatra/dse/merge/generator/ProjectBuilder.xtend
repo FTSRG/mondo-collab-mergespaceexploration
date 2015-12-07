@@ -124,6 +124,7 @@ class ProjectBuilder extends Builder {
 		import org.eclipse.incquery.runtime.exception.IncQueryException;
 		import org.eclipse.viatra.dse.merge.DSEMergeIdMapper;
 		import «projectName».util.Id2objectQuerySpecification;
+		import «projectName».util.ContainmentPatternQuerySpecification;
 		
 		public class «className» extends org.eclipse.viatra.dse.merge.DSEMergeConfigurator {
 		
@@ -137,6 +138,11 @@ class ProjectBuilder extends Builder {
 		    @Override
 		    public IQuerySpecification<?> getId2EObject() throws IncQueryException {
 		        return Id2objectQuerySpecification.instance();
+		    }
+		    
+		   	@Override
+		    public IQuerySpecification<?> getContainmentPattern() throws IncQueryException {
+		        return ContainmentPatternQuerySpecification.instance();
 		    }
 		    
 		    @Override

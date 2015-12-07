@@ -159,17 +159,12 @@ public final class SetReferenceQuerySpecification extends
 							.getOrCreateVariableByName(".virtual{6}");
 					PVariable var__virtual_7_ = body
 							.getOrCreateVariableByName(".virtual{7}");
-					PVariable var__virtual_8_ = body
-							.getOrCreateVariableByName(".virtual{8}");
-					PVariable var__virtual_9_ = body
-							.getOrCreateVariableByName(".virtual{9}");
 					body.setExportedParameters(Arrays
 							.<ExportedParameter> asList(new ExportedParameter(
 									body, var_src, "src"),
 
-							new ExportedParameter(body, var_trg, "trg"),
-
-							new ExportedParameter(body, var_change, "change")));
+					new ExportedParameter(body, var_trg, "trg"),
+					new ExportedParameter(body, var_change, "change")));
 					new TypeConstraint(
 							body,
 							new FlatTuple(var_src),
@@ -191,22 +186,8 @@ public final class SetReferenceQuerySpecification extends
 									(EClass) getClassifierLiteral(
 											"http://org.eclipse.viatra.dse.merge/model",
 											"Reference")));
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_src),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://www.eclipse.org/emf/2002/Ecore",
-											"EObject")));
 					new PositivePatternCall(body, new FlatTuple(var_src,
 							var_src_id), id2object);
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Reference")));
 					new TypeConstraint(
 							body,
 							new FlatTuple(var_change, var__virtual_1_),
@@ -214,30 +195,11 @@ public final class SetReferenceQuerySpecification extends
 									getFeatureLiteral(
 											"http://org.eclipse.viatra.dse.merge/model",
 											"Change", "src")));
-					new TypeConstraint(
-							body,
-							new FlatTuple(var__virtual_1_, var__virtual_2_),
-							new EStructuralFeatureInstancesKey(
-									getFeatureLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Id", "eString")));
-					new Equality(body, var__virtual_2_, var_src_id);
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_trg),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://www.eclipse.org/emf/2002/Ecore",
-											"EObject")));
+					new PositivePatternCall(body, new FlatTuple(var__virtual_1_, var__virtual_2_), 
+                            IdValueQuerySpecification.instance().getInternalQueryRepresentation());
+                    new Equality(body, var__virtual_2_, var_src_id);
 					new PositivePatternCall(body, new FlatTuple(var_trg,
 							var_trg_id), id2object);
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Reference")));
 					new TypeConstraint(
 							body,
 							new FlatTuple(var_change, var__virtual_4_),
@@ -245,24 +207,12 @@ public final class SetReferenceQuerySpecification extends
 									getFeatureLiteral(
 											"http://org.eclipse.viatra.dse.merge/model",
 											"Reference", "trg")));
-					new TypeConstraint(
-							body,
-							new FlatTuple(var__virtual_4_, var__virtual_5_),
-							new EStructuralFeatureInstancesKey(
-									getFeatureLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Id", "eString")));
-					new Equality(body, var__virtual_5_, var_trg_id);
+					new PositivePatternCall(body, new FlatTuple(var__virtual_4_, var__virtual_5_), 
+                            IdValueQuerySpecification.instance().getInternalQueryRepresentation());
+                    new Equality(body, var__virtual_5_, var_trg_id);
 					new ConstantValue(body, var__virtual_6_, getEnumLiteral(
 							"http://org.eclipse.viatra.dse.merge/model",
 							"Kind", "set").getInstance());
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Reference")));
 					new TypeConstraint(
 							body,
 							new FlatTuple(var_change, var__virtual_7_),
@@ -271,28 +221,7 @@ public final class SetReferenceQuerySpecification extends
 											"http://org.eclipse.viatra.dse.merge/model",
 											"Feature", "kind")));
 					new Equality(body, var__virtual_7_, var__virtual_6_);
-					new ConstantValue(body, var__virtual_8_, true);
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Change")));
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_change, var__virtual_9_),
-							new EStructuralFeatureInstancesKey(
-									getFeatureLiteral(
-											"http://org.eclipse.viatra.dse.merge/model",
-											"Change", "executable")));
-					new Equality(body, var__virtual_9_, var__virtual_8_);
-					new NegativePatternCall(body, new FlatTuple(var_src),
-							InCemeteryQuerySpecification.instance()
-									.getInternalQueryRepresentation());
-					new NegativePatternCall(body, new FlatTuple(var_trg),
-							InCemeteryQuerySpecification.instance()
-									.getInternalQueryRepresentation());
+                    new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());
 					bodies.add(body);
 				}
 				// to silence compiler error
