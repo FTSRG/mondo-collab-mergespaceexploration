@@ -125,6 +125,7 @@ class ProjectBuilder extends Builder {
 		import org.eclipse.viatra.dse.merge.DSEMergeIdMapper;
 		import «projectName».util.Id2objectQuerySpecification;
 		import «projectName».util.ContainmentPatternQuerySpecification;
+		import «projectName».Helper;
 		
 		public class «className» extends org.eclipse.viatra.dse.merge.DSEMergeConfigurator {
 		
@@ -156,17 +157,12 @@ class ProjectBuilder extends Builder {
 		
 		            @Override
 		            public boolean isDeterminativeFeature(EStructuralFeature feature) {
-		            	//TODO: This is an automatically generated method -> check Id features
-		                if (feature.getName().equals("sysId"))
-		                    return true;
-		                return false;
+		            	return Helper.isDeterminativeFeature(feature);
 		            }
 		
 		            @Override
 		            public EStructuralFeature getIdFeature(EObject object) {
-		                //TODO: This is an automatically generated method -> check Id features
-		                EClass eClass = object.eClass();
-		                return eClass.getEStructuralFeature("sysId");
+		                return Helper.getIdFeature(object);
 		            }
 		        };
 		    }

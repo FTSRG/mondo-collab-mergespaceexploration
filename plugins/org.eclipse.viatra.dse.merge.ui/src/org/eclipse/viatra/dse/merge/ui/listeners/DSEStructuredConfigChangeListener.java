@@ -4,6 +4,7 @@ import org.eclipse.compare.internal.BufferedResourceNode;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.team.internal.ui.synchronize.LocalResourceTypedElement;
 import org.eclipse.viatra.dse.merge.DSEMergeManager.Solution;
 import org.eclipse.viatra.dse.merge.model.ChangeSet;
 import org.eclipse.viatra.dse.merge.ui.DSEStructuredMergeViewer;
@@ -22,7 +23,10 @@ public class DSEStructuredConfigChangeListener implements IPropertyChangeListene
     @Override
     public void propertyChange(PropertyChangeEvent event) {
         if(event.getProperty().equals(Properties.TARGET)) {
-            viewer.setTarget((BufferedResourceNode) event.getNewValue());
+            if(event.getNewValue() instanceof BufferedResourceNode)
+                viewer.setTarget((BufferedResourceNode) event.getNewValue());
+            if(event.getNewValue() instanceof LocalResourceTypedElement)
+                viewer.setTarget((LocalResourceTypedElement) event.getNewValue());
         }
         
         if(event.getProperty().equals(Properties.CHANGESET_OL)) {

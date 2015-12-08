@@ -10,6 +10,7 @@ import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareEditorInput;
 import org.eclipse.compare.contentmergeviewer.IFlushable;
 import org.eclipse.compare.internal.BufferedResourceNode;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -19,6 +20,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.team.internal.ui.synchronize.LocalResourceTypedElement;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 import org.eclipse.viatra.dse.merge.DSEMergeManager.Solution;
@@ -36,7 +38,7 @@ public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
 	private Resource local;
 	private Solution selectedSolution;
 	private CompareEditorInput editorInput;	
-	private BufferedResourceNode target;
+	private Object target;
 	private DSEStructuredMergeControl mergeControl;
 	
 	public DSEStructuredMergeViewer(Composite parent, CompareConfiguration config) {
@@ -100,8 +102,14 @@ public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
 		try {
 		    ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		    resource.save(baos, Collections.emptyMap());
-		    target.setContent(baos.toByteArray());
-		} catch (IOException e) {
+		    if(target instanceof BufferedResourceNode) {
+		        ((BufferedResourceNode)target).setContent(baos.toByteArray());
+		    }
+		    if(target instanceof LocalResourceTypedElement) {
+                ((LocalResourceTypedElement)target).setContent(baos.toByteArray());
+                ((LocalResourceTypedElement)target).commit(monitor);
+		    }
+        } catch (IOException | CoreException e) {
 			e.printStackTrace();
 		}
 		monitor.worked(1);
@@ -160,7 +168,7 @@ public class DSEStructuredMergeViewer extends Viewer implements IFlushable {
         this.local = local;
     }
     
-    public void setTarget(BufferedResourceNode target) {
+    public void setTarget(Object target) {
         this.target = target;
     }
 }

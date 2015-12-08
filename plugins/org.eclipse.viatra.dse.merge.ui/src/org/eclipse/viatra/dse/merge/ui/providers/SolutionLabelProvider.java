@@ -40,6 +40,9 @@ public class SolutionLabelProvider extends LabelProvider {
                 return "Unused remote changes";
             }
         }
+        if (element instanceof DSEMergeScope) {
+            return "Executed changes";            
+        }
         if (SCOPE_ADAPTER_FACTORY.isFactoryForType(element)) {
             return scope.getText(element);
         }

@@ -129,8 +129,18 @@ class ArtifactBuilder extends Builder {
 	}
 	
 	def doGenerate() {
+		doGenerateHelperClass
 		doGenerateIdPattern
 		doGenerateContainmentPattern
+	}
+	
+	def doGenerateHelperClass() {
+		var file = target.getFile("Helper.java")
+		if(!file.exists) {
+			file.create(new ByteArrayInputStream(#[]), true, monitor)
+		}
+		var bytes = featuresClass(target.project.name, idMapping).toString.bytes
+		file.setContents(new ByteArrayInputStream(bytes), true, true, monitor)
 	}
 	
 	def doGenerateIdPattern() {
@@ -194,5 +204,45 @@ class ArtifactBuilder extends Builder {
 		'''«IF (!flag)»or «ENDIF»{	«clazz.name».«reference.name»(parent,child); }
 		'''
 	}
+	
+	def static featuresClass(String packageName, Map<EClass, EAttribute> mapping) {
+		var classes = mapping.keySet.toList
+		'''
+			package «packageName»;
+			
+			import org.eclipse.emf.ecore.EClass;
+			import org.eclipse.emf.ecore.EObject;
+			import org.eclipse.emf.ecore.EAttribute;
+			import org.eclipse.emf.ecore.EStructuralFeature;
+			
+			public class Helper {
+				
+				public static EAttribute getIdFeature(EObject object) {
+					EClass eClass = object.eClass();
+					«FOR clazz : classes»«featuresIfFeatures(clazz, mapping.get(clazz))»«ENDFOR»
+					return null;
+				}
+				public static boolean isDeterminativeFeature(EStructuralFeature feature) {
+					«FOR attribute : mapping.values»«featuresIfDeterminative(attribute)»«ENDFOR»
+					return false;
+				}
+			}
+		'''
+	}
 
+	def static featuresIfFeatures(EClass eClass, EAttribute attribute) {
+		'''
+		if(eClass.getName().equals("«eClass.name»") 
+				&& eClass.getEPackage().getNsURI().equals("«eClass.EPackage.nsURI»")) { 
+					return (EAttribute) eClass.getEStructuralFeature("«attribute.name»");
+		}
+		'''
+	}
+	def static featuresIfDeterminative(EAttribute attribute) {
+		'''
+		if(feature.getName().equals(«attribute.getName()»)){ 
+			return true;
+		}
+		'''
+	}
 }

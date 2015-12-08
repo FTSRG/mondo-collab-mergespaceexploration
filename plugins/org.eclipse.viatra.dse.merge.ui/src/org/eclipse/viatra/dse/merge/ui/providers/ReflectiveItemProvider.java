@@ -3,8 +3,11 @@ package org.eclipse.viatra.dse.merge.ui.providers;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * This item provider adds custom {@link EStructuralFeatureWrapper} children under an {@link EObject} instead of its
@@ -33,6 +36,9 @@ public class ReflectiveItemProvider extends org.eclipse.emf.edit.provider.Reflec
             for (EAttribute attr : eObject.eClass().getEAllAttributes()) {
                 children.add(new EStructuralFeatureWrapper(attr, eObject.eGet(attr)));
             }
+            for (EReference ref : eObject.eClass().getEAllReferences()) {
+                children.add(new EStructuralFeatureWrapper(ref, getText(eObject.eGet(ref))));
+            }
         }
         return children;
     }
@@ -48,8 +54,22 @@ public class ReflectiveItemProvider extends org.eclipse.emf.edit.provider.Reflec
     @Override
     public String getText(Object object) {
         if (object instanceof EStructuralFeatureWrapper) {
-            return ((EStructuralFeatureWrapper) object).getAttribute().getName() + ": "
+            return ((EStructuralFeatureWrapper) object).getFeature().getName() + ": "
                     + ((EStructuralFeatureWrapper) object).getValue();
+        }
+        if (object instanceof EList<?>) {
+            EList<?> list = (EList<?>) object;
+            boolean flag = true;
+            String ret = "";
+            for (Object o : list) {
+                if(flag) {
+                    flag = false;
+                } else {
+                    ret += ", ";
+                }
+                ret = super.getText(o);
+            }
+            return ret;
         }
         return super.getText(object);
     }
@@ -57,22 +77,22 @@ public class ReflectiveItemProvider extends org.eclipse.emf.edit.provider.Reflec
     @Override
     public Object getImage(Object object) {
         if (object instanceof EStructuralFeatureWrapper) {
-            return super.getImage(((EStructuralFeatureWrapper) object).getAttribute());
+            return super.getImage(((EStructuralFeatureWrapper) object).getFeature());
         }
         return super.getImage(object);
     }
 
     public class EStructuralFeatureWrapper {
 
-        private EAttribute attribute;
+        private EStructuralFeature attribute;
         private Object value;
 
-        public EStructuralFeatureWrapper(EAttribute attribute, Object value) {
+        public EStructuralFeatureWrapper(EStructuralFeature attribute, Object value) {
             this.attribute = attribute;
             this.value = value;
         }
 
-        public EAttribute getAttribute() {
+        public EStructuralFeature getFeature() {
             return attribute;
         }
 

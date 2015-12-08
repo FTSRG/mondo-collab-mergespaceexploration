@@ -47,6 +47,7 @@ public class ZestSolutionTab extends AbstractSolutionTab {
 
     int sumMay, sumMust, selectedMay, selectedMust;
     private ZestSolutionForm form;
+    private SolutionList solution;
     
     @Override
     protected String getTabTitle() {
@@ -70,10 +71,12 @@ public class ZestSolutionTab extends AbstractSolutionTab {
                     selectSolution(selected.solution);
             }
         });
+        form.getSelectButton().setEnabled(false);
         
         graph = new GraphWidget(form.getGraphComposite(), SWT.None);
+        selectionListener = new ZestTabSelectionListener();
         graph.setLayoutAlgorithm(new TreeLayoutAlgorithm(), true);
-        graph.addSelectionListener(new ZestTabSelectionListener());
+        graph.addSelectionListener(selectionListener);
         
         viewer = new GraphViewer(graph);
         return form;
@@ -81,7 +84,10 @@ public class ZestSolutionTab extends AbstractSolutionTab {
 
     @Override
     public void setSolutions(SolutionList solutionList) {
+        solution = solutionList;
+        set.clear();
         nodeMapping.clear();
+        graph.clear();
         sumMay = sumMust = 0;
         int counter = 0;
         for (SolutionElement solution : solutionList.list) {
@@ -115,6 +121,8 @@ public class ZestSolutionTab extends AbstractSolutionTab {
                 previous = current;
             }
         }
+        graph.layout();
+        viewer.applyLayout();
     }
 
     private void modifyNumbers(ActivationCodeWrapper object) {
@@ -126,12 +134,14 @@ public class ZestSolutionTab extends AbstractSolutionTab {
     }
 
     protected void setStyles(GraphNode node, ActivationCodeWrapper wrapper) {
-        node.setBackgroundColor(wrapper.getChange().getPriority() == Priority.MUST ? new Color(parent.getDisplay(),
-                233, 93, 37) : new Color(parent.getDisplay(), 126, 185, 217));
+        Color highlightMust = new Color(parent.getDisplay(), 126, 185, 217);
+        Color highlighMay = new Color(parent.getDisplay(), 30, 107, 148);
+        Color backgroundMust = new Color(parent.getDisplay(), 233, 93, 37);
+        Color backgroundMay = new Color(parent.getDisplay(), 255, 175, 143);
+        node.setBackgroundColor(wrapper.getChange().getPriority() == Priority.MUST ? backgroundMust : backgroundMay);
 
         node.setForegroundColor(parent.getDisplay().getSystemColor(SWT.COLOR_BLACK));
-        node.setHighlightColor(wrapper.getChange().getPriority() == Priority.MUST ? new Color(parent.getDisplay(), 255,
-                175, 143) : new Color(parent.getDisplay(), 30, 107, 148));
+        node.setHighlightColor(wrapper.getChange().getPriority() == Priority.MUST ? highlightMust : highlighMay);
 
         String label = "";
         Change change = wrapper.getChange();
@@ -161,9 +171,11 @@ public class ZestSolutionTab extends AbstractSolutionTab {
         form.getExcludedLabel().setText(String.format("Excluded: %d", (sumMay + sumMust) - (selectedMay + selectedMust)));
         form.getMayLabel().setText(String.format("May %d/%d", selectedMay, sumMay));
         form.getMustLabel().setText(String.format("Must %d/%d", selectedMust, sumMust));
+        form.getSelectedLabel().setText(String.format("Selected #%d", selected.counter));
     }
     
     HashSet<GraphItem> set = Sets.newHashSet();
+    private ZestTabSelectionListener selectionListener;
     public void selectFullSolution(GraphNode solutionNode) {
         set = Sets.newHashSet();
         selectedMay = selectedMust = 0;
@@ -187,6 +199,7 @@ public class ZestSolutionTab extends AbstractSolutionTab {
             set.add(previous);
         }
         setMetrics();
+        form.getSelectButton().setEnabled(true);
     }
     
     private void clearPreviousSelection() {
@@ -209,8 +222,12 @@ public class ZestSolutionTab extends AbstractSolutionTab {
         public void widgetSelected(SelectionEvent e) {
             List<GraphItem> selection = graph.getSelection();
             clearPreviousSelection();
+            selected = null;
             if(selection.size() == 1 && solutionMapping.containsKey(selection.get(0)))
                 selectFullSolution((GraphNode)selection.get(0));
+            if(selected == null) {
+                form.getSelectButton().setEnabled(false);
+            }
         }
 
         @Override

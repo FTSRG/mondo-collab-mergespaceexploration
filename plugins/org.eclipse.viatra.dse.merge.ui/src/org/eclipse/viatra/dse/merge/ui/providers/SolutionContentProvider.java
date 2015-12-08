@@ -39,7 +39,7 @@ public class SolutionContentProvider implements ITreeContentProvider {
         }
         if (parentElement instanceof SolutionElement) {
             DSEMergeScope scope = ((SolutionElement) parentElement).solution.getScope();
-            return Lists.newArrayList(scope.getLocal(), scope.getRemote(), scope.getCemetery()).toArray();
+            return Lists.newArrayList(scope, scope.getLocal(), scope.getRemote(), scope.getCemetery()).toArray();
         }
         if (parentElement instanceof ChangeSet) {
             ChangeSet changeSet = (ChangeSet) parentElement;
@@ -48,6 +48,10 @@ public class SolutionContentProvider implements ITreeContentProvider {
         if (parentElement instanceof Cemetery) {
             Cemetery cemetery = (Cemetery) parentElement;
             return cemetery.getObjects().toArray();
+        }
+        if (parentElement instanceof DSEMergeScope) {
+            DSEMergeScope scope = (DSEMergeScope) parentElement;
+            return scope.getCompleted().toArray();
         }
         return null;
     }
@@ -62,6 +66,10 @@ public class SolutionContentProvider implements ITreeContentProvider {
 
     @Override
     public boolean hasChildren(Object element) {
+        if (element instanceof DSEMergeScope) {            
+            DSEMergeScope scope = (DSEMergeScope) element;
+            return !scope.getCompleted().isEmpty();
+        }
         if (element instanceof SolutionElement) {
             return true;
         }

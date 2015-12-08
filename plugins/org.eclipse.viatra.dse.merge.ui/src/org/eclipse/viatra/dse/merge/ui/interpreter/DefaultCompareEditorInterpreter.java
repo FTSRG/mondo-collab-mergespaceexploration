@@ -43,6 +43,7 @@ public class DefaultCompareEditorInterpreter implements ICompareEditorInputInter
             AbstractCompareInput compareInput = (AbstractCompareInput) input;
             Resource original = getResource(compareInput.getAncestor());
             config.setProperty(Properties.ANCESTOR, original);
+            config.setProperty(Properties.TARGET, compareInput.getAncestor());
             if (null == config.getProperty(Properties.LEFT) && null == config.getProperty(Properties.CHANGESET_OL)) {
                 Resource local = getResource(compareInput.getLeft());
                 config.setProperty(Properties.LEFT, local);
