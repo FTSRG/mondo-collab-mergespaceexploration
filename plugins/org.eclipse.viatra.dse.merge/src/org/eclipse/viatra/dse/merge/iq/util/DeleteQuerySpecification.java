@@ -34,6 +34,8 @@ import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitialization
 import org.eclipse.incquery.runtime.matchers.tuple.FlatTuple;
 import org.eclipse.viatra.dse.merge.iq.DeleteMatch;
 import org.eclipse.viatra.dse.merge.iq.DeleteMatcher;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ConflictHelperQuerySpecification;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ExecutedQuerySpecification;
 
 import com.google.common.collect.Sets;
 
@@ -183,6 +185,9 @@ public final class DeleteQuerySpecification extends
                     new NegativePatternCall(body, new FlatTuple(var_src,
                             var__virtual_3_), containment);
                     new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());
+                    PVariable var_conflict = body
+                            .getOrCreateVariableByName(".virtual{conflict}");
+                    new NegativePatternCall(body, new FlatTuple(var_change, var_conflict), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
                     bodies.add(body);
 				}
 				// to silence compiler error

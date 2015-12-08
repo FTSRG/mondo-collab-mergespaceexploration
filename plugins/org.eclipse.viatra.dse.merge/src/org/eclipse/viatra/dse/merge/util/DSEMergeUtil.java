@@ -22,6 +22,9 @@ public final class DSEMergeUtil {
 
     public static void moveChangeToCompleted(Change pChange) {
         DSEMergeScope scope = (DSEMergeScope) pChange.eContainer().eContainer();
+        if(scope == null) {
+            System.out.println("a");
+        }
         scope.getCompleted().add(pChange);
     }
     

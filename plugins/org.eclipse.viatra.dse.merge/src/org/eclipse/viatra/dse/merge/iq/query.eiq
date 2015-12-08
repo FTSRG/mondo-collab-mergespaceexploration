@@ -14,7 +14,3 @@ pattern idValue(id : Id, value) {
 	Id.eString(id, value);
 	Id.type(id, ::EString);
 }
-
-pattern executed(change:Change) {
-	DSEMergeScope.completed(_,change);
-}

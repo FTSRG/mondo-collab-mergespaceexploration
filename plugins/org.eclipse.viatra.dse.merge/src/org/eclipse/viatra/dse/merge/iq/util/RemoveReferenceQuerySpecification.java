@@ -35,6 +35,8 @@ import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitialization
 import org.eclipse.incquery.runtime.matchers.tuple.FlatTuple;
 import org.eclipse.viatra.dse.merge.iq.RemoveReferenceMatch;
 import org.eclipse.viatra.dse.merge.iq.RemoveReferenceMatcher;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ConflictHelperQuerySpecification;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ExecutedQuerySpecification;
 
 import com.google.common.collect.Sets;
 
@@ -221,8 +223,11 @@ public final class RemoveReferenceQuerySpecification extends
 											"http://org.eclipse.viatra.dse.merge/model",
 											"Feature", "kind")));
 					new Equality(body, var__virtual_7_, var__virtual_6_);
-                    new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());
-					bodies.add(body);
+					new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());
+                    PVariable var_conflict = body
+                            .getOrCreateVariableByName(".virtual{conflict}");
+                    new NegativePatternCall(body, new FlatTuple(var_change, var_conflict), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				// to silence compiler error
 				if (false)

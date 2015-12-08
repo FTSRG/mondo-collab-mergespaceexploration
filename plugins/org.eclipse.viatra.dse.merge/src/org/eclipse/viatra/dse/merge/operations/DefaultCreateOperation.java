@@ -19,6 +19,7 @@ import org.eclipse.viatra.dse.merge.iq.util.CreateProcessor;
 import org.eclipse.viatra.dse.merge.model.Attribute;
 import org.eclipse.viatra.dse.merge.model.Create;
 import org.eclipse.viatra.dse.merge.model.Feature;
+import org.eclipse.viatra.dse.merge.scope.DSEMergeScope;
 import org.eclipse.viatra.dse.merge.util.DSEMergeUtil;
 
 import com.google.common.collect.Lists;
@@ -45,12 +46,16 @@ public class DefaultCreateOperation extends CreateProcessor {
 			pContainer.eSet(pChange.getFeature(), element);
 		}
 
+		/*DSEMergeScope scope = (DSEMergeScope) pChange.eContainer().eContainer();
 		for (Feature f : Lists.newArrayList(pChange.getFeatures())) {
+		    if(scope.getCompleted().contains(f))
+		        continue;
+		    
 			if(f instanceof Attribute) {
 				Attribute attribute = (Attribute) f;
 				switch (attribute.getKind()) {
 				case ADD:
-					DefaultAddAttributeOperation.process(element, attribute);
+				    DefaultAddAttributeOperation.process(element, attribute);
 					break;
 				case REMOVE:
 					DefaultRemoveAttributeOperation.process(element, attribute);
@@ -63,7 +68,7 @@ public class DefaultCreateOperation extends CreateProcessor {
 					break;
 				}
 			}
-		}
+		}*/
 
 		DSEMergeUtil.moveChangeToCompleted(pChange);
 	}

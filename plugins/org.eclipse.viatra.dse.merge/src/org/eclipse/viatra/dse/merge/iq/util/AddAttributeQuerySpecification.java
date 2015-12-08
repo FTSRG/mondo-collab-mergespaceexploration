@@ -35,6 +35,8 @@ import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitialization
 import org.eclipse.incquery.runtime.matchers.tuple.FlatTuple;
 import org.eclipse.viatra.dse.merge.iq.AddAttributeMatch;
 import org.eclipse.viatra.dse.merge.iq.AddAttributeMatcher;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ConflictHelperQuerySpecification;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ExecutedQuerySpecification;
 
 import com.google.common.collect.Sets;
 
@@ -189,7 +191,10 @@ public final class AddAttributeQuerySpecification extends
 											"Feature", "kind")));
 					new Equality(body, var__virtual_4_, var__virtual_3_);
 					new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());
-					bodies.add(body);
+                    PVariable var_conflict = body
+                            .getOrCreateVariableByName(".virtual{conflict}");
+                    new NegativePatternCall(body, new FlatTuple(var_change, var_conflict), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				// to silence compiler error
 				if (false)

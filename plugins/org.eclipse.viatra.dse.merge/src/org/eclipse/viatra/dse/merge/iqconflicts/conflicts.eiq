@@ -7,11 +7,17 @@ pattern conflicts(change1 : Change, change2 : Change) {
 	DSEMergeScope.completed(scope, change1);
 	DSEMergeScope.completed(scope, change2);
 	find conflictInternal(change1, change2);
+	change1!=change2;
 }
 
 pattern conflictHelper(change1 : Change, change2 : Change) {
 	DSEMergeScope.completed(_, change2);
+	neg find executed(change1);
 	find conflictInternal(change1, change2);
+}
+
+pattern executed(change:Change) {
+	DSEMergeScope.completed(_,change);
 }
 
 pattern conflictInternal(change1 : Change, change2 : Change) {

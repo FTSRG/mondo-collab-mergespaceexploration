@@ -26,7 +26,6 @@ import org.eclipse.incquery.runtime.matchers.psystem.PVariable;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.Equality;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.ExportedParameter;
 import org.eclipse.incquery.runtime.matchers.psystem.basicdeferred.NegativePatternCall;
-import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.ConstantValue;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.PositivePatternCall;
 import org.eclipse.incquery.runtime.matchers.psystem.basicenumerables.TypeConstraint;
 import org.eclipse.incquery.runtime.matchers.psystem.queries.PParameter;
@@ -35,6 +34,8 @@ import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitialization
 import org.eclipse.incquery.runtime.matchers.tuple.FlatTuple;
 import org.eclipse.viatra.dse.merge.iq.CreateMatch;
 import org.eclipse.viatra.dse.merge.iq.CreateMatcher;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ConflictHelperQuerySpecification;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ExecutedQuerySpecification;
 
 import com.google.common.collect.Sets;
 
@@ -175,8 +176,11 @@ public final class CreateQuerySpecification extends
 					new PositivePatternCall(body, new FlatTuple(var__virtual_1_, var__virtual_2_), 
                             IdValueQuerySpecification.instance().getInternalQueryRepresentation());
                     new Equality(body, var__virtual_2_, var_c_id);
-                    new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());                    
-					bodies.add(body);
+                    new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());
+                    PVariable var_conflict = body
+                            .getOrCreateVariableByName(".virtual{conflict}");
+                    new NegativePatternCall(body, new FlatTuple(var_change, var_conflict), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
+                    bodies.add(body);
 				}
 				// to silence compiler error
 				if (false)

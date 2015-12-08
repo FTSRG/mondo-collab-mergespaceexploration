@@ -14,12 +14,14 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.viatra.dse.merge.iq.util.SetReferenceProcessor;
 import org.eclipse.viatra.dse.merge.model.Reference;
+import org.eclipse.viatra.dse.merge.util.DSEMergeUtil;
 
 public class DefaultSetReferenceOperation extends SetReferenceProcessor {
 
 	public static void process(EObject pSrc, EObject pTrg, Reference pChange) {
 		try {
 			pSrc.eSet(pChange.getFeature(), pTrg);
+			DSEMergeUtil.moveChangeToCompleted(pChange);
 		} catch ( Exception e) {
 			Logger.getLogger(DefaultSetReferenceOperation.class).error(e.getMessage());
 		}

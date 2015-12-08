@@ -35,6 +35,8 @@ import org.eclipse.incquery.runtime.matchers.psystem.queries.QueryInitialization
 import org.eclipse.incquery.runtime.matchers.tuple.FlatTuple;
 import org.eclipse.viatra.dse.merge.iq.UnsetReferenceMatch;
 import org.eclipse.viatra.dse.merge.iq.UnsetReferenceMatcher;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ConflictHelperQuerySpecification;
+import org.eclipse.viatra.dse.merge.iqconflicts.util.ExecutedQuerySpecification;
 
 import com.google.common.collect.Sets;
 
@@ -148,10 +150,6 @@ public final class UnsetReferenceQuerySpecification extends
 							.getOrCreateVariableByName(".virtual{3}");
 					PVariable var__virtual_4_ = body
 							.getOrCreateVariableByName(".virtual{4}");
-					PVariable var__virtual_5_ = body
-							.getOrCreateVariableByName(".virtual{5}");
-					PVariable var__virtual_6_ = body
-							.getOrCreateVariableByName(".virtual{6}");
 					body.setExportedParameters(Arrays
 							.<ExportedParameter> asList(new ExportedParameter(
 									body, var_src, "src"),
@@ -195,6 +193,9 @@ public final class UnsetReferenceQuerySpecification extends
 											"Feature", "kind")));
 					new Equality(body, var__virtual_4_, var__virtual_3_);
                     new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());
+                    PVariable var_conflict = body
+                            .getOrCreateVariableByName(".virtual{conflict}");
+                    new NegativePatternCall(body, new FlatTuple(var_change, var_conflict), ConflictHelperQuerySpecification.instance().getInternalQueryRepresentation());
                     bodies.add(body);
 				}
 				// to silence compiler error
