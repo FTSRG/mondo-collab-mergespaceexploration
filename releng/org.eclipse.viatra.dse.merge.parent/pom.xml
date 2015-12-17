@@ -117,11 +117,6 @@
 			<url>http://antoniogarmendia.github.io/EMF-Splitter/update-site/</url>
 		</repository>
     <repository>
-      <id>mars</id>
-      <layout>p2</layout>
-      <url>http://download.eclipse.org/releases/mars</url>
-    </repository>
-    <repository>
       <id>eclipse.update</id>
       <layout>p2</layout>
       <url>http://download.eclipse.org/eclipse/updates/4.5</url>
