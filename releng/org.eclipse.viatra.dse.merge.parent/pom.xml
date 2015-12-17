@@ -37,6 +37,114 @@
     <module>../../releng/org.eclipse.viatra.dse.merge.update</module>
   </modules>
 
+  <pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>Maven Central</name>
+			<url>http://repo.maven.apache.org/maven2</url>
+		</pluginRepository>
+    <pluginRepository>
+			<id>eclipse.plugin.repository</id>
+			<name>repo.eclipse.org Plug-in repository</name>
+			<url>https://repo.eclipse.org/content/repositories/cbi-releases/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>incquery-snapshots</id>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<url>https://repo.eclipse.org/content/repositories/emf-incquery/</url>
+		</pluginRepository>
+    <pluginRepository>
+      <id>sonatype</id>
+      <url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Central</name>
+			<url>http://repo.maven.apache.org/maven2</url>
+		</repository>
+    <repository>
+			<id>xtext</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones/</url>
+		</repository>
+    <repository>
+			<id>incquery.update</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/incquery/updates/integration</url>
+		</repository>
+    <repository>
+			<id>viatra.update</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/viatra2/emf/updates/integration</url>
+		</repository>
+    <repository>
+			<id>mondo.collaboration</id>
+			<layout>p2</layout>
+			<url>https://build.inf.mit.bme.hu/jenkins/view/All/job/MONDO-Collaboration/lastSuccessfulBuild/artifact/releng/org.mondo.collaboration.security.updatesite/target/repository/</url>
+		</repository>
+    <repository>
+			<id>mondo.collaboration.merge</id>
+			<layout>p2</layout>
+			<url>https://build.inf.mit.bme.hu/jenkins/view/All/job/MONDO-DSE-Merge/lastSuccessfulBuild/artifact/releng/org.eclipse.viatra.dse.merge.update/target/repository/</url>
+		</repository>
+    <repository>
+			<id>viatra.obfuscator</id>
+			<layout>p2</layout>
+			<url>https://hudson.eclipse.org/viatra/job/viatra-modelobfuscator-master/lastSuccessfulBuild/artifact/releng/org.eclipse.viatra.modelobfuscator.update/target/repository/</url>
+		</repository>
+    <repository>
+			<id>dsl.tao</id>
+			<layout>p2</layout>
+			<url>http://jdelara.github.io/DSL-tao/update-site/</url>
+		</repository>
+    <repository>
+			<id>emf.splitter</id>
+			<layout>p2</layout>
+			<url>http://antoniogarmendia.github.io/EMF-Splitter/update-site/</url>
+		</repository>
+    <repository>
+      <id>mars</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/releases/mars</url>
+    </repository>
+    <repository>
+      <id>eclipse.update</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/eclipse/updates/4.5</url>
+    </repository>
+    <repository>
+			<id>incquery-snapshots</id>
+			<url>https://repo.eclipse.org/content/repositories/emf-incquery-snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>incquery-releases</id>
+			<url>https://repo.eclipse.org/content/repositories/emf-incquery-releases/</url>
+		</repository>
+    <repository>
+			<id>incquery.extra</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/incquery/updates-extra/integration/</url>
+		</repository>
+	</repositories>
+
   <build>
   <plugins>
     <plugin>
@@ -170,16 +278,6 @@
 		</plugins>
   </pluginManagement>
 </build>
-
-<pluginRepositories>
-		<pluginRepository>
-			<id>incquery-snapshots</id>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<url>https://repo.eclipse.org/content/repositories/emf-incquery-snapshots/</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<profiles>
 		<profile>

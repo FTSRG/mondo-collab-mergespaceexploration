@@ -20,8 +20,8 @@ public class DefaultSetReferenceOperation extends SetReferenceProcessor {
 
 	public static void process(EObject pSrc, EObject pTrg, Reference pChange) {
 		try {
+		    DSEMergeUtil.moveChangeToCompleted(pChange);
 			pSrc.eSet(pChange.getFeature(), pTrg);
-			DSEMergeUtil.moveChangeToCompleted(pChange);
 		} catch ( Exception e) {
 			Logger.getLogger(DefaultSetReferenceOperation.class).error(e.getMessage());
 		}

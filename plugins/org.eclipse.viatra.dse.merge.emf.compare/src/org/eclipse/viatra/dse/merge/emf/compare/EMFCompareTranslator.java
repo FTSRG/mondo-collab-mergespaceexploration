@@ -134,8 +134,9 @@ public class EMFCompareTranslator {
         EAttribute feature = diff.getAttribute();
         Object newValue = diff.getValue();
         if (mapper.isDeterminativeFeature(feature)) {
-            EObject o = diff.getMatch().getRight();
+            EObject o = diff.getMatch().getLeft();
             createChange(changeSet, (EReference) o.eContainingFeature(), o);
+            deleteChange(changeSet, diff.getMatch().getRight().eGet(feature));
             return;
         }
 
@@ -143,7 +144,7 @@ public class EMFCompareTranslator {
         attribute.setFeature(feature);
         attribute.setValue(newValue);
         attribute.setExecutable(true);
-        attribute.setSrc(create(src));
+        attribute.setSrc(createFromEObject(src));
 
         switch (diff.getKind()) {
         case ADD:
@@ -183,13 +184,13 @@ public class EMFCompareTranslator {
 
         Reference reference = ModelFactory.eINSTANCE.createReference();
         reference.setFeature(diff.getReference());
-        reference.setSrc(create(diff.getMatch().getLeft()));
+        reference.setSrc(createFromEObject(diff.getMatch().getLeft()));
 
         Object target = object.eGet(diff.getReference());
         if (target != null) {
             if (diff.getMatch().getComparison().getMatch(diff.getValue()) != null && diff.getMatch().getComparison().getMatch(diff.getValue()).getLeft() == null)
                 return;
-            reference.setTrg(create((EObject) diff.getValue()));
+            reference.setTrg(createFromEObject((EObject) diff.getValue()));
         }
         reference.setExecutable(true);
 
@@ -200,10 +201,10 @@ public class EMFCompareTranslator {
         case CHANGE:
             if (target == null) {
                 reference.setKind(Kind.UNSET);
-                reference.setOldTrg(create((EObject) diff.getMatch().getRight().eGet(diff.getReference())));
+                reference.setOldTrg(createFromEObject((EObject) diff.getMatch().getRight().eGet(diff.getReference())));
             } else {
                 reference.setKind(Kind.SET);
-                reference.setOldTrg(create((EObject) diff.getMatch().getRight().eGet(diff.getReference())));
+                reference.setOldTrg(createFromEObject((EObject) diff.getMatch().getRight().eGet(diff.getReference())));
             }
             break;
         case DELETE:
@@ -237,10 +238,10 @@ public class EMFCompareTranslator {
     private void createChange(ChangeSet changeSet, EReference reference, EObject object) {
         Create create = ModelFactory.eINSTANCE.createCreate();
         create.setExecutable(true);
-        create.setSrc(create(object));
+        create.setSrc(createFromEObject(object));
         create.setFeature(reference);
         create.setClazz(object.eClass());
-        create.setContainer(create(object.eContainer()));
+        create.setContainer(createFromEObject(object.eContainer()));
         changeSet.getChanges().add(create);
 
         for (EStructuralFeature f : object.eClass().getEAllStructuralFeatures()) {
@@ -277,13 +278,22 @@ public class EMFCompareTranslator {
         mapToObject.put(create, object);
     }
 
+    private void deleteChange(ChangeSet changeSet, Object id) {
+        Delete delete = ModelFactory.eINSTANCE.createDelete();
+        delete.setExecutable(true);
+        delete.setSrc(create(id));
+        changeSet.getChanges().add(delete);
+        deleted.put(id, delete);
+//        mapToObject.put(delete, object);
+    }
+    
     private boolean processIfDelete(ReferenceChangeSpec diff, ChangeSet changeSet) {
         if (diff.getKind() == DifferenceKind.DELETE && diff.getReference().isContainment()) {
 
             EObject object = diff.getValue();
             Delete delete = ModelFactory.eINSTANCE.createDelete();
             delete.setExecutable(true);
-            delete.setSrc(create(object));
+            delete.setSrc(createFromEObject(object));
             changeSet.getChanges().add(delete);
             deleted.put(mapper.getId(object), delete);
             mapToObject.put(delete, object);
@@ -296,8 +306,8 @@ public class EMFCompareTranslator {
             Kind kind) {
         Reference reference = ModelFactory.eINSTANCE.createReference();
         reference.setFeature(feature);
-        reference.setSrc(create(src));
-        reference.setTrg(create(trg));
+        reference.setSrc(createFromEObject(src));
+        reference.setTrg(createFromEObject(trg));
         reference.setExecutable(true);
         reference.setKind(kind);
         set.getChanges().add(reference);
@@ -307,7 +317,7 @@ public class EMFCompareTranslator {
     private void insertAttribute(Create create, EStructuralFeature feature, EObject src, Object trg, ChangeSet set, Kind kind) {
         Attribute attribute = ModelFactory.eINSTANCE.createAttribute();
         attribute.setFeature(feature);
-        attribute.setSrc(create(src));
+        attribute.setSrc(createFromEObject(src));
         attribute.setValue(trg);
         attribute.setExecutable(true);
         attribute.setKind(kind);
@@ -337,9 +347,7 @@ public class EMFCompareTranslator {
         return id;
     }
 
-    private Id create(EObject object) {
-        Object value = mapper.getId(object);
-
+    private Id create(Object value) {
         if (value instanceof Integer) {
             return create((int) value);
         }
@@ -350,5 +358,10 @@ public class EMFCompareTranslator {
             return create((String) value);
         }
         return null;
+    }
+    
+    private Id createFromEObject(EObject object) {
+        Object value = mapper.getId(object);
+        return create(value);
     }    
 }

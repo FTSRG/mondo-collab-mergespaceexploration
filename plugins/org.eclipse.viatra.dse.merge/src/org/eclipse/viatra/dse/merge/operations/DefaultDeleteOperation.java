@@ -21,8 +21,8 @@ public class DefaultDeleteOperation extends DeleteProcessor {
 
 	public static void process(EObject pSrc, Delete pChange) {
 		DSEMergeScope pScope = (DSEMergeScope) pChange.eContainer().eContainer();
-		EcoreUtil.delete(pSrc);
 		DSEMergeUtil.moveChangeToCompleted(pChange);		
+		EcoreUtil.delete(pSrc);
 		pScope.getCemetery().getObjects().add(pSrc);
 	}
 

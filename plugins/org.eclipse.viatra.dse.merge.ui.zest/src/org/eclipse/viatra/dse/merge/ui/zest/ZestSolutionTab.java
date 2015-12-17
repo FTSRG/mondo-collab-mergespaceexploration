@@ -186,8 +186,8 @@ public class ZestSolutionTab extends AbstractSolutionTab {
         set.add(previous);
         for (Object code : trajectory.getActivationCodes()) {
             GraphNode current = nodeMapping.get(code);
-            modifyCurrentCounts((ActivationCodeWrapper) code);
-            
+            if(!set.contains(current))
+                modifyCurrentCounts((ActivationCodeWrapper) code);
             current.highlight();
             for (GraphConnection graphConnection : current.getTargetConnections()) {
                 if (graphConnection.getSource() == previous) {

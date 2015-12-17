@@ -225,10 +225,10 @@ public class DSEMergeManager {
 //                    new DSETransformationRule<ExecutableDeleteChangeMatch, ExecutableDeleteChangeMatcher>(
 //                    ExecutableDeleteChangeQuerySpecification.instance(),
 //                    new DefaultMatchProcessor<ExecutableDeleteChangeMatch>()));
-            dse.addTransformationRule(
-                    new DSETransformationRule<IPatternMatch, IncQueryMatcher<IPatternMatch>>(
-                    id2eobject, 
-                    new DefaultMatchProcessor<IPatternMatch>()));
+//            dse.addTransformationRule(
+//                    new DSETransformationRule<IPatternMatch, IncQueryMatcher<IPatternMatch>>(
+//                    id2eobject, 
+//                    new DefaultMatchProcessor<IPatternMatch>()));
         } catch (IncQueryException e) {
             logger.error(e.getMessage(), e);
         }

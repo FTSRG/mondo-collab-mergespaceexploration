@@ -2,9 +2,8 @@
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.viatra.dse.merge/emf-gen" modelPluginID="org.eclipse.viatra.dse.merge"
     modelName="MergeScope" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
-    usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore" operationReflection="true"
-    importOrganizing="true">
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
   <foreignModel>merge.ecore</foreignModel>
   <foreignModel>scope.ecore</foreignModel>
   <genPackages prefix="Model" basePackage="org.eclipse.viatra.dse.merge" disposableProviderFactory="true"
@@ -66,6 +65,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference scope.ecore#//DSEMergeScope/remote"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference scope.ecore#//DSEMergeScope/origin"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference scope.ecore#//DSEMergeScope/cemetery"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference scope.ecore#//DSEMergeScope/completed"/>
     </genClasses>
     <genClasses ecoreClass="scope.ecore#//Cemetery">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference scope.ecore#//Cemetery/objects"/>

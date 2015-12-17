@@ -163,15 +163,7 @@ public final class DeleteQuerySpecification extends
 									(EClass) getClassifierLiteral(
 											"http://org.eclipse.viatra.dse.merge/model",
 											"Delete")));
-					new TypeConstraint(
-							body,
-							new FlatTuple(var_src),
-							new EClassTransitiveInstancesKey(
-									(EClass) getClassifierLiteral(
-											"http://www.eclipse.org/emf/2002/Ecore",
-											"EObject")));
-					new PositivePatternCall(body, new FlatTuple(var_src,
-							var_c_id), id2object);
+					new PositivePatternCall(body, new FlatTuple(var_src, var_c_id), id2object);
 					new TypeConstraint(
 							body,
 							new FlatTuple(var_change, var__virtual_1_),
@@ -179,11 +171,9 @@ public final class DeleteQuerySpecification extends
 									getFeatureLiteral(
 											"http://org.eclipse.viatra.dse.merge/model",
 											"Change", "src")));
-					new PositivePatternCall(body, new FlatTuple(var__virtual_1_, var__virtual_2_), 
-                            IdValueQuerySpecification.instance().getInternalQueryRepresentation());
+					new PositivePatternCall(body, new FlatTuple(var__virtual_1_, var__virtual_2_), IdValueQuerySpecification.instance().getInternalQueryRepresentation());
                     new Equality(body, var__virtual_2_, var_c_id);
-                    new NegativePatternCall(body, new FlatTuple(var_src,
-                            var__virtual_3_), containment);
+                    new NegativePatternCall(body, new FlatTuple(var_src, var__virtual_3_), containment);
                     new NegativePatternCall(body, new FlatTuple(var_change), ExecutedQuerySpecification.instance().getInternalQueryRepresentation());
                     PVariable var_conflict = body
                             .getOrCreateVariableByName(".virtual{conflict}");
