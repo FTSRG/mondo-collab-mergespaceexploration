@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.team.ui,
  org.eclipse.core.resources,
  org.eclipse.viatra.dse.merge,
- org.eclipse.team.svn.ui;bundle-version="3.0.1",
- org.eclipse.team.svn.core;bundle-version="3.0.1"
+ org.eclipse.team.svn.core;bundle-version="3.0.4",
+ org.eclipse.team.svn.ui;bundle-version="3.0.4"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
